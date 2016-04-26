@@ -1,0 +1,335 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlanetMaterial
+  m_Shader: {fileID: 4800000, guid: 9627517f6735224459e6b2ce3358cd2a, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: ff98dfb7ac207be4298fbb12ffc5f4ed, type: 3}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DetailNormalMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DecalTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Detail
+        second:
+          m_Texture: {fileID: 2800000, guid: f2a4aca49149c934790b02faf00b06b4, type: 3}
+          m_Scale: {x: 10, y: 10}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ParallaxMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _OcclusionMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _EmissionMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DetailMask
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DetailAlbedoMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _MetallicGlossMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ToonShade
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Ramp
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Illum
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Tex0
+        second:
+          m_Texture: {fileID: 2800000, guid: 9f238d6581d04f2469dd942537cbb833, type: 3}
+          m_Scale: {x: 32, y: 32}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Tex1
+        second:
+          m_Texture: {fileID: 2800000, guid: f13dd3d2455a9904d9ae3fb032d957d7, type: 3}
+          m_Scale: {x: 32, y: 32}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Tex2
+        second:
+          m_Texture: {fileID: 2800000, guid: b1114d03f7b0d4d07a72ad67e291b7af, type: 3}
+          m_Scale: {x: 32, y: 32}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Tex3
+        second:
+          m_Texture: {fileID: 2800000, guid: 90745c136e323b740908e4e71a77a28a, type: 3}
+          m_Scale: {x: 32, y: 32}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Tex4
+        second:
+          m_Texture: {fileID: 2800000, guid: 641982c041fad4d7191e007dba791985, type: 3}
+          m_Scale: {x: 32, y: 32}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _PathMask
+        second:
+          m_Texture: {fileID: 2800000, guid: 357b6d6747e4a804294991e04abe9e61, type: 3}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _PathTex
+        second:
+          m_Texture: {fileID: 2800000, guid: dad7f9dfbcf490e4c9f3b33474ee0a2e, type: 3}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Tex5
+        second:
+          m_Texture: {fileID: 2800000, guid: 2b78872ac1d7b9b4790c314efc0ffc49, type: 3}
+          m_Scale: {x: 32, y: 32}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Tex6
+        second:
+          m_Texture: {fileID: 2800000, guid: ec56dc4c85bf55d42b8a30e843663a62, type: 3}
+          m_Scale: {x: 32, y: 32}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Cutoff
+        second: .430000007
+      data:
+        first:
+          name: _Shininess
+        second: .078125
+      data:
+        first:
+          name: _SrcBlend
+        second: 1
+      data:
+        first:
+          name: _DstBlend
+        second: 0
+      data:
+        first:
+          name: _Parallax
+        second: .0799999982
+      data:
+        first:
+          name: _ZWrite
+        second: 1
+      data:
+        first:
+          name: _Glossiness
+        second: 0
+      data:
+        first:
+          name: _BumpScale
+        second: 1
+      data:
+        first:
+          name: _OcclusionStrength
+        second: 1
+      data:
+        first:
+          name: _DetailNormalMapScale
+        second: 64
+      data:
+        first:
+          name: _UVSec
+        second: 0
+      data:
+        first:
+          name: _EmissionScaleUI
+        second: 0
+      data:
+        first:
+          name: _Mode
+        second: 0
+      data:
+        first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
+          name: _Stencil
+        second: 0
+      data:
+        first:
+          name: _StencilComp
+        second: 8
+      data:
+        first:
+          name: _StencilOp
+        second: 0
+      data:
+        first:
+          name: _StencilReadMask
+        second: 255
+      data:
+        first:
+          name: _StencilWriteMask
+        second: 255
+      data:
+        first:
+          name: _ColorMask
+        second: 15
+      data:
+        first:
+          name: _Outline
+        second: .00200000009
+      data:
+        first:
+          name: _EmissionLM
+        second: 0
+      data:
+        first:
+          name: _Blend0to1
+        second: 1
+      data:
+        first:
+          name: _tex1Height
+        second: 1
+      data:
+        first:
+          name: _tex2Height
+        second: 1
+      data:
+        first:
+          name: _tex3Height
+        second: 1
+      data:
+        first:
+          name: _tex4Height
+        second: 1
+      data:
+        first:
+          name: _tex5Height
+        second: 1
+    m_Colors:
+      data:
+        first:
+          name: _EmissionColor
+        second: {r: 0, g: 0, b: 0, a: 0}
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: .545098066}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .5, g: .5, b: .5, a: 1}
+      data:
+        first:
+          name: _Blend0to1
+        second: {r: 0, g: 1, b: 2, a: 1}
+      data:
+        first:
+          name: _EmissionColorUI
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _Emission
+        second: {r: 0, g: 0, b: 0, a: 0}
+      data:
+        first:
+          name: _OutlineColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Blend0to1and1to2
+        second: {r: 28, g: 29, b: 31, a: 32}
+      data:
+        first:
+          name: _Blend2to3and3to4
+        second: {r: 32.5, g: 33, b: 33.5, a: 34.5}
+      data:
+        first:
+          name: _Bnend4to5and5to6
+        second: {r: 0, g: 1, b: 2, a: 3}
+      data:
+        first:
+          name: _Blend4to5and5to6
+        second: {r: 35, g: 36, b: 36.5, a: 37}
