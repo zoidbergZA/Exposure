@@ -20,6 +20,6 @@ public class Placable : MonoBehaviour
 
     public void Orientate(Vector3 normal)
     {
-        
+        transform.rotation = Quaternion.FromToRotation(transform.up, normal) * transform.rotation;
     }
 }
