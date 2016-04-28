@@ -16,7 +16,7 @@ public class TestSeeker : MonoBehaviour
 
 	void Start ()
 	{
-	    seeker.StartPath(transform.position, goal.position, OnPathComplete);
+//	    seeker.StartPath(transform.position, goal.position, OnPathComplete);
 	}
 	
 	void Update ()
