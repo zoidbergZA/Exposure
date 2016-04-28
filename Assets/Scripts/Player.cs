@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float scanTime;
     [SerializeField] private LayerMask rayMask;
     [SerializeField] private Powerplant PowerplantPrefab;
+    [SerializeField] private Drillspot DrillspotPrefab;
 
     public bool Scanning { get; private set; }
     public float LastScan { get; private set; }
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
         if (Scanning && Time.time > LastScan + scanTime)
             Scanning = false;
 
-        if (Input.GetButtonDown("Fire1") && !Scanning)
+        if (Input.GetMouseButtonDown(1) && !Scanning)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -27,14 +28,14 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, rayMask))
             {
-                BuildPowerplant(hit.point, hit.normal);
+                Drill(hit.point, hit.normal);
             }
         }
 
@@ -48,10 +49,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void BuildPowerplant(Vector3 location, Vector3 normal)
+    private void Drill(Vector3 location, Vector3 normal)
     {
-        Powerplant powerplant = Instantiate(PowerplantPrefab, location, Quaternion.identity) as Powerplant;
-        powerplant.Orientate(normal);
+        Drillspot drillspot = Instantiate(DrillspotPrefab, location, Quaternion.identity) as Drillspot;
+        drillspot.Orientate(normal);
     }
 
     private void Scan(Vector3 location)
