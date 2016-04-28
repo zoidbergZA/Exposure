@@ -6,7 +6,7 @@ public class Placer : MonoBehaviour
 {
     public float rotationSpeed = 120.0f;
     public float translationSpeed = 10.0f;
-    public float height = 0.0f;             //height from ground level
+    public float height = 0.5f;             //height from ground level
     private Transform centre;               //transform for planet
     private float radius;                   //calculated radius from collider
     public SphereCollider planet;           //collider for planet
