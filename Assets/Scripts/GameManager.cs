@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private float powerGoal = 5f;
+
+    public float PowerOutput { get; private set; }
+
     void Awake()
     {
 
@@ -33,5 +37,13 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void OnGUI()
+    {
+        GUI.Label(new Rect(2, 2, 100, 30), PowerOutput + "/" + powerGoal);
+    }
 
+    public void AddPowerOutput(float amount)
+    {
+        PowerOutput += amount;
+    }
 }
