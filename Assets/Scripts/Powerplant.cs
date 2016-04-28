@@ -5,20 +5,24 @@ using Pathfinding;
 
 [RequireComponent(typeof(Seeker))]
 [RequireComponent(typeof(LineRenderer))]
-public class Powerplant : MonoBehaviour
+public class Powerplant : Placable
 {
     private Seeker seeker;
     private LineRenderer lineRenderer;
     private Path path;
 
-    public virtual void Awake()
+    public override void Awake()
     {
+        base.Awake();
+
         seeker = GetComponent<Seeker>();
         lineRenderer = GetComponent<LineRenderer>();
     }
 
-    public virtual void Start()
+    public override void Start()
     {
+        base.Start();
+
         seeker.StartPath(transform.position, FindClosestCity().transform.position, OnPathComplete);
     }
 

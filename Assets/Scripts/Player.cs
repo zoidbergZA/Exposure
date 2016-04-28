@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, rayMask))
             {
-                BuildPowerplant(hit.point);
+                BuildPowerplant(hit.point, hit.normal);
             }
         }
 
@@ -48,9 +48,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void BuildPowerplant(Vector3 location)
+    private void BuildPowerplant(Vector3 location, Vector3 normal)
     {
         Powerplant powerplant = Instantiate(PowerplantPrefab, location, Quaternion.identity) as Powerplant;
+        powerplant.Orientate(normal);
     }
 
     private void Scan(Vector3 location)

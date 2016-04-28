@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Pylon : MonoBehaviour
+public class Pylon : Placable
 {
     private List<Pylon> Connections;
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
+
         Connections = new List<Pylon>();
     }
 }
