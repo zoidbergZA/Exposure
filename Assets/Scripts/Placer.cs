@@ -2,7 +2,7 @@
 using System.Collections;
 
 [ExecuteInEditMode]
-public class EditModeTest : MonoBehaviour
+public class Placer : MonoBehaviour
 {
     public float rotationSpeed = 120.0f;
     public float translationSpeed = 10.0f;
