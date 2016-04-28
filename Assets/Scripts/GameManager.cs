@@ -1,0 +1,37 @@
+﻿using System;
+using UnityEngine;
+using System.Collections;
+
+public class GameManager : MonoBehaviour
+{
+    private static GameManager _instance;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType(typeof(GameManager)) as GameManager;
+
+                if (_instance == null)
+                {
+                    throw new Exception("no GameManager!");
+                }
+            }
+            return _instance;
+        }
+    }
+
+    void Awake()
+    {
+
+    }
+
+    void Start()
+    {
+
+    }
+
+
+}
