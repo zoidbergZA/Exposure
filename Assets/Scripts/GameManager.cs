@@ -23,16 +23,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private Transform planetTransform;
     [SerializeField] private float powerGoal = 5f;
     
     public int TotalChimneys { get; private set; }
     public float ChimneyValue { get { return 100f/TotalChimneys; } }
     public float PowerOutput { get; private set; }
     public Player Player { get; private set; }
+    public Director Director { get; private set; }
+    public Transform PlanetTransform { get { return planetTransform; } }
 
     void Awake()
     {
         Player = GetComponentInChildren<Player>();
+        Director = FindObjectOfType<Director>();
 
         City[] cities = FindObjectsOfType<City>();
 

@@ -50,6 +50,9 @@ public class Drillspot : Placable
             GetComponentInChildren<MeshRenderer>().material.color = Color.green;
 
             GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, transform.position, transform.rotation) as GeoThermalPlant;
+
+            GameManager.Instance.Player.GoToState(Player.PlayerStates.BuildGrid, plant.transform);
+
             Destroy(gameObject);
         }
         else
