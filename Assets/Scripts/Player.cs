@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Powerplant PowerplantPrefab;
     [SerializeField] private Drillspot DrillspotPrefab;
 
+    public float Score { get; private set; }
     public bool Scanning { get; private set; }
     public float LastScan { get; private set; }
 
@@ -47,6 +48,11 @@ public class Player : MonoBehaviour
         {
             radar.SetActive(false);
         }
+    }
+
+    public void ScorePoints(float amount)
+    {
+        Score += amount;
     }
 
     private void Drill(Vector3 location, Vector3 normal)

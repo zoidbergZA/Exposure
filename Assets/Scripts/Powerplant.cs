@@ -10,6 +10,7 @@ public class Powerplant : Placable
     private Seeker seeker;
     private LineRenderer lineRenderer;
     private Path path;
+    private City connectedCity;
 
     public override void Awake()
     {
@@ -23,7 +24,10 @@ public class Powerplant : Placable
     {
         base.Start();
 
-        seeker.StartPath(transform.position, FindClosestCity().transform.position, OnPathComplete);
+        connectedCity = FindClosestCity();
+        seeker.StartPath(transform.position, connectedCity.transform.position, OnPathComplete);
+
+        connectedCity.DisableChimney();
     }
 
     public void OnPathComplete(Path p)
