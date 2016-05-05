@@ -17,13 +17,13 @@ public class Placer : MonoBehaviour
         radius = planet.radius * planet.transform.localScale.y;
         centre = planet.transform;
         //starting position at north pole
-        transform.position = centre.position + new Vector3(0, radius + height, 0);
+        //transform.position = centre.position + new Vector3(0, radius + height, 0);
     }
 
     void Update()
     {
         //translate based on input     
-        float inputMag = Input.GetAxis("Vertical") * translationSpeed * Time.deltaTime;
+        float inputMag = translationSpeed * Time.deltaTime;
         transform.position += transform.forward * inputMag;
         //snap position to radius + height (could also use raycasts)
         Vector3 targetPosition = transform.position - centre.position;
@@ -34,7 +34,7 @@ public class Placer : MonoBehaviour
         Vector3 surfaceNormal = transform.position - centre.position;
         surfaceNormal.Normalize();
         //GameObject's heading
-        float headingDeltaAngle = Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed;
+        float headingDeltaAngle = Time.deltaTime * rotationSpeed;
         Quaternion headingDelta = Quaternion.AngleAxis(headingDeltaAngle, transform.up);
         //align with surface normal
         transform.rotation = Quaternion.FromToRotation(transform.up, surfaceNormal) * transform.rotation;

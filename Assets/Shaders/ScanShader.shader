@@ -8,8 +8,8 @@
 		_SpecColor ("Specular Color", Color) = (1,1,1,1)
 		_RimColor ("Rim Color", Color) = (1,1,1,1)
 		_RimPower ("Rim Power", Range(0.1, 10.0)) = 3.0
-
 		_Shininess ("Shininess", Float) = 10
+
 		//_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		//_Metallic ("Metallic", Range(0,1)) = 0.0
 	}
@@ -21,8 +21,8 @@
 			Tags {"LightMode" = "ForwardBase"}
 			CGPROGRAM
 
-			#pragma vertex vert Standard fullforwardshadows // Physically based Standard lighting model, and enable shadows on all light types
-			#pragma fragment frag Standard fullforwardshadows
+			#pragma vertex vert// Standard fullforwardshadows // Physically based Standard lighting model, and enable shadows on all light types
+			#pragma fragment frag// Standard fullforwardshadows
 			#pragma target 3.0 // Use shader model 3.0 target, to get nicer looking lighting
 
 			uniform sampler2D _MainTex;
@@ -93,7 +93,8 @@
 				}
 
 				//lighting
-				float3 diffuseReflection = atten * _LightColor0.xyz * saturate( dot( normalDirection, lightDirection ) );
+				float3 diffuseReflection = atten * _Ligh
+				tColor0.xyz * saturate( dot( normalDirection, lightDirection ) );
 				float3 specularReflection = diffuseReflection * _SpecColor.xyz * pow( saturate( dot( reflect( -lightDirection, normalDirection ), viewDirection ) ), _Shinimess );
 
 				//rim lighting
