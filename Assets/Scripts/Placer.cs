@@ -9,22 +9,19 @@ public class Placer : MonoBehaviour
     public float height = 0.5f;             //height from ground level
     private Transform centre;               //transform for planet
     private float radius;                   //calculated radius from collider
-    public SphereCollider planet;           //collider for planet
+    //public SphereCollider planet;           //collider for planet
+    public MeshCollider planet;           //collider for planet
 
     void Start()
     {
         //consider scale applied to planet transform (assuming uniform, just pick one)
-        radius = planet.radius * planet.transform.localScale.y;
+        //radius = planet.radius * planet.transform.localScale.y;
         centre = planet.transform;
-        //starting position at north pole
-        //transform.position = centre.position + new Vector3(0, radius + height, 0);
     }
 
     void Update()
     {
-        //translate based on input     
-        float inputMag = translationSpeed * Time.deltaTime;
-        transform.position += transform.forward * inputMag;
+        /*
         //snap position to radius + height (could also use raycasts)
         Vector3 targetPosition = transform.position - centre.position;
         float ratio = (radius + height) / targetPosition.magnitude;
@@ -33,12 +30,19 @@ public class Placer : MonoBehaviour
         //calculate planet surface normal                      
         Vector3 surfaceNormal = transform.position - centre.position;
         surfaceNormal.Normalize();
-        //GameObject's heading
-        float headingDeltaAngle = Time.deltaTime * rotationSpeed;
-        Quaternion headingDelta = Quaternion.AngleAxis(headingDeltaAngle, transform.up);
         //align with surface normal
         transform.rotation = Quaternion.FromToRotation(transform.up, surfaceNormal) * transform.rotation;
-        //apply heading rotation
-        transform.rotation = headingDelta * transform.rotation;
+         * */
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, -transform.up, out hit, Mathf.Infinity))
+        {
+            // Stick on surface
+            transform.position = hit.point + hit.normal * height;
+
+            // Align to surface normal
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        }
     }
 }
