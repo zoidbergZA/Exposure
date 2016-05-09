@@ -7,7 +7,7 @@ public class TestButtonScan : MonoBehaviour
     private Material material;
     private Renderer renderer;
     private float lastScannedAt = 0.0f;
-    public float scanCooldown = 3.0f;
+    public float scanCooldown = 7.0f;
     private bool scanning = false;
 
     void Start()
