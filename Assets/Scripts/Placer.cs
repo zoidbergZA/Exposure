@@ -10,14 +10,14 @@ public class Placer : MonoBehaviour
     private Transform centre;               //transform for planet
     private float radius;                   //calculated radius from collider
     public SphereCollider planet;           //collider for planet
+    //public MeshCollider planet;           //collider for planet
 
     void Start()
     {
+        transform.position = new Vector3(1, 1, 1);
         //consider scale applied to planet transform (assuming uniform, just pick one)
         radius = planet.radius * planet.transform.localScale.y;
         centre = planet.transform;
-        //starting position at north pole
-//        transform.position = centre.position + new Vector3(0, radius + height, 0);
     }
 
     void Update()
@@ -40,5 +40,17 @@ public class Placer : MonoBehaviour
         transform.rotation = Quaternion.FromToRotation(transform.up, surfaceNormal) * transform.rotation;
         //apply heading rotation
         transform.rotation = headingDelta * transform.rotation;
+
+
+        //RaycastHit hit;
+
+        //if (Physics.Raycast(transform.position, -transform.up, out hit, Mathf.Infinity))
+        //{
+        //    // Stick on surface
+        //    transform.position = hit.point + hit.normal * height;
+
+        //    // Align to surface normal
+        //    transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        //}
     }
 }
