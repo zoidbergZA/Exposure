@@ -161,11 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51783948286a4c14ba4a4d929e921f8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridTime: 30
-  maxPylons: 5
   radar: {fileID: 103410}
   scanTime: 2
-  rayMask:
+  drillRayMask:
     serializedVersion: 2
     m_Bits: 256
   buildRayMask:
@@ -209,6 +207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd56c17a02d3c9443ae116fc651e883a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridTime: 15
+  maxPylons: 4
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     
     [SerializeField] private GameObject radar;
     [SerializeField] private float scanTime;
-    [SerializeField] private LayerMask rayMask;
+    [SerializeField] private LayerMask drillRayMask;
     [SerializeField] private LayerMask buildRayMask;
     [SerializeField] private Powerplant PowerplantPrefab;
     [SerializeField] private Drillspot DrillspotPrefab;
@@ -24,12 +24,6 @@ public class Player : MonoBehaviour
     public float Score { get; private set; }
     public bool Scanning { get; private set; }
     public float LastScan { get; private set; }
-//    public GeoThermalPlant ConnectingPlant { get { return connectingPlant; } }
-
-    
-    private List<Connectable> ConnectedList;
-//    private GeoThermalPlant connectingPlant;
-    private bool connectionFinalized;
 
     void Start()
     {
@@ -65,21 +59,12 @@ public class Player : MonoBehaviour
         GameManager.Instance.PylonsHolder.SetActive(true);
         GameManager.Instance.GridBuilder.StartBuild(geoPlant);
         
-        connectionFinalized = false;
-        ConnectedList = new List<Connectable>();
-        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform);
-
-        RefreshConnectables(geoPlant.transform.position);
+        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
     }
 
     public void ScorePoints(float amount)
     {
         Score += amount;
-    }
-
-    public void AddToConnectedList(Connectable connectable)
-    {
-        ConnectedList.Add(connectable);
     }
 
     private void HandleDrillState()
@@ -89,7 +74,7 @@ public class Player : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, rayMask))
+            if (Physics.Raycast(ray, out hit, drillRayMask))
             {
                 Scan(hit.point);
             }
@@ -100,7 +85,7 @@ public class Player : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, rayMask))
+            if (Physics.Raycast(ray, out hit, drillRayMask))
             {
                 Drill(hit.point, hit.normal);
             }
@@ -120,81 +105,12 @@ public class Player : MonoBehaviour
     {
         if (GameManager.Instance.GridBuilder.GridTimeLeft <= 0)
         {
+            GameManager.Instance.GridBuilder.FinalizeGridConnection(false);
             GoToDrillState(GameManager.Instance.PlanetTransform);
             return;
         }
 
         GameManager.Instance.GridBuilder.GridTimeLeft -= Time.deltaTime;
-
-        //        if (Input.GetMouseButtonDown(0) && !connectionFinalized)
-        //        {
-        //            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //            RaycastHit hit;
-        //
-        //            if (Physics.Raycast(ray, out hit, buildRayMask))
-        //            {
-        //                Connectable connectable = hit.transform.GetComponent<Connectable>();
-        //
-        //                if (connectable)
-        //                {
-        //                    if (connectable.IsConnectable)
-        //                    {
-        //                        connectable.Connect();
-        //                        connectingPlant.SpanToPoint(connectable.connectionRef.position);
-        //                        GameManager.Instance.Director.SetTarget(connectable.transform); 
-        //
-        //                        if (connectable is City)
-        //                            FinalizeGridConnection(true);
-        //                        else if (ConnectedList.Count >= maxPylons)
-        //                        {
-        //                            FinalizeGridConnection(false);
-        //                        }
-        //                        else
-        //                        {
-        //                            RefreshConnectables(connectable.transform.position);
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-
-
-    }
-
-    public void FinalizeGridConnection(bool succeeded)
-    {
-        if (succeeded)
-        {
-//            Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + gridTimeLeft + "/" + gridTime);
-            connectionFinalized = true;
-        }
-        else
-        {
-            Debug.Log("failed, reset pylons and wire plz");
-
-            foreach (Connectable connectable in ConnectedList)
-            {
-                if (connectable is Pylon)
-                {
-                    Pylon pylon = (Pylon) connectable;
-                    pylon.Reset();
-                }
-            }
-            ConnectedList.Clear();
-            
-        }
-
-        GameManager.Instance.GridBuilder.GridTimeLeft = 2f;
-    }
-
-    public void RefreshConnectables(Vector3 location)
-    {
-        Connectable[] allConnectables = FindObjectsOfType<Connectable>();
-        
-        foreach (Connectable connectable in allConnectables)
-        {
-            connectable.CheckConnectable(location);
-        }
     }
 
     private Pylon GetClosestPylon(Vector3 location)
@@ -202,7 +118,7 @@ public class Player : MonoBehaviour
         Pylon closest = null;
         float dist = 100000f;
 
-        foreach (Pylon pylon in GameManager.Instance.Pylons)
+        foreach (Pylon pylon in GameManager.Instance.GridBuilder.Pylons)
         {
             float d = Vector3.Distance(pylon.transform.position, location);
 

@@ -27,7 +27,7 @@ public class Powerplant : Placable
         connectedCity = FindClosestCity();
         seeker.StartPath(transform.position, connectedCity.transform.position, OnPathComplete);
 
-        connectedCity.DisableChimney();
+//        connectedCity.DisableChimney();
     }
 
     public void OnPathComplete(Path p)

@@ -24,7 +24,7 @@ public class City : Connectable
     {
         float dist = Vector3.Distance(transform.position, location);
 
-        if (dist <= GameManager.nodeDistance)
+        if (dist <= GameManager.Instance.GridBuilder.JumpDistance)
         {
             IsConnectable = true;
             Highlight(true);
@@ -48,11 +48,8 @@ public class City : Connectable
         }
     }
 
-    public override void Connect()
+    public override void OnConnected()
     {
-        GameManager.Instance.Player.AddToConnectedList(this);
-        GameManager.Instance.GridBuilder.StartPlant.SpanToPoint(connectionRef.position);
-        GameManager.Instance.Director.SetTarget(transform);
-        GameManager.Instance.Player.FinalizeGridConnection(true);
+        DisableChimney();
     }
 }
