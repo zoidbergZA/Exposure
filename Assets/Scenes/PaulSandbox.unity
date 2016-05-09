@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1653355202}
+  scanCooldown: 7
 --- !u!1 &464664789
 GameObject:
   m_ObjectHideFlags: 0
