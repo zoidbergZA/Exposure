@@ -39,6 +39,9 @@ public class Pylon : Connectable
 
         State = States.Built;
         GameManager.Instance.Player.AddToConnectedList(this);
+        GameManager.Instance.Player.ConnectingPlant.SpanToPoint(connectionRef.position);
+        GameManager.Instance.Director.SetTarget(transform);
+        GameManager.Instance.Player.RefreshConnectables(transform.position);
 
         PlacerModel.SetActive(false);
         BuiltModel.SetActive(true);

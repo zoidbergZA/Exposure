@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public float Score { get; private set; }
     public bool Scanning { get; private set; }
     public float LastScan { get; private set; }
+    public GeoThermalPlant ConnectingPlant { get { return connectingPlant; } }
 
     private float gridTimeLeft;
     private List<Connectable> ConnectedList;
@@ -124,42 +125,44 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0) && !connectionFinalized)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, buildRayMask))
-            {
-                Connectable connectable = hit.transform.GetComponent<Connectable>();
-
-                if (connectable)
-                {
-                    if (connectable.IsConnectable)
-                    {
-                        connectable.Connect();
-                        connectingPlant.SpanToPoint(connectable.connectionRef.position);
-                        GameManager.Instance.Director.SetTarget(connectable.transform); 
-
-                        if (connectable is City)
-                            FinalizeGridConnection(true);
-                        else if (ConnectedList.Count >= maxPylons)
-                        {
-                            FinalizeGridConnection(false);
-                        }
-                        else
-                        {
-                            RefreshConnectables(connectable.transform.position);
-                        }
-                    }
-                }
-            }
-        }
-
         gridTimeLeft -= Time.deltaTime;
+
+        //        if (Input.GetMouseButtonDown(0) && !connectionFinalized)
+        //        {
+        //            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //            RaycastHit hit;
+        //
+        //            if (Physics.Raycast(ray, out hit, buildRayMask))
+        //            {
+        //                Connectable connectable = hit.transform.GetComponent<Connectable>();
+        //
+        //                if (connectable)
+        //                {
+        //                    if (connectable.IsConnectable)
+        //                    {
+        //                        connectable.Connect();
+        //                        connectingPlant.SpanToPoint(connectable.connectionRef.position);
+        //                        GameManager.Instance.Director.SetTarget(connectable.transform); 
+        //
+        //                        if (connectable is City)
+        //                            FinalizeGridConnection(true);
+        //                        else if (ConnectedList.Count >= maxPylons)
+        //                        {
+        //                            FinalizeGridConnection(false);
+        //                        }
+        //                        else
+        //                        {
+        //                            RefreshConnectables(connectable.transform.position);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+
+
     }
 
-    private void FinalizeGridConnection(bool succeeded)
+    public void FinalizeGridConnection(bool succeeded)
     {
         if (succeeded)
         {
@@ -185,7 +188,7 @@ public class Player : MonoBehaviour
         gridTimeLeft = 3f;
     }
 
-    private void RefreshConnectables(Vector3 location)
+    public void RefreshConnectables(Vector3 location)
     {
         Connectable[] allConnectables = FindObjectsOfType<Connectable>();
         

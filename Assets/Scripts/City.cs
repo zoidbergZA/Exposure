@@ -50,6 +50,9 @@ public class City : Connectable
 
     public override void Connect()
     {
-//        throw new System.NotImplementedException();
+        GameManager.Instance.Player.AddToConnectedList(this);
+        GameManager.Instance.Player.ConnectingPlant.SpanToPoint(connectionRef.position);
+        GameManager.Instance.Director.SetTarget(transform);
+        GameManager.Instance.Player.FinalizeGridConnection(true);
     }
 }

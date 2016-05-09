@@ -14,7 +14,7 @@ public class Placer : MonoBehaviour
 
     void Start()
     {
-        transform.position = new Vector3(1, 1, 1);
+//        transform.position = new Vector3(1, 1, 1);
         //consider scale applied to planet transform (assuming uniform, just pick one)
         radius = planet.radius * planet.transform.localScale.y;
         centre = planet.transform;
