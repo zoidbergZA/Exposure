@@ -51,7 +51,7 @@ public class Drillspot : Placable
 
             GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, transform.position, transform.rotation) as GeoThermalPlant;
 
-            GameManager.Instance.Player.GoToState(Player.PlayerStates.BuildGrid, plant.transform);
+            GameManager.Instance.Player.GoToBuildState(plant);
 
             Destroy(gameObject);
         }

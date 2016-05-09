@@ -23,9 +23,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public static readonly float nodeDistance = 2.87f;
+
+    public GameObject PylonsHolder;
+
     [SerializeField] private Transform planetTransform;
     [SerializeField] private float powerGoal = 5f;
-    
+
+    public Pylon[] Pylons {get; private set; }
     public int TotalChimneys { get; private set; }
     public float ChimneyValue { get { return 100f/TotalChimneys; } }
     public float PowerOutput { get; private set; }
@@ -35,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Pylons = FindObjectsOfType<Pylon>();
         Player = GetComponentInChildren<Player>();
         Director = FindObjectOfType<Director>();
 
@@ -48,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        InitPylons();
     }
 
     void OnGUI()
@@ -59,5 +65,23 @@ public class GameManager : MonoBehaviour
     public void AddPowerOutput(float amount)
     {
         PowerOutput += amount;
+    }
+
+    private void InitPylons()
+    {
+        for (int i = 0; i < Pylons.Length; i++)
+        {
+            for (int j = 0; j < Pylons.Length; j++)
+            {
+                if (Pylons[i] != Pylons[j])
+                {
+                    float dist = Vector3.Distance(Pylons[i].transform.position, Pylons[j].transform.position);
+                    if (dist <= nodeDistance) // match with node graph 
+                    {
+                        Pylons[i].AddConnection(Pylons[j]);
+                    }
+                }
+            }
+        }
     }
 }

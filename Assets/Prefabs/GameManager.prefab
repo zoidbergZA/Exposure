@@ -131,12 +131,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51783948286a4c14ba4a4d929e921f8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridTime: 7
+  gridTime: 30
+  maxPylons: 5
   radar: {fileID: 103410}
   scanTime: 2
   rayMask:
     serializedVersion: 2
     m_Bits: 256
+  buildRayMask:
+    serializedVersion: 2
+    m_Bits: 512
   PowerplantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
   DrillspotPrefab: {fileID: 11406222, guid: 8e50dcc81e355a241b47b2649b69e298, type: 2}
 --- !u!114 &11448036

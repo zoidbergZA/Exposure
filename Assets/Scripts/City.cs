@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class City : MonoBehaviour
+public class City : Connectable
 {
     [SerializeField] private GameObject[] chimneys;
 
@@ -18,5 +18,38 @@ public class City : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public override void CheckConnectable(Vector3 location)
+    {
+        float dist = Vector3.Distance(transform.position, location);
+
+        if (dist <= GameManager.nodeDistance)
+        {
+            IsConnectable = true;
+            Highlight(true);
+        }
+        else
+        {
+            IsConnectable = false;
+            Highlight(false);
+        }
+    }
+
+    public override void Highlight(bool hightlight)
+    {
+        if (hightlight)
+        {
+            GetComponent<MeshRenderer>().material.color = Color.green;
+        }
+        else
+        {
+            GetComponent<MeshRenderer>().material.color = Color.white;
+        }
+    }
+
+    public override void Connect()
+    {
+//        throw new System.NotImplementedException();
     }
 }

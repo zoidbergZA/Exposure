@@ -50,8 +50,14 @@ public class Director : MonoBehaviour
         }
     }
 
-//    public void SetTarget(Transform target)
-//    {
-//        targetTransform = target;
-//    }
+    public void SetTarget(Transform target)
+    {
+        targetTransform = target;
+        targetPosition = targetTransform.position + targetTransform.up * 20f;
+    }
+
+    public void LookAt(Vector3 position)
+    {
+        Camera.main.transform.LookAt(position);
+    }
 }
