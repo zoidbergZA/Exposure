@@ -12,8 +12,7 @@ public class Player : MonoBehaviour
         BuildGrid
     }
 
-    [SerializeField] private float gridTime = 7f;
-    [SerializeField] private int maxPylons = 8;
+    
     [SerializeField] private GameObject radar;
     [SerializeField] private float scanTime;
     [SerializeField] private LayerMask rayMask;
@@ -25,11 +24,11 @@ public class Player : MonoBehaviour
     public float Score { get; private set; }
     public bool Scanning { get; private set; }
     public float LastScan { get; private set; }
-    public GeoThermalPlant ConnectingPlant { get { return connectingPlant; } }
+//    public GeoThermalPlant ConnectingPlant { get { return connectingPlant; } }
 
-    private float gridTimeLeft;
+    
     private List<Connectable> ConnectedList;
-    private GeoThermalPlant connectingPlant;
+//    private GeoThermalPlant connectingPlant;
     private bool connectionFinalized;
 
     void Start()
@@ -64,8 +63,8 @@ public class Player : MonoBehaviour
     {
         PlayerState = PlayerStates.BuildGrid;
         GameManager.Instance.PylonsHolder.SetActive(true);
-        connectingPlant = geoPlant;
-        gridTimeLeft = gridTime;
+        GameManager.Instance.GridBuilder.StartBuild(geoPlant);
+        
         connectionFinalized = false;
         ConnectedList = new List<Connectable>();
         GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform);
@@ -119,13 +118,13 @@ public class Player : MonoBehaviour
 
     private void HandleBuildGridState()
     {
-        if (gridTimeLeft <= 0)
+        if (GameManager.Instance.GridBuilder.GridTimeLeft <= 0)
         {
             GoToDrillState(GameManager.Instance.PlanetTransform);
             return;
         }
 
-        gridTimeLeft -= Time.deltaTime;
+        GameManager.Instance.GridBuilder.GridTimeLeft -= Time.deltaTime;
 
         //        if (Input.GetMouseButtonDown(0) && !connectionFinalized)
         //        {
@@ -166,7 +165,7 @@ public class Player : MonoBehaviour
     {
         if (succeeded)
         {
-            Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + gridTimeLeft + "/" + gridTime);
+//            Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + gridTimeLeft + "/" + gridTime);
             connectionFinalized = true;
         }
         else
@@ -182,10 +181,10 @@ public class Player : MonoBehaviour
                 }
             }
             ConnectedList.Clear();
-            Destroy(connectingPlant.gameObject);
+            
         }
 
-        gridTimeLeft = 3f;
+        GameManager.Instance.GridBuilder.GridTimeLeft = 2f;
     }
 
     public void RefreshConnectables(Vector3 location)

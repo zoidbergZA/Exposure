@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Transform planetTransform;
     [SerializeField] private float powerGoal = 5f;
-
+    
+    public GridBuilder GridBuilder { get; private set; }
     public Hud Hud { get; private set; }
     public Pylon[] Pylons {get; private set; }
     public int TotalChimneys { get; private set; }
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        GridBuilder = GetComponent<GridBuilder>();
         Hud = GetComponentInChildren<Hud>();
         Pylons = FindObjectsOfType<Pylon>();
         Player = GetComponentInChildren<Player>();

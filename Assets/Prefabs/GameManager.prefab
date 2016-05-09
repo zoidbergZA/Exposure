@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 482218}
   - 114: {fileID: 11448036}
+  - 114: {fileID: 11483304}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -197,6 +198,17 @@ MonoBehaviour:
   PylonsHolder: {fileID: 0}
   planetTransform: {fileID: 0}
   powerGoal: 5
+--- !u!114 &11483304
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd56c17a02d3c9443ae116fc651e883a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

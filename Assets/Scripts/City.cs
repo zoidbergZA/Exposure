@@ -51,7 +51,7 @@ public class City : Connectable
     public override void Connect()
     {
         GameManager.Instance.Player.AddToConnectedList(this);
-        GameManager.Instance.Player.ConnectingPlant.SpanToPoint(connectionRef.position);
+        GameManager.Instance.GridBuilder.StartPlant.SpanToPoint(connectionRef.position);
         GameManager.Instance.Director.SetTarget(transform);
         GameManager.Instance.Player.FinalizeGridConnection(true);
     }
