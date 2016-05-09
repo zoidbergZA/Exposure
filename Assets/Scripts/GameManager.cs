@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform planetTransform;
     [SerializeField] private float powerGoal = 5f;
 
+    public Hud Hud { get; private set; }
     public Pylon[] Pylons {get; private set; }
     public int TotalChimneys { get; private set; }
     public float ChimneyValue { get { return 100f/TotalChimneys; } }
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Hud = GetComponentInChildren<Hud>();
         Pylons = FindObjectsOfType<Pylon>();
         Player = GetComponentInChildren<Player>();
         Director = FindObjectOfType<Director>();
