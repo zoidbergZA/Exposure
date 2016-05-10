@@ -1,0 +1,166 @@
+fileFormatVersion: 2
+guid: b0eec6c98a12dab4897b9ed6d2c49fb3
+timeCreated: 1462875210
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: B1
+    100002: B10
+    100004: B11
+    100006: B12
+    100008: B13
+    100010: B14
+    100012: B15
+    100014: B16
+    100016: B17
+    100018: B2
+    100020: B3
+    100022: B4
+    100024: B5
+    100026: B6
+    100028: B7
+    100030: B8
+    100032: B9
+    100034: Chimney
+    100036: CITY
+    100038: //RootNode
+    400000: B1
+    400002: B10
+    400004: B11
+    400006: B12
+    400008: B13
+    400010: B14
+    400012: B15
+    400014: B16
+    400016: B17
+    400018: B2
+    400020: B3
+    400022: B4
+    400024: B5
+    400026: B6
+    400028: B7
+    400030: B8
+    400032: B9
+    400034: Chimney
+    400036: CITY
+    400038: //RootNode
+    2300000: B1
+    2300002: B10
+    2300004: B11
+    2300006: B12
+    2300008: B13
+    2300010: B14
+    2300012: B15
+    2300014: B16
+    2300016: B17
+    2300018: B2
+    2300020: B3
+    2300022: B4
+    2300024: B5
+    2300026: B6
+    2300028: B7
+    2300030: B8
+    2300032: B9
+    2300034: Chimney
+    3300000: B1
+    3300002: B10
+    3300004: B11
+    3300006: B12
+    3300008: B13
+    3300010: B14
+    3300012: B15
+    3300014: B16
+    3300016: B17
+    3300018: B2
+    3300020: B3
+    3300022: B4
+    3300024: B5
+    3300026: B6
+    3300028: B7
+    3300030: B8
+    3300032: B9
+    3300034: Chimney
+    4300000: Chimney
+    4300002: B17
+    4300004: B16
+    4300006: B15
+    4300008: B14
+    4300010: B13
+    4300012: B12
+    4300014: B11
+    4300016: B10
+    4300018: B9
+    4300020: B8
+    4300022: B7
+    4300024: B6
+    4300026: B5
+    4300028: B4
+    4300030: B3
+    4300032: B2
+    4300034: B1
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
