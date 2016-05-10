@@ -69,8 +69,32 @@ public class Player : MonoBehaviour
             if (Physics.Raycast(ray, out hit, drillRayMask))
             {
                 Drill(hit.point, hit.normal);
+                //TestCoordExtraction(hit);
             }
         }
+    }
+
+    private void TestCoordExtraction(RaycastHit hit)
+    {
+        Renderer rend = hit.transform.GetComponent<Renderer>();
+        Collider meshCollider = hit.collider as Collider;
+        if (rend == null || rend.sharedMaterial == null || rend.sharedMaterial.mainTexture == null || meshCollider == null)
+        {
+            return;
+        }
+
+        Texture2D tex = rend.material.mainTexture as Texture2D;
+        Debug.Log("yexture: " + rend.material.mainTexture.name);
+        Vector2 pixelUV = hit.textureCoord;
+        pixelUV.x *= tex.width;
+        pixelUV.y *= tex.height;
+        for (int i = 0; i < 10; i++)
+        {
+            tex.SetPixel((int)pixelUV.x + i, (int)pixelUV.y + i, Color.cyan);
+            tex.SetPixel((int)pixelUV.x - i, (int)pixelUV.y - i, Color.cyan);
+        }
+        tex.Apply();
+        Debug.Log("end!");
     }
 
     private void HandleBuildGridState()

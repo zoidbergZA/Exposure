@@ -6,6 +6,7 @@
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_ScanFactor ("Scan Factor", Range(0.1,1.0)) = 0.5
+		_Radius ("Radius", Range(0.1,1.0)) = 0.5
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -20,19 +21,21 @@
 
 		sampler2D _MainTex;
 		sampler2D _ScanTex;
+		half _Glossiness;
+		half _Metallic;
+		fixed _ScanFactor;
+		fixed4 _Color;
+		fixed _Radius;
 
 		struct Input {
 			float2 uv_MainTex;
 		};
 
-		half _Glossiness;
-		half _Metallic;
-		fixed _ScanFactor;
-		fixed4 _Color;
-
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
-			fixed4 c = ((tex2D (_MainTex, IN.uv_MainTex) * _ScanFactor) + (tex2D(_ScanTex, IN.uv_MainTex) * (1-_ScanFactor))) * _Color;
+			fixed4 c;
+			c = ((tex2D (_MainTex, IN.uv_MainTex) * _ScanFactor) + (tex2D(_ScanTex, IN.uv_MainTex) * (1-_ScanFactor))) * _Color;
+
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
