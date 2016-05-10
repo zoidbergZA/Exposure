@@ -11,10 +11,7 @@ public class Player : MonoBehaviour
         Drill,
         BuildGrid
     }
-
     
-    [SerializeField] private GameObject radar;
-    [SerializeField] private float scanTime;
     [SerializeField] private LayerMask drillRayMask;
     [SerializeField] private LayerMask buildRayMask;
     [SerializeField] private Powerplant PowerplantPrefab;
@@ -22,8 +19,6 @@ public class Player : MonoBehaviour
 
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
-    public bool Scanning { get; private set; }
-    public float LastScan { get; private set; }
 
     void Start()
     {
@@ -32,9 +27,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Scanning && Time.time > LastScan + scanTime)
-            Scanning = false;
-
         switch (PlayerState)
         {
             case PlayerStates.Drill:
@@ -69,17 +61,6 @@ public class Player : MonoBehaviour
 
     private void HandleDrillState()
     {
-        if (Input.GetMouseButtonDown(1) && !Scanning)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, drillRayMask))
-            {
-                Scan(hit.point);
-            }
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -89,15 +70,6 @@ public class Player : MonoBehaviour
             {
                 Drill(hit.point, hit.normal);
             }
-        }
-
-        if (Scanning)
-        {
-            radar.SetActive(true);
-        }
-        else
-        {
-            radar.SetActive(false);
         }
     }
 
@@ -136,12 +108,5 @@ public class Player : MonoBehaviour
     {
         Drillspot drillspot = Instantiate(DrillspotPrefab, location, Quaternion.identity) as Drillspot;
         drillspot.Orientate(normal);
-    }
-
-    private void Scan(Vector3 location)
-    {
-        LastScan = Time.time;
-        Scanning = true;
-        radar.transform.position = location;
     }
 }

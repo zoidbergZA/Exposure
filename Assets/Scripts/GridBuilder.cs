@@ -66,7 +66,10 @@ public class GridBuilder : MonoBehaviour
         }
         else
         {
-            Debug.Log("failed, reset pylons and wire plz");
+            if (StartPlant != null)
+            {
+                Destroy(StartPlant.gameObject);
+            }
 
             foreach (Connectable connectable in ConnectedList)
             {
@@ -113,11 +116,7 @@ public class GridBuilder : MonoBehaviour
 
     private void Reset()
     {
-        if (StartPlant != null)
-        {
-            Destroy(StartPlant.gameObject);
-        }
-
+        StartPlant = null;
         ConnectedList.Clear();
         connectionFinalized = false;
     }

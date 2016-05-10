@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float powerGoal = 5f;
     
     public GridBuilder GridBuilder { get; private set; }
+    public Scanner Scanner { get; private set; }
     public Hud Hud { get; private set; }
     public int TotalChimneys { get; private set; }
     public float ChimneyValue { get { return 100f/TotalChimneys; } }
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         GridBuilder = GetComponent<GridBuilder>();
+        Scanner = GetComponent<Scanner>();
         Hud = GetComponentInChildren<Hud>();
         Player = GetComponentInChildren<Player>();
         Director = FindObjectOfType<Director>();
