@@ -4,53 +4,31 @@ using System.Collections;
 [ExecuteInEditMode]
 public class Placer : MonoBehaviour
 {
-    public float rotationSpeed = 120.0f;
-    public float translationSpeed = 10.0f;
-    public float height = 0.5f;             //height from ground level
-    private Transform centre;               //transform for planet
-    private float radius;                   //calculated radius from collider
-    public SphereCollider planet;           //collider for planet
-    //public MeshCollider planet;           //collider for planet
+    public float height = 0.5f;     //height from ground level
+    public Collider planet;         //collider for planet
+    private RaycastHit hit;
 
-    void Start()
+    private Vector3 getDirection(Transform planet)
     {
-//        transform.position = new Vector3(1, 1, 1);
-        //consider scale applied to planet transform (assuming uniform, just pick one)
-        radius = planet.radius * planet.transform.localScale.y;
-        centre = planet.transform;
+        return (planet.position - transform.position).normalized;
+    }
+
+    private bool hitsTarget(float fromDistance)
+    {
+        if (Physics.Raycast(transform.position, getDirection(planet.transform), out hit, fromDistance))
+        {
+            if (hit.collider.Equals(planet)) return true;
+            else return false;
+        }
+        else return false;
     }
 
     void Update()
     {
-        //translate based on input     
-        float inputMag = Input.GetAxis("Vertical") * translationSpeed * Time.deltaTime;
-        transform.position += transform.forward * inputMag;
-        //snap position to radius + height (could also use raycasts)
-        Vector3 targetPosition = transform.position - centre.position;
-        float ratio = (radius + height) / targetPosition.magnitude;
-        targetPosition.Scale(new Vector3(ratio, ratio, ratio));
-        transform.position = targetPosition + centre.position;
-        //calculate planet surface normal                      
-        Vector3 surfaceNormal = transform.position - centre.position;
-        surfaceNormal.Normalize();
-        //GameObject's heading
-        float headingDeltaAngle = Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed;
-        Quaternion headingDelta = Quaternion.AngleAxis(headingDeltaAngle, transform.up);
-        //align with surface normal
-        transform.rotation = Quaternion.FromToRotation(transform.up, surfaceNormal) * transform.rotation;
-        //apply heading rotation
-        transform.rotation = headingDelta * transform.rotation;
-
-
-        //RaycastHit hit;
-
-        //if (Physics.Raycast(transform.position, -transform.up, out hit, Mathf.Infinity))
-        //{
-        //    // Stick on surface
-        //    transform.position = hit.point + hit.normal * height;
-
-        //    // Align to surface normal
-        //    transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-        //}
+        if (planet && hitsTarget(100))
+        {
+            transform.position = hit.point + hit.normal * height; // Stick on surface
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation; // Align to surface normal
+        }
     }
 }
