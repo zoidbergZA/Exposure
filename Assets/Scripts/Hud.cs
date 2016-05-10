@@ -26,6 +26,16 @@ public class Hud : MonoBehaviour
 
     private void ShowDebug()
     {
+        //time left
+        string timeText = "";
+        if (GameManager.Instance.RoundStarted)
+            GUILayout.Label("time left: " + GameManager.Instance.TimeLeft.ToString("F2"));
+        else
+        {
+            GUILayout.Label("round not started");
+        }
+
+        //score
         GUILayout.Label("score: " + GameManager.Instance.Player.Score + "/" + "100");
     }
 }

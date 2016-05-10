@@ -9,8 +9,8 @@ public class GridBuilder : MonoBehaviour
     [SerializeField] private float nodeDistance = 2.87f; // match node graph max distance variable
 
     private List<Connectable> ConnectedList;
-    private bool connectionFinalized;
 
+    public bool ConnectionFinalized;
     public float GridTimeLeft { get; set; }
     public GeoThermalPlant StartPlant { get; private set; }
     public Pylon[] Pylons { get; private set; }
@@ -31,8 +31,9 @@ public class GridBuilder : MonoBehaviour
         GridTimeLeft = gridTime;
         StartPlant = from;
         ConnectedList = new List<Connectable>();
-        connectionFinalized = false;
+        ConnectionFinalized = false;
         RefreshConnectables(StartPlant.transform.position);
+        ShowUnbuiltPylons(true);
     }
 
     public void MakeConnection(Connectable connectable)
@@ -40,7 +41,7 @@ public class GridBuilder : MonoBehaviour
         ConnectedList.Add(connectable);
         StartPlant.SpanToPoint(connectable.connectionRef.position);
         GameManager.Instance.Director.SetTarget(connectable.transform);
-        RefreshConnectables(transform.position);
+//        RefreshConnectables(transform.position);
 
         //check completetion conditions
         if (connectable is City)
@@ -59,13 +60,18 @@ public class GridBuilder : MonoBehaviour
 
     public void FinalizeGridConnection(bool succeeded)
     {
+        if (ConnectionFinalized)
+            return;
+
         if (succeeded)
         {
             Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + GridTimeLeft + "/" + gridTime);
-            connectionFinalized = true;
+            ConnectionFinalized = true;
+            StartPlant.ShowPathGuide(false);
         }
         else
         {
+            Debug.Log("failed");
             if (StartPlant != null)
             {
                 Destroy(StartPlant.gameObject);
@@ -80,6 +86,7 @@ public class GridBuilder : MonoBehaviour
                 }
             }
 
+            ShowUnbuiltPylons(false);
             Reset();
         }
 
@@ -114,10 +121,21 @@ public class GridBuilder : MonoBehaviour
         }
     }
 
+    private void ShowUnbuiltPylons(bool show)
+    {
+        foreach (Pylon pylon in Pylons)
+        {
+            if (pylon.State == Pylon.States.Ready)
+            {
+                pylon.ShowPlacer(show);
+            }
+        }
+    }
+
     private void Reset()
     {
         StartPlant = null;
         ConnectedList.Clear();
-        connectionFinalized = false;
+        ConnectionFinalized = false;
     }
 }

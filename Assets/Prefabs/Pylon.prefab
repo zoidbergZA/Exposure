@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &125730
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +89,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 125730}
   m_LocalRotation: {x: -0.6662268, y: 0.21286535, z: -0.107556574, w: 0.7065847}
-  m_LocalPosition: {x: -0.15796505, y: 0.10697633, z: -1.1847377}
+  m_LocalPosition: {x: -0.15796503, y: 0.10697632, z: -1.1847376}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 489006}
@@ -115,7 +115,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.825, z: -0}
+  m_LocalPosition: {x: 0, y: 0.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 404202}
@@ -254,8 +254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b4209806e98e8441a4864eb11d42ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 120
-  translationSpeed: 10
   height: 0
   planet: {fileID: 0}
 --- !u!1001 &100100000

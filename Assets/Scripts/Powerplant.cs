@@ -52,6 +52,11 @@ public class Powerplant : Placable
         previewLineRenderer.SetPositions(linePath.ToArray());
     }
 
+    public void ShowPathGuide(bool show)
+    {
+        previewLineRenderer.enabled = show;
+    }
+
     protected City FindClosestCity()
     {
         City[] cities = FindObjectsOfType<City>();

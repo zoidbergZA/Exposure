@@ -19,8 +19,8 @@ public abstract class Connectable : Placable
 
             if (GUI.Button(new Rect(screenPos.x - 20, Screen.height - screenPos.y - 20, 40, 40), "build"))
             {
-                GameManager.Instance.GridBuilder.MakeConnection(this);
                 OnConnected();
+                GameManager.Instance.GridBuilder.MakeConnection(this);
             }
         }
     }
