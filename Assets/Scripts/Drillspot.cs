@@ -44,12 +44,15 @@ public class Drillspot : Placable
     {
         float rand = Random.Range(0f, 1f);
 
-        if (rand < 0.5f)
+        if (rand < 1f)
         {
             DrillState = DrillStates.Succeeded;
             GetComponentInChildren<MeshRenderer>().material.color = Color.green;
 
             GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, transform.position, transform.rotation) as GeoThermalPlant;
+
+            GameManager.Instance.Player.GoToBuildState(plant);
+
             Destroy(gameObject);
         }
         else
