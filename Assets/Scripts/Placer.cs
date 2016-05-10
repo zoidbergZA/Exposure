@@ -8,14 +8,14 @@ public class Placer : MonoBehaviour
     public Collider planet;         //collider for planet
     private RaycastHit hit;
 
-    private Vector3 getDirection()
+    private Vector3 getDirection(Transform planet)
     {
-        return (planet.transform.position - transform.position).normalized;
+        return (planet.position - transform.position).normalized;
     }
 
     private bool hitsTarget(float fromDistance)
     {
-        if (Physics.Raycast(transform.position, getDirection(), out hit, fromDistance))
+        if (Physics.Raycast(transform.position, getDirection(planet.transform), out hit, fromDistance))
         {
             if (hit.collider.Equals(planet)) return true;
             else return false;
@@ -25,7 +25,7 @@ public class Placer : MonoBehaviour
 
     void Update()
     {
-        if (hitsTarget(100))
+        if (planet && hitsTarget(100))
         {
             transform.position = hit.point + hit.normal * height; // Stick on surface
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation; // Align to surface normal
