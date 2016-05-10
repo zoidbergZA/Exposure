@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        GameManager.Instance.PylonsHolder.SetActive(false);
+
     }
 
     void Update()
@@ -41,14 +41,12 @@ public class Player : MonoBehaviour
     public void GoToDrillState(Transform targetTransform)
     {
         PlayerState = PlayerStates.Drill;
-        GameManager.Instance.PylonsHolder.SetActive(false);
         GameManager.Instance.Director.SetMode(Director.Modes.Orbit, targetTransform);
     }
 
     public void GoToBuildState(GeoThermalPlant geoPlant)
     {
         PlayerState = PlayerStates.BuildGrid;
-        GameManager.Instance.PylonsHolder.SetActive(true);
         GameManager.Instance.GridBuilder.StartBuild(geoPlant);
         
         GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 

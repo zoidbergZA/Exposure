@@ -11,6 +11,8 @@ public class Director : MonoBehaviour
 
     [SerializeField] private Transform targetTransform;
     [SerializeField] private float orbitSpeed = 10f;
+    [SerializeField] private float orbitZoom = 1f;
+    [SerializeField] private float buildZoom = 0.8f;
 
     private float distance;
     private Vector3 targetPosition;
@@ -44,8 +46,12 @@ public class Director : MonoBehaviour
         {
             case Modes.Grid:
                 Camera.main.orthographic = true;
-                Camera.main.orthographicSize = 3f;
+                Camera.main.orthographicSize = buildZoom;
                 targetPosition = targetTransform.position + targetTransform.up*20f;
+                break;
+
+            case Modes.Orbit:
+                Camera.main.orthographicSize = orbitZoom;
                 break;
         }
     }
