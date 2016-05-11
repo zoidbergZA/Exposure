@@ -9,7 +9,7 @@
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_ScanFactor ("Scan Factor", Range(0.1,1.0)) = 0.5
 		_Radius ("Radius", Float) = 2.0
-		_Cooldown ("Cooldown", Float) = 7.0
+		_Duration ("Duration", Float) = 3.0
 		_CenterCoords ("Center Coords", Vector) = (0,0,0,0)
 	}
 
@@ -32,7 +32,7 @@
 		fixed _ScanFactor;
 		fixed4 _Color;
 		fixed _Radius;
-		fixed _Cooldown;
+		fixed _Duration;
 		fixed4 _CenterCoords;
 
 		struct Input {
@@ -46,7 +46,7 @@
 			fixed dist = distance(IN.worldPos, _CenterCoords);
 			fixed scan = 1;
 			if(dist > 0) scan = dist / _Radius;
-			if(scan <= 1.0 && _Cooldown > 0)
+			if(scan <= 1.0 && _Duration > 0)
 			{
 				_ScanFactor = scan;
 			} else {

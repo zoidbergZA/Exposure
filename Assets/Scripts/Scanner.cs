@@ -4,8 +4,10 @@ using System.Collections;
 public class Scanner : MonoBehaviour
 {
     [SerializeField] private float cooldownTime = 7f;
+    [SerializeField] private float durationTime = 3f;
     [SerializeField] private LayerMask scanRayMask;
     private float cooldown;
+    private float duration;
     public GameObject target;
     private Material material;
     private Renderer renderer;
@@ -13,9 +15,13 @@ public class Scanner : MonoBehaviour
     public bool IsReady { get; private set; }
     public float Cooldown { get { return cooldown; } }
 
+    public float Duration { get { return duration; } }
+
     void Awake()
     {
         IsReady = true;
+        cooldown = cooldownTime;
+        duration = durationTime;
     }
 
     void Start()
@@ -29,12 +35,14 @@ public class Scanner : MonoBehaviour
         if (!IsReady)
         {
             cooldown -= Time.deltaTime;
+            if (duration >= 0) duration -= Time.deltaTime;
+            else Debug.Log("dur end");
 
-            //material.SetFloat("_ScanFactor", Mathf.Sin(Time.time));
+            Debug.Log("dur: " + duration);
+            material.SetFloat("_Duration", duration);
             if (cooldown <= 0)
             {
                 IsReady = true;
-                material.SetFloat("_Cooldown", cooldown);
             }
         }
     }
@@ -43,7 +51,7 @@ public class Scanner : MonoBehaviour
     {
         IsReady = false;
         cooldown = cooldownTime;
-        material.SetFloat("_Cooldown", cooldown);
+        duration = durationTime;
         getCenterPoint();
     }
 
