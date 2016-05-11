@@ -42,6 +42,8 @@ public class Drillspot : Placable
 
     private void CompleteDrill()
     {
+        //todo: check UV map if drill will succeed
+
         float rand = Random.Range(0f, 1f);
 
         if (rand < 1f)
@@ -52,6 +54,7 @@ public class Drillspot : Placable
             GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, transform.position, transform.rotation) as GeoThermalPlant;
 
             GameManager.Instance.Player.GoToBuildState(plant);
+            GameManager.Instance.GridBuilder.Begin();
 
             Destroy(gameObject);
         }

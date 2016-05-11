@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        GridBuilder = GetComponent<GridBuilder>();
+        GridBuilder = GetComponentInChildren<GridBuilder>();
         Scanner = GetComponent<Scanner>();
         Hud = GetComponentInChildren<Hud>();
         Player = GetComponentInChildren<Player>();
@@ -70,6 +70,11 @@ public class GameManager : MonoBehaviour
                 EndRound();
         }
     }
+
+//    public void StartMinigame(Minigame game)
+//    {
+//        // todo start minigame
+//    }
 
     private void StartRound()
     {

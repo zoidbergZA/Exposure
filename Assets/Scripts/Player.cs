@@ -32,9 +32,6 @@ public class Player : MonoBehaviour
             case PlayerStates.Drill:
                 HandleDrillState();
                 break;
-            case PlayerStates.BuildGrid:
-                HandleBuildGridState();
-                break;
         }
     }
 
@@ -69,18 +66,6 @@ public class Player : MonoBehaviour
                 Drill(hit.point, hit.normal);
             }
         }
-    }
-
-    private void HandleBuildGridState()
-    {
-        if (GameManager.Instance.GridBuilder.GridTimeLeft <= 0)
-        {
-            GameManager.Instance.GridBuilder.FinalizeGridConnection(false);
-            GoToDrillState(GameManager.Instance.PlanetTransform);
-            return;
-        }
-
-        GameManager.Instance.GridBuilder.GridTimeLeft -= Time.deltaTime;
     }
 
     private Pylon GetClosestPylon(Vector3 location)

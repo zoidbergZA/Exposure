@@ -2,16 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GridBuilder : MonoBehaviour
+public class GridBuilder : Minigame
 {
-    [SerializeField] private float gridTime = 15f;
+//    [SerializeField] private float gridTime = 15f;
     [SerializeField] private int maxPylons = 4;
     [SerializeField] private float nodeDistance = 2.87f; // match node graph max distance variable
 
     private List<Connectable> ConnectedList;
 
     public bool ConnectionFinalized;
-    public float GridTimeLeft { get; set; }
+//    public float GridTimeLeft { get; set; }
     public GeoThermalPlant StartPlant { get; private set; }
     public Pylon[] Pylons { get; private set; }
     public int MaxPylons { get { return maxPylons; } }
@@ -28,9 +28,17 @@ public class GridBuilder : MonoBehaviour
         InitPylons();
     }
 
-    public void StartBuild(GeoThermalPlant from)
+    public override void End(bool succeeded)
     {
-        GridTimeLeft = gridTime;
+        base.End(succeeded);
+
+        GameManager.Instance.Player.GoToDrillState(GameManager.Instance.PlanetTransform);
+    }
+
+    public void StartBuild(GeoThermalPlant from)
+    { 
+        Begin();
+        
         StartPlant = from;
         ConnectedList = new List<Connectable>();
         ConnectionFinalized = false;
@@ -66,10 +74,10 @@ public class GridBuilder : MonoBehaviour
 
         if (succeeded)
         {
-            Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + GridTimeLeft + "/" + gridTime);
+            Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + Timeleft + "/" + TimeOut);
             ConnectionFinalized = true;
             StartPlant.ShowPathGuide(false);
-            GameManager.Instance.Player.ScorePoints(GameManager.Instance.ChimneyValue / MaxPylons * (MaxPylons - PylonCount - 1));
+            GameManager.Instance.Player.ScorePoints(GameManager.Instance.ChimneyValue / MaxPylons * (MaxPylons - PylonCount + 1));
         }
         else
         {
@@ -93,7 +101,7 @@ public class GridBuilder : MonoBehaviour
         }
 
         TurnOffConnectables();
-        GameManager.Instance.GridBuilder.GridTimeLeft = 2f;
+        End(succeeded);
     }
 
     public void RefreshConnectables(Vector3 location)
