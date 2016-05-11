@@ -1,15 +1,19 @@
-﻿Shader "Custom/NewSurfaceShader" {
-	Properties {
+﻿Shader "Custom/NewSurfaceShader"
+{
+	Properties
+	{
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_ScanTex ("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_ScanFactor ("Scan Factor", Range(0.1,1.0)) = 0.5
-		_Radius ("Radius", Range(0.1,1.0)) = 0.5
+		_Radius ("Radius", Float) = 2.0
 		_CenterCoords ("Center Coords", Vector) = (0,0,0,0)
 	}
-	SubShader {
+
+	SubShader
+	{
 		Tags { "RenderType"="Opaque" }
 		LOD 200
 		
@@ -31,12 +35,14 @@
 
 		struct Input {
 			float2 uv_MainTex;
+			float2 uv_ScanTex;
+			float3 worldPos;
 		};
 
-		void surf (Input IN, inout SurfaceOutputStandard o) {
-			// Albedo comes from a texture tinted by color
-			fixed4 c;
-			c = ((tex2D (_MainTex, IN.uv_MainTex) * _ScanFactor) + (tex2D(_ScanTex, IN.uv_MainTex) * (1-_ScanFactor))) * _Color;
+		void surf (Input IN, inout SurfaceOutputStandard o)
+		{
+			
+			fixed4 c = ((tex2D (_MainTex, IN.uv_MainTex) * _ScanFactor) + (tex2D(_ScanTex, IN.uv_ScanTex) * (1-_ScanFactor))) * _Color;			}
 
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables

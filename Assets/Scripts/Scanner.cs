@@ -30,11 +30,11 @@ public class Scanner : MonoBehaviour
         {
             cooldown -= Time.deltaTime;
 
-            material.SetFloat("_ScanFactor", Mathf.Sin(Time.time));
+            //material.SetFloat("_ScanFactor", Mathf.Sin(Time.time));
             if (cooldown <= 0)
             {
                 IsReady = true;
-                material.SetFloat("_ScanFactor", 1);
+                //material.SetFloat("_ScanFactor", 1);
             }
         }
     }
@@ -43,13 +43,11 @@ public class Scanner : MonoBehaviour
     {
         IsReady = false;
         cooldown = cooldownTime;
-
         getCenterPoint();
     }
 
     private void getCenterPoint()
     {
-        //Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); 
         RaycastHit hit;
 
@@ -57,16 +55,9 @@ public class Scanner : MonoBehaviour
         {
             Renderer rend = hit.transform.GetComponent<Renderer>();
             MeshCollider meshCollider = hit.collider as MeshCollider;
-            if (rend == null || rend.sharedMaterial == null || rend.sharedMaterial.mainTexture == null || meshCollider == null)
-            {
-                return;
-            }
-
-            Texture2D tex = rend.material.mainTexture as Texture2D; //access to texture
-
-            Vector2 pixelUV = hit.textureCoord; //access to texture uvs
-            rend.material.SetVector("_CenterCoords", new Vector4(pixelUV.x, pixelUV.y, 0, 0));
-            tex.Apply();
+            if (rend == null || rend.sharedMaterial == null || rend.sharedMaterial.mainTexture == null || meshCollider == null) return;
+            Vector3 targetFragment = hit.point;
+            rend.material.SetVector("_CenterCoords", new Vector4(targetFragment.x, targetFragment.y, targetFragment.z, 0));
         }
     }
 }
