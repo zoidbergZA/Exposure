@@ -41,17 +41,18 @@
 			float3 worldPos;
 		};
 
+		fixed getRadius()
+		{
+			return _Radius / _Duration;
+		}
+
 		void surf (Input IN, inout SurfaceOutputStandard o)
 		{
 			fixed dist = distance(IN.worldPos, _CenterCoords);
 			fixed scan = 1;
-			if(dist > 0) scan = dist / _Radius;
-			if(scan <= 1.0 && _Duration > 0)
-			{
-				_ScanFactor = scan;
-			} else {
-				_ScanFactor = 1;
-			}
+			if(dist > 0) scan = dist / getRadius();
+			if(scan <= 1.0 && _Duration > 0) _ScanFactor = scan;
+			else _ScanFactor = 1;
 
 			fixed4 c = ((tex2D (_MainTex, IN.uv_MainTex) * _ScanFactor) + (tex2D(_ScanTex, IN.uv_ScanTex) * (1-_ScanFactor))) * _Color;
 			o.Albedo = c.rgb;

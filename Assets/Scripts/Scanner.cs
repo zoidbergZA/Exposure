@@ -26,7 +26,6 @@ public class Scanner : MonoBehaviour
     {
         renderer = target.GetComponent<Renderer>();
         material = renderer.material;
-        Debug.Log("start dur: " + duration);
     }
 
     void Update()
@@ -35,7 +34,6 @@ public class Scanner : MonoBehaviour
         {
             cooldown -= Time.deltaTime;
             if (duration >= 0) duration -= Time.deltaTime;
-            else Debug.Log("dur ended!");
             material.SetFloat("_Duration", duration);
             if (cooldown <= 0)
             {
@@ -49,7 +47,6 @@ public class Scanner : MonoBehaviour
         IsReady = false;
         cooldown = cooldownTime;
         duration = durationTime;
-        Debug.Log("scan dur: " + duration);
         getCenterPoint();
     }
 
@@ -62,6 +59,8 @@ public class Scanner : MonoBehaviour
         {
             Renderer rend = hit.transform.GetComponent<Renderer>();
             MeshCollider meshCollider = hit.collider as MeshCollider;
+            material.SetFloat("_Radius",  hit.collider.bounds.size.x);
+
             if (rend == null || rend.sharedMaterial == null || rend.sharedMaterial.mainTexture == null || meshCollider == null) return;
             Vector3 targetFragment = hit.point;
             rend.material.SetVector("_CenterCoords", new Vector4(targetFragment.x, targetFragment.y, targetFragment.z, 0));
