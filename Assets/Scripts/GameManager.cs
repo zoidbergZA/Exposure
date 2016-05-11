@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float roundTime = 180;
     
     public GridBuilder GridBuilder { get; private set; }
+    public DrillingGame DrillingGame { get; private set; }
     public Scanner Scanner { get; private set; }
     public Hud Hud { get; private set; }
     public int TotalChimneys { get; private set; }
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         GridBuilder = GetComponentInChildren<GridBuilder>();
+        DrillingGame = GetComponentInChildren<DrillingGame>();
         Scanner = GetComponent<Scanner>();
         Hud = GetComponentInChildren<Hud>();
         Player = GetComponentInChildren<Player>();
