@@ -26,14 +26,15 @@ public class GameManager : MonoBehaviour
     public GameObject PylonsHolder;
 
     [SerializeField] private Transform planetTransform;
-    [SerializeField] private float powerGoal = 5f;
+    [SerializeField] private float roundTime = 180;
     
     public GridBuilder GridBuilder { get; private set; }
     public Scanner Scanner { get; private set; }
     public Hud Hud { get; private set; }
     public int TotalChimneys { get; private set; }
     public float ChimneyValue { get { return 100f/TotalChimneys; } }
-    public float PowerOutput { get; private set; }
+    public bool RoundStarted { get; private set; }
+    public float TimeLeft { get; private set; }
     public Player Player { get; private set; }
     public Director Director { get; private set; }
     public Transform PlanetTransform { get { return planetTransform; } }
@@ -56,11 +57,30 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        StartRound();
     }
 
-    public void AddPowerOutput(float amount)
+    void Update()
     {
-        PowerOutput += amount;
+        if (RoundStarted)
+        {
+            TimeLeft -= Time.deltaTime;
+
+            if (TimeLeft <= 0)
+                EndRound();
+        }
+    }
+
+    private void StartRound()
+    {
+        RoundStarted = true;
+        TimeLeft = roundTime;
+    }
+
+    private void EndRound()
+    {
+        Debug.Log("round ended! score " + Player.Score + "/100");
+
+        RoundStarted = false;
     }
 }

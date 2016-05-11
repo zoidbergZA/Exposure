@@ -22,6 +22,8 @@ public class Pylon : Connectable
         base.Awake();
 
         Connections = new List<Pylon>();
+        BuiltModel.SetActive(false);
+//        PlacerModel.SetActive(false); // commented for testing
     }
 
     public void AddConnection(Pylon other)
@@ -38,7 +40,7 @@ public class Pylon : Connectable
             return;
 
         State = States.Built;
-
+        
         PlacerModel.SetActive(false);
         BuiltModel.SetActive(true);
     }
@@ -53,7 +55,7 @@ public class Pylon : Connectable
     public override void CheckConnectable(Vector3 location)
     {
         float dist = Vector3.Distance(transform.position, location);
-
+        
         if (dist <= GameManager.Instance.GridBuilder.JumpDistance && State == States.Ready)
         {
             IsConnectable = true;
@@ -70,11 +72,11 @@ public class Pylon : Connectable
     {
         if (State != States.Ready)
             return;
+    }
 
-        if (highlight)
-            PlacerModel.GetComponent<MeshRenderer>().material.color = Color.green;
-        else
-            PlacerModel.GetComponent<MeshRenderer>().material.color = Color.white;
+    public void ShowPlacer(bool show)
+    {
+        PlacerModel.SetActive(show);
     }
 
     public override void OnConnected()
