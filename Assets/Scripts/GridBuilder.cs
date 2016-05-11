@@ -32,11 +32,14 @@ public class GridBuilder : Minigame
     {
         base.End(succeeded);
 
-        GameManager.Instance.Player.GoToDrillState(GameManager.Instance.PlanetTransform);
+        GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
     }
 
     public void StartBuild(GeoThermalPlant from)
     { 
+        if (IsRunning)
+            return;
+
         Begin();
         
         StartPlant = from;
