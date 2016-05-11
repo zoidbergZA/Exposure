@@ -32,6 +32,11 @@ public class GridBuilder : Minigame
     {
         base.End(succeeded);
 
+        if (!succeeded && StartPlant != null)
+        {
+            Destroy(StartPlant.gameObject);
+        }
+
         GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
     }
 
