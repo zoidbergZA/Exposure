@@ -39,11 +39,11 @@ public class City : Connectable
     {
         if (hightlight)
         {
-            GetComponent<MeshRenderer>().material.color = Color.green;
+//            GetComponent<MeshRenderer>().material.color = Color.green;
         }
         else
         {
-            GetComponent<MeshRenderer>().material.color = Color.white;
+//            GetComponent<MeshRenderer>().material.color = Color.white;
         }
     }
 

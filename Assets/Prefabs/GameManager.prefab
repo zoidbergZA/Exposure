@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeOut: 10
   maxPylons: 4
-  nodeDistance: 0.7
+  nodeDistance: 70
   ConnectionFinalized: 0
 --- !u!114 &11467178
 MonoBehaviour:
