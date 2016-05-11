@@ -20,14 +20,13 @@ public class Scanner : MonoBehaviour
     void Awake()
     {
         IsReady = true;
-        cooldown = cooldownTime;
-        duration = durationTime;
     }
 
     void Start()
     {
         renderer = target.GetComponent<Renderer>();
         material = renderer.material;
+        Debug.Log("start dur: " + duration);
     }
 
     void Update()
@@ -36,9 +35,7 @@ public class Scanner : MonoBehaviour
         {
             cooldown -= Time.deltaTime;
             if (duration >= 0) duration -= Time.deltaTime;
-            else Debug.Log("dur end");
-
-            Debug.Log("dur: " + duration);
+            else Debug.Log("dur ended!");
             material.SetFloat("_Duration", duration);
             if (cooldown <= 0)
             {
@@ -52,6 +49,7 @@ public class Scanner : MonoBehaviour
         IsReady = false;
         cooldown = cooldownTime;
         duration = durationTime;
+        Debug.Log("scan dur: " + duration);
         getCenterPoint();
     }
 
