@@ -69,7 +69,7 @@ public class GridBuilder : MonoBehaviour
             Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + GridTimeLeft + "/" + gridTime);
             ConnectionFinalized = true;
             StartPlant.ShowPathGuide(false);
-            GameManager.Instance.Player.ScorePoints(GameManager.Instance.ChimneyValue / MaxPylons * (MaxPylons - PylonCount));
+            GameManager.Instance.Player.ScorePoints(GameManager.Instance.ChimneyValue / MaxPylons * (MaxPylons - PylonCount - 1));
         }
         else
         {
@@ -87,12 +87,12 @@ public class GridBuilder : MonoBehaviour
                     pylon.Reset();
                 }
             }
-
-            TurnOffConnectables();
+            
             ShowUnbuiltPylons(false);
             Reset();
         }
 
+        TurnOffConnectables();
         GameManager.Instance.GridBuilder.GridTimeLeft = 2f;
     }
 
@@ -109,7 +109,7 @@ public class GridBuilder : MonoBehaviour
     private void TurnOffConnectables()
     {
         Connectable[] allConnectables = FindObjectsOfType<Connectable>();
-
+        
         foreach (Connectable connectable in allConnectables)
         {
             connectable.TurnOff();
