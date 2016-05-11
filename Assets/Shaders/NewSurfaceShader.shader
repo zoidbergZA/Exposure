@@ -7,6 +7,7 @@
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_ScanFactor ("Scan Factor", Range(0.1,1.0)) = 0.5
 		_Radius ("Radius", Range(0.1,1.0)) = 0.5
+		_CenterCoords ("Center Coords", Vector) = (0,0,0,0)
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -26,6 +27,7 @@
 		fixed _ScanFactor;
 		fixed4 _Color;
 		fixed _Radius;
+		fixed4 _CenterCoords;
 
 		struct Input {
 			float2 uv_MainTex;
