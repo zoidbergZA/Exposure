@@ -14,6 +14,8 @@ public class GridBuilder : MonoBehaviour
     public float GridTimeLeft { get; set; }
     public GeoThermalPlant StartPlant { get; private set; }
     public Pylon[] Pylons { get; private set; }
+    public int MaxPylons { get { return maxPylons; } }
+    public int PylonCount { get { return ConnectedList.Count; } }
     public float JumpDistance { get { return nodeDistance; } }
 
     void Awake()
@@ -41,7 +43,6 @@ public class GridBuilder : MonoBehaviour
         ConnectedList.Add(connectable);
         StartPlant.SpanToPoint(connectable.connectionRef.position);
         GameManager.Instance.Director.SetTarget(connectable.transform);
-//        RefreshConnectables(transform.position);
 
         //check completetion conditions
         if (connectable is City)
@@ -68,6 +69,7 @@ public class GridBuilder : MonoBehaviour
             Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + GridTimeLeft + "/" + gridTime);
             ConnectionFinalized = true;
             StartPlant.ShowPathGuide(false);
+            GameManager.Instance.Player.ScorePoints(GameManager.Instance.ChimneyValue / MaxPylons * (MaxPylons - PylonCount));
         }
         else
         {
@@ -86,6 +88,7 @@ public class GridBuilder : MonoBehaviour
                 }
             }
 
+            TurnOffConnectables();
             ShowUnbuiltPylons(false);
             Reset();
         }
@@ -100,6 +103,16 @@ public class GridBuilder : MonoBehaviour
         foreach (Connectable connectable in allConnectables)
         {
             connectable.CheckConnectable(location);
+        }
+    }
+
+    private void TurnOffConnectables()
+    {
+        Connectable[] allConnectables = FindObjectsOfType<Connectable>();
+
+        foreach (Connectable connectable in allConnectables)
+        {
+            connectable.TurnOff();
         }
     }
 

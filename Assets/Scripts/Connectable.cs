@@ -11,6 +11,12 @@ public abstract class Connectable : Placable
     public abstract void Highlight(bool hightlight);
     public abstract void OnConnected();
 
+    public void TurnOff()
+    {
+        IsConnectable = false;
+        Highlight(false);
+    }
+
     void OnGUI()
     {
         if (IsConnectable && GameManager.Instance.Player.PlayerState == Player.PlayerStates.BuildGrid)

@@ -14,7 +14,6 @@ public class City : Connectable
             if (chimneys[i] != null && chimneys[i].activeSelf)
             {
                 chimneys[i].SetActive(false);
-                GameManager.Instance.Player.ScorePoints(GameManager.Instance.ChimneyValue);
                 return;
             }
         }
