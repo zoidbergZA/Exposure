@@ -34,7 +34,7 @@ public class Scanner : MonoBehaviour
             if (cooldown <= 0)
             {
                 IsReady = true;
-                //material.SetFloat("_ScanFactor", 1);
+                material.SetFloat("_Cooldown", cooldown);
             }
         }
     }
@@ -43,6 +43,7 @@ public class Scanner : MonoBehaviour
     {
         IsReady = false;
         cooldown = cooldownTime;
+        material.SetFloat("_Cooldown", cooldown);
         getCenterPoint();
     }
 
