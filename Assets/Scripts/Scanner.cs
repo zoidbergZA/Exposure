@@ -11,6 +11,7 @@ public class Scanner : MonoBehaviour
     public GameObject target;
     private Material material;
     private Renderer renderer;
+    private bool scannedForth = false;
 
     public bool IsReady { get; private set; }
     public float Cooldown { get { return cooldown; } }
@@ -34,11 +35,26 @@ public class Scanner : MonoBehaviour
         if (!IsReady)
         {
             cooldown -= Time.deltaTime;
-            if (duration >= 0) duration -= Time.deltaTime;
-            material.SetFloat("_Duration", duration);
+            duration -= Time.deltaTime;
+
+            if (duration >= 0)
+            {
+                if (!scannedForth) material.SetFloat("_Duration", duration);
+                else material.SetFloat("_DurationBack", duration);
+            }
+            else
+            {
+                if (scannedForth == false)
+                {
+                    material.SetFloat("_Duration", 0);
+                    duration = durationTime / 2;
+                    scannedForth = true;
+                }
+            }
             if (cooldown <= 0)
             {
                 IsReady = true;
+                scannedForth = false;
             }
         }
     }
@@ -47,7 +63,7 @@ public class Scanner : MonoBehaviour
     {
         IsReady = false;
         cooldown = cooldownTime;
-        duration = durationTime;
+        duration = durationTime/2;
         getCenterPoint();
     }
 
@@ -61,7 +77,6 @@ public class Scanner : MonoBehaviour
             Renderer rend = hit.transform.GetComponent<Renderer>();
             MeshCollider meshCollider = hit.collider as MeshCollider;
             material.SetFloat("_Radius",  hit.collider.bounds.size.x);
-
             if (rend == null || rend.sharedMaterial == null || rend.sharedMaterial.mainTexture == null || meshCollider == null) return;
             Vector3 targetFragment = hit.point;
             rend.material.SetVector("_CenterCoords", new Vector4(targetFragment.x, targetFragment.y, targetFragment.z, 0));

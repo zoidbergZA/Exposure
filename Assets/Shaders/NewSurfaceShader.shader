@@ -10,6 +10,7 @@
 		_ScanFactor ("Scan Factor", Range(0.1,1.0)) = 1.0
 		_Radius ("Radius", Float) = 2.0
 		_Duration ("Duration", Float) = 3.0
+		_DurationBack ("Duration Back", Float) = 3.0
 		_setDuration ("Set Duration", Float) = 3.0
 		_CenterCoords ("Center Coords", Vector) = (0,0,0,0)
 	}
@@ -34,6 +35,7 @@
 		fixed4 _Color;
 		fixed _Radius;
 		fixed _Duration;
+		fixed _DurationBack;
 		fixed _setDuration;
 		fixed4 _CenterCoords;
 
@@ -43,16 +45,22 @@
 			float3 worldPos;
 		};
 
-		fixed getRadius() { return (_Radius/2) / _Duration; }
-
-		//fixed getRadius() { return _Duration / _Radius; }
+		fixed getRadius(fixed backScan)
+		{ 
+			if(backScan == 0)	return _Radius / _Duration;
+			else				return _Radius * _DurationBack;
+		}
 
 		void surf (Input IN, inout SurfaceOutputStandard o)
 		{
 			fixed dist = distance(IN.worldPos, _CenterCoords);
-			fixed scan = 1;
+			fixed scan;
 
-			if(dist > 0 && _Duration > 0) scan = dist / getRadius();
+			if(dist > 0)
+			{
+				if(_Duration > 0) scan = dist / getRadius(0);
+				if(_Duration <= 0 && _DurationBack > 0) scan = dist / getRadius(1);
+			}
 
 			if(scan <= 1.0) _ScanFactor = scan;
 			else _ScanFactor = 1;

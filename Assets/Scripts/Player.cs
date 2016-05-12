@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, drillRayMask))
             {
-                Drill(hit.point, hit.normal);
+                //Drill(hit.point, hit.normal);
             }
         }
     }
