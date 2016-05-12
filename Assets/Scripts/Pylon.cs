@@ -58,12 +58,12 @@ public class Pylon : Connectable
         
         if (dist <= GameManager.Instance.GridBuilder.JumpDistance && State == States.Ready)
         {
-            IsConnectable = true;
+//            IsConnectable = true;
             Highlight(true);
         }
         else
         {
-            IsConnectable = false;
+//            IsConnectable = false;
             Highlight(false);
         }
     }
@@ -72,6 +72,8 @@ public class Pylon : Connectable
     {
         if (State != States.Ready)
             return;
+
+        IsConnectable = highlight;
     }
 
     public void ShowPlacer(bool show)

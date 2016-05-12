@@ -232,7 +232,7 @@ MonoBehaviour:
   targetTransform: {fileID: 1221174593}
   orbitSpeed: 0.1
   orbitZoom: 100
-  buildZoom: 80
+  buildZoom: 60
 --- !u!1 &482879131
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,6 +858,10 @@ Prefab:
     - target: {fileID: 2300000, guid: 7bca5cabbb3eadd499722a0aef830cbd, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7bca5cabbb3eadd499722a0aef830cbd, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7bca5cabbb3eadd499722a0aef830cbd, type: 3}

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public class GridBuilder : Minigame
 {
-//    [SerializeField] private float gridTime = 15f;
+//    [SerializeField] private GameObject PlacerHelperPrefab;
+    [SerializeField] private Pylon pylonPrefab;
+    [SerializeField] private LayerMask placerMask;
     [SerializeField] private int maxPylons = 4;
     [SerializeField] private float nodeDistance = 2.87f; // match node graph max distance variable
 
@@ -52,6 +54,7 @@ public class GridBuilder : Minigame
         ConnectionFinalized = false;
         RefreshConnectables(StartPlant.transform.position);
         ShowUnbuiltPylons(true);
+        PlaceAdjacentPylons(StartPlant.transform);
     }
 
     public void MakeConnection(Connectable connectable)
@@ -119,6 +122,35 @@ public class GridBuilder : Minigame
         foreach (Connectable connectable in allConnectables)
         {
             connectable.CheckConnectable(location);
+        }
+    }
+
+    private void PlaceAdjacentPylons(Transform location)
+    {
+        Vector3 center = location.position + location.up*70f;
+
+        // set raycaster positions
+        Vector3[] raycastPositions = new Vector3[6];
+
+        for (int i = 0; i < raycastPositions.Length; i++)
+        {
+            float period = Mathf.PI*2/raycastPositions.Length * i;
+            Vector3 offset = location.forward;
+            offset.x = Mathf.Sin(period);
+            offset.y = Mathf.Cos(period);
+
+            raycastPositions[i] = center + offset * GameManager.Instance.PylonSeparation;
+
+//            GameObject caster = Instantiate(PlacerHelperPrefab, raycastPositions[i], location.rotation) as GameObject;
+
+            // project down from caster positions
+            RaycastHit hit;
+
+            if (Physics.Raycast(raycastPositions[i], -location.transform.up, out hit, placerMask))
+            {
+                Pylon pylon = (Pylon)Instantiate(pylonPrefab, hit.point, location.rotation);
+                pylon.Highlight(true);
+            }
         }
     }
 
