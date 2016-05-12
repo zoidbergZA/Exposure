@@ -149,7 +149,12 @@ MonoBehaviour:
   PylonsHolder: {fileID: 0}
   planetTransform: {fileID: 0}
   roundTime: 180
+<<<<<<< HEAD
 --- !u!114 &11483304
+=======
+  pylonSeparation: 20
+--- !u!114 &11451022
+>>>>>>> refs/remotes/origin/master
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -160,9 +165,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd56c17a02d3c9443ae116fc651e883a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   gridTime: 15
   maxPylons: 4
   nodeDistance: 2.87
+=======
+  timeOut: 30
+  pylonPrefab: {fileID: 11436378, guid: 51ab1a46f67f1074bb4a2db8b697b8c5, type: 2}
+  placerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  maxPylons: 5
+>>>>>>> refs/remotes/origin/master
   ConnectionFinalized: 0
 --- !u!1001 &100100000
 Prefab:

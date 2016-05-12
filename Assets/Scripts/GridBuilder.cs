@@ -4,33 +4,40 @@ using System.Collections.Generic;
 
 public class GridBuilder : Minigame
 {
-//    [SerializeField] private float gridTime = 15f;
+//    [SerializeField] private GameObject PlacerHelperPrefab;
+    [SerializeField] private Pylon pylonPrefab;
+    [SerializeField] private LayerMask placerMask;
     [SerializeField] private int maxPylons = 4;
-    [SerializeField] private float nodeDistance = 2.87f; // match node graph max distance variable
+//    [SerializeField] private float nodeDistance = 2.87f; // match node graph max distance variable
 
     private List<Connectable> ConnectedList;
 
     public bool ConnectionFinalized;
 //    public float GridTimeLeft { get; set; }
     public GeoThermalPlant StartPlant { get; private set; }
-    public Pylon[] Pylons { get; private set; }
+    public List<Pylon> Pylons { get; private set; }
     public int MaxPylons { get { return maxPylons; } }
     public int PylonCount { get { return ConnectedList.Count; } }
-    public float JumpDistance { get { return nodeDistance; } }
+//    public float JumpDistance { get { return nodeDistance; } }
 
     void Awake()
     {
-        Pylons = FindObjectsOfType<Pylon>();
+        Pylons = new List<Pylon>();
     }
 
     void Start()
     {
-        InitPylons();
+//        InitPylons();
     }
 
     public override void End(bool succeeded)
     {
         base.End(succeeded);
+
+        if (!succeeded && StartPlant != null)
+        {
+            Destroy(StartPlant.gameObject);
+        }
 
         GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
     }
@@ -46,7 +53,8 @@ public class GridBuilder : Minigame
         ConnectedList = new List<Connectable>();
         ConnectionFinalized = false;
         RefreshConnectables(StartPlant.transform.position);
-        ShowUnbuiltPylons(true);
+//        ShowUnbuiltPylons(true);
+        PlaceAdjacentPylons(StartPlant.transform);
     }
 
     public void MakeConnection(Connectable connectable)
@@ -66,6 +74,8 @@ public class GridBuilder : Minigame
         }
         else
         {
+            PlaceAdjacentPylons(connectable.transform);
+
             RefreshConnectables(connectable.transform.position);
         }
     }
@@ -99,11 +109,12 @@ public class GridBuilder : Minigame
                 }
             }
             
-            ShowUnbuiltPylons(false);
+//            ShowUnbuiltPylons(false);
             Reset();
         }
 
-        TurnOffConnectables();
+//        TurnOffConnectables();
+        DestroyUnbuiltPylons();
         End(succeeded);
     }
 
@@ -117,44 +128,102 @@ public class GridBuilder : Minigame
         }
     }
 
-    private void TurnOffConnectables()
+    private void DestroyUnbuiltPylons()
     {
-        Connectable[] allConnectables = FindObjectsOfType<Connectable>();
-        
-        foreach (Connectable connectable in allConnectables)
+        for (int i = Pylons.Count-1; i >= 0; i--)
         {
-            connectable.TurnOff();
+            if (Pylons[i].State == Pylon.States.Ready)
+            {
+                Destroy(Pylons[i].gameObject);
+                Pylons.RemoveAt(i);
+            }
         }
     }
 
-    private void InitPylons()
+    private void PlaceAdjacentPylons(Transform location)
     {
-        for (int i = 0; i < Pylons.Length; i++)
+        Vector3 center = location.position + location.up*70f;
+
+        // set raycaster positions
+        Vector3[] raycastPositions = new Vector3[6];
+
+        for (int i = 0; i < raycastPositions.Length; i++)
         {
-            for (int j = 0; j < Pylons.Length; j++)
+            float period = Mathf.PI*2/raycastPositions.Length * i;
+            Vector3 offset = location.forward;
+            offset.x = Mathf.Sin(period);
+            offset.y = Mathf.Cos(period);
+
+            raycastPositions[i] = center + offset * GameManager.Instance.PylonSeparation;
+   
+            // project down from caster positions
+            RaycastHit hit;
+
+            if (Physics.Raycast(raycastPositions[i], -location.transform.up, out hit, placerMask))
             {
-                if (Pylons[i] != Pylons[j])
+                //todo: sample UV map to see if spot is buildable
+
+                //todo: check that no pylons are too close
+                bool open = true;
+                foreach (Pylon p in Pylons)
                 {
-                    float dist = Vector3.Distance(Pylons[i].transform.position, Pylons[j].transform.position);
-                    if (dist <= nodeDistance) // match with node graph 
+                    if (Vector3.Distance(hit.point, p.transform.position) <= GameManager.Instance.PylonSeparation * 0.5f)
                     {
-                        Pylons[i].AddConnection(Pylons[j]);
+                        open = false;
+                        break;
                     }
+                }
+
+                if (open)
+                {
+                    Pylon pylon = (Pylon) Instantiate(pylonPrefab, hit.point, location.rotation);
+                    Pylons.Add(pylon);
+//                    pylon.Highlight(true);
                 }
             }
         }
+
+        RefreshConnectables(location.position);
     }
 
-    private void ShowUnbuiltPylons(bool show)
-    {
-        foreach (Pylon pylon in Pylons)
-        {
-            if (pylon.State == Pylon.States.Ready)
-            {
-                pylon.ShowPlacer(show);
-            }
-        }
-    }
+//    private void TurnOffConnectables()
+//    {
+//        Connectable[] allConnectables = FindObjectsOfType<Connectable>();
+//        
+//        foreach (Connectable connectable in allConnectables)
+//        {
+//            connectable.TurnOff();
+//        }
+//    }
+
+//    private void InitPylons()
+//    {
+//        for (int i = 0; i < Pylons.Length; i++)
+//        {
+//            for (int j = 0; j < Pylons.Length; j++)
+//            {
+//                if (Pylons[i] != Pylons[j])
+//                {
+//                    float dist = Vector3.Distance(Pylons[i].transform.position, Pylons[j].transform.position);
+//                    if (dist <= nodeDistance) // match with node graph 
+//                    {
+//                        Pylons[i].AddConnection(Pylons[j]);
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+//    private void ShowUnbuiltPylons(bool show)
+//    {
+//        foreach (Pylon pylon in Pylons)
+//        {
+//            if (pylon.State == Pylon.States.Ready)
+//            {
+//                pylon.ShowPlacer(show);
+//            }
+//        }
+//    }
 
     private void Reset()
     {

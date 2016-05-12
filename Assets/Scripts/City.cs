@@ -23,7 +23,7 @@ public class City : Connectable
     {
         float dist = Vector3.Distance(transform.position, location);
 
-        if (dist <= GameManager.Instance.GridBuilder.JumpDistance)
+        if (dist <= GameManager.Instance.PylonSeparation)
         {
             IsConnectable = true;
             Highlight(true);
@@ -39,11 +39,11 @@ public class City : Connectable
     {
         if (hightlight)
         {
-            GetComponent<MeshRenderer>().material.color = Color.green;
+//            GetComponent<MeshRenderer>().material.color = Color.green;
         }
         else
         {
-            GetComponent<MeshRenderer>().material.color = Color.white;
+//            GetComponent<MeshRenderer>().material.color = Color.white;
         }
     }
 
