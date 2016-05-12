@@ -23,7 +23,7 @@ public class City : Connectable
     {
         float dist = Vector3.Distance(transform.position, location);
 
-        if (dist <= GameManager.Instance.GridBuilder.JumpDistance)
+        if (dist <= GameManager.Instance.PylonSeparation)
         {
             IsConnectable = true;
             Highlight(true);
