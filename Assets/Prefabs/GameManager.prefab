@@ -175,7 +175,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d284a26c765cbc14b8badc49419b0522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 7
+  cooldownTime: 15
+  durationTime: 10
+  scanRayMask:
+    serializedVersion: 2
+    m_Bits: 256
+  target: {fileID: 0}
 --- !u!114 &11442860
 MonoBehaviour:
   m_ObjectHideFlags: 1
