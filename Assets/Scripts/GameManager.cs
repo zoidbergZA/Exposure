@@ -27,11 +27,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Transform planetTransform;
     [SerializeField] private float roundTime = 180;
+    [SerializeField] private float pylonSeparation = 20f;
     
     public GridBuilder GridBuilder { get; private set; }
     public DrillingGame DrillingGame { get; private set; }
     public Scanner Scanner { get; private set; }
     public Hud Hud { get; private set; }
+    public float PylonSeparation { get { return pylonSeparation; } }
     public int TotalChimneys { get; private set; }
     public float ChimneyValue { get { return 100f/TotalChimneys; } }
     public bool RoundStarted { get; private set; }
