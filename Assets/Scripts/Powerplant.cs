@@ -7,7 +7,7 @@ using Pathfinding;
 [RequireComponent(typeof(LineRenderer))]
 public class Powerplant : Placable
 {
-    [SerializeField] private LineRenderer previewLineRenderer;
+//    [SerializeField] private LineRenderer previewLineRenderer;
     [SerializeField] protected LineRenderer powerLineRenderer;
     private Seeker seeker;
     private Path path;
@@ -25,7 +25,7 @@ public class Powerplant : Placable
         base.Start();
 
         connectedCity = FindClosestCity();
-        seeker.StartPath(transform.position, connectedCity.transform.position, OnPathComplete);
+//        seeker.StartPath(transform.position, connectedCity.transform.position, OnPathComplete);
 
 //        connectedCity.DisableChimney();
     }
@@ -48,13 +48,13 @@ public class Powerplant : Placable
 
         linePath.Add(FindClosestCity().transform.position);
 
-        previewLineRenderer.SetVertexCount(linePath.Count);
-        previewLineRenderer.SetPositions(linePath.ToArray());
+//        previewLineRenderer.SetVertexCount(linePath.Count);
+//        previewLineRenderer.SetPositions(linePath.ToArray());
     }
 
     public void ShowPathGuide(bool show)
     {
-        previewLineRenderer.enabled = show;
+//        previewLineRenderer.enabled = show;
     }
 
     protected City FindClosestCity()

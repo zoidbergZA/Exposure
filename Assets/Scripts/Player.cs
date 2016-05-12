@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
 {
     public enum PlayerStates
     {
-        Drill,
+        Normal,
+        DrillGame,
         BuildGrid
     }
     
@@ -29,26 +30,29 @@ public class Player : MonoBehaviour
     {
         switch (PlayerState)
         {
-            case PlayerStates.Drill:
-                HandleDrillState();
-                break;
-            case PlayerStates.BuildGrid:
-                HandleBuildGridState();
+            case PlayerStates.Normal:
+                HandleNormalState();
                 break;
         }
     }
 
-    public void GoToDrillState(Transform targetTransform)
+    public void GoToNormalState(Transform targetTransform)
     {
-        PlayerState = PlayerStates.Drill;
+        PlayerState = PlayerStates.Normal;
         GameManager.Instance.Director.SetMode(Director.Modes.Orbit, targetTransform);
     }
 
-    public void GoToBuildState(GeoThermalPlant geoPlant)
+    public void StartDrillMinigame(Drillspot drillspot)
+    {
+        PlayerState = PlayerStates.DrillGame;
+        GameManager.Instance.DrillingGame.StartGame(drillspot);
+        GameManager.Instance.Director.SetMode(Director.Modes.Grid, drillspot.transform);
+    }
+
+    public void StartBuildMinigame(GeoThermalPlant geoPlant)
     {
         PlayerState = PlayerStates.BuildGrid;
         GameManager.Instance.GridBuilder.StartBuild(geoPlant);
-        
         GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
     }
 
@@ -57,7 +61,7 @@ public class Player : MonoBehaviour
         Score += amount;
     }
 
-    private void HandleDrillState()
+    private void HandleNormalState()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -69,18 +73,6 @@ public class Player : MonoBehaviour
                 Drill(hit.point, hit.normal);
             }
         }
-    }
-
-    private void HandleBuildGridState()
-    {
-        if (GameManager.Instance.GridBuilder.GridTimeLeft <= 0)
-        {
-            GameManager.Instance.GridBuilder.FinalizeGridConnection(false);
-            GoToDrillState(GameManager.Instance.PlanetTransform);
-            return;
-        }
-
-        GameManager.Instance.GridBuilder.GridTimeLeft -= Time.deltaTime;
     }
 
     private Pylon GetClosestPylon(Vector3 location)

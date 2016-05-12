@@ -187,7 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516c0b6ce5d88d24bb741b665db1239e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previewLineRenderer: {fileID: 12090118}
   powerLineRenderer: {fileID: 12099764}
 --- !u!114 &11415380
 MonoBehaviour:
@@ -222,7 +221,7 @@ LineRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146164}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_Materials:

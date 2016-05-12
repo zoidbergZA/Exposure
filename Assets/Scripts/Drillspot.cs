@@ -10,7 +10,6 @@ public class Drillspot : Placable
         Failed
     }
 
-    [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
     [SerializeField] private GameObject model;
     [SerializeField] private float drillTime = 0.8f;
 
@@ -23,6 +22,13 @@ public class Drillspot : Placable
         base.Awake();
 
         timer = drillTime;
+    }
+
+    public override void Start()
+    {
+        base.Start();
+
+        //todo: do small scan around drillspot
     }
 
     public override void Update()
@@ -42,18 +48,14 @@ public class Drillspot : Placable
 
     private void CompleteDrill()
     {
+        //todo: check UV map if drill will succeed
+
         float rand = Random.Range(0f, 1f);
 
         if (rand < 1f)
         {
             DrillState = DrillStates.Succeeded;
-            GetComponentInChildren<MeshRenderer>().material.color = Color.green;
-
-            GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, transform.position, transform.rotation) as GeoThermalPlant;
-
-            GameManager.Instance.Player.GoToBuildState(plant);
-
-            Destroy(gameObject);
+            GameManager.Instance.Player.StartDrillMinigame(this);
         }
         else
         {
