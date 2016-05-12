@@ -442,10 +442,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 11432432, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1919684487}
     - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: PylonsHolder
       value: 
@@ -454,6 +450,10 @@ Prefab:
       propertyPath: planetTransform
       value: 
       objectReference: {fileID: 1221174593}
+    - target: {fileID: 11432432, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1919684487}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0

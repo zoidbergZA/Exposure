@@ -82,7 +82,7 @@ Material:
         first:
           name: _ScanTex
         second:
-          m_Texture: {fileID: 2800000, guid: 0ec79c3d1dd0fb640b7f3f72ebb28f74, type: 3}
+          m_Texture: {fileID: 2800000, guid: afbcf386a44c3954e8451ddae1863947, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
