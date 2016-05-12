@@ -26,6 +26,7 @@ public class Scanner : MonoBehaviour
     {
         renderer = target.GetComponent<Renderer>();
         material = renderer.material;
+        material.SetFloat("_setDuration", durationTime);
     }
 
     void Update()

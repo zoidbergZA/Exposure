@@ -7,9 +7,10 @@
 		_ScanTex ("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
-		_ScanFactor ("Scan Factor", Range(0.1,1.0)) = 0.5
+		_ScanFactor ("Scan Factor", Range(0.1,1.0)) = 1.0
 		_Radius ("Radius", Float) = 2.0
 		_Duration ("Duration", Float) = 3.0
+		_setDuration ("Set Duration", Float) = 3.0
 		_CenterCoords ("Center Coords", Vector) = (0,0,0,0)
 	}
 
@@ -33,6 +34,7 @@
 		fixed4 _Color;
 		fixed _Radius;
 		fixed _Duration;
+		fixed _setDuration;
 		fixed4 _CenterCoords;
 
 		struct Input {
@@ -41,17 +43,18 @@
 			float3 worldPos;
 		};
 
-		fixed getRadius()
-		{
-			return _Radius / _Duration;
-		}
+		fixed getRadius() { return (_Radius/2) / _Duration; }
+
+		//fixed getRadius() { return _Duration / _Radius; }
 
 		void surf (Input IN, inout SurfaceOutputStandard o)
 		{
 			fixed dist = distance(IN.worldPos, _CenterCoords);
 			fixed scan = 1;
-			if(dist > 0) scan = dist / getRadius();
-			if(scan <= 1.0 && _Duration > 0) _ScanFactor = scan;
+
+			if(dist > 0 && _Duration > 0) scan = dist / getRadius();
+
+			if(scan <= 1.0) _ScanFactor = scan;
 			else _ScanFactor = 1;
 
 			fixed4 c = ((tex2D (_MainTex, IN.uv_MainTex) * _ScanFactor) + (tex2D(_ScanTex, IN.uv_ScanTex) * (1-_ScanFactor))) * _Color;

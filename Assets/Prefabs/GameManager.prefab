@@ -118,7 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d284a26c765cbc14b8badc49419b0522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 7
+  cooldownTime: 10
+  durationTime: 7
   scanRayMask:
     serializedVersion: 2
     m_Bits: 256
@@ -147,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PylonsHolder: {fileID: 0}
   planetTransform: {fileID: 0}
-  powerGoal: 5
+  roundTime: 180
 --- !u!114 &11483304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -162,6 +163,7 @@ MonoBehaviour:
   gridTime: 15
   maxPylons: 4
   nodeDistance: 2.87
+  ConnectionFinalized: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
