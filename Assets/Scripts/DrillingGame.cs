@@ -10,6 +10,7 @@ public class DrillingGame : Minigame
     private Drillspot drillspot;
     private enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS }
     private DrillingGameState state;
+    private bool makeDrill = false;
 
     public void StartGame(Drillspot drillspot)
     {
@@ -47,7 +48,8 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-
+        Debug.Log("Drilling!");
+        state = DrillingGameState.INACTIVE;
     }
 
     private void handleSlidingState()
@@ -55,21 +57,40 @@ public class DrillingGame : Minigame
         if (bgActive) bgActive.gameObject.SetActive(true);
         if (bgInactive) bgInactive.gameObject.SetActive(false);
         if (drill) drill.gameObject.SetActive(true);
+        updateSlidingGame();
+    }
+
+    private void updateSlidingGame()
+    {
+        updateDrillMovement();
+    }
+
+    private void updateDrillMovement()
+    {
+        if (!makeDrill)
+        {
+            if(drill) drill.gameObject.transform.Translate(Mathf.Sin(Time.time), 0, 0);
+            if (Input.GetKeyDown(KeyCode.Space)) makeDrill = true;
+        }
+        else state = DrillingGameState.DRILLING;
     }
 
     private void handleInactiveState()
     {
-        End(false);
+        if (bgActive) bgActive.gameObject.SetActive(false);
+        if (bgInactive) bgInactive.gameObject.SetActive(true);
+        if (drill) drill.gameObject.SetActive(false);
+        //End(false);
     }
 
     private void handleSuccessState()
     {
-        End(true);
+        //End(true);
     }
 
     void Start()
     {
-        state = DrillingGameState.INACTIVE;
+        //state = DrillingGameState.INACTIVE;
         if (bgActive) bgActive.gameObject.SetActive(false);
         if (bgInactive) bgInactive.gameObject.SetActive(true);
         if (drill) drill.gameObject.SetActive(false);
