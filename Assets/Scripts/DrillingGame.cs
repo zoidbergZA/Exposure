@@ -11,16 +11,13 @@ public class DrillingGame : Minigame
     private enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS }
     private DrillingGameState state;
     private bool makeDrill = false;
+    private Vector3 initDrillPos;
 
     public void StartGame(Drillspot drillspot)
     {
-        if (IsRunning)
-            return;
-
+        if (IsRunning) return;
         this.drillspot = drillspot;
-
         Begin();
-
         state = DrillingGameState.SLIDING;
     }
 
@@ -40,28 +37,26 @@ public class DrillingGame : Minigame
             case DrillingGameState.SUCCESS:
                 handleSuccessState();
                 break;
-            default:
-                handleInactiveState();
-                break;
         }
     }
 
     private void handleDrillingState()
     {
-        Debug.Log("Drilling!");
-        state = DrillingGameState.INACTIVE;
+        if (drill && bgActive && drill.transform.position.y > initDrillPos.y - 100)
+        {
+            drill.transform.Translate(0, -1.0f, 0);
+        }
+        else
+        {
+            state = DrillingGameState.INACTIVE;
+            drill.transform.position = initDrillPos;
+            End(true);
+        }
     }
 
     private void handleSlidingState()
     {
-        if (bgActive) bgActive.gameObject.SetActive(true);
-        if (bgInactive) bgInactive.gameObject.SetActive(false);
-        if (drill) drill.gameObject.SetActive(true);
-        updateSlidingGame();
-    }
-
-    private void updateSlidingGame()
-    {
+        activateImages(true);
         updateDrillMovement();
     }
 
@@ -77,10 +72,7 @@ public class DrillingGame : Minigame
 
     private void handleInactiveState()
     {
-        if (bgActive) bgActive.gameObject.SetActive(false);
-        if (bgInactive) bgInactive.gameObject.SetActive(true);
-        if (drill) drill.gameObject.SetActive(false);
-        //End(false);
+        activateImages(false);
     }
 
     private void handleSuccessState()
@@ -90,10 +82,8 @@ public class DrillingGame : Minigame
 
     void Start()
     {
-        //state = DrillingGameState.INACTIVE;
-        if (bgActive) bgActive.gameObject.SetActive(false);
-        if (bgInactive) bgInactive.gameObject.SetActive(true);
-        if (drill) drill.gameObject.SetActive(false);
+        activateImages(false);
+        if (drill) initDrillPos = drill.transform.position;
     }
 
     public override void Update()
@@ -103,8 +93,6 @@ public class DrillingGame : Minigame
 
         //todo: minigame logic here, auto-win close to timeOut for now
         if (IsRunning && Timeleft <= 0.5f) End(false);
-
-        //if (drill) drill.gameObject.transform.Translate(new Vector3(Mathf.Sin(Time.time)*2, 0, 0));
     }
 
     public override void End(bool succeeded)
@@ -115,12 +103,29 @@ public class DrillingGame : Minigame
         {
             GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, drillspot.transform.position, drillspot.transform.rotation) as GeoThermalPlant;
             Destroy(drillspot.gameObject);
-
+            
+            makeDrill = false;
             GameManager.Instance.Player.StartBuildMinigame(plant);
         }
         else
         {
             GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
+            makeDrill = false;
+        }
+    }
+
+    private void activateImages(bool activate)
+    {
+        if(activate)
+        {
+            if (bgActive) bgActive.gameObject.SetActive(true);
+            if (bgInactive) bgInactive.gameObject.SetActive(false);
+            if (drill) drill.gameObject.SetActive(true);
+        } else
+        {
+            if (bgActive) bgActive.gameObject.SetActive(false);
+            if (bgInactive) bgInactive.gameObject.SetActive(true);
+            if (drill) drill.gameObject.SetActive(false);
         }
     }
 }

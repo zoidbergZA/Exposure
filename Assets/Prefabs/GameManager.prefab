@@ -468,6 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeOut: 30
+  PlacerHelperPrefab: {fileID: 0}
   pylonPrefab: {fileID: 11436378, guid: 51ab1a46f67f1074bb4a2db8b697b8c5, type: 2}
   placerMask:
     serializedVersion: 2
@@ -530,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6082c5f55ad3da4692acda9f464d3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 3
+  timeOut: 30
   geoThermalPlantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae,
     type: 2}
   bgActive: {fileID: 11429756}
@@ -627,7 +628,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: 48.8}
+  m_AnchoredPosition: {x: 50, y: 50}
   m_SizeDelta: {x: 40, y: 389}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22485188
