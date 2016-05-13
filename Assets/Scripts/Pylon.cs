@@ -56,7 +56,7 @@ public class Pylon : Connectable
     {
         float dist = Vector3.Distance(transform.position, location);
         
-        if (dist <= GameManager.Instance.PylonSeparation * 1.3f && State == States.Ready)
+        if (dist <= GameManager.Instance.PylonSeparation * 1.3f && !GameManager.Instance.GridBuilder.ConnectedList.Contains(this))
         {
             IsConnectable = true;
 //            Highlight(true);
