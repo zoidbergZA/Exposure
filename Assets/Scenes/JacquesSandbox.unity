@@ -232,7 +232,7 @@ MonoBehaviour:
   targetTransform: {fileID: 1221174593}
   orbitSpeed: 0.1
   orbitZoom: 100
-  buildZoom: 60
+  buildZoom: 50
 --- !u!1 &482879131
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +456,7 @@ Prefab:
       objectReference: {fileID: 1668374007}
     - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: pylonSeparation
-      value: 35
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 11451022, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: timeOut
