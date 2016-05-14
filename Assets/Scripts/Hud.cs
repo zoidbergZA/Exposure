@@ -11,7 +11,7 @@ public class Hud : MonoBehaviour
 
     private void ShowScanButton()
     {
-        if (GameManager.Instance.Scanner.IsReady)
+        if (GameManager.Instance.Scanner.IsReady && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
         {
             if (GUI.Button(new Rect(10, Screen.height - 65, 55, 55), "scan"))
             {
