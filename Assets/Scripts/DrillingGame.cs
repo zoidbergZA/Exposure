@@ -42,7 +42,7 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-        if (drill && bgActive && drill.transform.position.y > initDrillPos.y - 100)
+        if (drill && drill.transform.position.y > initDrillPos.y - 100)
         {
             drill.transform.Translate(0, -1.0f, 0);
         }
