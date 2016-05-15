@@ -7,6 +7,8 @@ public class Hud : MonoBehaviour
     {
         ShowScanButton();
         ShowDebug();
+        ShowDrillButton();
+        ShowSteerButtons();
     }
 
     private void ShowScanButton()
@@ -21,6 +23,33 @@ public class Hud : MonoBehaviour
         else
         {
             GUI.Label(new Rect(10, Screen.height - 65, 55, 55), GameManager.Instance.Scanner.Cooldown.ToString("F2"));
+        }
+    }
+
+    private void ShowDrillButton()
+    {
+        if(GameManager.Instance.DrillingGame.GetState == DrillingGame.DrillingGameState.SLIDING)
+        {
+            if (GUI.Button(new Rect(10, Screen.height - 65, 55, 55), "Drill!"))
+            {
+                GameManager.Instance.DrillingGame.SetMakeDrill(true);
+            }
+        }
+    }
+
+    private void ShowSteerButtons()
+    {
+        if (GameManager.Instance.DrillingGame.GetState == DrillingGame.DrillingGameState.DRILLING)
+        {
+            if (GUI.Button(new Rect(10, Screen.height - 65, 55, 55), "LEFT"))
+            {
+                GameManager.Instance.DrillingGame.MoveLeft();
+            }
+
+            if (GUI.Button(new Rect(100, Screen.height - 65, 55, 55), "RIGHT"))
+            {
+                GameManager.Instance.DrillingGame.MoveRight();
+            }
         }
     }
 

@@ -7,11 +7,23 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image bgActive;
     [SerializeField] private UnityEngine.UI.Image bgInactive;
     [SerializeField] private UnityEngine.UI.Image drill;
+    [SerializeField] private Vector3[] columns;
     private Drillspot drillspot;
-    private enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS }
+    public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS }
     private DrillingGameState state;
     private bool makeDrill = false;
     private Vector3 initDrillPos;
+    private int targetColumn;
+    private bool slidingLeft = false;
+    public DrillingGameState GetState { get { return state; } }
+    public void SetMakeDrill(bool value) { makeDrill = value; }
+    public UnityEngine.UI.Image GetDrill { get { return drill; } }
+
+    void Start()
+    {
+        activateImages(false);
+        if (drill) initDrillPos = drill.transform.position;
+    }
 
     public void StartGame(Drillspot drillspot)
     {
@@ -48,24 +60,49 @@ public class DrillingGame : Minigame
         }
         else
         {
-            state = DrillingGameState.INACTIVE;
             drill.transform.position = initDrillPos;
-            End(true);
+            state = DrillingGameState.SUCCESS;
         }
+    }
+
+    public void MoveRight()
+    {
+        Debug.Log("moving right");
+    }
+
+    public void MoveLeft()
+    {
+        Debug.Log("moving left");
     }
 
     private void handleSlidingState()
     {
         activateImages(true);
-        updateDrillMovement();
+        if(drill) updateDrillMovement();
     }
 
     private void updateDrillMovement()
     {
         if (!makeDrill)
         {
-            if(drill) drill.gameObject.transform.Translate(Mathf.Sin(Time.time), 0, 0);
-            if (Input.GetKeyDown(KeyCode.Space)) makeDrill = true;
+            if (slidingLeft == false)
+            {
+                drill.transform.Translate(new Vector3(1, 0, 0));
+                if (targetColumn < columns.Length - 1)
+                {
+                    if (drill.rectTransform.anchoredPosition.x == columns[targetColumn + 1].x) targetColumn += 1;
+                }
+                else slidingLeft = true;
+            }
+            else
+            {
+                drill.transform.Translate(new Vector3(-1, 0, 0));
+                if (targetColumn > 0)
+                {
+                    if (drill.rectTransform.anchoredPosition.x == columns[targetColumn - 1].x) targetColumn -= 1;
+                }
+                else slidingLeft = false;
+            }
         }
         else state = DrillingGameState.DRILLING;
     }
@@ -77,13 +114,8 @@ public class DrillingGame : Minigame
 
     private void handleSuccessState()
     {
-        //End(true);
-    }
-
-    void Start()
-    {
-        activateImages(false);
-        if (drill) initDrillPos = drill.transform.position;
+        state = DrillingGameState.INACTIVE;
+        End(true);
     }
 
     public override void Update()
@@ -93,6 +125,12 @@ public class DrillingGame : Minigame
 
         //todo: minigame logic here, auto-win close to timeOut for now
         if (IsRunning && Timeleft <= 0.5f) End(false);
+        if (GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
+        {
+            state = DrillingGameState.INACTIVE;
+            End(false);
+            slidingLeft = false;
+        }
     }
 
     public override void End(bool succeeded)
@@ -105,12 +143,14 @@ public class DrillingGame : Minigame
             Destroy(drillspot.gameObject);
             
             makeDrill = false;
+            slidingLeft = false;
             GameManager.Instance.Player.StartBuildMinigame(plant);
         }
         else
         {
             GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
             makeDrill = false;
+            slidingLeft = false;
         }
     }
 
