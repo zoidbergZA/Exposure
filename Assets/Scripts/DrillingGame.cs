@@ -7,6 +7,7 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image bgActive;
     [SerializeField] private UnityEngine.UI.Image bgInactive;
     [SerializeField] private UnityEngine.UI.Image drill;
+    [SerializeField] private UnityEngine.UI.Image rock;
     [SerializeField] private Vector3[] columns;
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS }
@@ -23,6 +24,7 @@ public class DrillingGame : Minigame
     {
         activateImages(false);
         if (drill) initDrillPos = drill.transform.position;
+        targetColumn = 0;
     }
 
     public void StartGame(Drillspot drillspot)
@@ -67,12 +69,20 @@ public class DrillingGame : Minigame
 
     public void MoveRight()
     {
-        Debug.Log("moving right");
+        if (targetColumn < columns.Length - 1)
+        {
+            while (drill.rectTransform.anchoredPosition.x <= columns[targetColumn + 1].x) drill.transform.Translate(new Vector3(1, 0, 0));
+            targetColumn += 1;
+        }
     }
 
     public void MoveLeft()
     {
-        Debug.Log("moving left");
+        if (targetColumn > 0)
+        {
+            while (drill.rectTransform.anchoredPosition.x >= columns[targetColumn - 1].x) drill.transform.Translate(new Vector3(-1, 0, 0));
+            targetColumn -= 1;
+        }
     }
 
     private void handleSlidingState()
@@ -104,7 +114,27 @@ public class DrillingGame : Minigame
                 else slidingLeft = false;
             }
         }
-        else state = DrillingGameState.DRILLING;
+        else
+        {
+            if (slidingLeft == false)
+            {
+                if (drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1].x) drill.transform.Translate(new Vector3(1, 0, 0));
+                else
+                {
+                    state = DrillingGameState.DRILLING;
+                    if (targetColumn < columns.Length - 1) targetColumn += 1;
+                }
+            }
+            else
+            {
+                if (drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1].x) drill.transform.Translate(new Vector3(-1, 0, 0));
+                else
+                {
+                    state = DrillingGameState.DRILLING;
+                    if (targetColumn > 0) targetColumn -= 1;
+                }
+            }
+        }
     }
 
     private void handleInactiveState()
@@ -122,10 +152,8 @@ public class DrillingGame : Minigame
     {
         base.Update();
         updateState();
-
-        //todo: minigame logic here, auto-win close to timeOut for now
         if (IsRunning && Timeleft <= 0.5f) End(false);
-        if (GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
+        if (GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal && state != DrillingGameState.INACTIVE)
         {
             state = DrillingGameState.INACTIVE;
             End(false);
@@ -161,11 +189,14 @@ public class DrillingGame : Minigame
             if (bgActive) bgActive.gameObject.SetActive(true);
             if (bgInactive) bgInactive.gameObject.SetActive(false);
             if (drill) drill.gameObject.SetActive(true);
+            if (rock) rock.gameObject.SetActive(true);
         } else
         {
             if (bgActive) bgActive.gameObject.SetActive(false);
             if (bgInactive) bgInactive.gameObject.SetActive(true);
             if (drill) drill.gameObject.SetActive(false);
+            if (rock) rock.gameObject.SetActive(false);
+            targetColumn = 0;
         }
     }
 }

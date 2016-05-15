@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pylon
   - Planet
+  - Rock
   layers:
   - Default
   - TransparentFX
