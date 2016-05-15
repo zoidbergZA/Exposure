@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DrillingGame : Minigame
 {
@@ -7,12 +8,13 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image bgActive;
     [SerializeField] private UnityEngine.UI.Image bgInactive;
     [SerializeField] private UnityEngine.UI.Image drill;
-    [SerializeField] private UnityEngine.UI.Image rock;
     [SerializeField] private int[] columns;
     [SerializeField] private int[] rows;
     [SerializeField] private GameObject rockPrefab;
+    [SerializeField] private GameObject diamondPrefab;
     [SerializeField] private GameObject canvas;
     [SerializeField] private float heatValue;
+    [SerializeField] private float RockDiamondRatio;
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS }
     private DrillingGameState state;
@@ -21,6 +23,7 @@ public class DrillingGame : Minigame
     private int targetColumn;
     private int targetRow;
     private bool slidingLeft = false;
+    private List<GameObject> rocks = new List<GameObject>();
     public DrillingGameState GetState { get { return state; } }
     public void SetMakeDrill(bool value) { makeDrill = value; }
     public UnityEngine.UI.Image GetDrill { get { return drill; } }
@@ -50,10 +53,23 @@ public class DrillingGame : Minigame
                 float temp = Random.Range(0.01f, 1.0f);
                 if(temp <= heatValue)
                 {
-                    GameObject rock2 = Instantiate(rockPrefab) as GameObject;
-                    rock2.transform.SetParent(canvas.transform, false);
-                    rock2.GetComponent<RectTransform>().anchoredPosition = new Vector3(columns[i], rows[j]);
-                    rock2.gameObject.SetActive(true);
+                    float temp2 = Random.Range(0.01f, 1.0f);
+                    if (temp2 <= RockDiamondRatio)
+                    {
+                        GameObject rock = Instantiate(rockPrefab) as GameObject;
+                        rock.transform.SetParent(canvas.transform, false);
+                        rock.GetComponent<RectTransform>().anchoredPosition = new Vector3(columns[i], rows[j]);
+                        rock.gameObject.SetActive(true);
+                        rocks.Add(rock);
+                    }
+                    else
+                    {
+                        GameObject diamond = Instantiate(diamondPrefab) as GameObject;
+                        diamond.transform.SetParent(canvas.transform, false);
+                        diamond.GetComponent<RectTransform>().anchoredPosition = new Vector3(columns[i], rows[j]);
+                        diamond.gameObject.SetActive(true);
+                        rocks.Add(diamond);
+                    }
                 }
             }
         }
@@ -210,6 +226,10 @@ public class DrillingGame : Minigame
             makeDrill = false;
             slidingLeft = false;
         }
+        foreach(GameObject rock in rocks)
+        {
+            Destroy(rock);
+        }
     }
 
     private void activateImages(bool activate)
@@ -219,13 +239,11 @@ public class DrillingGame : Minigame
             if (bgActive) bgActive.gameObject.SetActive(true);
             if (bgInactive) bgInactive.gameObject.SetActive(false);
             if (drill) drill.gameObject.SetActive(true);
-            if (rock) rock.gameObject.SetActive(true);
         } else
         {
             if (bgActive) bgActive.gameObject.SetActive(false);
             if (bgInactive) bgInactive.gameObject.SetActive(true);
             if (drill) drill.gameObject.SetActive(false);
-            if (rock) rock.gameObject.SetActive(false);
             targetColumn = 0;
         }
     }

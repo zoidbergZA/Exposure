@@ -509,12 +509,13 @@ MonoBehaviour:
   bgActive: {fileID: 11429756}
   bgInactive: {fileID: 11408836}
   drill: {fileID: 11419536}
-  rock: {fileID: 11448906, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
   columns: baffffffddffffff000000002300000046000000
   rows: 6d0100004f0100002c01000009010000e6000000c3000000a00000007d0000005a00000037000000
   rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
+  diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
   canvas: {fileID: 199368}
-  heatValue: 0.25
+  heatValue: 0.1
+  RockDiamondRatio: 0.5
 --- !u!114 &11478506
 MonoBehaviour:
   m_ObjectHideFlags: 1
