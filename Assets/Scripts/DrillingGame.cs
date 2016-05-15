@@ -8,13 +8,18 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image bgInactive;
     [SerializeField] private UnityEngine.UI.Image drill;
     [SerializeField] private UnityEngine.UI.Image rock;
-    [SerializeField] private Vector3[] columns;
+    [SerializeField] private int[] columns;
+    [SerializeField] private int[] rows;
+    [SerializeField] private GameObject rockPrefab;
+    [SerializeField] private GameObject canvas;
+    [SerializeField] private float heatValue;
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS }
     private DrillingGameState state;
     private bool makeDrill = false;
     private Vector3 initDrillPos;
     private int targetColumn;
+    private int targetRow;
     private bool slidingLeft = false;
     public DrillingGameState GetState { get { return state; } }
     public void SetMakeDrill(bool value) { makeDrill = value; }
@@ -33,6 +38,25 @@ public class DrillingGame : Minigame
         this.drillspot = drillspot;
         Begin();
         state = DrillingGameState.SLIDING;
+        generateMap();
+    }
+
+    private void generateMap()
+    {
+        for(int i = 0; i < columns.Length; i++)
+        {
+            for(int j = 0; j < rows.Length; j++)
+            {
+                float temp = Random.Range(0.01f, 1.0f);
+                if(temp <= heatValue)
+                {
+                    GameObject rock2 = Instantiate(rockPrefab) as GameObject;
+                    rock2.transform.SetParent(canvas.transform, false);
+                    rock2.GetComponent<RectTransform>().anchoredPosition = new Vector3(columns[i], rows[j]);
+                    rock2.gameObject.SetActive(true);
+                }
+            }
+        }
     }
 
     private void updateState()
@@ -59,6 +83,10 @@ public class DrillingGame : Minigame
         if (drill && drill.transform.position.y > initDrillPos.y - 350)
         {
             drill.transform.Translate(0, -1.0f, 0);
+            if (targetRow < rows.Length - 1)
+            {
+                if (drill.rectTransform.anchoredPosition.y == rows[targetRow + 1] && targetRow < rows.Length - 1) targetRow++;
+            }
         }
         else
         {
@@ -71,7 +99,7 @@ public class DrillingGame : Minigame
     {
         if (targetColumn < columns.Length - 1)
         {
-            while (drill.rectTransform.anchoredPosition.x <= columns[targetColumn + 1].x) drill.transform.Translate(new Vector3(1, 0, 0));
+            while (drill.rectTransform.anchoredPosition.x <= columns[targetColumn + 1]) drill.transform.Translate(new Vector3(1, 0, 0));
             targetColumn += 1;
         }
     }
@@ -80,7 +108,7 @@ public class DrillingGame : Minigame
     {
         if (targetColumn > 0)
         {
-            while (drill.rectTransform.anchoredPosition.x >= columns[targetColumn - 1].x) drill.transform.Translate(new Vector3(-1, 0, 0));
+            while (drill.rectTransform.anchoredPosition.x >= columns[targetColumn - 1]) drill.transform.Translate(new Vector3(-1, 0, 0));
             targetColumn -= 1;
         }
     }
@@ -88,10 +116,10 @@ public class DrillingGame : Minigame
     private void handleSlidingState()
     {
         activateImages(true);
-        if(drill) updateDrillMovement();
+        if(drill) updateSlidingMovement();
     }
 
-    private void updateDrillMovement()
+    private void updateSlidingMovement()
     {
         if (!makeDrill)
         {
@@ -100,7 +128,7 @@ public class DrillingGame : Minigame
                 drill.transform.Translate(new Vector3(1, 0, 0));
                 if (targetColumn < columns.Length - 1)
                 {
-                    if (drill.rectTransform.anchoredPosition.x == columns[targetColumn + 1].x) targetColumn += 1;
+                    if (drill.rectTransform.anchoredPosition.x == columns[targetColumn + 1]) targetColumn += 1;
                 }
                 else slidingLeft = true;
             }
@@ -109,7 +137,7 @@ public class DrillingGame : Minigame
                 drill.transform.Translate(new Vector3(-1, 0, 0));
                 if (targetColumn > 0)
                 {
-                    if (drill.rectTransform.anchoredPosition.x == columns[targetColumn - 1].x) targetColumn -= 1;
+                    if (drill.rectTransform.anchoredPosition.x == columns[targetColumn - 1]) targetColumn -= 1;
                 }
                 else slidingLeft = false;
             }
@@ -118,20 +146,22 @@ public class DrillingGame : Minigame
         {
             if (slidingLeft == false)
             {
-                if (drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1].x) drill.transform.Translate(new Vector3(1, 0, 0));
+                if (drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1]) drill.transform.Translate(new Vector3(1, 0, 0));
                 else
                 {
                     state = DrillingGameState.DRILLING;
                     if (targetColumn < columns.Length - 1) targetColumn += 1;
+                    targetRow = 0;
                 }
             }
             else
             {
-                if (drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1].x) drill.transform.Translate(new Vector3(-1, 0, 0));
+                if (drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1]) drill.transform.Translate(new Vector3(-1, 0, 0));
                 else
                 {
                     state = DrillingGameState.DRILLING;
                     if (targetColumn > 0) targetColumn -= 1;
+                    targetRow = 0;
                 }
             }
         }
