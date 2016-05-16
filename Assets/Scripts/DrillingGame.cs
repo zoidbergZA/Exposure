@@ -265,7 +265,11 @@ public class DrillingGame : Minigame
             state = DrillingGameState.INACTIVE;
             End(false);
         }
-        if (state != DrillingGameState.INACTIVE) timer.text = "Mini-game time: " + ((int)Timeleft).ToString();
+        if (state != DrillingGameState.INACTIVE)
+        {
+            timer.text = "Mini-game time: " + ((int)Timeleft).ToString();
+            timer.color = Color.Lerp(Color.red, Color.green, Timeleft/TimeOut);
+        }
     }
 
     public override void End(bool succeeded)
