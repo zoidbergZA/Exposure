@@ -77,7 +77,6 @@ public class Scanner : MonoBehaviour
             Renderer rend = hit.transform.GetComponent<Renderer>();
             MeshCollider meshCollider = hit.collider as MeshCollider;
             material.SetFloat("_Radius",  hit.collider.bounds.size.x);
-            Debug.Log(hit.collider.bounds.size.x);
             if (rend == null || rend.sharedMaterial == null || rend.sharedMaterial.mainTexture == null || meshCollider == null) return;
             Vector3 targetFragment = hit.point;
             rend.material.SetVector("_CenterCoords", new Vector4(targetFragment.x, targetFragment.y, targetFragment.z, 0));
