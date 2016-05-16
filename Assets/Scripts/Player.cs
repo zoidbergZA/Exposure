@@ -70,7 +70,8 @@ public class Player : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, drillRayMask))
             {
-                Drill(hit.point, hit.normal);
+                Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
+                Drill(hit.point, hit.normal, sample.r);
             }
         }
     }
@@ -94,9 +95,10 @@ public class Player : MonoBehaviour
         return closest;
     }
 
-    private void Drill(Vector3 location, Vector3 normal)
+    private void Drill(Vector3 location, Vector3 normal, float difficulty)
     {
         Drillspot drillspot = Instantiate(DrillspotPrefab, location, Quaternion.identity) as Drillspot;
         drillspot.Orientate(normal);
+        drillspot.Difficulty = difficulty;
     }
 }
