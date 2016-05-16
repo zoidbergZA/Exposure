@@ -47,11 +47,11 @@ public class DrillingGame : Minigame
         toastTimer = toastMessageTime;
     }
 
-    public void StartGame(Drillspot drillspot)
+    public void StartGame(Drillspot drillspot, float difficulty)
     {
         if (IsRunning) return;
         this.drillspot = drillspot;
-        Begin();
+        Begin(difficulty);
         state = DrillingGameState.STARTSTOPTOAST;
     }
 
@@ -276,7 +276,7 @@ public class DrillingGame : Minigame
         {
             GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, drillspot.transform.position, drillspot.transform.rotation) as GeoThermalPlant;
             Destroy(drillspot.gameObject);
-            GameManager.Instance.Player.StartBuildMinigame(plant);
+            GameManager.Instance.Player.StartBuildMinigame(plant, 1f);
         }
         else GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
         

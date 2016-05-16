@@ -49,13 +49,14 @@ public class Drillspot : Placable
     private void CompleteDrill()
     {
         //todo: check UV map if drill will succeed
+        float difficulty = 0.5f;
 
         float rand = Random.Range(0f, 1f);
 
         if (rand < 1f)
         {
             DrillState = DrillStates.Succeeded;
-            GameManager.Instance.Player.StartDrillMinigame(this);
+            GameManager.Instance.Player.StartDrillMinigame(this, difficulty);
         }
         else
         {

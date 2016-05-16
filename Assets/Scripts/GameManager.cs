@@ -80,10 +80,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-//    public void StartMinigame(Minigame game)
-//    {
-//        // todo start minigame
-//    }
+    public Color SampleHeatmap(Vector2 textureCoordinate)
+    {
+        Material mat = PlanetTransform.gameObject.GetComponent<MeshRenderer>().material;
+        Texture2D heatmap = mat.GetTexture("_ScanTex") as Texture2D;
+        Vector2 pixelCoord = new Vector2(textureCoordinate.x * heatmap.width, textureCoordinate.y * heatmap.height);
+        Color heatmapSample = heatmap.GetPixel((int)pixelCoord.x, (int)pixelCoord.y);
+
+        return heatmapSample;
+    }
 
     private void StartRound()
     {
