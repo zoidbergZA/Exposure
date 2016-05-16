@@ -206,7 +206,7 @@ public class DrillingGame : Minigame
             End(false);
             slidingLeft = false;
         }
-        updateCollisions();
+        //updateCollisions();
     }
 
     private void updateCollisions()

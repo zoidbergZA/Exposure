@@ -19,4 +19,10 @@ public class Driller : MonoBehaviour {
         //if (coll.gameObject.tag == "Rock")
         Debug.Log("collision!");
     }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        //if (coll.gameObject.tag == "Rock")
+        Debug.Log("collision!");
+    }
 }
