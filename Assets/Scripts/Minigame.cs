@@ -7,7 +7,7 @@ public class Minigame : MonoBehaviour
 
     public bool IsRunning { get; private set; }
     public float TimeOut { get { return timeOut; } }
-    public float Timeleft { get; private set; }
+    public float Timeleft { get; protected set; }
 
     public virtual void Update()
     {
