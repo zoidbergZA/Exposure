@@ -97,9 +97,9 @@ public class DrillingGame : Minigame
 
     private void handleStartStopState()
     {
+        toastTimer -= Time.deltaTime;
         if(!introShown && !finalShown)
         {
-            toastTimer -= Time.deltaTime;
             startToast.gameObject.SetActive(true);
             startToastTimer.text = "Game starts\nin: " + ((int)toastTimer).ToString();
             if (toastTimer < 0.0f)
@@ -115,7 +115,6 @@ public class DrillingGame : Minigame
         {
             if (succeededDrill)
             {
-                toastTimer -= Time.deltaTime;
                 endOkToast.gameObject.SetActive(true);
                 endOkToastTimer.text = "Success!\nBuild grid\nin: " + ((int)toastTimer).ToString();
                 if (toastTimer < 0.0f)
@@ -128,7 +127,6 @@ public class DrillingGame : Minigame
             }
             else
             {
-                toastTimer -= Time.deltaTime;
                 endFailToast.gameObject.SetActive(true);
                 endFailToastTimer.gameObject.SetActive(true);
                 endFailToastTimer.text = "Drill broken!\nRestart search\nin: " + ((int)toastTimer).ToString();
@@ -146,7 +144,7 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-        if (drill && drill.transform.position.y > initDrillPos.y - 350)
+        if (drill.transform.position.y > initDrillPos.y - 350)
         {
             drill.transform.Translate(0, -1.0f, 0);
             if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y == rows[targetRow])
@@ -254,14 +252,14 @@ public class DrillingGame : Minigame
     public override void Update()
     {
         base.Update();
-        updateState();
+        if(drill) updateState();
         if (IsRunning && Timeleft <= 0.5f) End(false);
         if (GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal && state != DrillingGameState.INACTIVE)
         {
             state = DrillingGameState.INACTIVE;
             End(false);
         }
-        if (state != DrillingGameState.INACTIVE)
+        if (state != DrillingGameState.INACTIVE && state != DrillingGameState.STARTSTOPTOAST)
         {
             timer.text = "Mini-game time: " + ((int)Timeleft).ToString();
             timer.color = Color.Lerp(Color.red, Color.green, Timeleft/TimeOut);
@@ -311,6 +309,7 @@ public class DrillingGame : Minigame
         finalShown = false;
         succeededDrill = false;
         targetColumn = 0;
+        targetRow = 0;
         foreach (GameObject rock in rocks) Destroy(rock);
         drill.transform.position = initDrillPos;
     }
