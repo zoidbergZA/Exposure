@@ -8,6 +8,7 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image bgActive;
     [SerializeField] private UnityEngine.UI.Image bgInactive;
     [SerializeField] private UnityEngine.UI.Image drill;
+    [SerializeField] private UnityEngine.UI.Text timer;
     [SerializeField] private int[] columns;
     [SerializeField] private int[] rows;
     [SerializeField] private GameObject rockPrefab;
@@ -24,8 +25,7 @@ public class DrillingGame : Minigame
     private int targetRow;
     private bool slidingLeft = false;
     private List<GameObject> rocks = new List<GameObject>();
-    private GameObject[,] objTable = new GameObject[5,10];
-    public DrillingGameState GetState { get { return state; } }
+    public DrillingGameState State { get { return state; } set { state = value; } }
     public void SetMakeDrill(bool value) { makeDrill = value; }
     public UnityEngine.UI.Image GetDrill { get { return drill; } }
 
@@ -62,7 +62,6 @@ public class DrillingGame : Minigame
                         rock.GetComponent<RectTransform>().anchoredPosition = new Vector3(columns[i], rows[j]);
                         rock.gameObject.SetActive(true);
                         rocks.Add(rock);
-                        objTable[i, j] = rock;
                     }
                     else
                     {
@@ -71,7 +70,6 @@ public class DrillingGame : Minigame
                         diamond.GetComponent<RectTransform>().anchoredPosition = new Vector3(columns[i], rows[j]);
                         diamond.gameObject.SetActive(true);
                         rocks.Add(diamond);
-                        objTable[i, j] = diamond;
                     }
                 }
             }
@@ -204,26 +202,8 @@ public class DrillingGame : Minigame
         {
             state = DrillingGameState.INACTIVE;
             End(false);
-            slidingLeft = false;
         }
-        //updateCollisions();
-    }
-
-    private void updateCollisions()
-    {
-        if (objTable[targetColumn, targetRow] != null)
-        {
-            if (objTable[targetColumn, targetRow].tag == "Rock")
-            {
-                End(false);
-                state = DrillingGameState.INACTIVE;
-            }
-            else if (objTable[targetColumn, targetRow].tag == "Diamond")
-            {
-                Destroy(objTable[targetColumn, targetRow]);
-                GameManager.Instance.Player.ScorePoints(10);
-            }
-        }
+        if (state != DrillingGameState.INACTIVE) timer.text = ((int)Timeleft).ToString();
     }
 
     public override void End(bool succeeded)
@@ -248,11 +228,13 @@ public class DrillingGame : Minigame
             if (bgActive) bgActive.gameObject.SetActive(true);
             if (bgInactive) bgInactive.gameObject.SetActive(false);
             if (drill) drill.gameObject.SetActive(true);
+            if (timer) timer.gameObject.SetActive(true);
         } else
         {
             if (bgActive) bgActive.gameObject.SetActive(false);
             if (bgInactive) bgInactive.gameObject.SetActive(true);
             if (drill) drill.gameObject.SetActive(false);
+            if (timer) timer.gameObject.SetActive(false);
         }
     }
 
@@ -261,10 +243,7 @@ public class DrillingGame : Minigame
         makeDrill = false;
         slidingLeft = false;
         targetColumn = 0;
-
         foreach (GameObject rock in rocks) Destroy(rock);
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 10; j++)
-                objTable[i, j] = null;
+        drill.transform.position = initDrillPos;
     }
 }

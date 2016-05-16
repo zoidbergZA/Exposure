@@ -28,7 +28,7 @@ public class Hud : MonoBehaviour
 
     private void ShowDrillButton()
     {
-        if(GameManager.Instance.DrillingGame.GetState == DrillingGame.DrillingGameState.SLIDING)
+        if(GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
         {
             if (GUI.Button(new Rect(10, Screen.height - 65, 55, 55), "Drill!"))
             {
@@ -39,7 +39,7 @@ public class Hud : MonoBehaviour
 
     private void ShowSteerButtons()
     {
-        if (GameManager.Instance.DrillingGame.GetState == DrillingGame.DrillingGameState.DRILLING)
+        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
             if (GUI.Button(new Rect(10, Screen.height - 65, 55, 55), "LEFT"))
             {
