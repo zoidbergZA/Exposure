@@ -35,8 +35,8 @@ public class Director : MonoBehaviour
 	            break;
 	    }
 
-	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);
-        transform.LookAt(targetTransform);
+	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.05f);
+        transform.LookAt(GameManager.Instance.PlanetTransform);
     }
 
     public void SetMode(Modes mode, Transform targetTransform, float delay = 2f)
