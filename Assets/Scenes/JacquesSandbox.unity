@@ -851,10 +851,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11403982, guid: 5264e20edfd770e4fbfe33f48b19d1b1, type: 2}
-      propertyPath: planet
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 146300, guid: 5264e20edfd770e4fbfe33f48b19d1b1, type: 2}
       propertyPath: m_Name
       value: City (1)
