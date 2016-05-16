@@ -189,6 +189,12 @@ public class GridBuilder : Minigame
             if (Physics.Raycast(raycastPositions[i], dir, out hit, placerMask))
             {
                 //todo: sample UV map to see if spot is buildable
+                Debug.Log(hit.textureCoord);
+                Material mat = hit.transform.gameObject.GetComponent<MeshRenderer>().material;
+
+                Texture2D heatmap = mat.GetTexture("_ScanTex") as Texture2D;
+                Vector2 pixelCoord = new Vector2(hit.textureCoord.x * heatmap.width, hit.textureCoord.y * heatmap.height);
+                Color heatmapSample = heatmap.GetPixel((int)pixelCoord.x, (int)pixelCoord.y);
 
                 //check that no pylons are too close
                 bool open = true;
@@ -201,7 +207,7 @@ public class GridBuilder : Minigame
                     }
                 }
 
-                if (open)
+                if (open && heatmapSample.g > 0.7f)
                 {
                     Pylon pylon = (Pylon) Instantiate(pylonPrefab, hit.point, location.rotation);
                     Pylons.Add(pylon);
