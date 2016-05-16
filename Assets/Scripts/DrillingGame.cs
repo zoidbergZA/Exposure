@@ -9,6 +9,12 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image bgInactive;
     [SerializeField] private UnityEngine.UI.Image drill;
     [SerializeField] private UnityEngine.UI.Text timer;
+    [SerializeField] private UnityEngine.UI.Image startToast;
+    [SerializeField] private UnityEngine.UI.Image endOkToast;
+    [SerializeField] private UnityEngine.UI.Image endFailToast;
+    [SerializeField] private UnityEngine.UI.Text startToastTimer;
+    [SerializeField] private UnityEngine.UI.Text endOkToastTimer;
+    [SerializeField] private UnityEngine.UI.Text endFailToastTimer;
     [SerializeField] private int[] columns;
     [SerializeField] private int[] rows;
     [SerializeField] private GameObject rockPrefab;
@@ -16,14 +22,17 @@ public class DrillingGame : Minigame
     [SerializeField] private GameObject canvas;
     [SerializeField] private float heatValue;
     [SerializeField] private float RockDiamondRatio;
+    [SerializeField] private float toastMessageTime = 3.0f;
     private Drillspot drillspot;
-    public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS }
+    public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST }
     private DrillingGameState state;
     private bool makeDrill = false;
     private Vector3 initDrillPos;
     private int targetColumn;
     private int targetRow;
+    private float toastTimer;
     private bool slidingLeft = false;
+    private bool introShown, finalShown = false;
     private List<GameObject> rocks = new List<GameObject>();
     public DrillingGameState State { get { return state; } set { state = value; } }
     public void SetMakeDrill(bool value) { makeDrill = value; }
@@ -34,6 +43,7 @@ public class DrillingGame : Minigame
         activateImages(false);
         if (drill) initDrillPos = drill.transform.position;
         targetColumn = 0;
+        toastTimer = toastMessageTime;
     }
 
     public void StartGame(Drillspot drillspot)
@@ -41,8 +51,7 @@ public class DrillingGame : Minigame
         if (IsRunning) return;
         this.drillspot = drillspot;
         Begin();
-        state = DrillingGameState.SLIDING;
-        generateMap();
+        state = DrillingGameState.STARTSTOPTOAST;
     }
 
     private void generateMap()
@@ -92,6 +101,31 @@ public class DrillingGame : Minigame
             case DrillingGameState.SUCCESS:
                 handleSuccessState();
                 break;
+            case DrillingGameState.STARTSTOPTOAST:
+                handleStartStopState();
+                break;
+        }
+    }
+
+    private void handleStartStopState()
+    {
+        if(!introShown && !finalShown)
+        {
+            toastTimer -= Time.deltaTime;
+            startToast.gameObject.SetActive(true);
+            startToastTimer.text = "Game starts\nin: " + ((int)toastTimer).ToString();
+            if (toastTimer < 0.0f)
+            {
+                introShown = true;
+                toastTimer = toastMessageTime;
+                startToast.gameObject.SetActive(false);
+                state = DrillingGameState.SLIDING;
+                generateMap();
+            }
+        }
+        else if(introShown && !finalShown)
+        {
+            state = DrillingGameState.INACTIVE;
         }
     }
 
@@ -235,6 +269,9 @@ public class DrillingGame : Minigame
             if (bgInactive) bgInactive.gameObject.SetActive(true);
             if (drill) drill.gameObject.SetActive(false);
             if (timer) timer.gameObject.SetActive(false);
+            if (startToast) startToast.gameObject.SetActive(false);
+            if (endOkToast) endOkToast.gameObject.SetActive(false);
+            if (endFailToast) endFailToast.gameObject.SetActive(false);
         }
     }
 
@@ -242,6 +279,8 @@ public class DrillingGame : Minigame
     {
         makeDrill = false;
         slidingLeft = false;
+        introShown = false;
+        finalShown = false;
         targetColumn = 0;
         foreach (GameObject rock in rocks) Destroy(rock);
         drill.transform.position = initDrillPos;
