@@ -19,6 +19,7 @@ public class DrillingGame : Minigame
     [SerializeField] private int[] rows;
     [SerializeField] private GameObject rockPrefab;
     [SerializeField] private GameObject diamondPrefab;
+    [SerializeField] private GameObject drilledTilePrefab;
     [SerializeField] private GameObject canvas;
     [SerializeField] private float heatValue;
     [SerializeField] private float RockDiamondRatio;
@@ -65,22 +66,8 @@ public class DrillingGame : Minigame
                 if(temp <= heatValue)
                 {
                     float temp2 = Random.Range(0.01f, 1.0f);
-                    if (temp2 <= RockDiamondRatio)
-                    {
-                        GameObject rock = Instantiate(rockPrefab) as GameObject;
-                        rock.transform.SetParent(canvas.transform, false);
-                        rock.GetComponent<RectTransform>().anchoredPosition = new Vector3(columns[i], rows[j]);
-                        rock.gameObject.SetActive(true);
-                        rocks.Add(rock);
-                    }
-                    else
-                    {
-                        GameObject diamond = Instantiate(diamondPrefab) as GameObject;
-                        diamond.transform.SetParent(canvas.transform, false);
-                        diamond.GetComponent<RectTransform>().anchoredPosition = new Vector3(columns[i], rows[j]);
-                        diamond.gameObject.SetActive(true);
-                        rocks.Add(diamond);
-                    }
+                    if (temp2 <= RockDiamondRatio) instantiateRock(columns[i], rows[j]);
+                    else instantiateDiamond(columns[i], rows[j]);
                 }
             }
         }
@@ -162,9 +149,10 @@ public class DrillingGame : Minigame
         if (drill && drill.transform.position.y > initDrillPos.y - 350)
         {
             drill.transform.Translate(0, -1.0f, 0);
-            if (targetRow < rows.Length - 1)
+            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y == rows[targetRow])
             {
-                if (drill.rectTransform.anchoredPosition.y == rows[targetRow + 1] && targetRow < rows.Length - 1) targetRow++;
+                instantiateDrilledTile(columns[targetColumn], rows[targetRow]);
+                targetRow++;
             }
         }
         else
@@ -178,7 +166,11 @@ public class DrillingGame : Minigame
     {
         if (targetColumn < columns.Length - 1)
         {
-            while (drill.rectTransform.anchoredPosition.x <= columns[targetColumn + 1]) drill.transform.Translate(new Vector3(1, 0, 0));
+            while (drill.rectTransform.anchoredPosition.x <= columns[targetColumn + 1])
+            {
+                drill.transform.Translate(new Vector3(1, 0, 0));
+            }
+            instantiateDrilledTile(columns[targetColumn], rows[targetRow]);
             targetColumn += 1;
         }
     }
@@ -187,7 +179,11 @@ public class DrillingGame : Minigame
     {
         if (targetColumn > 0)
         {
-            while (drill.rectTransform.anchoredPosition.x >= columns[targetColumn - 1]) drill.transform.Translate(new Vector3(-1, 0, 0));
+            while (drill.rectTransform.anchoredPosition.x >= columns[targetColumn - 1])
+            {
+                drill.transform.Translate(new Vector3(-1, 0, 0));
+            }
+            instantiateDrilledTile(columns[targetColumn], rows[targetRow]);
             targetColumn -= 1;
         }
     }
@@ -317,5 +313,33 @@ public class DrillingGame : Minigame
         targetColumn = 0;
         foreach (GameObject rock in rocks) Destroy(rock);
         drill.transform.position = initDrillPos;
+    }
+
+    private void instantiateDrilledTile(int x, int y)
+    {
+        GameObject drilledTile = Instantiate(drilledTilePrefab) as GameObject;
+        drilledTile.transform.SetParent(canvas.transform, false);
+        drilledTile.transform.SetSiblingIndex(drill.transform.GetSiblingIndex() - 1);
+        drilledTile.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
+        drilledTile.gameObject.SetActive(true);
+        rocks.Add(drilledTile);
+    }
+
+    private void instantiateRock(int x, int y)
+    {
+        GameObject rock = Instantiate(rockPrefab) as GameObject;
+        rock.transform.SetParent(canvas.transform, false);
+        rock.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
+        rock.gameObject.SetActive(true);
+        rocks.Add(rock);
+    }
+
+    private void instantiateDiamond(int x, int y)
+    {
+        GameObject diamond = Instantiate(diamondPrefab) as GameObject;
+        diamond.transform.SetParent(canvas.transform, false);
+        diamond.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
+        diamond.gameObject.SetActive(true);
+        rocks.Add(diamond);
     }
 }

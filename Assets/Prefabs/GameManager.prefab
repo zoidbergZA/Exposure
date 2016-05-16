@@ -783,6 +783,7 @@ MonoBehaviour:
   rows: d1010000b3010000900100006d0100004a0100002701000004010000e1000000be0000009b000000
   rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
   diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
+  drilledTilePrefab: {fileID: 181820, guid: 24db1465ea0f90d479affb64ab22aab1, type: 2}
   canvas: {fileID: 199368}
   heatValue: 0.5
   RockDiamondRatio: 0.15
