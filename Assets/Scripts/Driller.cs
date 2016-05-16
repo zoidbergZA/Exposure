@@ -7,8 +7,8 @@ public class Driller : MonoBehaviour
     {
         if (coll.gameObject.tag == "Rock")
         {
-            GameManager.Instance.DrillingGame.End(false);
-            GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.INACTIVE;
+            GameManager.Instance.DrillingGame.succeededDrill = false;
+            GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
         }
         else if (coll.gameObject.tag == "Diamond")
         {

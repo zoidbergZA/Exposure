@@ -33,6 +33,7 @@ public class DrillingGame : Minigame
     private float toastTimer;
     private bool slidingLeft = false;
     private bool introShown, finalShown = false;
+    public bool succeededDrill { get; set; }
     private List<GameObject> rocks = new List<GameObject>();
     public DrillingGameState State { get { return state; } set { state = value; } }
     public void SetMakeDrill(bool value) { makeDrill = value; }
@@ -58,7 +59,7 @@ public class DrillingGame : Minigame
     {
         for(int i = 0; i < columns.Length; i++)
         {
-            for(int j = 0; j < rows.Length; j++)
+            for(int j = 0; j < rows.Length-1; j++)
             {
                 float temp = Random.Range(0.01f, 1.0f);
                 if(temp <= heatValue)
@@ -125,7 +126,34 @@ public class DrillingGame : Minigame
         }
         else if(introShown && !finalShown)
         {
-            state = DrillingGameState.INACTIVE;
+            if (succeededDrill)
+            {
+                toastTimer -= Time.deltaTime;
+                endOkToast.gameObject.SetActive(true);
+                endOkToastTimer.text = "Success!\nBuild grid\nin: " + ((int)toastTimer).ToString();
+                if (toastTimer < 0.0f)
+                {
+                    finalShown = true;
+                    toastTimer = toastMessageTime;
+                    endOkToast.gameObject.SetActive(false);
+                    state = DrillingGameState.SUCCESS;
+                }
+            }
+            else
+            {
+                toastTimer -= Time.deltaTime;
+                endFailToast.gameObject.SetActive(true);
+                endFailToastTimer.gameObject.SetActive(true);
+                endFailToastTimer.text = "Drill broken!\nRestart search\nin: " + ((int)toastTimer).ToString();
+                if (toastTimer < 0.0f)
+                {
+                    finalShown = true;
+                    toastTimer = toastMessageTime;
+                    endFailToast.gameObject.SetActive(false);
+                    End(false);
+                    state = DrillingGameState.INACTIVE;
+                }   
+            }
         }
     }
 
@@ -141,8 +169,8 @@ public class DrillingGame : Minigame
         }
         else
         {
-            drill.transform.position = initDrillPos;
-            state = DrillingGameState.SUCCESS;
+            succeededDrill = true;
+            state = DrillingGameState.STARTSTOPTOAST;
         }
     }
 
@@ -237,7 +265,7 @@ public class DrillingGame : Minigame
             state = DrillingGameState.INACTIVE;
             End(false);
         }
-        if (state != DrillingGameState.INACTIVE) timer.text = ((int)Timeleft).ToString();
+        if (state != DrillingGameState.INACTIVE) timer.text = "Mini-game time: " + ((int)Timeleft).ToString();
     }
 
     public override void End(bool succeeded)
@@ -281,6 +309,7 @@ public class DrillingGame : Minigame
         slidingLeft = false;
         introShown = false;
         finalShown = false;
+        succeededDrill = false;
         targetColumn = 0;
         foreach (GameObject rock in rocks) Destroy(rock);
         drill.transform.position = initDrillPos;
