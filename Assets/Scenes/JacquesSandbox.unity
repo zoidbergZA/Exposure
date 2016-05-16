@@ -348,7 +348,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!4 &713685148 stripped
 Transform:
   m_PrefabParentObject: {fileID: 478502, guid: 5264e20edfd770e4fbfe33f48b19d1b1, type: 2}
@@ -413,7 +413,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1001 &912777480
 Prefab:
   m_ObjectHideFlags: 0
@@ -510,7 +510,7 @@ Prefab:
     - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: planetTransform
       value: 
-      objectReference: {fileID: 1221174593}
+      objectReference: {fileID: 1668374008}
     - target: {fileID: 11432432, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: target
       value: 
@@ -527,6 +527,10 @@ Prefab:
       propertyPath: PlacerHelperPrefab
       value: 
       objectReference: {fileID: 124698, guid: c159ca2a320fea2459e942f588211ec3, type: 2}
+    - target: {fileID: 11432432, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: durationTime
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0

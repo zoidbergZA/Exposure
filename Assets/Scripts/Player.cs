@@ -42,17 +42,17 @@ public class Player : MonoBehaviour
         GameManager.Instance.Director.SetMode(Director.Modes.Orbit, targetTransform);
     }
 
-    public void StartDrillMinigame(Drillspot drillspot)
+    public void StartDrillMinigame(Drillspot drillspot, float difficulty)
     {
         PlayerState = PlayerStates.DrillGame;
-        GameManager.Instance.DrillingGame.StartGame(drillspot);
+        GameManager.Instance.DrillingGame.StartGame(drillspot, difficulty);
         GameManager.Instance.Director.SetMode(Director.Modes.Grid, drillspot.transform);
     }
 
-    public void StartBuildMinigame(GeoThermalPlant geoPlant)
+    public void StartBuildMinigame(GeoThermalPlant geoPlant, float difficulty)
     {
         PlayerState = PlayerStates.BuildGrid;
-        GameManager.Instance.GridBuilder.StartBuild(geoPlant);
+        GameManager.Instance.GridBuilder.StartBuild(geoPlant, difficulty);
         GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
     }
 

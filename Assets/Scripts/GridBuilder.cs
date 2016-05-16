@@ -44,12 +44,12 @@ public class GridBuilder : Minigame
         GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
     }
 
-    public void StartBuild(GeoThermalPlant from)
+    public void StartBuild(GeoThermalPlant from, float difficulty)
     { 
         if (IsRunning)
             return;
 
-        Begin();
+        Begin(difficulty);
         
         StartPlant = from;
         ConnectedList = new List<Connectable>();
@@ -180,22 +180,13 @@ public class GridBuilder : Minigame
 
             raycastPositions[i] = center + q*offset * GameManager.Instance.PylonSeparation;
 
-//            GameObject placer2 = (GameObject)Instantiate(PlacerHelperPrefab, raycastPositions[i], Quaternion.identity);
-//            placer2.transform.forward = dir;
-
             // project down from caster positions
             RaycastHit hit;
             
             if (Physics.Raycast(raycastPositions[i], dir, out hit, placerMask))
             {
-                //todo: sample UV map to see if spot is buildable
-                Debug.Log(hit.textureCoord);
-                Material mat = hit.transform.gameObject.GetComponent<MeshRenderer>().material;
-
-                Texture2D heatmap = mat.GetTexture("_ScanTex") as Texture2D;
-                Vector2 pixelCoord = new Vector2(hit.textureCoord.x * heatmap.width, hit.textureCoord.y * heatmap.height);
-                Color heatmapSample = heatmap.GetPixel((int)pixelCoord.x, (int)pixelCoord.y);
-
+                Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
+                
                 //check that no pylons are too close
                 bool open = true;
                 foreach (Pylon p in Pylons)
@@ -207,7 +198,7 @@ public class GridBuilder : Minigame
                     }
                 }
 
-                if (open && heatmapSample.g > 0.7f)
+                if (open && sample.g > 0.7f)
                 {
                     Pylon pylon = (Pylon) Instantiate(pylonPrefab, hit.point, location.rotation);
                     Pylons.Add(pylon);
