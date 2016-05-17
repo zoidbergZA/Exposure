@@ -66,7 +66,7 @@ public class DrillingGame : Minigame
             for(int j = 0; j < rows.Length-1; j++)
             {
                 float temp = Random.Range(0.01f, 1.0f);
-                if(temp <= Difficulty)
+                if(temp <= 1-Difficulty)
                 {
                     float temp2 = Random.Range(0.01f, 1.0f);
                     if (temp2 <= RockDiamondRatio) instantiateRock(columns[i], rows[j]);

@@ -18,6 +18,7 @@ public class Director : MonoBehaviour
     private float currentZoom;
     private Vector3 targetPosition;
     private float orbitTimer;
+    public bool OrbitPaused { get; set; }
 
     public Modes Mode { get; private set; }
 
@@ -32,12 +33,12 @@ public class Director : MonoBehaviour
 	    switch (Mode)
 	    {
 	        case Modes.Orbit:
-	            orbitTimer += Time.deltaTime;
+                if(!OrbitPaused) orbitTimer += Time.deltaTime;
                 targetPosition = new Vector3(Mathf.Sin(orbitTimer*orbitSpeed) * distance, targetTransform.position.y, Mathf.Cos(orbitTimer * orbitSpeed) * distance);
 	            break;
 	    }
 
-	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.05f);
+	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);
         transform.LookAt(GameManager.Instance.PlanetTransform);
 	    Camera.main.orthographicSize = currentZoom;
     }
