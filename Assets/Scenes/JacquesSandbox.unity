@@ -503,6 +503,10 @@ Prefab:
       propertyPath: planetTransform
       value: 
       objectReference: {fileID: 1668374008}
+    - target: {fileID: 136406, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
