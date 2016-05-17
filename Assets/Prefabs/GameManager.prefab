@@ -531,6 +531,8 @@ MonoBehaviour:
     m_Bits: 512
   PowerplantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
   DrillspotPrefab: {fileID: 11406222, guid: 8e50dcc81e355a241b47b2649b69e298, type: 2}
+  drillToastTime: 3
+  testTimer: {fileID: 11404922}
 --- !u!114 &11419536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -911,6 +913,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeOut: 60
+  RocksCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0.45
+      inSlope: -0.48784125
+      outSlope: -0.48784125
+      tangentMode: 0
+    - time: 0.2
+      value: 0.45
+      inSlope: -0.9188073
+      outSlope: -0.9188073
+      tangentMode: 0
+    - time: 1
+      value: 0.1
+      inSlope: -0.54435486
+      outSlope: -0.54435486
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  CrystalsCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0.26860464
+      outSlope: 0.26860464
+      tangentMode: 0
+    - time: 1
+      value: 0.5
+      inSlope: 1.2000003
+      outSlope: 1.2000003
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   geoThermalPlantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae,
     type: 2}
   bgActive: {fileID: 11429756}
