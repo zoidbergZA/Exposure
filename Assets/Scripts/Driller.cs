@@ -14,7 +14,7 @@ public class Driller : MonoBehaviour
         else if (coll.gameObject.tag == "Diamond")
         {
             GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
-            GameManager.Instance.Hud.NewFloatingText("+1 point!", coll.gameObject.transform);
+            //GameManager.Instance.Hud.NewFloatingText("+1 point!", coll.gameObject.transform);
             Destroy(coll.gameObject);
         }
     }
