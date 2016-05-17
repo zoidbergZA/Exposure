@@ -21,7 +21,6 @@ public class DrillingGame : Minigame
     [SerializeField] private GameObject diamondPrefab;
     [SerializeField] private GameObject drilledTilePrefab;
     [SerializeField] private GameObject canvas;
-    [SerializeField] private float heatValue;
     [SerializeField] private float RockDiamondRatio;
     [SerializeField] private float toastMessageTime = 3.0f;
     [SerializeField] private float drillSpeed = 3.0f;
@@ -42,6 +41,7 @@ public class DrillingGame : Minigame
     public void SetMakeDrill(bool value) { makeDrill = value; }
     public UnityEngine.UI.Image GetDrill { get { return drill; } }
     public float DiamondValue { get { return diamondValue; } }
+    public float ToastTimer { get { return toastTimer; } set { toastTimer = value; } } 
 
     void Start()
     {
@@ -66,7 +66,7 @@ public class DrillingGame : Minigame
             for(int j = 0; j < rows.Length-1; j++)
             {
                 float temp = Random.Range(0.01f, 1.0f);
-                if(temp <= heatValue)
+                if(temp <= Difficulty)
                 {
                     float temp2 = Random.Range(0.01f, 1.0f);
                     if (temp2 <= RockDiamondRatio) instantiateRock(columns[i], rows[j]);
@@ -103,8 +103,10 @@ public class DrillingGame : Minigame
         toastTimer -= Time.deltaTime;
         if(!introShown && !finalShown)
         {
+            //if (Input.GetMouseButton(0) == true) GameManager.Instance.DrillingGame.ToastTimer -= Time.deltaTime;
             startToast.gameObject.SetActive(true);
             startToastTimer.text = "Game starts\nin: " + ((int)toastTimer).ToString();
+            float temp = toastTimer / toastMessageTime;
             if (toastTimer < 0.0f)
             {
                 introShown = true;
@@ -118,6 +120,7 @@ public class DrillingGame : Minigame
         {
             if (succeededDrill)
             {
+                //toastTimer -= Time.deltaTime;
                 endOkToast.gameObject.SetActive(true);
                 endOkToastTimer.text = "Success!\nBuild grid\nin: " + ((int)toastTimer).ToString();
                 if (toastTimer < 0.0f)
@@ -130,6 +133,7 @@ public class DrillingGame : Minigame
             }
             else
             {
+                //toastTimer -= Time.deltaTime;
                 endFailToast.gameObject.SetActive(true);
                 endFailToastTimer.gameObject.SetActive(true);
                 endFailToastTimer.text = "Drill broken!\nRestart search\nin: " + ((int)toastTimer).ToString();
