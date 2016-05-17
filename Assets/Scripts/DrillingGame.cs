@@ -223,7 +223,7 @@ public class DrillingGame : Minigame
         {
             if (slidingLeft == false)
             {
-                if (drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1]) //drill.transform.Translate(new Vector3(1, 0, 0));
+                if (drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1])
                     drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn + 1], drill.rectTransform.anchoredPosition.y);
                 else
                 {
@@ -233,7 +233,7 @@ public class DrillingGame : Minigame
             }
             else
             {
-                if (drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1]) //drill.transform.Translate(new Vector3(-1, 0, 0));
+                if (drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1])
                     drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn - 1], drill.rectTransform.anchoredPosition.y);
                 else
                 {
