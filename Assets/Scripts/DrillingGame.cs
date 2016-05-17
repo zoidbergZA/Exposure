@@ -100,10 +100,10 @@ public class DrillingGame : Minigame
 
     private void handleStartStopState()
     {
-        //toastTimer -= Time.deltaTime;
+        toastTimer -= Time.deltaTime;
         if(!introShown && !finalShown)
         {
-            if (Input.GetMouseButton(0) == true) GameManager.Instance.DrillingGame.ToastTimer -= Time.deltaTime;
+            //if (Input.GetMouseButton(0) == true) GameManager.Instance.DrillingGame.ToastTimer -= Time.deltaTime;
             startToast.gameObject.SetActive(true);
             startToastTimer.text = "Game starts\nin: " + ((int)toastTimer).ToString();
             float temp = toastTimer / toastMessageTime;
@@ -120,7 +120,7 @@ public class DrillingGame : Minigame
         {
             if (succeededDrill)
             {
-                toastTimer -= Time.deltaTime;
+                //toastTimer -= Time.deltaTime;
                 endOkToast.gameObject.SetActive(true);
                 endOkToastTimer.text = "Success!\nBuild grid\nin: " + ((int)toastTimer).ToString();
                 if (toastTimer < 0.0f)
@@ -133,7 +133,7 @@ public class DrillingGame : Minigame
             }
             else
             {
-                toastTimer -= Time.deltaTime;
+                //toastTimer -= Time.deltaTime;
                 endFailToast.gameObject.SetActive(true);
                 endFailToastTimer.gameObject.SetActive(true);
                 endFailToastTimer.text = "Drill broken!\nRestart search\nin: " + ((int)toastTimer).ToString();
