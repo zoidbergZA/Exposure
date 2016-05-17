@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Driller : MonoBehaviour
 {
+    
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.tag == "Rock")
@@ -12,7 +13,7 @@ public class Driller : MonoBehaviour
         }
         else if (coll.gameObject.tag == "Diamond")
         {
-            GameManager.Instance.Player.ScorePoints(10);
+            GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
             Destroy(coll.gameObject);
         }
     }

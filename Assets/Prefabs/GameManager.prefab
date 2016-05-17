@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.25517225, a: 1}
+  m_Color: {r: 1, g: 0.09558821, b: 0.18914773, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -783,10 +783,13 @@ MonoBehaviour:
   rows: d1010000b3010000900100006d0100004a0100002701000004010000e1000000be0000009b000000
   rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
   diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
+  drilledTilePrefab: {fileID: 181820, guid: 24db1465ea0f90d479affb64ab22aab1, type: 2}
   canvas: {fileID: 199368}
   heatValue: 0.5
   RockDiamondRatio: 0.15
   toastMessageTime: 3.6
+  drillSpeed: 1
+  diamondValue: 1
 --- !u!114 &11475660
 MonoBehaviour:
   m_ObjectHideFlags: 1
