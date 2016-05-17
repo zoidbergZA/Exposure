@@ -8,7 +8,7 @@ public class Hud : MonoBehaviour
 
     private int buttoSize = 55;
     private int buttonIndent = 10;
-    private UnityEngine.UI.Button drillButton;
+    //private UnityEngine.UI.Button drillButton;
 
     void OnGUI()
     {
