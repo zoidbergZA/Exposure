@@ -3,15 +3,28 @@ using System.Collections;
 
 public class Hud : MonoBehaviour
 {
+    [SerializeField] private FloatingText floatingTextPrefab;
+    [SerializeField] private Canvas hudCanvas;
+
     private int buttoSize = 55;
     private int buttonIndent = 10;
     private UnityEngine.UI.Button drillButton;
+
     void OnGUI()
     {
         ShowScanButton();
         ShowDebug();
         ShowDrillButton();
         ShowSteerButtons();
+    }
+
+    public void NewFloatingText(string text, Transform target)
+    {
+        FloatingText ft = (FloatingText)Instantiate(floatingTextPrefab, Vector3.zero, Quaternion.identity);
+        ft.RectTransform.SetParent(hudCanvas.GetComponent<RectTransform>());
+
+        ft.Init(text, target);
+
     }
 
     private void ShowScanButton()
