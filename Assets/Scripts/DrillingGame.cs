@@ -24,6 +24,8 @@ public class DrillingGame : Minigame
     [SerializeField] private float heatValue;
     [SerializeField] private float RockDiamondRatio;
     [SerializeField] private float toastMessageTime = 3.0f;
+    [SerializeField] private float drillSpeed = 3.0f;
+    [SerializeField] private float diamondValue = 1.0f;
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST }
     private DrillingGameState state;
@@ -39,6 +41,7 @@ public class DrillingGame : Minigame
     public DrillingGameState State { get { return state; } set { state = value; } }
     public void SetMakeDrill(bool value) { makeDrill = value; }
     public UnityEngine.UI.Image GetDrill { get { return drill; } }
+    public float DiamondValue { get { return diamondValue; } }
 
     void Start()
     {
@@ -146,7 +149,8 @@ public class DrillingGame : Minigame
     {
         if (drill.transform.position.y > initDrillPos.y - 350)
         {
-            drill.transform.Translate(0, -1.0f, 0);
+            //if (Input.GetKeyDown(KeyCode.Space)) 
+                drill.transform.Translate(0 * drillSpeed, -1.0f * drillSpeed, 0 * drillSpeed);
             if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y == rows[targetRow])
             {
                 instantiateDrilledTile(columns[targetColumn], rows[targetRow]);
@@ -219,7 +223,8 @@ public class DrillingGame : Minigame
         {
             if (slidingLeft == false)
             {
-                if (drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1]) drill.transform.Translate(new Vector3(1, 0, 0));
+                if (drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1]) //drill.transform.Translate(new Vector3(1, 0, 0));
+                    drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn + 1], drill.rectTransform.anchoredPosition.y);
                 else
                 {
                     state = DrillingGameState.DRILLING;
@@ -228,7 +233,8 @@ public class DrillingGame : Minigame
             }
             else
             {
-                if (drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1]) drill.transform.Translate(new Vector3(-1, 0, 0));
+                if (drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1]) //drill.transform.Translate(new Vector3(-1, 0, 0));
+                    drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn - 1], drill.rectTransform.anchoredPosition.y);
                 else
                 {
                     state = DrillingGameState.DRILLING;

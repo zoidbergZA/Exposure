@@ -788,6 +788,8 @@ MonoBehaviour:
   heatValue: 0.5
   RockDiamondRatio: 0.15
   toastMessageTime: 3.6
+  drillSpeed: 1
+  diamondValue: 1
 --- !u!114 &11475660
 MonoBehaviour:
   m_ObjectHideFlags: 1
