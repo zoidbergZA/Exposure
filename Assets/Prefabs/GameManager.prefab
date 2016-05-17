@@ -50,6 +50,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &115756
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 22401854}
+  - 222: {fileID: 22255366}
+  - 114: {fileID: 11457460}
+  m_Layer: 0
+  m_Name: test text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &123878
 GameObject:
   m_ObjectHideFlags: 1
@@ -168,6 +185,21 @@ GameObject:
   - 114: {fileID: 11451022}
   m_Layer: 0
   m_Name: Building Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &150510
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 483734}
+  m_Layer: 0
+  m_Name: PotentialDrill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,6 +386,7 @@ Transform:
   m_Children:
   - {fileID: 22493332}
   - {fileID: 478286}
+  - {fileID: 483734}
   m_Father: {fileID: 482218}
   m_RootOrder: 2
 --- !u!4 &430690
@@ -409,6 +442,18 @@ Transform:
   - {fileID: 465146}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!4 &483734
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150510}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 415132}
+  m_RootOrder: 2
 --- !u!4 &490274
 Transform:
   m_ObjectHideFlags: 1
@@ -531,6 +576,9 @@ MonoBehaviour:
     m_Bits: 512
   PowerplantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
   DrillspotPrefab: {fileID: 11406222, guid: 8e50dcc81e355a241b47b2649b69e298, type: 2}
+  drillToastTime: 3
+  testTimer: {fileID: 11457460}
+  potentialDrillSpot: {fileID: 150510}
 --- !u!114 &11419536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -794,6 +842,39 @@ MonoBehaviour:
     m_Bits: 256
   maxPylons: 5
   ConnectionFinalized: 0
+--- !u!114 &11457460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 1, b: 0.048275948, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 22
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Timer
 --- !u!114 &11463482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -929,9 +1010,9 @@ MonoBehaviour:
   diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
   drilledTilePrefab: {fileID: 181820, guid: 24db1465ea0f90d479affb64ab22aab1, type: 2}
   canvas: {fileID: 199368}
-  RockDiamondRatio: 0.15
+  RockDiamondRatio: 0.5
   toastMessageTime: 3.6
-  drillSpeed: 3
+  drillSpeed: 1
   diamondValue: 1
 --- !u!114 &11470170
 MonoBehaviour:
@@ -1100,6 +1181,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 171456}
+--- !u!222 &22255366
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115756}
 --- !u!222 &22262856
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1162,6 +1249,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!224 &22401854
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115756}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 22460064}
+  m_RootOrder: 1
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 303.51, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22405366
 RectTransform:
   m_ObjectHideFlags: 1
@@ -1311,6 +1415,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22455532}
+  - {fileID: 22401854}
   m_Father: {fileID: 430690}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}

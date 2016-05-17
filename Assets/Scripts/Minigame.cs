@@ -26,12 +26,12 @@ public class Minigame : MonoBehaviour
         Difficulty = difficulty;
         IsRunning = true;
         Timeleft = timeOut;
-        Debug.Log(name + " minigame started, Difficulty: " + Difficulty);
+        //Debug.Log(name + " minigame started, Difficulty: " + Difficulty);
     }
 
     public virtual void End(bool succeeded)
     {
         IsRunning = false;
-        Debug.Log(name + " minigame ended at: " + Time.time + "result: " + succeeded);
+        //Debug.Log(name + " minigame ended at: " + Time.time + "result: " + succeeded);
     }
 }
