@@ -15,6 +15,7 @@ public class Director : MonoBehaviour
     [SerializeField] private float buildZoom = 0.8f;
 
     private float distance;
+    private float currentZoom;
     private Vector3 targetPosition;
     private float orbitTimer;
 
@@ -23,6 +24,7 @@ public class Director : MonoBehaviour
 	void Start ()
 	{
 	    distance = Vector3.Distance(transform.position, targetTransform.position);
+	    currentZoom = orbitZoom;
 	}
 	
 	void Update ()
@@ -37,6 +39,7 @@ public class Director : MonoBehaviour
 
 	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.05f);
         transform.LookAt(GameManager.Instance.PlanetTransform);
+	    Camera.main.orthographicSize = currentZoom;
     }
 
     public void SetMode(Modes mode, Transform targetTransform, float delay = 2f)
@@ -74,13 +77,18 @@ public class Director : MonoBehaviour
         {
             case Modes.Grid:
                 Camera.main.orthographic = true;
-                Camera.main.orthographicSize = buildZoom;
                 targetPosition = targetTransform.position + targetTransform.up * 20f;
+                LeanTween.value(gameObject, updateValueExampleCallback, currentZoom, buildZoom, 1.1f).setEase(LeanTweenType.easeInOutSine);
                 break;
 
             case Modes.Orbit:
-                Camera.main.orthographicSize = orbitZoom;
+                LeanTween.value(gameObject, updateValueExampleCallback, currentZoom, orbitZoom, 1.1f).setEase(LeanTweenType.easeInOutSine);
                 break;
         }
+    }
+
+    void updateValueExampleCallback(float val, float ratio)
+    {
+        currentZoom = val;
     }
 }

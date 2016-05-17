@@ -110,7 +110,10 @@ public class GridBuilder : Minigame
                 }
             }
 
-            GameManager.Instance.Player.ScorePoints(GameManager.Instance.ChimneyValue / MaxPylons * (MaxPylons - PylonCount + 1));
+            float points = GameManager.Instance.ChimneyValue/MaxPylons*(MaxPylons - PylonCount + 1);
+            
+            GameManager.Instance.Player.ScorePoints(points);
+            GameManager.Instance.Hud.NewFloatingText(points.ToString(), ConnectedList[ConnectedList.Count - 1].transform);
         }
         else
         {
