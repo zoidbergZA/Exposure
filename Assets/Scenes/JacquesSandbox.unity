@@ -170,6 +170,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 2342260, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9c1dba53e5dbe504db51d0433178e9f6, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
   m_IsPrefabParent: 0
@@ -509,6 +513,22 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 482218, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -553,6 +573,158 @@ Prefab:
       propertyPath: planetTransform
       value: 
       objectReference: {fileID: 1668374008}
+    - target: {fileID: 11410828, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: testTimer
+      value: 
+      objectReference: {fileID: 1946647151}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[0].inSlope
+      value: -0.00000050193387
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[0].outSlope
+      value: -0.00000050193387
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[1].time
+      value: 0.19583334
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[1].inSlope
+      value: -0.7840881
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[1].outSlope
+      value: -0.7840881
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[2].value
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[2].inSlope
+      value: -0.70212764
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[2].outSlope
+      value: -0.70212764
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.data[1].value
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.data[1].inSlope
+      value: 0.41489398
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.data[1].outSlope
+      value: 0.41489398
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[0].value
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[1].time
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[1].value
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[2].value
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[1].inSlope
+      value: -0.9188073
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[1].outSlope
+      value: -0.9188073
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[2].inSlope
+      value: -0.54435486
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[2].outSlope
+      value: -0.54435486
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.data[1].value
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.data[1].inSlope
+      value: 1.2000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.data[1].outSlope
+      value: 1.2000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[0].inSlope
+      value: -0.48784125
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: RocksCurve.m_Curve.Array.data[0].outSlope
+      value: -0.48784125
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.data[0].inSlope
+      value: 0.26860464
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: CrystalsCurve.m_Curve.Array.data[0].outSlope
+      value: 0.26860464
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
@@ -629,3 +801,9 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 118720, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
   m_PrefabInternal: {fileID: 346809271}
+--- !u!114 &1946647151 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11404922, guid: 740c9e154f3f9a147a108da53ff896e5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1521604469}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}

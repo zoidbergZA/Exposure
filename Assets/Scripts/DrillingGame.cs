@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class DrillingGame : Minigame
 {
+    //temp - jacques test
+    public AnimationCurve RocksCurve;
+    public AnimationCurve CrystalsCurve;
+
     [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
     [SerializeField] private UnityEngine.UI.Image bgActive;
     [SerializeField] private UnityEngine.UI.Image bgInactive;
@@ -65,13 +69,29 @@ public class DrillingGame : Minigame
         {
             for(int j = 0; j < rows.Length-1; j++)
             {
-                float temp = Random.Range(0.01f, 1.0f);
-                if(temp <= 1-Difficulty)
+                float rand = Random.Range(0f, 1f);
+                
+                if (rand <= RocksCurve.Evaluate(1 - Difficulty))
                 {
-                    float temp2 = Random.Range(0.01f, 1.0f);
-                    if (temp2 <= RockDiamondRatio) instantiateRock(columns[i], rows[j]);
-                    else instantiateDiamond(columns[i], rows[j]);
+                    //try rock
+                    instantiateRock(columns[i], rows[j]);
                 }
+                else
+                {
+                    //else try daimond
+                    rand = Random.Range(0f, 1f);
+
+                    if (rand <= CrystalsCurve.Evaluate(1 - Difficulty))
+                        instantiateDiamond(columns[i], rows[j]);
+                }
+
+//                float temp = Random.Range(0.01f, 1.0f);
+//                if(temp <= 1-Difficulty)
+//                {
+//                    float temp2 = Random.Range(0.01f, 1.0f);
+//                    if (temp2 <= RockDiamondRatio) instantiateRock(columns[i], rows[j]);
+//                    else instantiateDiamond(columns[i], rows[j]);
+//                }
             }
         }
     }
