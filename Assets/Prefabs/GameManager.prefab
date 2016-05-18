@@ -963,8 +963,8 @@ MonoBehaviour:
   startToastTimer: {fileID: 11447038}
   endOkToastTimer: {fileID: 11489044}
   endFailToastTimer: {fileID: 11440072}
-  columns: 97ffffffb7ffffffd7fffffff7ffffff18000000380000006100000081000000
-  rows: c0010000a00100008001000060010000400100002001000000010000e0000000c0000000a000000080000000
+  columns: a1ffffffc1ffffffe1ffffff01000000220000004200000062000000
+  rows: c0010000a00100008001000060010000400100002001000000010000e0000000c0000000a00000008000000060000000
   rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
   diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
   drilledTilePrefab: {fileID: 181820, guid: 24db1465ea0f90d479affb64ab22aab1, type: 2}
@@ -1251,8 +1251,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 280}
-  m_SizeDelta: {x: 583, y: 737}
+  m_AnchoredPosition: {x: 0, y: 276}
+  m_SizeDelta: {x: 553, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22446596
 RectTransform:
@@ -1268,7 +1268,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -260}
+  m_AnchoredPosition: {x: 0, y: -280}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22451278
@@ -1285,8 +1285,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 280}
-  m_SizeDelta: {x: 583, y: 737}
+  m_AnchoredPosition: {x: 0, y: 276}
+  m_SizeDelta: {x: 553, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22451620
 RectTransform:

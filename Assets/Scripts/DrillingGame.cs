@@ -45,7 +45,9 @@ public class DrillingGame : Minigame
     public void SetMakeDrill(bool value) { makeDrill = value; }
     public UnityEngine.UI.Image GetDrill { get { return drill; } }
     public float DiamondValue { get { return diamondValue; } }
-    public float ToastTimer { get { return toastTimer; } set { toastTimer = value; } } 
+    public float ToastTimer { get { return toastTimer; } set { toastTimer = value; } }
+    public UnityEngine.UI.Image StartToast { get { return startToast; } }
+    public UnityEngine.UI.Text StartToastTimer { get { return startToastTimer;  } }
 
     void Start()
     {
@@ -60,7 +62,9 @@ public class DrillingGame : Minigame
         if (IsRunning) return;
         this.drillspot = drillspot;
         Begin(difficulty);
-        state = DrillingGameState.STARTSTOPTOAST;
+        state = DrillingGameState.SLIDING;
+        introShown = true;
+        generateMap();
     }
 
     private void generateMap()
@@ -121,21 +125,22 @@ public class DrillingGame : Minigame
     private void handleStartStopState()
     {
         toastTimer -= Time.deltaTime;
-        if(!introShown && !finalShown)
-        {
-            startToast.gameObject.SetActive(true);
-            startToastTimer.text = "Game starts\nin: " + ((int)toastTimer).ToString();
-            float temp = toastTimer / toastMessageTime;
-            if (toastTimer < 0.0f)
-            {
-                introShown = true;
-                toastTimer = toastMessageTime;
-                startToast.gameObject.SetActive(false);
-                state = DrillingGameState.SLIDING;
-                generateMap();
-            }
-        }
-        else if(introShown && !finalShown)
+        //if(!introShown && !finalShown)
+        //{
+        //    startToast.gameObject.SetActive(true);
+        //    startToastTimer.text = "Game starts\nin: " + ((int)toastTimer).ToString();
+        //    float temp = toastTimer / toastMessageTime;
+        //    if (toastTimer < 0.0f)
+        //    {
+        //        introShown = true;
+        //        toastTimer = toastMessageTime;
+        //        startToast.gameObject.SetActive(false);
+        //        state = DrillingGameState.SLIDING;
+        //        generateMap();
+        //    }
+        //}
+        //else 
+        if(introShown && !finalShown)
         {
             if (succeededDrill)
             {
@@ -321,9 +326,6 @@ public class DrillingGame : Minigame
             if (bgInactive) bgInactive.gameObject.SetActive(true);
             if (drill) drill.gameObject.SetActive(false);
             if (timer) timer.gameObject.SetActive(false);
-            if (startToast) startToast.gameObject.SetActive(false);
-            if (endOkToast) endOkToast.gameObject.SetActive(false);
-            if (endFailToast) endFailToast.gameObject.SetActive(false);
         }
     }
 
