@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class FloatingText : MonoBehaviour
 {
-    [SerializeField] private Text textField; 
+    [SerializeField] private Text textField;
+    [SerializeField] private float destroyTime = 2.1f;
 
     public RectTransform RectTransform { get { return GetComponent<RectTransform>(); } }
     public bool IsInitialized { get; private set; }
@@ -30,7 +31,7 @@ public class FloatingText : MonoBehaviour
         textField.text = text;
         RectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(target.position);
 
-        LeanTween.value(gameObject, updateTweenCallback, 0, 40f, 2.1f).setOnComplete(OnComplete).setEase(LeanTweenType.easeOutSine);
+        LeanTween.value(gameObject, updateTweenCallback, 0, 40f, destroyTime).setOnComplete(OnComplete).setEase(LeanTweenType.easeOutSine);
         //        LeanTween.move(RectTransform, (Vector3)position + new Vector3(0f, 50f, 0f), 5f).setOnComplete(OnComplete).setEase(LeanTweenType.easeOutSine);
     }
 
