@@ -9,6 +9,22 @@ public class Hud : MonoBehaviour
     private int buttoSize = 55;
     private int buttonIndent = 10;
     private UnityEngine.UI.Button drillButton;
+    private int wobblerTweenId;
+
+    public float WobbleValue { get; private set; }
+
+    void Awake()
+    {
+        wobblerTweenId = LeanTween.value(gameObject, updateWobbleCallback, 0f, 1f, 0.6f).setLoopPingPong().setEase(LeanTweenType.easeInOutSine).id;
+    }
+
+    void Update()
+    {
+//        if (LeanTween.isTweening(wobblerTweenId))
+//        {
+//            Debug.Log(WobbleValue);
+//        }
+    }
 
     void OnGUI()
     {
@@ -80,5 +96,10 @@ public class Hud : MonoBehaviour
 
         //score
         GUILayout.Label("score: " + GameManager.Instance.Player.Score + "/" + "100");
+    }
+
+    void updateWobbleCallback(float val, float ratio)
+    {
+        WobbleValue = val;
     }
 }
