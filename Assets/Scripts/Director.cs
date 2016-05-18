@@ -9,7 +9,7 @@ public class Director : MonoBehaviour
         Grid
     }
 
-    [SerializeField] private Transform targetTransform;
+    private Transform targetTransform;
     [SerializeField] private Vector3 lookAtOffset;
     [SerializeField] private float orbitSpeed = 10f;
     [SerializeField] private float orbitZoom = 1f;
@@ -25,6 +25,7 @@ public class Director : MonoBehaviour
 
 	void Start ()
 	{
+	    targetTransform = GameManager.Instance.PlanetTransform;
 	    distance = Vector3.Distance(transform.position, targetTransform.position);
 	    currentZoom = orbitZoom;
 	}
@@ -36,11 +37,15 @@ public class Director : MonoBehaviour
 	        case Modes.Orbit:
                 if(!OrbitPaused) orbitTimer += Time.deltaTime;
                 targetPosition = new Vector3(Mathf.Sin(orbitTimer*orbitSpeed) * distance, targetTransform.position.y, Mathf.Cos(orbitTimer * orbitSpeed) * distance);
-	            break;
+                transform.LookAt(GameManager.Instance.PlanetTransform.position + Camera.main.transform.right * lookAtOffset.x);
+                break;
+
+            case Modes.Grid:
+                transform.LookAt(GameManager.Instance.PlanetTransform.position);
+                break;
 	    }
 
-	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);
-        transform.LookAt(GameManager.Instance.PlanetTransform.position + Camera.main.transform.right * lookAtOffset.x);
+	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);        
 	    Camera.main.orthographicSize = currentZoom;
     }
 

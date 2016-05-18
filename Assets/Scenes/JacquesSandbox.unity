@@ -397,17 +397,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11448062, guid: cb6ffafa0af6f874385290fd99e70f8f, type: 2}
-      propertyPath: targetTransform
-      value: 
-      objectReference: {fileID: 1221174593}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb6ffafa0af6f874385290fd99e70f8f, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &1221174593 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 422710, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
-  m_PrefabInternal: {fileID: 346809271}
 --- !u!1001 &1235298482
 Prefab:
   m_ObjectHideFlags: 0
@@ -505,6 +497,10 @@ Prefab:
       propertyPath: planetTransform
       value: 
       objectReference: {fileID: 22181927}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: drillSpeed
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
