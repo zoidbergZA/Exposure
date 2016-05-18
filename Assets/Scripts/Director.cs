@@ -10,6 +10,7 @@ public class Director : MonoBehaviour
     }
 
     [SerializeField] private Transform targetTransform;
+    [SerializeField] private Vector3 lookAtOffset;
     [SerializeField] private float orbitSpeed = 10f;
     [SerializeField] private float orbitZoom = 1f;
     [SerializeField] private float buildZoom = 0.8f;
@@ -39,7 +40,7 @@ public class Director : MonoBehaviour
 	    }
 
 	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);
-        transform.LookAt(GameManager.Instance.PlanetTransform);
+        transform.LookAt(GameManager.Instance.PlanetTransform.position + Camera.main.transform.right * lookAtOffset.x);
 	    Camera.main.orthographicSize = currentZoom;
     }
 
@@ -57,10 +58,10 @@ public class Director : MonoBehaviour
         targetPosition = targetTransform.position + targetTransform.up * 20f;
     }
 
-    public void LookAt(Vector3 position)
-    {
-        Camera.main.transform.LookAt(position);
-    }
+//    public void LookAt(Vector3 position)
+//    {
+//        Camera.main.transform.LookAt(position);
+//    }
 
     private IEnumerator DelayedStart(Modes newMode, Transform newTargetTransform, float delay)
     {
