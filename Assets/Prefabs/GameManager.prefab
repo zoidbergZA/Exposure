@@ -451,7 +451,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 65, y: 66}
+  m_Size: {x: 61, y: 61}
 --- !u!114 &11404922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -504,7 +504,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 734ef6984fc255346a5cc9c575eb8af2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d65404934e48ffb46a58d3cf662e799d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -552,7 +552,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: d3414823443b31444bff90ac4fd88681, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 439c06b613a92404ea9f737307bbbd9d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -646,7 +646,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: d7f39d355e098fb49868eb719e402d2f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 66e3037aec830ce449e3bb9456397e9e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -699,7 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTime: 15
-  durationTime: 4
+  durationTime: 6
   scanRayMask:
     serializedVersion: 2
     m_Bits: 256
@@ -938,10 +938,10 @@ MonoBehaviour:
   CrystalsCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0.26860464
-      outSlope: 0.26860464
+    - time: -0.008333334
+      value: 0.12187499
+      inSlope: 0.0612245
+      outSlope: 0.0612245
       tangentMode: 0
     - time: 1
       value: 0.5
@@ -963,8 +963,8 @@ MonoBehaviour:
   startToastTimer: {fileID: 11447038}
   endOkToastTimer: {fileID: 11489044}
   endFailToastTimer: {fileID: 11440072}
-  columns: baffffffddffffff000000002300000046000000
-  rows: d1010000b3010000900100006d0100004a0100002701000004010000e1000000be0000009b000000
+  columns: 97ffffffb7ffffffd7fffffff7ffffff18000000380000006100000081000000
+  rows: c0010000a00100008001000060010000400100002001000000010000e0000000c0000000a000000080000000
   rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
   diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
   drilledTilePrefab: {fileID: 181820, guid: 24db1465ea0f90d479affb64ab22aab1, type: 2}
@@ -1251,8 +1251,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 300}
-  m_SizeDelta: {x: 420, y: 726}
+  m_AnchoredPosition: {x: 0, y: 280}
+  m_SizeDelta: {x: 583, y: 737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22446596
 RectTransform:
@@ -1285,8 +1285,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 300}
-  m_SizeDelta: {x: 420, y: 726}
+  m_AnchoredPosition: {x: 0, y: 280}
+  m_SizeDelta: {x: 583, y: 737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22451620
 RectTransform:
@@ -1302,8 +1302,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -70, y: 500}
-  m_SizeDelta: {x: 65, y: 66}
+  m_AnchoredPosition: {x: -105, y: 482}
+  m_SizeDelta: {x: 61, y: 61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22459114
 RectTransform:
