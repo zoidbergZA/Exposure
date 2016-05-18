@@ -9,7 +9,7 @@ public class Director : MonoBehaviour
         Grid
     }
 
-    [SerializeField] private Transform targetTransform;
+    private Transform targetTransform;
     [SerializeField] private Vector3 lookAtOffset;
     [SerializeField] private float orbitSpeed = 10f;
     [SerializeField] private float orbitZoom = 1f;
@@ -25,6 +25,7 @@ public class Director : MonoBehaviour
 
 	void Start ()
 	{
+	    targetTransform = GameManager.Instance.PlanetTransform;
 	    distance = Vector3.Distance(transform.position, targetTransform.position);
 	    currentZoom = orbitZoom;
 	}
