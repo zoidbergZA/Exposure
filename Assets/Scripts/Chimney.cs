@@ -10,7 +10,9 @@ public class Chimney : MonoBehaviour
         Exploded
     }
 
+    [SerializeField] private Texture2D demolishIcon;
     [SerializeField] private ParticleSystem smokeSystem;
+    [SerializeField] private MeshRenderer unusedModel;
 
     public ChimneyStates ChimneyState { get; private set; }
 
@@ -26,5 +28,29 @@ public class Chimney : MonoBehaviour
 
         ChimneyState = ChimneyStates.Unused;
         smokeSystem.enableEmission = false;
+    }
+
+    void OnGUI()
+    {
+        if (ChimneyState == ChimneyStates.Unused)
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+
+            if (GUI.Button(new Rect(screenPos.x - 20, Screen.height - screenPos.y - 20, 40, 40), demolishIcon, ""))
+            {
+                Demolish();
+            }
+        }
+    }
+
+    private void Demolish()
+    {
+        if (ChimneyState != ChimneyStates.Unused)
+            return;
+
+        ChimneyState = ChimneyStates.Exploded;
+        unusedModel.enabled = false;
+
+        GameManager.Instance.Player.ScorePoints(10, transform);
     }
 }

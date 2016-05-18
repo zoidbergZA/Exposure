@@ -35,12 +35,14 @@ public class GridBuilder : Minigame
     {
         base.End(succeeded);
 
-        if (!succeeded && StartPlant != null)
+        if (!succeeded)
         {
-            Destroy(StartPlant.gameObject);
+            if (StartPlant != null)
+                Destroy(StartPlant.gameObject);
+
+            DestroyUnconnectedPylons();
         }
         
-        DestroyUnconnectedPylons();
         DestroyUnbuiltPylons();
         
         GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
@@ -114,9 +116,7 @@ public class GridBuilder : Minigame
 
             float points = GameManager.Instance.ChimneyValue/MaxPylons*(MaxPylons - PylonCount + 1);
             
-            GameManager.Instance.Player.ScorePoints(points);
-            string scoreString = "+" + points + " points!";
-            GameManager.Instance.Hud.NewFloatingText(scoreString, ConnectedList[ConnectedList.Count - 1].transform);
+            GameManager.Instance.Player.ScorePoints(points, ConnectedList[ConnectedList.Count - 1].transform);
         }
         else
         {

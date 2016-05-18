@@ -1356,7 +1356,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 366110022ace4344f99efa959ad92ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  demolishIcon: {fileID: 2800000, guid: cca88ef0d19dbc547aa0ab4ce3122a62, type: 3}
   smokeSystem: {fileID: 19807846}
+  unusedModel: {fileID: 2301462}
 --- !u!114 &11486914
 MonoBehaviour:
   m_ObjectHideFlags: 1
