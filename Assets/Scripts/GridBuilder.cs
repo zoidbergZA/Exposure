@@ -39,8 +39,10 @@ public class GridBuilder : Minigame
         {
             Destroy(StartPlant.gameObject);
         }
-
+        
+        DestroyUnconnectedPylons();
         DestroyUnbuiltPylons();
+        
         GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
     }
 
@@ -118,7 +120,6 @@ public class GridBuilder : Minigame
         }
         else
         {
-            Debug.Log("failed");
             if (StartPlant != null)
             {
                 Destroy(StartPlant.gameObject);
@@ -149,6 +150,18 @@ public class GridBuilder : Minigame
         foreach (Connectable connectable in allConnectables)
         {
             connectable.CheckConnectable(location);
+        }
+    }
+
+    private void DestroyUnconnectedPylons()
+    {
+        for (int i = Pylons.Count - 1; i >= 0; i--)
+        {
+            if (Pylons[i].State == Pylon.States.Built)
+            {
+                Destroy(Pylons[i].gameObject);
+                Pylons.RemoveAt(i);
+            }
         }
     }
 
