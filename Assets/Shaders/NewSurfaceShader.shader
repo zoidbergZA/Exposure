@@ -62,7 +62,7 @@
 				if(_Duration <= 0 && _DurationBack > 0) scan = dist / getRadius(1);
 			}
 
-			if(scan <= 1.0) _ScanFactor = scan;
+			if(scan <= 1.0) _ScanFactor = 1-scan; //should be scan or 1 - scan
 			else _ScanFactor = 1;
 
 			fixed4 c = ((tex2D (_MainTex, IN.uv_MainTex) * _ScanFactor) + (tex2D(_ScanTex, IN.uv_ScanTex) * (1-_ScanFactor))) * _Color;
