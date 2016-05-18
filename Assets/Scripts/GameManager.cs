@@ -24,11 +24,11 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject PylonsHolder;
-
-    [SerializeField] private Transform planetTransform;
+    
     [SerializeField] private float roundTime = 180;
     [SerializeField] private float pylonSeparation = 20f;
     
+    public Planet Planet { get; private set; }
     public GridBuilder GridBuilder { get; private set; }
     public DrillingGame DrillingGame { get; private set; }
     public Scanner Scanner { get; private set; }
@@ -40,10 +40,11 @@ public class GameManager : MonoBehaviour
     public float TimeLeft { get; private set; }
     public Player Player { get; private set; }
     public Director Director { get; private set; }
-    public Transform PlanetTransform { get { return planetTransform; } }
+    public Transform PlanetTransform { get { return Planet.transform; } }
 
     void Awake()
     {
+        Planet = FindObjectOfType<Planet>();
         GridBuilder = GetComponentInChildren<GridBuilder>();
         DrillingGame = GetComponentInChildren<DrillingGame>();
         Scanner = GetComponent<Scanner>();
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     public Color SampleHeatmap(Vector2 textureCoordinate)
     {
-        Material mat = PlanetTransform.gameObject.GetComponent<MeshRenderer>().material;
+        Material mat = Planet.scannableMesh.material;
         Texture2D heatmap = mat.GetTexture("_ScanTex") as Texture2D;
         Vector2 pixelCoord = new Vector2(textureCoordinate.x * heatmap.width, textureCoordinate.y * heatmap.height);
         Color heatmapSample = heatmap.GetPixel((int)pixelCoord.x, (int)pixelCoord.y);

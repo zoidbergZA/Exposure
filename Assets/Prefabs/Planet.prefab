@@ -3236,6 +3236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4927004b776c8c24facc64dcfbd766c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scannableMesh: {fileID: 2367460}
 --- !u!114 &11430466
 MonoBehaviour:
   m_ObjectHideFlags: 1

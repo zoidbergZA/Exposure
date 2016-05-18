@@ -8,7 +8,7 @@ public class Scanner : MonoBehaviour
     [SerializeField] private LayerMask scanRayMask;
     private float cooldown;
     private float duration;
-    public GameObject target;
+//    public GameObject target;
     private Material material;
     private Renderer renderer;
     private bool scannedForth = false;
@@ -25,7 +25,7 @@ public class Scanner : MonoBehaviour
 
     void Start()
     {
-        renderer = target.GetComponent<Renderer>();
+        renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
         material.SetFloat("_setDuration", durationTime);
     }
