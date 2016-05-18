@@ -14,11 +14,9 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image drill;
     [SerializeField] private UnityEngine.UI.Text timer;
     [SerializeField] private UnityEngine.UI.Image startToast;
+    [SerializeField] private UnityEngine.UI.Image startInnerToast;
     [SerializeField] private UnityEngine.UI.Image endOkToast;
     [SerializeField] private UnityEngine.UI.Image endFailToast;
-    [SerializeField] private UnityEngine.UI.Text startToastTimer;
-    [SerializeField] private UnityEngine.UI.Text endOkToastTimer;
-    [SerializeField] private UnityEngine.UI.Text endFailToastTimer;
     [SerializeField] private int[] columns;
     [SerializeField] private int[] rows;
     [SerializeField] private GameObject rockPrefab;
@@ -30,6 +28,7 @@ public class DrillingGame : Minigame
     [SerializeField] private float drillSpeed = 3.0f;
     [SerializeField] private float slideSpeed = 1.0f;
     [SerializeField] private float diamondValue = 1.0f;
+    [SerializeField] private float succeededDrillValue = 5.0f;
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST }
     private DrillingGameState state;
@@ -48,7 +47,7 @@ public class DrillingGame : Minigame
     public float DiamondValue { get { return diamondValue; } }
     public float ToastTimer { get { return toastTimer; } set { toastTimer = value; } }
     public UnityEngine.UI.Image StartToast { get { return startToast; } }
-    public UnityEngine.UI.Text StartToastTimer { get { return startToastTimer;  } }
+    public UnityEngine.UI.Image StartInnerToast { get { return startInnerToast; } }
 
     void Start()
     {
@@ -57,6 +56,7 @@ public class DrillingGame : Minigame
         targetColumn = 0;
         toastTimer = toastMessageTime;
         if(mainPanel) mainPanel.rectTransform.position = new Vector3((Screen.width / 3) / 2, Screen.height / 2, 0);
+        if (startInnerToast && startToast) startInnerToast.transform.SetSiblingIndex(startToast.transform.GetSiblingIndex() - 1);
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -117,7 +117,6 @@ public class DrillingGame : Minigame
             {
                 endOkToast.gameObject.SetActive(true);
                 endOkToast.transform.SetAsLastSibling();
-                endOkToastTimer.text = "Success!\nBuild grid\nin: " + ((int)toastTimer).ToString();
                 if (toastTimer < 0.0f)
                 {
                     finalShown = true;
@@ -130,8 +129,6 @@ public class DrillingGame : Minigame
             {
                 endFailToast.gameObject.SetActive(true);
                 endFailToast.transform.SetAsLastSibling();
-                endFailToastTimer.gameObject.SetActive(true);
-                endFailToastTimer.text = "Drill broken!\nRestart search\nin: " + ((int)toastTimer).ToString();
                 if (toastTimer < 0.0f)
                 {
                     finalShown = true;
@@ -279,6 +276,7 @@ public class DrillingGame : Minigame
             GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, drillspot.transform.position, drillspot.transform.rotation) as GeoThermalPlant;
             Destroy(drillspot.gameObject);
             GameManager.Instance.Player.StartBuildMinigame(plant, 1f);
+            GameManager.Instance.Player.ScorePoints(succeededDrillValue);
         }
         else GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
         
