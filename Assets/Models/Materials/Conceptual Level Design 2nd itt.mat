@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Conceptual Level Design 2nd itt
-  m_Shader: {fileID: 4800000, guid: f1a428127c2637f419b17d3c99bf802c, type: 3}
+  m_Shader: {fileID: 4800000, guid: 94869c75065065f469375d5729093b03, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: 2000
@@ -38,21 +38,7 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _ScanTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 963d403c1a26e8c4b8334d150d06d3d7, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
           name: _ParallaxMap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _OcclusionMap
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -80,9 +66,23 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _OcclusionMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _MetallicGlossMap
         second:
           m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ScanTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 963d403c1a26e8c4b8334d150d06d3d7, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -104,36 +104,16 @@ Material:
         second: 0.5
       data:
         first:
-          name: _Glossiness
-        second: 0.5
-      data:
-        first:
-          name: _Metallic
-        second: 0
-      data:
-        first:
-          name: _ScanFactor
-        second: 1
-      data:
-        first:
-          name: _Duration
-        second: 3
-      data:
-        first:
-          name: _DurationBack
-        second: 3
-      data:
-        first:
-          name: _setDuration
-        second: 3
-      data:
-        first:
           name: _Parallax
         second: 0.02
       data:
         first:
           name: _ZWrite
         second: 1
+      data:
+        first:
+          name: _Glossiness
+        second: 0.5
       data:
         first:
           name: _BumpScale
@@ -154,6 +134,26 @@ Material:
         first:
           name: _Mode
         second: 0
+      data:
+        first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
+          name: _ScanFactor
+        second: 1
+      data:
+        first:
+          name: _Duration
+        second: 3
+      data:
+        first:
+          name: _DurationBack
+        second: 3
+      data:
+        first:
+          name: _setDuration
+        second: 3
     m_Colors:
       data:
         first:
