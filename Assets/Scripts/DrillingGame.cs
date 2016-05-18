@@ -28,6 +28,7 @@ public class DrillingGame : Minigame
     [SerializeField] private float RockDiamondRatio;
     [SerializeField] private float toastMessageTime = 3.0f;
     [SerializeField] private float drillSpeed = 3.0f;
+    [SerializeField] private float slideSpeed = 1.0f;
     [SerializeField] private float diamondValue = 1.0f;
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST }
@@ -52,7 +53,7 @@ public class DrillingGame : Minigame
     void Start()
     {
         activateImages(false);
-        if (drill) initDrillPos = drill.transform.position;
+        if (drill) initDrillPos = drill.rectTransform.anchoredPosition;
         targetColumn = 0;
         toastTimer = toastMessageTime;
         if(mainPanel) mainPanel.rectTransform.position = new Vector3((Screen.width / 3) / 2, Screen.height / 2, 0);
@@ -115,6 +116,7 @@ public class DrillingGame : Minigame
             if (succeededDrill)
             {
                 endOkToast.gameObject.SetActive(true);
+                endOkToast.transform.SetAsLastSibling();
                 endOkToastTimer.text = "Success!\nBuild grid\nin: " + ((int)toastTimer).ToString();
                 if (toastTimer < 0.0f)
                 {
@@ -127,6 +129,7 @@ public class DrillingGame : Minigame
             else
             {
                 endFailToast.gameObject.SetActive(true);
+                endFailToast.transform.SetAsLastSibling();
                 endFailToastTimer.gameObject.SetActive(true);
                 endFailToastTimer.text = "Drill broken!\nRestart search\nin: " + ((int)toastTimer).ToString();
                 if (toastTimer < 0.0f)
@@ -143,7 +146,7 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-        if (drill.transform.position.y > initDrillPos.y - 350)
+        if (drill.rectTransform.anchoredPosition.y > initDrillPos.y - 495)
         {
             drill.transform.Translate(0 * drillSpeed, -1.0f * drillSpeed, 0 * drillSpeed);
             if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y == rows[targetRow])
@@ -197,7 +200,7 @@ public class DrillingGame : Minigame
         {
             if (slidingLeft == false)
             {
-                drill.transform.Translate(new Vector3(1, 0, 0));
+                drill.transform.Translate(new Vector3(1 * slideSpeed, 0, 0));
                 if (targetColumn < columns.Length - 1)
                 {
                     if (drill.rectTransform.anchoredPosition.x == columns[targetColumn + 1]) targetColumn += 1;
@@ -206,7 +209,7 @@ public class DrillingGame : Minigame
             }
             else
             {
-                drill.transform.Translate(new Vector3(-1, 0, 0));
+                drill.transform.Translate(new Vector3(-1 * slideSpeed, 0, 0));
                 if (targetColumn > 0)
                 {
                     if (drill.rectTransform.anchoredPosition.x == columns[targetColumn - 1]) targetColumn -= 1;
@@ -262,7 +265,7 @@ public class DrillingGame : Minigame
         }
         if (state != DrillingGameState.INACTIVE && state != DrillingGameState.STARTSTOPTOAST)
         {
-            timer.text = "Mini-game time: " + ((int)Timeleft).ToString();
+            timer.text = ((int)Timeleft).ToString();
             timer.color = Color.Lerp(Color.red, Color.green, Timeleft/TimeOut);
         }
     }
@@ -307,7 +310,7 @@ public class DrillingGame : Minigame
         targetColumn = 0;
         targetRow = 0;
         foreach (GameObject rock in rocks) Destroy(rock);
-        drill.transform.position = initDrillPos;
+        drill.rectTransform.anchoredPosition = initDrillPos;
     }
 
     private void instantiateDrilledTile(int x, int y)
