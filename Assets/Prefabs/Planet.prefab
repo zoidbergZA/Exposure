@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 447588}
   - 33: {fileID: 3399376}
   - 23: {fileID: 2346598}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ GameObject:
   - 33: {fileID: 3363066}
   - 23: {fileID: 2368578}
   - 95: {fileID: 9512906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Construction_Transmission_tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 460574}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Models
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - 4: {fileID: 420580}
   - 33: {fileID: 3397878}
   - 23: {fileID: 2307840}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ GameObject:
   - 4: {fileID: 412558}
   - 198: {fileID: 19879154}
   - 199: {fileID: 19950552}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - 4: {fileID: 499988}
   - 33: {fileID: 3300180}
   - 23: {fileID: 2390470}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - 4: {fileID: 403538}
   - 33: {fileID: 3360770}
   - 23: {fileID: 2341918}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   - 4: {fileID: 463288}
   - 33: {fileID: 3315448}
   - 23: {fileID: 2349052}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - 4: {fileID: 468652}
   - 33: {fileID: 3374084}
   - 23: {fileID: 2383586}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - 4: {fileID: 454100}
   - 114: {fileID: 11457742}
   - 114: {fileID: 11430466}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Pylon
   m_TagString: Pylon
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - 4: {fileID: 473224}
   - 33: {fileID: 3338054}
   - 23: {fileID: 2397054}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - 4: {fileID: 441386}
   - 33: {fileID: 3373222}
   - 23: {fileID: 2388702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   - 4: {fileID: 424012}
   - 33: {fileID: 3380478}
   - 23: {fileID: 2318126}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - 4: {fileID: 427272}
   - 33: {fileID: 3370086}
   - 23: {fileID: 2394650}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - 4: {fileID: 487522}
   - 33: {fileID: 3320176}
   - 23: {fileID: 2356288}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   - 4: {fileID: 447658}
   - 33: {fileID: 3360686}
   - 23: {fileID: 2365944}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 401490}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Connection Ref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   - 4: {fileID: 421922}
   - 33: {fileID: 3364720}
   - 23: {fileID: 2353564}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Chimney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 488342}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   - 4: {fileID: 474444}
   - 198: {fileID: 19865098}
   - 199: {fileID: 19944784}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 461566}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Connection Ref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +392,7 @@ GameObject:
   - 33: {fileID: 3383812}
   - 114: {fileID: 11430596}
   - 114: {fileID: 11438674}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: City (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - 4: {fileID: 433270}
   - 33: {fileID: 3371762}
   - 23: {fileID: 2312034}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - 4: {fileID: 430812}
   - 33: {fileID: 3358080}
   - 23: {fileID: 2339098}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 454192}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Connection Ref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,7 +459,7 @@ GameObject:
   - 33: {fileID: 3378120}
   - 114: {fileID: 11437840}
   - 114: {fileID: 11498096}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: City (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -476,7 +476,7 @@ GameObject:
   - 4: {fileID: 458892}
   - 33: {fileID: 3314446}
   - 23: {fileID: 2375210}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   - 4: {fileID: 475288}
   - 33: {fileID: 3310544}
   - 23: {fileID: 2391594}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +510,7 @@ GameObject:
   - 4: {fileID: 476744}
   - 33: {fileID: 3313570}
   - 23: {fileID: 2335574}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ocean_OBJ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +527,8 @@ GameObject:
   - 4: {fileID: 495822}
   - 33: {fileID: 3327028}
   - 23: {fileID: 2367460}
-  m_Layer: 0
+  - 64: {fileID: 6458164}
+  m_Layer: 8
   m_Name: Planet_OBJ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +561,7 @@ GameObject:
   - 4: {fileID: 425420}
   - 33: {fileID: 3309028}
   - 23: {fileID: 2398992}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +579,7 @@ GameObject:
   - 33: {fileID: 3314166}
   - 23: {fileID: 2381218}
   - 95: {fileID: 9579356}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Transmission_tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +594,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 440772}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CITY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -610,7 +611,7 @@ GameObject:
   - 4: {fileID: 453530}
   - 33: {fileID: 3383956}
   - 23: {fileID: 2397878}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -626,7 +627,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 488824}
   - 95: {fileID: 9504752}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CityA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +642,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 413714}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CITY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +659,7 @@ GameObject:
   - 4: {fileID: 458596}
   - 33: {fileID: 3307292}
   - 23: {fileID: 2377564}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +676,7 @@ GameObject:
   - 4: {fileID: 485406}
   - 33: {fileID: 3371616}
   - 23: {fileID: 2317064}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -692,7 +693,7 @@ GameObject:
   - 4: {fileID: 413590}
   - 33: {fileID: 3370390}
   - 23: {fileID: 2314822}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -709,7 +710,7 @@ GameObject:
   - 4: {fileID: 454658}
   - 33: {fileID: 3375494}
   - 23: {fileID: 2386448}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -725,7 +726,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 450186}
   - 95: {fileID: 9593996}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 17_05_Planet&Ocean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -742,7 +743,7 @@ GameObject:
   - 4: {fileID: 430540}
   - 33: {fileID: 3335702}
   - 23: {fileID: 2373734}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Chimney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -757,7 +758,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 440848}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +775,7 @@ GameObject:
   - 4: {fileID: 458784}
   - 33: {fileID: 3388840}
   - 23: {fileID: 2362632}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -791,7 +792,7 @@ GameObject:
   - 4: {fileID: 408684}
   - 33: {fileID: 3330532}
   - 23: {fileID: 2325762}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -806,7 +807,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 422084}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cities
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -823,7 +824,7 @@ GameObject:
   - 4: {fileID: 482858}
   - 33: {fileID: 3336768}
   - 23: {fileID: 2392312}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -840,7 +841,7 @@ GameObject:
   - 4: {fileID: 405898}
   - 33: {fileID: 3386558}
   - 23: {fileID: 2308572}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -857,7 +858,7 @@ GameObject:
   - 4: {fileID: 441316}
   - 33: {fileID: 3371222}
   - 23: {fileID: 2335592}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -874,7 +875,7 @@ GameObject:
   - 4: {fileID: 476036}
   - 33: {fileID: 3336280}
   - 23: {fileID: 2328880}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -891,7 +892,7 @@ GameObject:
   - 4: {fileID: 450678}
   - 33: {fileID: 3310338}
   - 23: {fileID: 2312838}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -908,7 +909,7 @@ GameObject:
   - 4: {fileID: 442470}
   - 33: {fileID: 3300396}
   - 23: {fileID: 2302484}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -924,7 +925,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 486038}
   - 95: {fileID: 9597754}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CityA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -941,7 +942,7 @@ GameObject:
   - 4: {fileID: 463678}
   - 33: {fileID: 3338224}
   - 23: {fileID: 2384110}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -958,7 +959,7 @@ GameObject:
   - 4: {fileID: 434426}
   - 33: {fileID: 3345738}
   - 23: {fileID: 2322916}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -975,7 +976,7 @@ GameObject:
   - 4: {fileID: 494100}
   - 33: {fileID: 3376482}
   - 23: {fileID: 2397812}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -992,7 +993,7 @@ GameObject:
   - 4: {fileID: 446522}
   - 33: {fileID: 3398080}
   - 23: {fileID: 2340600}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: B10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1161,7 +1162,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 154036}
   m_LocalRotation: {x: 0, y: -0.66416353, z: 0, w: 0.7475873}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -300, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 422084}
@@ -3115,6 +3116,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100516}
   m_Mesh: {fileID: 4300034, guid: b0eec6c98a12dab4897b9ed6d2c49fb3, type: 3}
+--- !u!64 &6458164
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152786}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: cf75565b2dfdb3b47a1ea40c2cc0b6c5, type: 3}
 --- !u!95 &9504752
 Animator:
   serializedVersion: 3
