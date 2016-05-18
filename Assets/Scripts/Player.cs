@@ -60,9 +60,15 @@ public class Player : MonoBehaviour
         GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
     }
 
-    public void ScorePoints(float amount)
+    public void ScorePoints(float amount, Transform location = null)
     {
         Score += amount;
+
+        if (location)
+        {
+            string scoreString = "+" + amount + " points!";
+            GameManager.Instance.Hud.NewFloatingText(scoreString, location);
+        }
     }
 
     private void HandleNormalState()
