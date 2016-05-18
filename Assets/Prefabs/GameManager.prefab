@@ -716,6 +716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 11429780}
+  destroyTime: 2.1
 --- !u!114 &11440072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -970,7 +971,7 @@ MonoBehaviour:
   canvas: {fileID: 199368}
   RockDiamondRatio: 0.15
   toastMessageTime: 3.6
-  drillSpeed: 3
+  drillSpeed: 1
   diamondValue: 1
 --- !u!114 &11470170
 MonoBehaviour:

@@ -123,7 +123,6 @@ public class DrillingGame : Minigame
         toastTimer -= Time.deltaTime;
         if(!introShown && !finalShown)
         {
-            //if (Input.GetMouseButton(0) == true) GameManager.Instance.DrillingGame.ToastTimer -= Time.deltaTime;
             startToast.gameObject.SetActive(true);
             startToastTimer.text = "Game starts\nin: " + ((int)toastTimer).ToString();
             float temp = toastTimer / toastMessageTime;
@@ -140,7 +139,6 @@ public class DrillingGame : Minigame
         {
             if (succeededDrill)
             {
-                //toastTimer -= Time.deltaTime;
                 endOkToast.gameObject.SetActive(true);
                 endOkToastTimer.text = "Success!\nBuild grid\nin: " + ((int)toastTimer).ToString();
                 if (toastTimer < 0.0f)
@@ -153,7 +151,6 @@ public class DrillingGame : Minigame
             }
             else
             {
-                //toastTimer -= Time.deltaTime;
                 endFailToast.gameObject.SetActive(true);
                 endFailToastTimer.gameObject.SetActive(true);
                 endFailToastTimer.text = "Drill broken!\nRestart search\nin: " + ((int)toastTimer).ToString();
@@ -173,8 +170,7 @@ public class DrillingGame : Minigame
     {
         if (drill.transform.position.y > initDrillPos.y - 350)
         {
-            //if (Input.GetKeyDown(KeyCode.Space)) 
-                drill.transform.Translate(0 * drillSpeed, -1.0f * drillSpeed, 0 * drillSpeed);
+            drill.transform.Translate(0 * drillSpeed, -1.0f * drillSpeed, 0 * drillSpeed);
             if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y == rows[targetRow])
             {
                 instantiateDrilledTile(columns[targetColumn], rows[targetRow]);
