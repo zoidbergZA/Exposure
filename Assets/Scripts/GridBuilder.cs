@@ -113,7 +113,8 @@ public class GridBuilder : Minigame
             float points = GameManager.Instance.ChimneyValue/MaxPylons*(MaxPylons - PylonCount + 1);
             
             GameManager.Instance.Player.ScorePoints(points);
-            GameManager.Instance.Hud.NewFloatingText(points.ToString(), ConnectedList[ConnectedList.Count - 1].transform);
+            string scoreString = "+" + points + " points!";
+            GameManager.Instance.Hud.NewFloatingText(scoreString, ConnectedList[ConnectedList.Count - 1].transform);
         }
         else
         {

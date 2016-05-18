@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, drillRayMask))
                 {
                     Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-                    Drill(hit.point, hit.normal, sample.r);
+                    Drill(hit.point, hit.normal, 1f - sample.r);
                     drilled = true;
                 }
                 toastMessageShown = false;

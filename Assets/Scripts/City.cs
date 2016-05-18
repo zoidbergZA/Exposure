@@ -24,7 +24,7 @@ public class City : Connectable
         base.Start();
 
         //test floating text
-        GameManager.Instance.Hud.NewFloatingText("hello!", transform);
+//        GameManager.Instance.Hud.NewFloatingText("hello!", transform);
     }
 
     public override void CheckConnectable(Vector3 location)
