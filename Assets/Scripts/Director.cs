@@ -36,11 +36,15 @@ public class Director : MonoBehaviour
 	        case Modes.Orbit:
                 if(!OrbitPaused) orbitTimer += Time.deltaTime;
                 targetPosition = new Vector3(Mathf.Sin(orbitTimer*orbitSpeed) * distance, targetTransform.position.y, Mathf.Cos(orbitTimer * orbitSpeed) * distance);
-	            break;
+                transform.LookAt(GameManager.Instance.PlanetTransform.position + Camera.main.transform.right * lookAtOffset.x);
+                break;
+
+            case Modes.Grid:
+                transform.LookAt(GameManager.Instance.PlanetTransform.position);
+                break;
 	    }
 
-	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);
-        transform.LookAt(GameManager.Instance.PlanetTransform.position + Camera.main.transform.right * lookAtOffset.x);
+	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);        
 	    Camera.main.orthographicSize = currentZoom;
     }
 
