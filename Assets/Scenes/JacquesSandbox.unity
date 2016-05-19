@@ -572,6 +572,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1660360040 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11499372, guid: 740c9e154f3f9a147a108da53ff896e5,
+    type: 2}
+  m_PrefabInternal: {fileID: 2063741679}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1746932677
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,6 +690,10 @@ Prefab:
       propertyPath: PylonsHolder
       value: 
       objectReference: {fileID: 1895282428}
+    - target: {fileID: 11467178, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: startInnerToast
+      value: 
+      objectReference: {fileID: 1660360040}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
