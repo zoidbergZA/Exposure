@@ -39,6 +39,7 @@ public class DrillingGame : Minigame
     private float toastTimer;
     private bool slidingLeft = false;
     private bool introShown, finalShown = false;
+    private bool imagesActivated = false;
     public bool succeededDrill { get; set; }
     private List<GameObject> rocks = new List<GameObject>();
     public DrillingGameState State { get { return state; } set { state = value; } }
@@ -48,6 +49,7 @@ public class DrillingGame : Minigame
     public float ToastTimer { get { return toastTimer; } set { toastTimer = value; } }
     public UnityEngine.UI.Image StartToast { get { return startToast; } }
     public UnityEngine.UI.Image StartInnerToast { get { return startInnerToast; } }
+    public UnityEngine.UI.Image BgActive { get { return bgActive; } }
 
     void Start()
     {
@@ -65,6 +67,7 @@ public class DrillingGame : Minigame
         this.drillspot = drillspot;
         Begin(difficulty);
         state = DrillingGameState.SLIDING;
+        imagesActivated = true;
         introShown = true;
         generateMap();
     }
@@ -200,7 +203,7 @@ public class DrillingGame : Minigame
                 drill.transform.Translate(new Vector3(1 * slideSpeed * Time.deltaTime, 0, 0));
                 if (targetColumn < columns.Length - 1)
                 {
-                    if (drill.rectTransform.anchoredPosition.x == columns[targetColumn + 1]) targetColumn += 1;
+                    if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
                 }
                 else slidingLeft = true;
             }
@@ -209,7 +212,7 @@ public class DrillingGame : Minigame
                 drill.transform.Translate(new Vector3(-1 * slideSpeed * Time.deltaTime, 0, 0));
                 if (targetColumn > 0)
                 {
-                    if (drill.rectTransform.anchoredPosition.x == columns[targetColumn - 1]) targetColumn -= 1;
+                    if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
                 }
                 else slidingLeft = false;
             }
@@ -241,7 +244,7 @@ public class DrillingGame : Minigame
 
     private void handleInactiveState()
     {
-        activateImages(false);
+        if (imagesActivated) activateImages(false);
     }
 
     private void handleSuccessState()
@@ -295,6 +298,7 @@ public class DrillingGame : Minigame
             if (bgActive) bgActive.gameObject.SetActive(false);
             if (drill) drill.gameObject.SetActive(false);
             if (timer) timer.gameObject.SetActive(false);
+            imagesActivated = false;
         }
     }
 
