@@ -636,13 +636,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd56c17a02d3c9443ae116fc651e883a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 12
+  timeOut: 20
   PlacerHelperPrefab: {fileID: 124698, guid: c159ca2a320fea2459e942f588211ec3, type: 2}
   pylonPrefab: {fileID: 11436378, guid: 51ab1a46f67f1074bb4a2db8b697b8c5, type: 2}
   placerMask:
     serializedVersion: 2
     m_Bits: 256
-  maxPylons: 5
   ConnectionFinalized: 0
 --- !u!114 &11463550
 MonoBehaviour:

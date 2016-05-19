@@ -46,6 +46,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        //temp
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            CollectCable(1);
+        //temp
+
         switch (PlayerState)
         {
             case PlayerStates.Normal:
@@ -57,6 +62,13 @@ public class Player : MonoBehaviour
     public void CollectCable(int amount)
     {
         Cable += amount;
+        GameManager.Instance.Hud.ShakeCablePanel();
+    }
+
+    public void ConsumeCable(int amount)
+    {
+        Cable -= amount;
+        GameManager.Instance.Hud.ShakeCablePanel();
     }
 
     public void GoToNormalState(Transform targetTransform)

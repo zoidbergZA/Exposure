@@ -10,9 +10,9 @@ public class Hud : MonoBehaviour
     [SerializeField] private Texture2D leftButton;
     [SerializeField] private Texture2D rightButton;
     [SerializeField] private Texture2D drillButton;
+    [SerializeField] private GameObject cablePanel;
     [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
-
     private int buttoSize = 55;
     private int buttonIndent = 10;
     private int wobblerTweenId;
@@ -41,6 +41,13 @@ public class Hud : MonoBehaviour
     public void GoToGameOver()
     {
         gameOverPanel.SetActive(true);
+    }
+
+    public void ShakeCablePanel()
+    {
+        LeanTween.scale(cablePanel.GetComponent<RectTransform>(), cablePanel.GetComponent<RectTransform>().localScale*1.4f,
+            1f)
+            .setEase(LeanTweenType.punch);
     }
 
     public void NewFloatingText(string text, Transform target)

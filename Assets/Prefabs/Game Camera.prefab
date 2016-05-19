@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookAtOffset: {x: -80, y: 0, z: 0}
-  orbitSpeed: 0.1
+  orbitSpeed: 0.05
   orbitZoom: 100
   buildZoom: 50
 --- !u!124 &12453404
