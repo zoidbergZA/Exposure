@@ -15,7 +15,9 @@ public class Hud : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     private int buttoSize = 55;
     private int buttonIndent = 10;
+
     private int wobblerTweenId;
+    private int cablePanelTweenId;
 
     public float WobbleValue { get; private set; }
 
@@ -45,9 +47,15 @@ public class Hud : MonoBehaviour
 
     public void ShakeCablePanel()
     {
-        LeanTween.scale(cablePanel.GetComponent<RectTransform>(), cablePanel.GetComponent<RectTransform>().localScale*1.4f,
+        if (LeanTween.isTweening(cablePanelTweenId))
+        {
+            LeanTween.cancel(cablePanelTweenId);
+            cablePanel.GetComponent<RectTransform>().localScale = Vector3.one;
+        }
+
+        cablePanelTweenId = LeanTween.scale(cablePanel.GetComponent<RectTransform>(), cablePanel.GetComponent<RectTransform>().localScale*1.4f,
             1f)
-            .setEase(LeanTweenType.punch);
+            .setEase(LeanTweenType.punch).id;
     }
 
     public void NewFloatingText(string text, Transform target)
