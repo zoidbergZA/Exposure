@@ -24,9 +24,15 @@ public class Player : MonoBehaviour
     private bool drilled = false;
     private Ray ray;
     private RaycastHit hit;
+    private Vector3 initPressureImagePos;
     
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
+
+    private void Start()
+    {
+        initPressureImagePos = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.position;
+    }
 
     void Update()
     {
@@ -85,6 +91,11 @@ public class Player : MonoBehaviour
                 GameManager.Instance.DrillingGame.StartToast.gameObject.SetActive(true);
                 GameManager.Instance.DrillingGame.StartInnerToast.gameObject.SetActive(true);
             }
+
+            if(GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.position.y < GameManager.Instance.DrillingGame.StartToast.rectTransform.position.y)
+                GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.Translate(0, 
+                    getUpSpeed(GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.rect.height/2) * Time.deltaTime, 0);
+
             drillToastTimer -= Time.deltaTime;
             if (drillToastTimer <= 0 && !drilled) toastMessageShown = true;
             if(toastMessageShown)
@@ -109,7 +120,14 @@ public class Player : MonoBehaviour
             drilled = false;
             GameManager.Instance.DrillingGame.StartToast.gameObject.SetActive(false);
             GameManager.Instance.DrillingGame.StartInnerToast.gameObject.SetActive(false);
+            GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.position = initPressureImagePos;
         }
+    }
+
+    private float getUpSpeed(float distance)
+    {
+        float result = distance / drillToastTimer;
+        return result;
     }
 
     private Pylon GetClosestPylon(Vector3 location)

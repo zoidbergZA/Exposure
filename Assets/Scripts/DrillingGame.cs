@@ -145,7 +145,7 @@ public class DrillingGame : Minigame
     {
         if (drill.rectTransform.anchoredPosition.y > initDrillPos.y - 495)
         {
-            drill.transform.Translate(0 * drillSpeed, -1.0f * drillSpeed, 0 * drillSpeed);
+            drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0);
             if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y == rows[targetRow])
             {
                 instantiateDrilledTile(columns[targetColumn], rows[targetRow]);
@@ -197,7 +197,7 @@ public class DrillingGame : Minigame
         {
             if (slidingLeft == false)
             {
-                drill.transform.Translate(new Vector3(1 * slideSpeed, 0, 0));
+                drill.transform.Translate(new Vector3(1 * slideSpeed * Time.deltaTime, 0, 0));
                 if (targetColumn < columns.Length - 1)
                 {
                     if (drill.rectTransform.anchoredPosition.x == columns[targetColumn + 1]) targetColumn += 1;
@@ -206,7 +206,7 @@ public class DrillingGame : Minigame
             }
             else
             {
-                drill.transform.Translate(new Vector3(-1 * slideSpeed, 0, 0));
+                drill.transform.Translate(new Vector3(-1 * slideSpeed * Time.deltaTime, 0, 0));
                 if (targetColumn > 0)
                 {
                     if (drill.rectTransform.anchoredPosition.x == columns[targetColumn - 1]) targetColumn -= 1;
