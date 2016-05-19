@@ -19,17 +19,26 @@ public abstract class Connectable : Placable
         Highlight(false);
     }
 
+    private void ClickCallback()
+    {
+        Debug.Log("woot");   
+    }
+
     void OnGUI()
     {
-        if (IsConnectable && GameManager.Instance.Player.PlayerState == Player.PlayerStates.BuildGrid)
-        {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
 
-            if (GUI.Button(new Rect(screenPos.x - 20, Screen.height - screenPos.y - 20, 40, 40), connectIcon, ""))
-            {
-                OnConnected();
-                GameManager.Instance.GridBuilder.MakeConnection(this);
-            }
-        }
+        GameManager.Instance.Hud.ShowWorldSpaceButton(connectIcon, screenPos, ClickCallback);
+        
+        //        if (IsConnectable && GameManager.Instance.Player.PlayerState == Player.PlayerStates.BuildGrid)
+        //        {
+        //            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        //
+        //            if (GUI.Button(new Rect(screenPos.x - 20, Screen.height - screenPos.y - 20, 40, 40), connectIcon, ""))
+        //            {
+        //                OnConnected();
+        //                GameManager.Instance.GridBuilder.MakeConnection(this);
+        //            }
+        //        }
     }
 }
