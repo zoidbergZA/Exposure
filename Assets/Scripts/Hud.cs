@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Hud : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private Texture2D leftButton;
     [SerializeField] private Texture2D rightButton;
     [SerializeField] private Texture2D drillButton;
+    [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
 
     private int buttoSize = 55;
@@ -25,10 +27,7 @@ public class Hud : MonoBehaviour
 
     void Update()
     {
-//        if (LeanTween.isTweening(wobblerTweenId))
-//        {
-//            Debug.Log(WobbleValue);
-//        }
+        cableText.text = GameManager.Instance.Player.Cable + "x";
     }
 
     void OnGUI()
@@ -67,7 +66,7 @@ public class Hud : MonoBehaviour
     {
         if (GameManager.Instance.Scanner.IsReady && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
         {
-            if (GUI.Button(new Rect(Screen.width - 65, 10, buttoSize, buttoSize), "scan"))
+            if (GUI.Button(new Rect(Screen.width - 65, Screen.height - buttoSize - 10, buttoSize, buttoSize), "scan"))
             {
                 GameManager.Instance.Scanner.Scan();
             }
