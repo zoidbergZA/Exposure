@@ -70,6 +70,7 @@ public class DrillingGame : Minigame
         imagesActivated = true;
         introShown = true;
         generateMap();
+        if (bgActive) bgActive.rectTransform.anchoredPosition = new Vector3(0, -23, 0);
     }
 
     private void generateMap()
