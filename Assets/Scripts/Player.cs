@@ -12,13 +12,15 @@ public class Player : MonoBehaviour
         DrillGame,
         BuildGrid
     }
-    
+
+    [SerializeField] private int startingCable = 3;
     [SerializeField] private LayerMask drillRayMask;
     [SerializeField] private LayerMask buildRayMask;
     [SerializeField] private Powerplant PowerplantPrefab;
     [SerializeField] private Drillspot DrillspotPrefab;
     [SerializeField] private float drillToastTime = 3.0f;
     [SerializeField] private UnityEngine.UI.Text testTimer;
+
     private float drillToastTimer;
     private bool toastMessageShown = false;
     private bool drilled = false;
@@ -29,8 +31,14 @@ public class Player : MonoBehaviour
     
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
+    public int Cable { get; private set; }
 
-    private void Start()
+    void Awake()
+    {
+        Cable = startingCable;
+    }
+
+    void Start()
     {
         initPressureImagePos = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition;
         initBgImagePos = GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition;
@@ -38,12 +46,29 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        //temp
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            CollectCable(1);
+        //temp
+
         switch (PlayerState)
         {
             case PlayerStates.Normal:
                 HandleNormalState();
                 break;
         }
+    }
+
+    public void CollectCable(int amount)
+    {
+        Cable += amount;
+        GameManager.Instance.Hud.ShakeCablePanel();
+    }
+
+    public void ConsumeCable(int amount)
+    {
+        Cable -= amount;
+        GameManager.Instance.Hud.ShakeCablePanel();
     }
 
     public void GoToNormalState(Transform targetTransform)

@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Conceptual Level Design 2nd itt
-  m_Shader: {fileID: 4800000, guid: 94869c75065065f469375d5729093b03, type: 3}
+  m_Name: Planet_MAT
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: ec3348e087b848c4590f2eb809e1dd7c, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -78,18 +78,7 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _ScanTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 963d403c1a26e8c4b8334d150d06d3d7, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
     m_Floats:
-      data:
-        first:
-          name: _Radius
-        second: 2
       data:
         first:
           name: _SrcBlend
@@ -138,22 +127,6 @@ Material:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _ScanFactor
-        second: 1
-      data:
-        first:
-          name: _Duration
-        second: 3
-      data:
-        first:
-          name: _DurationBack
-        second: 3
-      data:
-        first:
-          name: _setDuration
-        second: 3
     m_Colors:
       data:
         first:
@@ -162,8 +135,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _CenterCoords
-        second: {r: 0, g: 0, b: 0, a: 0}
+        second: {r: 0.20415178, g: 0.5, b: 0.17950001, a: 1}

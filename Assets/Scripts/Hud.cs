@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Hud : MonoBehaviour
 {
@@ -9,11 +10,14 @@ public class Hud : MonoBehaviour
     [SerializeField] private Texture2D leftButton;
     [SerializeField] private Texture2D rightButton;
     [SerializeField] private Texture2D drillButton;
+    [SerializeField] private GameObject cablePanel;
+    [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
-
     private int buttoSize = 55;
     private int buttonIndent = 10;
+
     private int wobblerTweenId;
+    private int cablePanelTweenId;
 
     public float WobbleValue { get; private set; }
 
@@ -25,10 +29,7 @@ public class Hud : MonoBehaviour
 
     void Update()
     {
-//        if (LeanTween.isTweening(wobblerTweenId))
-//        {
-//            Debug.Log(WobbleValue);
-//        }
+        cableText.text = GameManager.Instance.Player.Cable + "x";
     }
 
     void OnGUI()
@@ -42,6 +43,19 @@ public class Hud : MonoBehaviour
     public void GoToGameOver()
     {
         gameOverPanel.SetActive(true);
+    }
+
+    public void ShakeCablePanel()
+    {
+        if (LeanTween.isTweening(cablePanelTweenId))
+        {
+            LeanTween.cancel(cablePanelTweenId);
+            cablePanel.GetComponent<RectTransform>().localScale = Vector3.one;
+        }
+
+        cablePanelTweenId = LeanTween.scale(cablePanel.GetComponent<RectTransform>(), cablePanel.GetComponent<RectTransform>().localScale*1.4f,
+            1f)
+            .setEase(LeanTweenType.punch).id;
     }
 
     public void NewFloatingText(string text, Transform target)
@@ -67,7 +81,7 @@ public class Hud : MonoBehaviour
     {
         if (GameManager.Instance.Scanner.IsReady && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
         {
-            if (GUI.Button(new Rect(Screen.width - 65, 10, buttoSize, buttoSize), "scan"))
+            if (GUI.Button(new Rect(Screen.width - 65, Screen.height - buttoSize - 10, buttoSize, buttoSize), "scan"))
             {
                 GameManager.Instance.Scanner.Scan();
             }
