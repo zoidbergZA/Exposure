@@ -82,8 +82,9 @@ public class Player : MonoBehaviour
                 {
                     GameManager.Instance.Director.OrbitPaused = true;
                 }
+                GameManager.Instance.DrillingGame.StartToast.gameObject.SetActive(true);
             }
-            testTimer.text = drillToastTimer.ToString();
+            GameManager.Instance.DrillingGame.StartToastTimer.text = "Game starts\nin: " + ((int)drillToastTimer).ToString();
             drillToastTimer -= Time.deltaTime;
             if (drillToastTimer <= 0 && !drilled) toastMessageShown = true;
             if(toastMessageShown)
@@ -93,6 +94,7 @@ public class Player : MonoBehaviour
                     Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
                     Drill(hit.point, hit.normal, 1f - sample.r);
                     drilled = true;
+                    GameManager.Instance.DrillingGame.StartToast.gameObject.SetActive(false);
                 }
                 toastMessageShown = false;
             }
@@ -104,6 +106,7 @@ public class Player : MonoBehaviour
             toastMessageShown = false;
             drillToastTimer = drillToastTime;
             drilled = false;
+            GameManager.Instance.DrillingGame.StartToast.gameObject.SetActive(false);
         }
     }
 
