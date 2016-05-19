@@ -75,7 +75,7 @@ public class Hud : MonoBehaviour
     {
         if(GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
         {
-            if (GUI.Button(new Rect(((Screen.width / 3) / 2)-50, (Screen.height / 2) + 270, 100, 80), drillButton, ""))
+            if (GUI.Button(new Rect(((Screen.width / 3) / 2)-50, (Screen.height / 2) + 290, 100, 80), drillButton, ""))
             {
                 GameManager.Instance.DrillingGame.SetMakeDrill(true);
             }
@@ -86,12 +86,12 @@ public class Hud : MonoBehaviour
     {
         if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
-            if (GUI.Button(new Rect(((Screen.width/3)/2)-180, (Screen.height/2) + 270, 100, 70), leftButton, ""))
+            if (GUI.Button(new Rect(((Screen.width/3)/2)-180, (Screen.height/2) + 290, 100, 70), leftButton, ""))
             {
                 GameManager.Instance.DrillingGame.MoveLeft();
             }
 
-            if (GUI.Button(new Rect(((Screen.width/3)/2)+80, (Screen.height/2) + 270, 100, 70), rightButton, ""))
+            if (GUI.Button(new Rect(((Screen.width/3)/2)+80, (Screen.height/2) + 290, 100, 70), rightButton, ""))
             {
                 GameManager.Instance.DrillingGame.MoveRight();
             }
