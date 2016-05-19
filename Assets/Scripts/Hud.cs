@@ -11,8 +11,6 @@ public class Hud : MonoBehaviour
 
     private int buttoSize = 55;
     private int buttonIndent = 10;
-<<<<<<< HEAD
-    private UnityEngine.UI.Button drillButton;
     private int wobblerTweenId;
 
     public float WobbleValue { get; private set; }
@@ -29,9 +27,6 @@ public class Hud : MonoBehaviour
 //            Debug.Log(WobbleValue);
 //        }
     }
-=======
-    //private UnityEngine.UI.Button drillButton;
->>>>>>> refs/remotes/origin/master
 
     void OnGUI()
     {
