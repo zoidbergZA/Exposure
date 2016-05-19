@@ -9,6 +9,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private Texture2D leftButton;
     [SerializeField] private Texture2D rightButton;
     [SerializeField] private Texture2D drillButton;
+    [SerializeField] private GameObject gameOverPanel;
 
     private int buttoSize = 55;
     private int buttonIndent = 10;
@@ -18,6 +19,7 @@ public class Hud : MonoBehaviour
 
     void Awake()
     {
+        gameOverPanel.SetActive(false);
         wobblerTweenId = LeanTween.value(gameObject, updateWobbleCallback, 0f, 1f, 0.6f).setLoopPingPong().setEase(LeanTweenType.easeInOutSine).id;
     }
 
@@ -35,6 +37,11 @@ public class Hud : MonoBehaviour
         ShowDebug();
         ShowDrillButton();
         ShowSteerButtons();
+    }
+
+    public void GoToGameOver()
+    {
+        gameOverPanel.SetActive(true);
     }
 
     public void NewFloatingText(string text, Transform target)

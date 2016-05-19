@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -48,7 +49,7 @@ public class GameManager : MonoBehaviour
         GridBuilder = GetComponentInChildren<GridBuilder>();
         DrillingGame = GetComponentInChildren<DrillingGame>();
         Scanner = GetComponent<Scanner>();
-        Hud = GetComponentInChildren<Hud>();
+        Hud = FindObjectOfType<Hud>();
         Player = GetComponentInChildren<Player>();
         Director = FindObjectOfType<Director>();
 
@@ -81,6 +82,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(Application.loadedLevelName);
+    }
+
     public Color SampleHeatmap(Vector2 textureCoordinate)
     {
         Material mat = Planet.scannableMesh.material;
@@ -101,6 +107,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("round ended! score " + Player.Score + "/100");
 
+        Hud.GoToGameOver();
         RoundStarted = false;
     }
 }
