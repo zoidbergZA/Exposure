@@ -48,7 +48,9 @@ public class Hud : MonoBehaviour
 
     public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callback)
     {
-        if (GUI.Button(new Rect(position.x - 20, Screen.height - position.y - 20, 40, 40), icon, ""))
+        float wobbleValue = WobbleValue * 10f;
+
+        if (GUI.Button(new Rect(position.x - 20 - wobbleValue / 2, Screen.height - position.y - 20 - wobbleValue / 2, 40 + wobbleValue, 40 + wobbleValue), icon, ""))
         {
             callback();
         }
