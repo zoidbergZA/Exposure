@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class Hud : MonoBehaviour
@@ -43,6 +44,16 @@ public class Hud : MonoBehaviour
 
         ft.Init(text, target);
 
+    }
+
+    public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callback)
+    {
+        float wobbleValue = WobbleValue * 10f;
+
+        if (GUI.Button(new Rect(position.x - 20 - wobbleValue / 2, Screen.height - position.y - 20 - wobbleValue / 2, 40 + wobbleValue, 40 + wobbleValue), icon, ""))
+        {
+            callback();
+        }
     }
 
     private void ShowScanButton()

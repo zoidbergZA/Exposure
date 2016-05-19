@@ -30,20 +30,7 @@ public class Chimney : MonoBehaviour
         smokeSystem.enableEmission = false;
     }
 
-    void OnGUI()
-    {
-        if (ChimneyState == ChimneyStates.Unused)
-        {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-
-            if (GUI.Button(new Rect(screenPos.x - 20, Screen.height - screenPos.y - 20, 40, 40), demolishIcon, ""))
-            {
-                Demolish();
-            }
-        }
-    }
-
-    private void Demolish()
+    public void Demolish()
     {
         if (ChimneyState != ChimneyStates.Unused)
             return;
@@ -52,5 +39,14 @@ public class Chimney : MonoBehaviour
         unusedModel.enabled = false;
 
         GameManager.Instance.Player.ScorePoints(10, transform);
+    }
+
+    void OnGUI()
+    {
+        if (ChimneyState == ChimneyStates.Unused)
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+            GameManager.Instance.Hud.ShowWorldSpaceButton(demolishIcon, screenPos, Demolish);
+        }
     }
 }
