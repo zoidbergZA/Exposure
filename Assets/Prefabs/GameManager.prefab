@@ -413,6 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51783948286a4c14ba4a4d929e921f8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingCable: 3
   drillRayMask:
     serializedVersion: 2
     m_Bits: 256
