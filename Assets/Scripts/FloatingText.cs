@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class FloatingText : MonoBehaviour
 {
+    [SerializeField] private Text textFieldBack;
     [SerializeField] private Text textField;
     [SerializeField] private float destroyTime = 2.1f;
 
@@ -28,11 +29,12 @@ public class FloatingText : MonoBehaviour
 
         IsInitialized = true;
         TargetTransform = target;
+        textFieldBack.text = text;
         textField.text = text;
         RectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(target.position);
 
-        LeanTween.value(gameObject, updateTweenCallback, 0, 40f, destroyTime).setOnComplete(OnComplete).setEase(LeanTweenType.easeOutSine);
-        //        LeanTween.move(RectTransform, (Vector3)position + new Vector3(0f, 50f, 0f), 5f).setOnComplete(OnComplete).setEase(LeanTweenType.easeOutSine);
+        LeanTween.value(gameObject, updateTweenCallback, 0, 40f, destroyTime).setOnComplete(OnRiseComplete).setEase(LeanTweenType.easeOutSine);
+        //        LeanTween.move(RectTransform, (Vector3)position + new Vector3(0f, 50f, 0f), 5f).setOnComplete(OnRiseComplete).setEase(LeanTweenType.easeOutSine);
     }
 
     void updateTweenCallback(float val, float ratio)
@@ -40,8 +42,9 @@ public class FloatingText : MonoBehaviour
         yOffset = val;
     }
 
-    private void OnComplete()
+    private void OnRiseComplete()
     {
+//        LeanTween.move(RectTransform, -RectTransform.anchoredPosition, 2f).setOnComplete(Kill);
         Kill();
     }
 
