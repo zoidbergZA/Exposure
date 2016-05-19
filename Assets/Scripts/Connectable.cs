@@ -26,6 +26,7 @@ public abstract class Connectable : Placable
 
     void OnGUI()
     {
+<<<<<<< HEAD
         Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
 
         GameManager.Instance.Hud.ShowWorldSpaceButton(connectIcon, screenPos, ClickCallback);
@@ -40,5 +41,25 @@ public abstract class Connectable : Placable
         //                GameManager.Instance.GridBuilder.MakeConnection(this);
         //            }
         //        }
+=======
+        float wobbleValue = 7f * GameManager.Instance.Hud.WobbleValue;
+
+//        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+//        if (GUI.Button(new Rect(screenPos.x - 20 - wobbleValue/2, Screen.height - screenPos.y - 20 - wobbleValue/2, 40 + wobbleValue, 40 + wobbleValue), connectIcon, ""))
+//        {
+//            
+//        }
+
+        if (IsConnectable && GameManager.Instance.Player.PlayerState == Player.PlayerStates.BuildGrid)
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+
+            if (GUI.Button(new Rect(screenPos.x - 20 - wobbleValue / 2, Screen.height - screenPos.y - 20 - wobbleValue / 2, 40 + wobbleValue, 40 + wobbleValue), connectIcon, ""))
+            {
+                OnConnected();
+                GameManager.Instance.GridBuilder.MakeConnection(this);
+            }
+        }
+>>>>>>> refs/remotes/origin/master
     }
 }
