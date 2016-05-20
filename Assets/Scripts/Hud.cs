@@ -9,6 +9,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private Canvas hudCanvas;
     [SerializeField] private Texture2D leftButton;
     [SerializeField] private Texture2D rightButton;
+    [SerializeField] private Texture2D downButton;
     [SerializeField] private Texture2D drillButton;
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private Text scoreText;
@@ -130,6 +131,12 @@ public class Hud : MonoBehaviour
             if (GUI.Button(new Rect(((Screen.width/3)/2)+80, (Screen.height/2) + 290, 100, 70), rightButton, ""))
             {
                 GameManager.Instance.DrillingGame.MoveRight();
+            }
+
+            if (GUI.Button(new Rect(((Screen.width / 3) / 2)-35, (Screen.height / 2) + 290, 70, 100), downButton, ""))
+            {
+                GameManager.Instance.DrillingGame.MovingRight = false;
+                GameManager.Instance.DrillingGame.MovingLeft = false;
             }
         }
     }
