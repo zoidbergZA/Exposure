@@ -8,7 +8,7 @@ public class Scanner : MonoBehaviour
     [SerializeField] private LayerMask scanRayMask;
     private float cooldown;
     private float duration;
-//    public GameObject target;
+    public Transform testTarget;
     private Material material;
     private Renderer renderer;
     private bool scannedForth = false;
@@ -27,36 +27,38 @@ public class Scanner : MonoBehaviour
     {
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
-        material.SetFloat("_setDuration", durationTime);
+//        material.SetFloat("_setDuration", durationTime);
     }
 
     void Update()
     {
-        if (!IsReady)
-        {
-            cooldown -= Time.deltaTime;
-            duration -= Time.deltaTime;
+        material.SetVector("_CenterPoint", new Vector4(testTarget.position.x, testTarget.position.y, testTarget.position.z, 0));
 
-            if (duration >= 0)
-            {
-                if (!scannedForth) material.SetFloat("_Duration", duration);
-                else material.SetFloat("_DurationBack", duration);
-            }
-            else
-            {
-                if (scannedForth == false)
-                {
-                    material.SetFloat("_Duration", 0);
-                    duration = durationTime / 2;
-                    scannedForth = true;
-                }
-            }
-            if (cooldown <= 0)
-            {
-                IsReady = true;
-                scannedForth = false;
-            }
-        }
+        //        if (!IsReady)
+        //        {
+        //            cooldown -= Time.deltaTime;
+        //            duration -= Time.deltaTime;
+        //
+        //            if (duration >= 0)
+        //            {
+        //                if (!scannedForth) material.SetFloat("_Duration", duration);
+        //                else material.SetFloat("_DurationBack", duration);
+        //            }
+        //            else
+        //            {
+        //                if (scannedForth == false)
+        //                {
+        //                    material.SetFloat("_Duration", 0);
+        //                    duration = durationTime / 2;
+        //                    scannedForth = true;
+        //                }
+        //            }
+        //            if (cooldown <= 0)
+        //            {
+        //                IsReady = true;
+        //                scannedForth = false;
+        //            }
+        //        }
     }
 
     public void Scan()
