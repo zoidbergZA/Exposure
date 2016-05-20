@@ -39,7 +39,7 @@ public class Hud : MonoBehaviour
 
     void OnGUI()
     {
-        ShowScanButton();
+//        ShowScanButton();
         ShowDebug();
         ShowDrillButton();
         ShowSteerButtons();
@@ -93,20 +93,20 @@ public class Hud : MonoBehaviour
         }
     }
 
-    private void ShowScanButton()
-    {
-        if (GameManager.Instance.Scanner.IsReady && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
-        {
-            if (GUI.Button(new Rect(Screen.width - 65, Screen.height - buttonSize - 10, buttonSize, buttonSize), "scan"))
-            {
-                GameManager.Instance.Scanner.Scan();
-            }
-        }
-        else
-        {
-            GUI.Label(new Rect(Screen.width - 65, Screen.height - buttonSize - 10, buttonSize, buttonSize), GameManager.Instance.Scanner.Cooldown.ToString("F2"));
-        }
-    }
+//    private void ShowScanButton()
+//    {
+//        if (GameManager.Instance.Scanner.IsReady && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
+//        {
+//            if (GUI.Button(new Rect(Screen.width - 65, Screen.height - buttonSize - 10, buttonSize, buttonSize), "scan"))
+//            {
+//                GameManager.Instance.Scanner.Scan();
+//            }
+//        }
+//        else
+//        {
+//            GUI.Label(new Rect(Screen.width - 65, Screen.height - buttonSize - 10, buttonSize, buttonSize), GameManager.Instance.Scanner.Cooldown.ToString("F2"));
+//        }
+//    }
 
     private void ShowDrillButton()
     {
