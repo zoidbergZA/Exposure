@@ -10,6 +10,7 @@ public class DrillingGame : Minigame
 
     [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
     [SerializeField] private UnityEngine.UI.Image mainPanel;
+    [SerializeField] private UnityEngine.UI.Image pressureIcon;
     [SerializeField] private UnityEngine.UI.Image bgActive;
     [SerializeField] private UnityEngine.UI.Image drill;
     [SerializeField] private UnityEngine.UI.Text timer;
@@ -50,6 +51,8 @@ public class DrillingGame : Minigame
     public UnityEngine.UI.Image StartToast { get { return startToast; } }
     public UnityEngine.UI.Image StartInnerToast { get { return startInnerToast; } }
     public UnityEngine.UI.Image BgActive { get { return bgActive; } }
+    public UnityEngine.UI.Image PressureIcon { get { return pressureIcon; } }
+    public bool CollidesRock { get; set; }
 
     void Start()
     {
@@ -71,6 +74,7 @@ public class DrillingGame : Minigame
         introShown = true;
         generateMap();
         if (bgActive) bgActive.rectTransform.anchoredPosition = new Vector3(0, -23, 0);
+        CollidesRock = false;
     }
 
     private void generateMap()
@@ -149,7 +153,7 @@ public class DrillingGame : Minigame
     {
         if (drill.rectTransform.anchoredPosition.y > initDrillPos.y - 495)
         {
-            drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0);
+            if(!CollidesRock) drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0);
             if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y == rows[targetRow])
             {
                 instantiateDrilledTile(columns[targetColumn], rows[targetRow]);
@@ -269,6 +273,7 @@ public class DrillingGame : Minigame
             timer.text = ((int)Timeleft).ToString();
             timer.color = Color.Lerp(Color.red, Color.green, Timeleft/TimeOut);
         }
+        Debug.Log("Collides Rock: " + CollidesRock);
     }
 
     public override void End(bool succeeded)
