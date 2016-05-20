@@ -350,5 +350,8 @@ public class DrillingGame : Minigame
         diamond.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         diamond.gameObject.SetActive(true);
         rocks.Add(diamond);
+
+        LeanTween.scale(diamond.GetComponent<RectTransform>(), diamond.GetComponent<RectTransform>().localScale * 1.4f, 1f)
+            .setEase(LeanTweenType.punch);
     }
 }
