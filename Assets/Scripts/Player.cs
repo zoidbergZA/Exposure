@@ -114,6 +114,7 @@ public class Player : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, drillRayMask))
                 {
                     GameManager.Instance.Director.OrbitPaused = true;
+                    GameManager.Instance.DrillingGame.PressureIcon.rectTransform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y+100, Input.mousePosition.z);
                 }
                 activateImages(true);
             }
