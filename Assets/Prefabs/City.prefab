@@ -77,6 +77,7 @@ GameObject:
   - 4: {fileID: 448626}
   - 33: {fileID: 3367072}
   - 23: {fileID: 2340858}
+  - 114: {fileID: 11488612}
   m_Layer: 0
   m_Name: Chimney
   m_TagString: Untagged
@@ -1544,7 +1545,21 @@ MonoBehaviour:
   connectionRef: {fileID: 431776}
   connectIcon: {fileID: 2800000, guid: cca88ef0d19dbc547aa0ab4ce3122a62, type: 3}
   chimneys:
-  - {fileID: 11468568}
+  - {fileID: 11488612}
+--- !u!114 &11488612
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 366110022ace4344f99efa959ad92ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  demolishIcon: {fileID: 2800000, guid: cca88ef0d19dbc547aa0ab4ce3122a62, type: 3}
+  smokeSystem: {fileID: 19807846}
+  unusedModel: {fileID: 2301462}
 --- !u!198 &19807846
 ParticleSystem:
   m_ObjectHideFlags: 1
