@@ -18,8 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask buildRayMask;
     [SerializeField] private Powerplant PowerplantPrefab;
     [SerializeField] private Drillspot DrillspotPrefab;
-    [SerializeField] private float drillToastTime = 3.0f;
-    [SerializeField] private UnityEngine.UI.Text testTimer;
+    [SerializeField] private float drillToastTime = 1.0f;
 
     private float drillToastTimer;
     private bool toastMessageShown = false;
@@ -139,7 +138,6 @@ public class Player : MonoBehaviour
         else
         {
             if (GameManager.Instance.Director.OrbitPaused) GameManager.Instance.Director.OrbitPaused = false;
-            testTimer.text = "";
             toastMessageShown = false;
             drillToastTimer = drillToastTime;
             drilled = false;

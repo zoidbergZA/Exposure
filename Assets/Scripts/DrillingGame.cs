@@ -196,8 +196,8 @@ public class DrillingGame : Minigame
             {
                 if (targetColumn < columns.Length - 1)
                 {
-                    if (drill.rectTransform.anchoredPosition.y + 518 > rows[targetRow + 1]) drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
-                    else drill.transform.Translate(new Vector3(1 * drillSpeed * Time.deltaTime, 0, 0)); //drill right
+                    //if (drill.rectTransform.anchoredPosition.y + 518 >= rows[targetRow + 1]) drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
+                    drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
                     if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
                 }
                 else MovingRight = false;
@@ -206,13 +206,14 @@ public class DrillingGame : Minigame
             {
                 if (targetColumn > 0)
                 {
-                    if (drill.rectTransform.anchoredPosition.y + 518 > rows[targetRow + 1]) drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
-                    else drill.transform.Translate(new Vector3(-1 * drillSpeed * Time.deltaTime, 0, 0)); //drill left
+                    //if (drill.rectTransform.anchoredPosition.y + 518 >= rows[targetRow + 1]) drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
+                    drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
                     if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
                 }
                 else MovingLeft = false;
             }
         }
+        Debug.Log("right: " + MovingRight + " | left: " + MovingLeft);
     }
 
     public void MoveRight()
