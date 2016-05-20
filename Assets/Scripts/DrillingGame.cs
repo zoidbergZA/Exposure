@@ -213,7 +213,7 @@ public class DrillingGame : Minigame
                 else MovingLeft = false;
             }
         }
-        Debug.Log("right: " + MovingRight + " | left: " + MovingLeft);
+//        Debug.Log("right: " + MovingRight + " | left: " + MovingLeft);
     }
 
     public void MoveRight()

@@ -16,7 +16,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private GameObject cablePanel;
     [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
-    private int buttoSize = 55;
+    private int buttonSize = 55;
     private int buttonIndent = 10;
 
     private int wobblerTweenId;
@@ -97,14 +97,14 @@ public class Hud : MonoBehaviour
     {
         if (GameManager.Instance.Scanner.IsReady && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
         {
-            if (GUI.Button(new Rect(Screen.width - 65, Screen.height - buttoSize - 10, buttoSize, buttoSize), "scan"))
+            if (GUI.Button(new Rect(Screen.width - 65, Screen.height - buttonSize - 10, buttonSize, buttonSize), "scan"))
             {
                 GameManager.Instance.Scanner.Scan();
             }
         }
         else
         {
-            GUI.Label(new Rect(Screen.width - 65, 10, buttoSize, buttoSize), GameManager.Instance.Scanner.Cooldown.ToString("F2"));
+            GUI.Label(new Rect(Screen.width - 65, Screen.height - buttonSize - 10, buttonSize, buttonSize), GameManager.Instance.Scanner.Cooldown.ToString("F2"));
         }
     }
 

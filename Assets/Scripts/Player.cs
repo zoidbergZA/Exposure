@@ -46,6 +46,9 @@ public class Player : MonoBehaviour
     void Update()
     {
         //temp
+        if (Input.GetKeyDown(KeyCode.F1))
+            GameManager.Instance.Restart();
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
             CollectCable(1);
         //temp
