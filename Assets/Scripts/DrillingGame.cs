@@ -273,7 +273,7 @@ public class DrillingGame : Minigame
             timer.text = ((int)Timeleft).ToString();
             timer.color = Color.Lerp(Color.red, Color.green, Timeleft/TimeOut);
         }
-        Debug.Log("Collides Rock: " + CollidesRock);
+//        Debug.Log("Collides Rock: " + CollidesRock);
     }
 
     public override void End(bool succeeded)
@@ -338,6 +338,9 @@ public class DrillingGame : Minigame
         rock.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         rock.gameObject.SetActive(true);
         rocks.Add(rock);
+
+        LeanTween.scale(rock.GetComponent<RectTransform>(), rock.GetComponent<RectTransform>().localScale * 1.4f, 1f)
+            .setEase(LeanTweenType.punch);
     }
 
     private void instantiateDiamond(int x, int y)
