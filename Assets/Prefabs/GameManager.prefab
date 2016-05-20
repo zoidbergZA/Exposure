@@ -348,11 +348,11 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123878}
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_IsKinematic: 1
+  m_GravityScale: 0.01
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -366,11 +366,11 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 43, y: 43}
+  m_Size: {x: 41, y: 41}
 --- !u!114 &11404922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -766,7 +766,9 @@ MonoBehaviour:
   rows: f0010000c4010000980100006c0100004001000014010000e8000000bc00000090000000640000003800000000000000
   rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
   diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
-  drilledTilePrefab: {fileID: 181820, guid: 24db1465ea0f90d479affb64ab22aab1, type: 2}
+  groundTilePrefab: {fileID: 127976, guid: 1ca96e63dd385994d931526164f3b1c4, type: 2}
+  cablePrefab: {fileID: 127976, guid: cea2cbff206580848b084e0e850d9d3f, type: 2}
+  bombPrefab: {fileID: 0}
   canvas: {fileID: 199368}
   RockDiamondRatio: 0.15
   toastMessageTime: 1.5
@@ -774,6 +776,7 @@ MonoBehaviour:
   slideSpeed: 30
   diamondValue: 1
   succeededDrillValue: 5
+  drillStuckCooldown: 2
 --- !u!114 &11467830
 MonoBehaviour:
   m_ObjectHideFlags: 1
