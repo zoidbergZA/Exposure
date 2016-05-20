@@ -7,7 +7,7 @@ public class GridBuilder : Minigame
     [SerializeField] private GameObject PlacerHelperPrefab;
     [SerializeField] private Pylon pylonPrefab;
     [SerializeField] private LayerMask placerMask;
-    [SerializeField] private int maxPylons = 4;
+//    [SerializeField] private int maxPylons = 4;
 //    [SerializeField] private float nodeDistance = 2.87f; // match node graph max distance variable
 
     public List<Connectable> ConnectedList { get; private set; }
@@ -16,7 +16,7 @@ public class GridBuilder : Minigame
     public GeoThermalPlant StartPlant { get; private set; }
     public List<Pylon> Pylons { get; private set; }
     public List<Pylon> PoweredPylons { get; private set; } 
-    public int MaxPylons { get { return maxPylons; } }
+//    public int MaxPylons { get { return maxPylons; } }
     public int PylonCount { get { return ConnectedList.Count; } }
 //    public float JumpDistance { get { return nodeDistance; } }
 
@@ -65,25 +65,27 @@ public class GridBuilder : Minigame
 
     public void MakeConnection(Connectable connectable)
     {
+        GameManager.Instance.Player.ConsumeCable(1);
         ConnectedList.Add(connectable);
         StartPlant.SpanToPoint(connectable.connectionRef.position);
         GameManager.Instance.Director.SetTarget(connectable.transform);
 
         //check completetion conditions
-        if (connectable is Pylon)
-        {
-            if (PoweredPylons.Contains((Pylon) connectable))
-            {
-                FinalizeGridConnection(true);
-                return;
-            }
-        }
+
+//        if (connectable is Pylon)
+//        {
+//            if (PoweredPylons.Contains((Pylon) connectable))
+//            {
+//                FinalizeGridConnection(true);
+//                return;
+//            }
+//        }
 
         if (connectable is City)
         {
             FinalizeGridConnection(true);
         }
-        else if (ConnectedList.Count >= maxPylons)
+        else if (GameManager.Instance.Player.Cable <= 0)
         {
             FinalizeGridConnection(false);
         }
@@ -102,7 +104,7 @@ public class GridBuilder : Minigame
 
         if (succeeded)
         {
-            Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + Timeleft + "/" + TimeOut);
+//            Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + Timeleft + "/" + TimeOut);
             ConnectionFinalized = true;
             StartPlant.ShowPathGuide(false);
 
@@ -114,7 +116,7 @@ public class GridBuilder : Minigame
                 }
             }
 
-            float points = GameManager.Instance.ChimneyValue/MaxPylons*(MaxPylons - PylonCount + 1);
+            float points = GameManager.Instance.ChimneyValue;
             
             GameManager.Instance.Player.ScorePoints(points, ConnectedList[ConnectedList.Count - 1].transform);
         }
