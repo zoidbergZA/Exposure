@@ -10,6 +10,8 @@ public class Hud : MonoBehaviour
     [SerializeField] private Texture2D leftButton;
     [SerializeField] private Texture2D rightButton;
     [SerializeField] private Texture2D drillButton;
+    [SerializeField] private GameObject scorePanel;
+    [SerializeField] private Text scoreText;
     [SerializeField] private GameObject cablePanel;
     [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
@@ -17,6 +19,7 @@ public class Hud : MonoBehaviour
     private int buttonIndent = 10;
 
     private int wobblerTweenId;
+    private int scorePanelTweenId;
     private int cablePanelTweenId;
 
     public float WobbleValue { get; private set; }
@@ -29,6 +32,7 @@ public class Hud : MonoBehaviour
 
     void Update()
     {
+        scoreText.text = GameManager.Instance.Player.Score.ToString();
         cableText.text = GameManager.Instance.Player.Cable + "x";
     }
 
@@ -45,6 +49,18 @@ public class Hud : MonoBehaviour
         gameOverPanel.SetActive(true);
     }
 
+    public void ShakeScorePanel()
+    {
+        if (LeanTween.isTweening(scorePanelTweenId))
+        {
+            LeanTween.cancel(scorePanelTweenId);
+            scorePanel.GetComponent<RectTransform>().localScale = Vector3.one;
+        }
+
+        scorePanelTweenId = LeanTween.scale(scorePanel.GetComponent<RectTransform>(), scorePanel.GetComponent<RectTransform>().localScale * 1.4f, 1f)
+            .setEase(LeanTweenType.punch).id;
+    }
+
     public void ShakeCablePanel()
     {
         if (LeanTween.isTweening(cablePanelTweenId))
@@ -53,8 +69,7 @@ public class Hud : MonoBehaviour
             cablePanel.GetComponent<RectTransform>().localScale = Vector3.one;
         }
 
-        cablePanelTweenId = LeanTween.scale(cablePanel.GetComponent<RectTransform>(), cablePanel.GetComponent<RectTransform>().localScale*1.4f,
-            1f)
+        cablePanelTweenId = LeanTween.scale(cablePanel.GetComponent<RectTransform>(), cablePanel.GetComponent<RectTransform>().localScale*1.4f,1f)
             .setEase(LeanTweenType.punch).id;
     }
 
