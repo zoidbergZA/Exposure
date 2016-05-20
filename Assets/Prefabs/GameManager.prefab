@@ -353,10 +353,10 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0.01
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!61 &6105786
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -550,7 +550,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 66e3037aec830ce449e3bb9456397e9e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d65404934e48ffb46a58d3cf662e799d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -770,7 +770,7 @@ MonoBehaviour:
   cablePrefab: {fileID: 127976, guid: cea2cbff206580848b084e0e850d9d3f, type: 2}
   bombPrefab: {fileID: 0}
   canvas: {fileID: 199368}
-  RockDiamondRatio: 0.15
+  AutoWin: 0
   toastMessageTime: 1.5
   drillSpeed: 30
   slideSpeed: 30
