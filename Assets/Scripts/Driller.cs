@@ -23,6 +23,7 @@ public class Driller : MonoBehaviour
         if (coll.gameObject.tag == "Cable")
         {
             GameManager.Instance.Player.CollectCable(1);
+
             Destroy(coll.gameObject);
         }
     }

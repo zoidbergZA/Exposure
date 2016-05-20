@@ -208,34 +208,6 @@ Prefab:
       propertyPath: PylonsHolder
       value: 
       objectReference: {fileID: 1895282428}
-    - target: {fileID: 22451620, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22451620, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 22451620, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22451620, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 22451620, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 22451620, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -22
-      objectReference: {fileID: 0}
-    - target: {fileID: 22451620, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 43
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0

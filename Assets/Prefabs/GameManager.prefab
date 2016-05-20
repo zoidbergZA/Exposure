@@ -424,7 +424,7 @@ MonoBehaviour:
     m_Bits: 512
   PowerplantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
   DrillspotPrefab: {fileID: 11406222, guid: 8e50dcc81e355a241b47b2649b69e298, type: 2}
-  drillToastTime: 1.5
+  drillToastTime: 1
   testTimer: {fileID: 11404922}
 --- !u!114 &11413002
 MonoBehaviour:
@@ -771,9 +771,10 @@ MonoBehaviour:
   bombPrefab: {fileID: 0}
   canvas: {fileID: 199368}
   AutoWin: 0
-  toastMessageTime: 1.5
-  drillSpeed: 30
-  slideSpeed: 30
+  toastMessageTime: 1
+  stuckTime: 10
+  drillSpeed: 50
+  slideSpeed: 50
   diamondValue: 1
   succeededDrillValue: 5
   drillStuckCooldown: 2
@@ -1093,7 +1094,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 55, y: -22}
+  m_AnchoredPosition: {x: 21.5, y: -21.5}
   m_SizeDelta: {x: 43, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22463036
