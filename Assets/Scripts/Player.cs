@@ -96,6 +96,7 @@ public class Player : MonoBehaviour
     public void ScorePoints(float amount, Transform location = null)
     {
         Score += amount;
+        GameManager.Instance.Hud.ShakeScorePanel();
 
         if (location)
         {
