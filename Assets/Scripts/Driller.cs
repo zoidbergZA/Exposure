@@ -33,6 +33,7 @@ public class Driller : MonoBehaviour
         {
             GameManager.Instance.DrillingGame.CollidedRock = true;
         }
+        else GameManager.Instance.DrillingGame.CollidedRock = false;
         if (coll.gameObject.tag == "Diamond")
         {
             GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
