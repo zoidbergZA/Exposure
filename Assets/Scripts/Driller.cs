@@ -40,6 +40,15 @@ public class Driller : MonoBehaviour
             GameManager.Instance.Hud.NewFloatingText("1 point!", coll.gameObject.transform);
             Destroy(coll.gameObject);
         }
+        if (coll.gameObject.tag == "GroundTile")
+        {
+            Destroy(coll.gameObject);
+        }
+        if (coll.gameObject.tag == "Cable")
+        {
+            GameManager.Instance.Player.CollectCable(1);
+            Destroy(coll.gameObject);
+        }
     }
 
     void OnCollisionExit2D(Collision2D coll)

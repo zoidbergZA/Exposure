@@ -229,6 +229,15 @@ Prefab:
       propertyPath: PylonsHolder
       value: 
       objectReference: {fileID: 1895282428}
+    - target: {fileID: 11429756, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d65404934e48ffb46a58d3cf662e799d,
+        type: 3}
+    - target: {fileID: 22451620, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -21
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
