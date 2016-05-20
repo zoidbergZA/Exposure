@@ -28,6 +28,7 @@ public class DrillingGame : Minigame
     [SerializeField] private GameObject canvas;
     [SerializeField] private bool AutoWin;
     [SerializeField] private float toastMessageTime = 3.0f;
+    [SerializeField] public float stuckTime = 10.0f;
     [SerializeField] private float drillSpeed = 3.0f;
     [SerializeField] private float slideSpeed = 1.0f;
     [SerializeField] private float diamondValue = 1.0f;
@@ -45,6 +46,7 @@ public class DrillingGame : Minigame
     private bool introShown, finalShown = false;
     private bool imagesActivated = false;
     private float drillStuckChecked;
+    private float stuckTimer;
 
     public bool succeededDrill { get; set; }
     private List<GameObject> rocks = new List<GameObject>();
@@ -59,6 +61,7 @@ public class DrillingGame : Minigame
     public UnityEngine.UI.Image PressureIcon { get { return pressureIcon; } }
     public bool MovingLeft { get; set; }
     public bool MovingRight { get; set; }
+    public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
     public bool ReachedBottom(int bottom, UnityEngine.UI.Image drill)
     {
         return drill.rectTransform.anchoredPosition.y <= initDrillPos.y - bottom;
@@ -185,6 +188,9 @@ public class DrillingGame : Minigame
         if (!MovingRight && !MovingLeft)
         {
             drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0);
+            if (targetRow < rows.Length - 1 && drill.rectTransform.position.y == rows[targetRow + 1]) targetRow++;
+            Debug.Log("row: " + targetRow + " | rows N: " + rows[targetRow] + " | anchor: " + drill.rectTransform.anchoredPosition.y
+            + " | pos: " + drill.rectTransform.position.y + " | posGO: " + drill.gameObject.transform.position.y);
         }
         else
         {
@@ -192,14 +198,8 @@ public class DrillingGame : Minigame
             {
                 if (targetColumn < columns.Length - 1)
                 {
-                    if (drill.rectTransform.anchoredPosition.y < rows[targetRow + 1])
-                    {
-                        drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0);
-                    }
-                    else
-                    {
-                        drill.transform.Translate(new Vector3(1 * drillSpeed * Time.deltaTime, 0, 0));
-                    }
+                    if (drill.rectTransform.position.y > rows[targetRow + 1]) drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
+                    else drill.transform.Translate(new Vector3(1 * drillSpeed * Time.deltaTime, 0, 0)); //drill right
                     if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
                 }
                 else MovingRight = false;
@@ -214,8 +214,6 @@ public class DrillingGame : Minigame
                 else MovingLeft = false;
             }
         }
-
-        if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y == rows[targetRow]) targetRow++;
     }
 
     public void MoveRight()
@@ -313,7 +311,7 @@ public class DrillingGame : Minigame
 
         if (Time.time - drillStuckChecked > drillStuckCooldown)
         {
-            //checkDrillerStuck();
+            checkDrillerStuck();
             drillStuckChecked = Time.time;
         }
     }
@@ -426,55 +424,11 @@ public class DrillingGame : Minigame
 
     private void checkDrillerStuck()
     {
-        if(drill.rectTransform.anchoredPosition.x <= columns[0])
-        {
-            GameObject rockRight = null;
-            GameObject rockBottom = null;
-            for(int i = 0; i < rocks.Count ; i++)
-            {
-                if(rocks[i] && rocks[i].GetComponent<RectTransform>().anchoredPosition.x == targetColumn + 1 
-                    && rocks[i].GetComponent<RectTransform>().anchoredPosition.y == targetRow && rocks[i].gameObject.tag == "Rock")
-                {
-                    rockRight = rocks[i];
-                }
-                if (rocks[i] && rocks[i].GetComponent<RectTransform>().anchoredPosition.x == targetColumn
-                    && rocks[i].GetComponent<RectTransform>().anchoredPosition.y == targetRow - 1 && rocks[i].gameObject.tag == "Rock")
-                {
-                    rockBottom = rocks[i];
-                }
-            }
-            if(rockRight != null && rockBottom != null)
-            {
-                succeededDrill = false;
-                state = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-            }
-        }
-        else if(drill.rectTransform.anchoredPosition.x >= columns[columns.Length-1])
-        {
-            GameObject rockLeft = null;
-            GameObject rockBottom = null;
-            for (int i = 0; i < rocks.Count; i++)
-            {
-                if (rocks[i].GetComponent<RectTransform>().anchoredPosition.x == targetColumn - 1
-                    && rocks[i].GetComponent<RectTransform>().anchoredPosition.y == targetRow && rocks[i].gameObject.tag == "Rock")
-                {
-                    rockLeft = rocks[i];
-                }
-                if (rocks[i].GetComponent<RectTransform>().anchoredPosition.x == targetColumn
-                    && rocks[i].GetComponent<RectTransform>().anchoredPosition.y == targetRow - 1 && rocks[i].gameObject.tag == "Rock")
-                {
-                    rockBottom = rocks[i];
-                }
-            }
-            if (rockLeft != null && rockBottom != null)
-            {
-                succeededDrill = false;
-                state = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-            }
-        }
-        else
-        {
-
-        }
+       if(stuckTimer <= 0)
+       {
+           End(false);
+           state = DrillingGameState.INACTIVE;
+           stuckTimer = stuckTime;
+       }
     }
 }

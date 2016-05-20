@@ -31,7 +31,19 @@ public class Driller : MonoBehaviour
     {
         if (coll.gameObject.tag == "Rock")
         {
-            //to do
+            GameManager.Instance.DrillingGame.StuckTimer = GameManager.Instance.DrillingGame.stuckTime;
+        }
+        if (coll.gameObject.tag == "Diamond")
+        {
+
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Rock")
+        {
+            GameManager.Instance.DrillingGame.StuckTimer -= Time.deltaTime;
         }
         if (coll.gameObject.tag == "Diamond")
         {
