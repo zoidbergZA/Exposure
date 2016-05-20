@@ -8,10 +8,13 @@ public class Driller : MonoBehaviour
     {
         if (coll.gameObject.tag == "Rock")
         {
-            GameManager.Instance.DrillingGame.succeededDrill = false;
-            GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+            GameManager.Instance.DrillingGame.CollidesRock = true;
+            //GameManager.Instance.DrillingGame.succeededDrill = false;
+            //GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+        } else {
+            GameManager.Instance.DrillingGame.CollidesRock = false;
         }
-        else if (coll.gameObject.tag == "Diamond")
+        if (coll.gameObject.tag == "Diamond")
         {
             GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
             GameManager.Instance.Hud.NewFloatingText("1 point!", coll.gameObject.transform);
