@@ -15,7 +15,8 @@ public class Scanner : MonoBehaviour
     private Material material;
     private Renderer renderer;
     private float radius;
-    
+    private int smallScanId;
+
     public bool IsScanning { get; private set; }
 //    public float ScanProgress { get { return 1f - durationLeft/durationTime; } }
     public float Cooldown { get { return cooldownLeft; } }
@@ -30,7 +31,7 @@ public class Scanner : MonoBehaviour
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
 
-        StartScan(smallScan);
+//        StartScan(smallScan);
     }
 
     void Update()
@@ -42,13 +43,13 @@ public class Scanner : MonoBehaviour
         if (cooldownLeft <= 0)
         {
             cooldownLeft = cooldownTime;
-            StartScan(smallScan);
+//            StartScan(globalScan);    //todo: global scans removed for testing local
         }
 
         material.SetFloat("_Radius", radius);
     }
 
-    private void StartScan(ScanProperties scanProperties)
+    public void StartScan(ScanProperties scanProperties)
     {
         IsScanning = true;
 
@@ -66,9 +67,27 @@ public class Scanner : MonoBehaviour
             .setOnComplete(EndScan);
     }
 
-    private void EndScan()
+    public void StartScan(Vector3 point)
+    {
+        IsScanning = true;
+
+        centerPoint = point;
+
+        smallScanId = LeanTween.value(gameObject, radiusTweenCallback, 5f, smallScan.range, smallScan.duration)
+            .setEase(smallScan.tweenType)
+            .setOnComplete(EndScan)
+            .id;
+    }
+
+    public void EndScan()
     {
         IsScanning = false;
+
+        //todo: if tweening, cancel tween, call EndScan() when drilling game preloader cancels
+        if (LeanTween.isTweening(smallScanId))
+        {
+            LeanTween.cancel(smallScanId);
+        }
 
         radius = 0;
     }

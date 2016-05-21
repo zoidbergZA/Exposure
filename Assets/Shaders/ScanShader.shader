@@ -63,6 +63,11 @@
 			fixed4 mainSample = (tex2D (_MainTex, IN.uv_MainTex)) * _Color;
 			fixed4 scanSample = (tex2D (_ScanTex, IN.uv_ScanTex));
 
+			if (scanSample.r >= 0.9)
+			{
+				scanSample.g = 0;
+			}
+
 			if (_DebugMode)
 			{
 				o.Albedo = scanSample.rgb;
