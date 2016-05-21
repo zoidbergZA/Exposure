@@ -75,7 +75,7 @@ public class Scanner : MonoBehaviour
 
         smallScanId = LeanTween.value(gameObject, radiusTweenCallback, 5f, smallScan.range, smallScan.duration)
             .setEase(smallScan.tweenType)
-            .setOnComplete(EndScan)
+            .setOnComplete(SmallScanCompleted)
             .id;
     }
 
@@ -90,6 +90,13 @@ public class Scanner : MonoBehaviour
         }
 
         radius = 0;
+    }
+
+    private void SmallScanCompleted()
+    {
+        Debug.Log("hello");
+
+        EndScan();
     }
 
     void radiusTweenCallback(float val, float ratio)

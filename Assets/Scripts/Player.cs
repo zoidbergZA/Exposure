@@ -116,29 +116,34 @@ public class Player : MonoBehaviour
                 ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, drillRayMask))
                 {
+//                    Debug.Log(hit.transform.name + " , " + Time.time);
+                    Debug.DrawLine(Camera.main.transform.position, hit.point);
+
                     GameManager.Instance.Director.OrbitPaused = true;
                     GameManager.Instance.DrillingGame.PressureIcon.rectTransform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y+140, Input.mousePosition.z);
 
                     GameManager.Instance.Scanner.StartScan(hit.point);
+                    activateImages(true);
+                    moveUImages();
+
+                    drillToastTimer -= Time.deltaTime;
+                    if (drillToastTimer <= 0 && !drilled) toastMessageShown = true;
+                    if (toastMessageShown)
+                    {
+                        if (Physics.Raycast(ray, out hit, drillRayMask))
+                        {
+                            Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
+                            Drill(hit.point, hit.normal, 1f - sample.r);
+                            drilled = true;
+                            activateImages(false);
+                        }
+                        toastMessageShown = false;
+                    }
                 }
-                activateImages(true);
+                
             }
 
-            moveUImages();
-
-            drillToastTimer -= Time.deltaTime;
-            if (drillToastTimer <= 0 && !drilled) toastMessageShown = true;
-            if(toastMessageShown)
-            {
-                if (Physics.Raycast(ray, out hit, drillRayMask))
-                {
-                    Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-                    Drill(hit.point, hit.normal, 1f - sample.r);
-                    drilled = true;
-                    activateImages(false);
-                }
-                toastMessageShown = false;
-            }
+            
         }
         else
         {
