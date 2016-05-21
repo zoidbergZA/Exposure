@@ -16,18 +16,25 @@ public class Director : MonoBehaviour
     [SerializeField] private float buildZoom = 0.8f;
 
     private float distance;
-    private float currentZoom;
+//    private float currentZoom;
     private Vector3 targetPosition;
+    private float targetFoV;
     private float orbitTimer;
     public bool OrbitPaused { get; set; }
 
     public Modes Mode { get; private set; }
 
+    void Awake()
+    {
+        targetFoV = 40f;
+    }
+
 	void Start ()
 	{
 	    targetTransform = GameManager.Instance.PlanetTransform;
 	    distance = Vector3.Distance(transform.position, targetTransform.position);
-	    currentZoom = orbitZoom;
+        
+//	    currentZoom = orbitZoom;
 	}
 	
 	void Update ()
@@ -45,8 +52,9 @@ public class Director : MonoBehaviour
                 break;
 	    }
 
-	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);        
-	    Camera.main.orthographicSize = currentZoom;
+	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);
+	    Camera.main.fieldOfView = targetFoV;
+//	    Camera.main.orthographicSize = currentZoom;
     }
 
     public void SetMode(Modes mode, Transform targetTransform, float delay = 2f)
@@ -60,7 +68,7 @@ public class Director : MonoBehaviour
     public void SetTarget(Transform target)
     {
         targetTransform = target;
-        targetPosition = targetTransform.position + targetTransform.up * 20f;
+        targetPosition = targetTransform.position + targetTransform.up * distance;
     }
 
 //    public void LookAt(Vector3 position)
@@ -83,19 +91,22 @@ public class Director : MonoBehaviour
         switch (Mode)
         {
             case Modes.Grid:
-                Camera.main.orthographic = true;
-                targetPosition = targetTransform.position + targetTransform.up * 20f;
-                LeanTween.value(gameObject, updateValueExampleCallback, currentZoom, buildZoom, 1.1f).setEase(LeanTweenType.easeInOutSine);
+//                Camera.main.orthographic = true;
+//                Camera.main.fieldOfView = 20f;
+                targetPosition = targetTransform.position + targetTransform.up * distance;
+                LeanTween.value(gameObject, updateValueExampleCallback, targetFoV, 20f, 1.1f).setEase(LeanTweenType.easeInOutSine);
                 break;
 
             case Modes.Orbit:
-                LeanTween.value(gameObject, updateValueExampleCallback, currentZoom, orbitZoom, 1.1f).setEase(LeanTweenType.easeInOutSine);
+                //Camera.main.orthographic = false;
+//                Camera.main.fieldOfView = 40f;
+                LeanTween.value(gameObject, updateValueExampleCallback, targetFoV, 40f, 1.1f).setEase(LeanTweenType.easeInOutSine);
                 break;
         }
     }
 
     void updateValueExampleCallback(float val, float ratio)
     {
-        currentZoom = val;
+        targetFoV = val;
     }
 }
