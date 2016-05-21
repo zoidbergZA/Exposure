@@ -4,82 +4,77 @@ using System.Collections;
 public class Scanner : MonoBehaviour
 {
     [SerializeField] private float cooldownTime = 7f;
-    [SerializeField] private float durationTime = 3f;
+    [SerializeField] private float duration = 3f;
+    [SerializeField] private float range = 200f;
     [SerializeField] private LayerMask scanRayMask;
-    private float cooldown;
-    private float duration;
-//    public GameObject target;
+
+    private float cooldownLeft;
+    public LeanTweenType TweenType;
+    public Transform testTarget;
+    private Vector3 centerPoint;
     private Material material;
     private Renderer renderer;
-    private bool scannedForth = false;
-
-    public bool IsReady { get; private set; }
-    public float Cooldown { get { return cooldown; } }
-
-    public float Duration { get { return duration; } }
-
+    private float radius;
+    
+    public bool IsScanning { get; private set; }
+//    public float ScanProgress { get { return 1f - durationLeft/durationTime; } }
+    public float Cooldown { get { return cooldownLeft; } }
+    
     void Awake()
     {
-        IsReady = true;
+        cooldownLeft = cooldownTime;
     }
 
     void Start()
     {
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
-        material.SetFloat("_setDuration", durationTime);
+
+        StartScan();
     }
 
     void Update()
     {
-        if (!IsReady)
+        material.SetVector("_CenterPoint", new Vector4(centerPoint.x, centerPoint.y, centerPoint.z, 0));
+
+        cooldownLeft -= Time.deltaTime;
+
+        if (cooldownLeft <= 0)
         {
-            cooldown -= Time.deltaTime;
-            duration -= Time.deltaTime;
-
-            if (duration >= 0)
-            {
-                if (!scannedForth) material.SetFloat("_Duration", duration);
-                else material.SetFloat("_DurationBack", duration);
-            }
-            else
-            {
-                if (scannedForth == false)
-                {
-                    material.SetFloat("_Duration", 0);
-                    duration = durationTime / 2;
-                    scannedForth = true;
-                }
-            }
-            if (cooldown <= 0)
-            {
-                IsReady = true;
-                scannedForth = false;
-            }
+            cooldownLeft = cooldownTime;
+            StartScan();
         }
+
+        material.SetFloat("_Radius", radius);
     }
 
-    public void Scan()
+    private void StartScan()
     {
-        IsReady = false;
-        cooldown = cooldownTime;
-        duration = durationTime/2;
-        getCenterPoint();
-    }
+        IsScanning = true;
 
-    private void getCenterPoint()
-    {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); 
+        Vector3 dir = (GameManager.Instance.PlanetTransform.position - Camera.main.transform.position).normalized;
+
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, scanRayMask))
+        if (Physics.Raycast(Camera.main.transform.position, dir, out hit))
         {
-            Renderer rend = hit.transform.GetComponent<Renderer>();
-            MeshCollider meshCollider = hit.collider as MeshCollider;
-            material.SetFloat("_Radius",  hit.collider.bounds.size.x);
-            if (rend == null || rend.sharedMaterial == null || rend.sharedMaterial.mainTexture == null || meshCollider == null) return;
-            Vector3 targetFragment = hit.point;
-            rend.material.SetVector("_CenterCoords", new Vector4(targetFragment.x, targetFragment.y, targetFragment.z, 0));
+            centerPoint = hit.point;
         }
+
+        LeanTween.value(gameObject, radiusTweenCallback, 5f, range, duration)
+            .setEase(TweenType)
+            .setOnComplete(EndScan);
+    }
+
+    private void EndScan()
+    {
+        IsScanning = false;
+
+        radius = 0;
+    }
+
+    void radiusTweenCallback(float val, float ratio)
+    {
+        radius = val;
     }
 }
