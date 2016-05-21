@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public GameObject PylonsHolder;
+//    public GameObject PylonsHolder;
     
     [SerializeField] private float roundTime = 180;
     [SerializeField] private float pylonSeparation = 20f;
@@ -46,8 +46,8 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Planet = FindObjectOfType<Planet>();
-        GridBuilder = GetComponentInChildren<GridBuilder>();
-        DrillingGame = GetComponentInChildren<DrillingGame>();
+        GridBuilder = FindObjectOfType<GridBuilder>();
+        DrillingGame = FindObjectOfType<DrillingGame>();
         Scanner = GetComponent<Scanner>();
         Hud = FindObjectOfType<Hud>();
         Player = GetComponentInChildren<Player>();

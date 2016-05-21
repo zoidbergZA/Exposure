@@ -4,18 +4,20 @@ using System.Collections;
 public class Scanner : MonoBehaviour
 {
     [SerializeField] private float cooldownTime = 7f;
-    [SerializeField] private float durationTime = 3f;
+    [SerializeField] private float duration = 3f;
     [SerializeField] private float range = 200f;
     [SerializeField] private LayerMask scanRayMask;
 
     private float cooldownLeft;
-    private float durationLeft;
+    public LeanTweenType TweenType;
     public Transform testTarget;
+    private Vector3 centerPoint;
     private Material material;
     private Renderer renderer;
+    private float radius;
     
     public bool IsScanning { get; private set; }
-    public float ScanProgress { get { return 1f - durationLeft/durationTime; } }
+//    public float ScanProgress { get { return 1f - durationLeft/durationTime; } }
     public float Cooldown { get { return cooldownLeft; } }
     
     void Awake()
@@ -27,11 +29,13 @@ public class Scanner : MonoBehaviour
     {
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
+
+        StartScan();
     }
 
     void Update()
     {
-        material.SetVector("_CenterPoint", new Vector4(testTarget.position.x, testTarget.position.y, testTarget.position.z, 0));
+        material.SetVector("_CenterPoint", new Vector4(centerPoint.x, centerPoint.y, centerPoint.z, 0));
 
         cooldownLeft -= Time.deltaTime;
 
@@ -41,41 +45,36 @@ public class Scanner : MonoBehaviour
             StartScan();
         }
 
-        if (IsScanning)
-        {
-            durationLeft -= Time.deltaTime;
-            
-            if (durationLeft <= 0)
-            {
-                durationLeft = 0;
-                EndScan();
-            }
-            else
-            {
-                HandleScanning();
-            }
-        }
+        material.SetFloat("_Radius", radius);
     }
 
     private void StartScan()
     {
-        Debug.Log("scan called at: " + Time.time);
-
         IsScanning = true;
-        durationLeft = durationTime;
-    }
 
-    private void HandleScanning()
-    {
-        Debug.Log("progress: " + ScanProgress);
+        Vector3 dir = (GameManager.Instance.PlanetTransform.position - Camera.main.transform.position).normalized;
 
-        material.SetFloat("_Radius", ScanProgress * range);
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.transform.position, dir, out hit))
+        {
+            centerPoint = hit.point;
+        }
+
+        LeanTween.value(gameObject, radiusTweenCallback, 5f, range, duration)
+            .setEase(TweenType)
+            .setOnComplete(EndScan);
     }
 
     private void EndScan()
     {
         IsScanning = false;
 
-        material.SetFloat("_Radius", 0f);
+        radius = 0;
+    }
+
+    void radiusTweenCallback(float val, float ratio)
+    {
+        radius = val;
     }
 }
