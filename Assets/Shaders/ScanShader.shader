@@ -12,6 +12,7 @@
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		
 		_Radius ("Radius", Float) = 2.0
+		_Fade ("Fade", Float) = 10.0
 		_CenterPoint ("Center Point", Vector) = (0,0,0,0)
 	}
 
@@ -34,6 +35,7 @@
 		half _Metallic;
 		fixed4 _Color;
 		fixed _Radius;
+		fixed _Fade;
 		fixed _DebugMode;
 		fixed4 _CenterPoint;
 
@@ -61,6 +63,11 @@
 			fixed4 mainSample = (tex2D (_MainTex, IN.uv_MainTex)) * _Color;
 			fixed4 scanSample = (tex2D (_ScanTex, IN.uv_ScanTex));
 
+			if (scanSample.r >= 0.9)
+			{
+				scanSample.g = 0;
+			}
+
 			if (_DebugMode)
 			{
 				o.Albedo = scanSample.rgb;
@@ -69,19 +76,34 @@
 			{
 				if (dist < _Radius)
 				{
-					o.Albedo = scanSample.rgb;
+					if (dist > _Radius - _Fade)
+					{
+						fixed frac = (_Radius - dist) / _Fade;
+						o.Albedo = frac * scanSample.rgb + (1 - frac) * mainSample.rgb;
+						o.Metallic = (1 - frac) * _Metallic;
+						o.Smoothness = (1 - frac) * _Glossiness;
+						o.Alpha = 1;
+					}
+					else
+					{
+						o.Albedo = scanSample.rgb;
+						o.Metallic = 0;
+						o.Smoothness = 0;
+						o.Alpha = 1;
+					}					
 				}
 				else
 				{
 					o.Albedo = mainSample.rgb;
+					o.Metallic = _Metallic;
+					o.Smoothness = _Glossiness;
+					o.Alpha = mainSample.a;
 				}				
 			}
 			// fixed4 c = ((tex2D (_MainTex, IN.uv_MainTex) * _ScanFactor) + (tex2D(_ScanTex, IN.uv_ScanTex) * (1-_ScanFactor))) * _Color;
 			// o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables
-			o.Metallic = _Metallic;
-			o.Smoothness = _Glossiness;
-			o.Alpha = mainSample.a;
+			//
 		}
 		ENDCG
 	}

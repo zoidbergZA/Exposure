@@ -48,9 +48,9 @@ public class GameManager : MonoBehaviour
         Planet = FindObjectOfType<Planet>();
         GridBuilder = FindObjectOfType<GridBuilder>();
         DrillingGame = FindObjectOfType<DrillingGame>();
-        Scanner = GetComponent<Scanner>();
+        Scanner = FindObjectOfType<Scanner>();
         Hud = FindObjectOfType<Hud>();
-        Player = GetComponentInChildren<Player>();
+        Player = FindObjectOfType<Player>();
         Director = FindObjectOfType<Director>();
 
         City[] cities = FindObjectsOfType<City>();

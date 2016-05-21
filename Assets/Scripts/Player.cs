@@ -117,7 +117,9 @@ public class Player : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, drillRayMask))
                 {
                     GameManager.Instance.Director.OrbitPaused = true;
-                    GameManager.Instance.DrillingGame.PressureIcon.rectTransform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y+100, Input.mousePosition.z);
+                    GameManager.Instance.DrillingGame.PressureIcon.rectTransform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y+140, Input.mousePosition.z);
+
+                    GameManager.Instance.Scanner.StartScan(hit.point);
                 }
                 activateImages(true);
             }
@@ -147,6 +149,8 @@ public class Player : MonoBehaviour
             activateImages(false);
             GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition = initPressureImagePos;
             GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition = initBgImagePos;
+
+            GameManager.Instance.Scanner.EndScan();
         }
     }
 

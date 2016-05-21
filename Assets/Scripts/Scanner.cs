@@ -1,21 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class Scanner : MonoBehaviour
 {
+    public ScanProperties smallScan;
+    public ScanProperties globalScan;
+     
     [SerializeField] private float cooldownTime = 7f;
-    [SerializeField] private float duration = 3f;
-    [SerializeField] private float range = 200f;
     [SerializeField] private LayerMask scanRayMask;
 
     private float cooldownLeft;
-    public LeanTweenType TweenType;
-    public Transform testTarget;
     private Vector3 centerPoint;
     private Material material;
     private Renderer renderer;
     private float radius;
-    
+    private int smallScanId;
+
     public bool IsScanning { get; private set; }
 //    public float ScanProgress { get { return 1f - durationLeft/durationTime; } }
     public float Cooldown { get { return cooldownLeft; } }
@@ -30,7 +31,7 @@ public class Scanner : MonoBehaviour
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
 
-        StartScan();
+//        StartScan(smallScan);
     }
 
     void Update()
@@ -42,13 +43,13 @@ public class Scanner : MonoBehaviour
         if (cooldownLeft <= 0)
         {
             cooldownLeft = cooldownTime;
-            StartScan();
+//            StartScan(globalScan);    //todo: global scans removed for testing local
         }
 
         material.SetFloat("_Radius", radius);
     }
 
-    private void StartScan()
+    public void StartScan(ScanProperties scanProperties)
     {
         IsScanning = true;
 
@@ -61,14 +62,32 @@ public class Scanner : MonoBehaviour
             centerPoint = hit.point;
         }
 
-        LeanTween.value(gameObject, radiusTweenCallback, 5f, range, duration)
-            .setEase(TweenType)
+        LeanTween.value(gameObject, radiusTweenCallback, 5f, scanProperties.range, scanProperties.duration)
+            .setEase(scanProperties.tweenType)
             .setOnComplete(EndScan);
     }
 
-    private void EndScan()
+    public void StartScan(Vector3 point)
+    {
+        IsScanning = true;
+
+        centerPoint = point;
+
+        smallScanId = LeanTween.value(gameObject, radiusTweenCallback, 5f, smallScan.range, smallScan.duration)
+            .setEase(smallScan.tweenType)
+            .setOnComplete(EndScan)
+            .id;
+    }
+
+    public void EndScan()
     {
         IsScanning = false;
+
+        //todo: if tweening, cancel tween, call EndScan() when drilling game preloader cancels
+        if (LeanTween.isTweening(smallScanId))
+        {
+            LeanTween.cancel(smallScanId);
+        }
 
         radius = 0;
     }
@@ -77,4 +96,13 @@ public class Scanner : MonoBehaviour
     {
         radius = val;
     }
+}
+
+[Serializable]
+public class ScanProperties
+{
+    public float duration;
+    public float range;
+    public float fade;
+    public LeanTweenType tweenType;
 }
