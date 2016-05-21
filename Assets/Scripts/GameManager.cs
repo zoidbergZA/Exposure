@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         DrillingGame = FindObjectOfType<DrillingGame>();
         Scanner = GetComponent<Scanner>();
         Hud = FindObjectOfType<Hud>();
-        Player = GetComponentInChildren<Player>();
+        Player = FindObjectOfType<Player>();
         Director = FindObjectOfType<Director>();
 
         City[] cities = FindObjectsOfType<City>();

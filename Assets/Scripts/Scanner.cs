@@ -7,10 +7,9 @@ public class Scanner : MonoBehaviour
     [SerializeField] private float duration = 3f;
     [SerializeField] private float range = 200f;
     [SerializeField] private LayerMask scanRayMask;
+    [SerializeField] private LeanTweenType TweenType;
 
     private float cooldownLeft;
-    public LeanTweenType TweenType;
-    public Transform testTarget;
     private Vector3 centerPoint;
     private Material material;
     private Renderer renderer;
