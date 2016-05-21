@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class Scanner : MonoBehaviour
 {
+    public ScanProperties smallScan;
+    public ScanProperties globalScan;
+     
     [SerializeField] private float cooldownTime = 7f;
-    [SerializeField] private float duration = 3f;
-    [SerializeField] private float range = 200f;
     [SerializeField] private LayerMask scanRayMask;
-    [SerializeField] private LeanTweenType TweenType;
 
     private float cooldownLeft;
     private Vector3 centerPoint;
@@ -29,7 +30,7 @@ public class Scanner : MonoBehaviour
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
 
-        StartScan();
+        StartScan(smallScan);
     }
 
     void Update()
@@ -41,13 +42,13 @@ public class Scanner : MonoBehaviour
         if (cooldownLeft <= 0)
         {
             cooldownLeft = cooldownTime;
-            StartScan();
+            StartScan(smallScan);
         }
 
         material.SetFloat("_Radius", radius);
     }
 
-    private void StartScan()
+    private void StartScan(ScanProperties scanProperties)
     {
         IsScanning = true;
 
@@ -60,8 +61,8 @@ public class Scanner : MonoBehaviour
             centerPoint = hit.point;
         }
 
-        LeanTween.value(gameObject, radiusTweenCallback, 5f, range, duration)
-            .setEase(TweenType)
+        LeanTween.value(gameObject, radiusTweenCallback, 5f, scanProperties.range, scanProperties.duration)
+            .setEase(scanProperties.tweenType)
             .setOnComplete(EndScan);
     }
 
@@ -76,4 +77,13 @@ public class Scanner : MonoBehaviour
     {
         radius = val;
     }
+}
+
+[Serializable]
+public class ScanProperties
+{
+    public float duration;
+    public float range;
+    public float fade;
+    public LeanTweenType tweenType;
 }
