@@ -162,6 +162,10 @@ Material:
         first:
           name: _DebugMode
         second: 0
+      data:
+        first:
+          name: _Fade
+        second: 5
     m_Colors:
       data:
         first:
