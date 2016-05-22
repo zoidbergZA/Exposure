@@ -135,8 +135,18 @@ public class Hud : MonoBehaviour
 
             if (GUI.Button(new Rect(((Screen.width / 3) / 2)-35, (Screen.height / 2) + 290, 70, 100), downButton, ""))
             {
-                GameManager.Instance.DrillingGame.MovingRight = false;
-                GameManager.Instance.DrillingGame.MovingLeft = false;
+                if (GameManager.Instance.DrillingGame.MovingRight)
+                {
+                    GameManager.Instance.DrillingGame.MovingRight = false;
+                    GameManager.Instance.DrillingGame.WasMovingRight = true;
+                }
+                else GameManager.Instance.DrillingGame.WasMovingRight = false;
+                if (GameManager.Instance.DrillingGame.MovingLeft)
+                {
+                    GameManager.Instance.DrillingGame.MovingLeft = false;
+                    GameManager.Instance.DrillingGame.WasMovingLeft = true;
+                }
+                else GameManager.Instance.DrillingGame.WasMovingLeft = false;
             }
         }
     }
