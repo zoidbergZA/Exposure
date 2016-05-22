@@ -51,7 +51,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 40
-  orthographic: 1
+  orthographic: 0
   orthographic size: 100
   m_Depth: -1
   m_CullingMask:
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookAtOffset: {x: -80, y: 0, z: 0}
-  orbitSpeed: 0.05
+  orbitSpeed: 0.07
   orbitZoom: 100
   buildZoom: 50
 --- !u!124 &12453404
