@@ -84,7 +84,7 @@ public class Scanner : MonoBehaviour
 
         centerPoint = point;
 
-        smallScanId = LeanTween.value(gameObject, radiusTweenCallback, 5f, smallScan.range, smallScan.duration)
+        smallScanId = LeanTween.value(gameObject, radiusTweenCallback, 9f, smallScan.range, smallScan.duration)
             .setEase(smallScan.tweenType)
             .setOnComplete(SmallScanCompleted)
             .id;
