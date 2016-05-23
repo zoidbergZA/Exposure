@@ -35,9 +35,9 @@ public class Scanner : MonoBehaviour
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
 
-        emptyY = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition.y;
-        fullY = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition.y +
-            GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.rect.height; 
+        emptyY = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition.y;
+        fullY = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition.y +
+            GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.rect.height; 
     }
 
     void Update()
@@ -169,7 +169,7 @@ public class Scanner : MonoBehaviour
 //            drillToastTimer = drillToastTime;
 //            drilled = false;
             activateImages(false);
-//            GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition = initPressureImagePos;
+//            GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition = initPressureImagePos;
 //            GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition = initBgImagePos;
 
             EndScan();
@@ -195,18 +195,18 @@ public class Scanner : MonoBehaviour
     {
         radius = val;
 
-        Vector2 pos = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition;
+        Vector2 pos = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition;
 
         pos.y = (emptyY - fullY) * ratio;
 
-        GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition = pos;
+        GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition = pos;
     }
 
     private void activateImages(bool activate)
     {
-        GameManager.Instance.DrillingGame.StartToast.gameObject.SetActive(activate);
-        GameManager.Instance.DrillingGame.StartInnerToast.gameObject.SetActive(activate);
-        GameManager.Instance.DrillingGame.BgActive.gameObject.SetActive(activate);
+        GameManager.Instance.DrillingGame.GlobeDrillGroundIcon.gameObject.SetActive(activate);
+        GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.gameObject.SetActive(activate);
+        //GameManager.Instance.DrillingGame.BgActive.gameObject.SetActive(activate);
     }
 }
 
