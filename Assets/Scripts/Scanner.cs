@@ -45,11 +45,17 @@ public class Scanner : MonoBehaviour
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
 
+<<<<<<< HEAD
         emptyY = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition.y;
         fullY = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition.y +
             GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.rect.height;
 
         activateImages(false);
+=======
+        emptyY = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition.y;
+        fullY = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition.y +
+            GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.rect.height; 
+>>>>>>> refs/remotes/origin/master
     }
 
     void Update()
@@ -237,9 +243,21 @@ public class Scanner : MonoBehaviour
         }
         else
         {
+<<<<<<< HEAD
             if (Input.GetMouseButtonUp(0))
                 return true;
             return false;
+=======
+            if (GameManager.Instance.Director.OrbitPaused) GameManager.Instance.Director.OrbitPaused = false;
+//            toastMessageShown = false;
+//            drillToastTimer = drillToastTime;
+//            drilled = false;
+            activateImages(false);
+//            GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition = initPressureImagePos;
+//            GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition = initBgImagePos;
+
+            EndScan();
+>>>>>>> refs/remotes/origin/master
         }
     }
 
@@ -331,18 +349,18 @@ public class Scanner : MonoBehaviour
     {
         radius = val;
 
-        Vector2 pos = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition;
+        Vector2 pos = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition;
 
         pos.y = (emptyY - fullY) * ratio;
 
-        GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition = pos;
+        GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition = pos;
     }
 
     private void activateImages(bool activate)
     {
-        GameManager.Instance.DrillingGame.StartToast.gameObject.SetActive(activate);
-        GameManager.Instance.DrillingGame.StartInnerToast.gameObject.SetActive(activate);
-        GameManager.Instance.DrillingGame.BgActive.gameObject.SetActive(activate);
+        GameManager.Instance.DrillingGame.GlobeDrillGroundIcon.gameObject.SetActive(activate);
+        GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.gameObject.SetActive(activate);
+        //GameManager.Instance.DrillingGame.BgActive.gameObject.SetActive(activate);
     }
 }
 

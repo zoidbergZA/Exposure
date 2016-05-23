@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smallScan:
-    duration: 0.5
+    duration: 1.5
     range: 25
     fade: 5
     tweenType: 9
@@ -74,7 +74,6 @@ MonoBehaviour:
     m_Bits: 512
   PowerplantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
   DrillspotPrefab: {fileID: 11406222, guid: 8e50dcc81e355a241b47b2649b69e298, type: 2}
-  drillToastTime: 0.5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
