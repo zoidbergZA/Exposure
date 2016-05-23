@@ -115,6 +115,7 @@ public class Hud : MonoBehaviour
             if (GUI.Button(new Rect(((Screen.width / 3) / 2)-50, (Screen.height / 2) + 290, 100, 80), drillButton, ""))
             {
                 GameManager.Instance.DrillingGame.SetMakeDrill(true);
+                GameManager.Instance.DrillingGame.Animator.SetBool("shouldJump", true);
             }
         }
     }
