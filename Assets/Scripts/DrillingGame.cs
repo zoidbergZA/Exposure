@@ -34,7 +34,7 @@ public class DrillingGame : Minigame
     [SerializeField] private float diamondValue = 1.0f;
     [SerializeField] private float succeededDrillValue = 5.0f;
     [SerializeField] private float drillStuckCooldown = 2.0f;
-    [SerializeField] private float jumpPhaseTime = 2.5f;
+    [SerializeField] private float jumpPhaseTime = 0.25f;
     [SerializeField] private Animator animator;
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP }

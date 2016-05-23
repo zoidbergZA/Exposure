@@ -520,6 +520,7 @@ MonoBehaviour:
   diamondValue: 1
   succeededDrillValue: 5
   drillStuckCooldown: 2
+  jumpPhaseTime: 0.25
   animator: {fileID: 9525064}
 --- !u!114 &11446804
 MonoBehaviour:
@@ -868,7 +869,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 43.7, y: -21.5}
+  m_AnchoredPosition: {x: -57, y: -21.5}
   m_SizeDelta: {x: 43, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22417586
