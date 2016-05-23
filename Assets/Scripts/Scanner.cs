@@ -60,6 +60,17 @@ public class Scanner : MonoBehaviour
         material.SetFloat("_Radius", radius);
     }
 
+    void OnGUI()
+    {
+        if (GameManager.Instance.TouchInput && Input.touches.Length > 0)
+        {
+            foreach (Touch t in Input.touches)
+            {
+                DrawTouchInfo(t);
+            }
+        }
+    }
+
     public void StartScan(ScanProperties scanProperties)
     {
         IsScanning = true;
@@ -93,14 +104,26 @@ public class Scanner : MonoBehaviour
     public void EndScan()
     {
         IsScanning = false;
-
-        //todo: if tweening, cancel tween, call EndScan() when drilling game preloader cancels
+        
         if (LeanTween.isTweening(smallScanId))
         {
             LeanTween.cancel(smallScanId);
         }
 
         radius = 0;
+    }
+
+    private void DrawTouchInfo(Touch touch)
+    {
+        GUI.BeginGroup(new Rect(touch.position.x, Screen.height - touch.position.y, 200, 125), "", "box");
+
+        GUI.Label(new Rect(5, 0, 200, 25), "finger id: " + touch.fingerId);
+        GUI.Label(new Rect(5, 25, 200, 25), "phase: " + touch.phase);
+        GUI.Label(new Rect(5, 50, 200, 25), "tap count: " + touch.tapCount);
+        GUI.Label(new Rect(5, 75, 200, 25), "position: " + touch.position);
+        GUI.Label(new Rect(5, 100, 200, 25), "delta: " + touch.deltaPosition);
+
+        GUI.EndGroup();
     }
 
     private void HandleScanner()

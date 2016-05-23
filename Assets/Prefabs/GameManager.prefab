@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundTime: 180
-  pylonSeparation: 26
+  touchScreenInput: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -27,8 +27,9 @@ public class GameManager : MonoBehaviour
 //    public GameObject PylonsHolder;
     
     [SerializeField] private float roundTime = 180;
+    [SerializeField] private bool touchScreenInput;
     
-    
+    public bool TouchInput { get { return touchScreenInput; } }
     public Planet Planet { get; private set; }
     public GridBuilder GridBuilder { get; private set; }
     public DrillingGame DrillingGame { get; private set; }
