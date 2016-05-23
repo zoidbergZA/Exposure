@@ -13,9 +13,8 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image pressureIcon;
     [SerializeField] private UnityEngine.UI.Image bgActive;
     [SerializeField] private UnityEngine.UI.Image drill;
-    [SerializeField] private UnityEngine.UI.Text timer;
-    [SerializeField] private UnityEngine.UI.Image startToast;
-    [SerializeField] private UnityEngine.UI.Image startInnerToast;
+    [SerializeField] private UnityEngine.UI.Image globeDrillGroundIcon;
+    [SerializeField] private UnityEngine.UI.Image globeDrillPipeIcon;
     [SerializeField] private UnityEngine.UI.Image endOkToast;
     [SerializeField] private UnityEngine.UI.Image endFailToast;
     [SerializeField] private int[] columns;
@@ -35,6 +34,7 @@ public class DrillingGame : Minigame
     [SerializeField] private float succeededDrillValue = 5.0f;
     [SerializeField] private float drillStuckCooldown = 2.0f;
     [SerializeField] private float jumpPhaseTime = 0.25f;
+    [SerializeField] private float miningamePanelSlidingTime = 1.5f;
     [SerializeField] private Animator animator;
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP }
@@ -58,8 +58,8 @@ public class DrillingGame : Minigame
     public UnityEngine.UI.Image GetDrill { get { return drill; } }
     public float DiamondValue { get { return diamondValue; } }
     public float ToastTimer { get { return toastTimer; } set { toastTimer = value; } }
-    public UnityEngine.UI.Image StartToast { get { return startToast; } }
-    public UnityEngine.UI.Image StartInnerToast { get { return startInnerToast; } }
+    public UnityEngine.UI.Image GlobeDrillGroundIcon { get { return globeDrillGroundIcon; } }
+    public UnityEngine.UI.Image GlobeDrillPipeIcon { get { return globeDrillPipeIcon; } }
     public UnityEngine.UI.Image BgActive { get { return bgActive; } }
     public UnityEngine.UI.Image PressureIcon { get { return pressureIcon; } }
     public bool MovingLeft { get; set; }
@@ -83,8 +83,8 @@ public class DrillingGame : Minigame
         targetRow = 0;
         toastTimer = toastMessageTime;
         jumpPhaseTimer = jumpPhaseTime;
-        if(mainPanel) mainPanel.rectTransform.position = new Vector3((Screen.width / 3) / 2, Screen.height / 2, 0);
-        if (startInnerToast && startToast) startInnerToast.transform.SetSiblingIndex(startToast.transform.GetSiblingIndex() - 1);
+        if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -Screen.height / 2 - 220, 0);
+        if (globeDrillPipeIcon && globeDrillGroundIcon) globeDrillPipeIcon.transform.SetSiblingIndex(globeDrillGroundIcon.transform.GetSiblingIndex() - 1);
         drillStuckChecked = Time.time;
     }
 
@@ -98,9 +98,9 @@ public class DrillingGame : Minigame
         imagesActivated = true;
         introShown = true;
         generateMap();
-        if (bgActive) bgActive.rectTransform.anchoredPosition = new Vector3(0, -23, 0);
         drill.transform.SetAsLastSibling();
-        if(animator) animator.SetBool("isSlidingLeft", false);
+        if (animator) animator.SetBool("isSlidingLeft", false);
+        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, 0, 0), miningamePanelSlidingTime);
     }
 
     private void generateMap()
@@ -257,7 +257,6 @@ public class DrillingGame : Minigame
                 else MovingLeft = false;
             }
         }
-        //Debug.Log("right: " + MovingRight + " | left: " + MovingLeft + " | bumped: " + Bumped);
     }
 
     public void MoveRight()
@@ -355,11 +354,6 @@ public class DrillingGame : Minigame
             state = DrillingGameState.INACTIVE;
             End(false);
         }
-        if (state != DrillingGameState.INACTIVE && state != DrillingGameState.STARTSTOPTOAST)
-        {
-            timer.text = ((int)Timeleft).ToString();
-            timer.color = Color.Lerp(Color.red, Color.green, Timeleft/TimeOut);
-        }
 
         if (Time.time - drillStuckChecked > drillStuckCooldown)
         {
@@ -390,12 +384,10 @@ public class DrillingGame : Minigame
         {
             if (bgActive) bgActive.gameObject.SetActive(true);
             if (drill) drill.gameObject.SetActive(true);
-            if (timer) timer.gameObject.SetActive(true);
         } else
         {
-            if (bgActive) bgActive.gameObject.SetActive(false);
+            if (bgActive) bgActive.gameObject.SetActive(true);
             if (drill) drill.gameObject.SetActive(false);
-            if (timer) timer.gameObject.SetActive(false);
             if (endFailToast) endFailToast.gameObject.SetActive(false);
             if (endOkToast) endOkToast.gameObject.SetActive(false);
             imagesActivated = false;
@@ -417,6 +409,7 @@ public class DrillingGame : Minigame
         foreach (GameObject rock in rocks) Destroy(rock);
         drill.rectTransform.anchoredPosition = initDrillPos;
         rocks.Clear();
+        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -Screen.height / 2 - 220, 0), miningamePanelSlidingTime);
     }
 
     private void instantiateRock(int x, int y)

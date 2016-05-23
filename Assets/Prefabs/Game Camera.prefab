@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54c2bc53c8e53444c83ba24ced1e6666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAtOffset: {x: -80, y: 0, z: 0}
+  lookAtOffset: {x: 0, y: 0, z: 0}
   orbitSpeed: 0.07
   orbitZoom: 100
   buildZoom: 50
