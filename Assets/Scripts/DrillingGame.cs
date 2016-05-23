@@ -100,7 +100,7 @@ public class DrillingGame : Minigame
         generateMap();
         drill.transform.SetAsLastSibling();
         if (animator) animator.SetBool("isSlidingLeft", false);
-        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, 0, 0), miningamePanelSlidingTime);
+        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, 0, 0), miningamePanelSlidingTime).setEase(LeanTweenType.easeOutQuad);
     }
 
     private void generateMap()

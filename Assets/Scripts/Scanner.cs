@@ -45,17 +45,9 @@ public class Scanner : MonoBehaviour
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
 
-<<<<<<< HEAD
-        emptyY = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition.y;
-        fullY = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition.y +
-            GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.rect.height;
-
-        activateImages(false);
-=======
         emptyY = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition.y;
         fullY = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition.y +
-            GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.rect.height; 
->>>>>>> refs/remotes/origin/master
+            GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.rect.height;
     }
 
     void Update()
@@ -132,6 +124,7 @@ public class Scanner : MonoBehaviour
 
         IsScanning = true;
         lastStartScanAt = Time.time;
+        GameManager.Instance.Director.OrbitPaused = true;
 
 //        smallScanId = LeanTween.value(gameObject, radiusTweenCallback, 9f, smallScan.range, smallScan.duration)
 //            .setEase(smallScan.tweenType)
@@ -142,13 +135,8 @@ public class Scanner : MonoBehaviour
     public void EndScan()
     {
         IsScanning = false;
-        
-//        if (LeanTween.isTweening(smallScanId))
-//        {
-//            LeanTween.cancel(smallScanId);
-//        }
-
         radius = 0;
+        GameManager.Instance.Director.OrbitPaused = false;
     }
 
     private void DrawTouchInfo(Touch touch)
@@ -185,53 +173,6 @@ public class Scanner : MonoBehaviour
                 StartScan();
             }
         }
-
-//        if (Input.GetMouseButton(0))
-//        {
-//            if (Input.GetMouseButtonDown(0))
-//            {
-//                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                
-//                if (Physics.Raycast(ray, out hit, scanRayMask))
-//                {
-////                    Debug.Log(hit.transform.name + " , " + Time.time);
-////                    Debug.DrawLine(Camera.main.transform.position, hit.point);
-//
-//                    GameManager.Instance.Director.OrbitPaused = true;
-//                    GameManager.Instance.DrillingGame.PressureIcon.rectTransform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y + 140, Input.mousePosition.z);
-//
-//                    StartScan(hit.point);
-//                    activateImages(true);
-//                    moveUImages();
-
-//                    drillToastTimer -= Time.deltaTime;
-//                    if (drillToastTimer <= 0 && !drilled) toastMessageShown = true;
-//                    if (toastMessageShown)
-//                    {
-//                        if (Physics.Raycast(ray, out hit, drillRayMask))
-//                        {
-//                            Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-//                            Drill(hit.point, hit.normal, 1f - sample.r);
-//                            drilled = true;
-//                            activateImages(false);
-//                        }
-//                        toastMessageShown = false;
-//                    }
-//                }
-//            }
-//        }
-//        else
-//        {
-//            if (GameManager.Instance.Director.OrbitPaused) GameManager.Instance.Director.OrbitPaused = false;
-////            toastMessageShown = false;
-////            drillToastTimer = drillToastTime;
-////            drilled = false;
-//            activateImages(false);
-////            GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition = initPressureImagePos;
-////            GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition = initBgImagePos;
-//
-//            EndScan();
-//        }
     }
 
     private bool CheckCancelScan()
@@ -243,21 +184,9 @@ public class Scanner : MonoBehaviour
         }
         else
         {
-<<<<<<< HEAD
             if (Input.GetMouseButtonUp(0))
                 return true;
             return false;
-=======
-            if (GameManager.Instance.Director.OrbitPaused) GameManager.Instance.Director.OrbitPaused = false;
-//            toastMessageShown = false;
-//            drillToastTimer = drillToastTime;
-//            drilled = false;
-            activateImages(false);
-//            GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition = initPressureImagePos;
-//            GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition = initBgImagePos;
-
-            EndScan();
->>>>>>> refs/remotes/origin/master
         }
     }
 
@@ -266,8 +195,7 @@ public class Scanner : MonoBehaviour
         if (CheckCancelScan())
         {
             Debug.Log("scan cancelled");
-            IsScanning = false;
-            radius = 0f;
+            EndScan();
             return;
         }
 
