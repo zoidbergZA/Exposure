@@ -18,15 +18,6 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask buildRayMask;
     [SerializeField] private Powerplant PowerplantPrefab;
     [SerializeField] private Drillspot DrillspotPrefab;
-    [SerializeField] private float drillToastTime = 1.0f;
-
-    private float drillToastTimer;
-    private bool toastMessageShown = false;
-    private bool drilled = false;
-    private Ray ray;
-    private RaycastHit hit;
-    private Vector3 initPressureImagePos;
-    private Vector3 initBgImagePos;
     
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
@@ -35,12 +26,6 @@ public class Player : MonoBehaviour
     void Awake()
     {
         Cable = startingCable;
-    }
-
-    void Start()
-    {
-        initPressureImagePos = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition;
-        initBgImagePos = GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition;
     }
 
     void Update()
@@ -53,12 +38,12 @@ public class Player : MonoBehaviour
             CollectCable(1);
         //temp
 
-//        switch (PlayerState)
-//        {
-//            case PlayerStates.Normal:
+        switch (PlayerState)
+        {
+            case PlayerStates.Normal:
 //                HandleNormalState();
-//                break;
-//        }
+                break;
+        }
     }
 
     public void CollectCable(int amount)
@@ -75,8 +60,6 @@ public class Player : MonoBehaviour
 
     public void GoToNormalState(Transform targetTransform)
     {
-        drillToastTimer = drillToastTime;
-        toastMessageShown = false;
         PlayerState = PlayerStates.Normal;
         GameManager.Instance.Director.SetMode(Director.Modes.Orbit, targetTransform);
     }
@@ -109,60 +92,17 @@ public class Player : MonoBehaviour
 
     private void HandleNormalState()
     {
-//        if (Input.GetMouseButton(0))
-//        {
-//            if (Input.GetMouseButtonDown(0))
-//            {
-//                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-//                if (Physics.Raycast(ray, out hit, drillRayMask))
-//                {
-////                    Debug.Log(hit.transform.name + " , " + Time.time);
-//                    Debug.DrawLine(Camera.main.transform.position, hit.point);
-//
-//                    GameManager.Instance.Director.OrbitPaused = true;
-//                    GameManager.Instance.DrillingGame.PressureIcon.rectTransform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y+140, Input.mousePosition.z);
-//
-//                    GameManager.Instance.Scanner.StartScan(hit.point);
-//                    activateImages(true);
-//                    moveUImages();
-//
-//                    drillToastTimer -= Time.deltaTime;
-//                    if (drillToastTimer <= 0 && !drilled) toastMessageShown = true;
-//                    if (toastMessageShown)
-//                    {
-//                        if (Physics.Raycast(ray, out hit, drillRayMask))
-//                        {
-//                            Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-//                            Drill(hit.point, hit.normal, 1f - sample.r);
-//                            drilled = true;
-//                            activateImages(false);
-//                        }
-//                        toastMessageShown = false;
-//                    }
-//                }
-//                
-//            }
-//
-//            
-//        }
-//        else
-//        {
-//            if (GameManager.Instance.Director.OrbitPaused) GameManager.Instance.Director.OrbitPaused = false;
-//            toastMessageShown = false;
-//            drillToastTimer = drillToastTime;
-//            drilled = false;
-//            activateImages(false);
-//            GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition = initPressureImagePos;
-//            GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition = initBgImagePos;
-//
-//            GameManager.Instance.Scanner.EndScan();
-//        }
-    }
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-    private float getUpSpeed(float distance)
-    {
-        float result = distance / drillToastTimer;
-        return result;
+            if (Physics.Raycast(ray, out hit, drillRayMask))
+            {
+                Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
+                Drill(hit.point, hit.normal, 1f - sample.r);
+            }
+        }
     }
 
     private Pylon GetClosestPylon(Vector3 location)
@@ -190,22 +130,4 @@ public class Player : MonoBehaviour
         drillspot.Orientate(normal);
         drillspot.Difficulty = difficulty;
     }
-
-    private void moveUImages()
-    {
-        if (GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition.y < GameManager.Instance.DrillingGame.StartToast.rectTransform.anchoredPosition.y)
-            GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.Translate(0,
-                getUpSpeed(GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.rect.height / 2) * Time.deltaTime, 0);
-
-        if (GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition.y < initBgImagePos.y + GameManager.Instance.DrillingGame.BgActive.rectTransform.rect.height)
-            GameManager.Instance.DrillingGame.BgActive.rectTransform.Translate(0,
-                getUpSpeed(GameManager.Instance.DrillingGame.BgActive.rectTransform.rect.height / 2) * Time.deltaTime, 0);
-    }
-
-//    private void activateImages(bool activate)
-//    {
-//        GameManager.Instance.DrillingGame.StartToast.gameObject.SetActive(activate);
-//        GameManager.Instance.DrillingGame.StartInnerToast.gameObject.SetActive(activate);
-//        GameManager.Instance.DrillingGame.BgActive.gameObject.SetActive(activate);
-//    }
 }

@@ -34,6 +34,7 @@ public class DrillingGame : Minigame
     [SerializeField] private float diamondValue = 1.0f;
     [SerializeField] private float succeededDrillValue = 5.0f;
     [SerializeField] private float drillStuckCooldown = 2.0f;
+    [SerializeField] private Animator animator;
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST }
     private DrillingGameState state;
@@ -64,6 +65,7 @@ public class DrillingGame : Minigame
     public bool WasMovingLeft{ get; set; }
     public bool WasMovingRight { get; set; }
     public bool Bumped { get; set; }
+    public Animator Animator { get { return animator; } }
     public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
     public bool ReachedBottom(int bottom, UnityEngine.UI.Image drill)
     {
@@ -269,7 +271,11 @@ public class DrillingGame : Minigame
                 {
                     if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
                 }
-                else slidingLeft = true;
+                else
+                {
+                    slidingLeft = true;
+                    animator.SetBool("isSlidingLeft", true);
+                }
             }
             else
             {
@@ -278,7 +284,11 @@ public class DrillingGame : Minigame
                 {
                     if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
                 }
-                else slidingLeft = false;
+                else
+                {
+                    slidingLeft = false;
+                    animator.SetBool("isSlidingLeft", false);
+                }
             }
         }
         else
@@ -378,6 +388,7 @@ public class DrillingGame : Minigame
     {
         makeDrill = false;
         slidingLeft = false;
+        animator.SetBool("isSlidingLeft", false);
         introShown = false;
         finalShown = false;
         succeededDrill = false;
