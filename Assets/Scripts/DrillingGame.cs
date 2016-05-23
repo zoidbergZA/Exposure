@@ -34,8 +34,10 @@ public class DrillingGame : Minigame
     [SerializeField] private float diamondValue = 1.0f;
     [SerializeField] private float succeededDrillValue = 5.0f;
     [SerializeField] private float drillStuckCooldown = 2.0f;
+    [SerializeField] private float jumpPhaseTime = 0.25f;
+    [SerializeField] private Animator animator;
     private Drillspot drillspot;
-    public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST }
+    public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP }
     private DrillingGameState state;
     private bool makeDrill = false;
     private Vector3 initDrillPos;
@@ -47,6 +49,7 @@ public class DrillingGame : Minigame
     private bool imagesActivated = false;
     private float drillStuckChecked;
     private float stuckTimer;
+    private float jumpPhaseTimer;
 
     public bool succeededDrill { get; set; }
     private List<GameObject> rocks = new List<GameObject>();
@@ -61,6 +64,10 @@ public class DrillingGame : Minigame
     public UnityEngine.UI.Image PressureIcon { get { return pressureIcon; } }
     public bool MovingLeft { get; set; }
     public bool MovingRight { get; set; }
+    public bool WasMovingLeft{ get; set; }
+    public bool WasMovingRight { get; set; }
+    public bool Bumped { get; set; }
+    public Animator Animator { get { return animator; } }
     public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
     public bool ReachedBottom(int bottom, UnityEngine.UI.Image drill)
     {
@@ -75,6 +82,7 @@ public class DrillingGame : Minigame
         targetColumn = 0;
         targetRow = 0;
         toastTimer = toastMessageTime;
+        jumpPhaseTimer = jumpPhaseTime;
         if(mainPanel) mainPanel.rectTransform.position = new Vector3((Screen.width / 3) / 2, Screen.height / 2, 0);
         if (startInnerToast && startToast) startInnerToast.transform.SetSiblingIndex(startToast.transform.GetSiblingIndex() - 1);
         drillStuckChecked = Time.time;
@@ -92,6 +100,7 @@ public class DrillingGame : Minigame
         generateMap();
         if (bgActive) bgActive.rectTransform.anchoredPosition = new Vector3(0, -23, 0);
         drill.transform.SetAsLastSibling();
+        if(animator) animator.SetBool("isSlidingLeft", false);
     }
 
     private void generateMap()
@@ -140,6 +149,20 @@ public class DrillingGame : Minigame
             case DrillingGameState.STARTSTOPTOAST:
                 handleStartStopState();
                 break;
+            case DrillingGameState.PREDRILLJUMP:
+                handlePreDrillJump();
+                break;
+        }
+    }
+
+    private void handlePreDrillJump()
+    {
+        jumpPhaseTimer -= Time.deltaTime;
+        if (jumpPhaseTimer <= 0)
+        {
+            animator.SetBool("isDrilling", true);
+            state = DrillingGameState.DRILLING;
+            jumpPhaseTimer = jumpPhaseTime;
         }
     }
 
@@ -152,29 +175,24 @@ public class DrillingGame : Minigame
             {
                 endOkToast.gameObject.SetActive(true);
                 endOkToast.transform.SetAsLastSibling();
-                if (toastTimer < 0.0f)
-                {
-                    finalShown = true;
-                    toastTimer = toastMessageTime;
-                    endOkToast.gameObject.SetActive(false);
-                    state = DrillingGameState.INACTIVE;
-                    End(true);
-                }
+                if (toastTimer < 0.0f) fireToast(true);
             }
             else
             {
                 endFailToast.gameObject.SetActive(true);
                 endFailToast.transform.SetAsLastSibling();
-                if (toastTimer < 0.0f)
-                {
-                    finalShown = true;
-                    toastTimer = toastMessageTime;
-                    endFailToast.gameObject.SetActive(false);
-                    End(false);
-                    state = DrillingGameState.INACTIVE;
-                }   
+                if (toastTimer < 0.0f) fireToast(false);
             }
         }
+    }
+
+    private void fireToast(bool gameSucceeded)
+    {
+        finalShown = true;
+        toastTimer = toastMessageTime;
+        endOkToast.gameObject.SetActive(false);
+        state = DrillingGameState.INACTIVE;
+        End(gameSucceeded);
     }
 
     private void handleDrillingState()
@@ -187,7 +205,31 @@ public class DrillingGame : Minigame
     {
         if (!MovingRight && !MovingLeft)
         {
-            drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0);
+            if (!WasMovingRight && !WasMovingLeft)
+            {
+                drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0);
+            } 
+            else
+            {
+                if(WasMovingRight)
+                {
+                    if (drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1]) drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
+                    else
+                    {
+                        targetColumn++;
+                        WasMovingRight = false;
+                    }
+                } 
+                else if(WasMovingLeft)
+                { 
+                    if (drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1]) drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
+                    else
+                    {
+                        targetColumn--;
+                        WasMovingLeft = false;
+                    }
+                }
+            }
             if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y + 518 <= rows[targetRow + 1]) targetRow++;
         }
         else
@@ -196,8 +238,9 @@ public class DrillingGame : Minigame
             {
                 if (targetColumn < columns.Length - 1)
                 {
-                    //if (drill.rectTransform.anchoredPosition.y + 518 >= rows[targetRow + 1]) drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
-                    drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
+                    if (!Bumped && drill.rectTransform.anchoredPosition.y + 518 >= rows[targetRow + 1]) 
+                        drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
+                    else drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
                     if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
                 }
                 else MovingRight = false;
@@ -206,14 +249,15 @@ public class DrillingGame : Minigame
             {
                 if (targetColumn > 0)
                 {
-                    //if (drill.rectTransform.anchoredPosition.y + 518 >= rows[targetRow + 1]) drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
-                    drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
+                    if (!Bumped && drill.rectTransform.anchoredPosition.y + 518 >= rows[targetRow + 1]) 
+                        drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
+                    else drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
                     if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
                 }
                 else MovingLeft = false;
             }
         }
-//        Debug.Log("right: " + MovingRight + " | left: " + MovingLeft);
+        //Debug.Log("right: " + MovingRight + " | left: " + MovingLeft + " | bumped: " + Bumped);
     }
 
     public void MoveRight()
@@ -245,7 +289,11 @@ public class DrillingGame : Minigame
                 {
                     if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
                 }
-                else slidingLeft = true;
+                else
+                {
+                    slidingLeft = true;
+                    animator.SetBool("isSlidingLeft", true);
+                }
             }
             else
             {
@@ -254,7 +302,11 @@ public class DrillingGame : Minigame
                 {
                     if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
                 }
-                else slidingLeft = false;
+                else
+                {
+                    slidingLeft = false;
+                    animator.SetBool("isSlidingLeft", false);
+                }
             }
         }
         else
@@ -265,7 +317,7 @@ public class DrillingGame : Minigame
                     drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn + 1], drill.rectTransform.anchoredPosition.y);
                 else
                 {
-                    state = DrillingGameState.DRILLING;
+                    state = DrillingGameState.PREDRILLJUMP;
                     if (targetColumn < columns.Length - 1) targetColumn += 1;
                 }
             }
@@ -275,7 +327,7 @@ public class DrillingGame : Minigame
                     drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn - 1], drill.rectTransform.anchoredPosition.y);
                 else
                 {
-                    state = DrillingGameState.DRILLING;
+                    state = DrillingGameState.PREDRILLJUMP;
                     if (targetColumn > 0) targetColumn -= 1;
                 }
             }
@@ -344,6 +396,8 @@ public class DrillingGame : Minigame
             if (bgActive) bgActive.gameObject.SetActive(false);
             if (drill) drill.gameObject.SetActive(false);
             if (timer) timer.gameObject.SetActive(false);
+            if (endFailToast) endFailToast.gameObject.SetActive(false);
+            if (endOkToast) endOkToast.gameObject.SetActive(false);
             imagesActivated = false;
         }
     }
@@ -352,6 +406,9 @@ public class DrillingGame : Minigame
     {
         makeDrill = false;
         slidingLeft = false;
+        animator.SetBool("isSlidingLeft", false);
+        animator.SetBool("isDrilling", false);
+        animator.SetBool("shouldJump", false);
         introShown = false;
         finalShown = false;
         succeededDrill = false;
