@@ -27,14 +27,15 @@ public class GameManager : MonoBehaviour
 //    public GameObject PylonsHolder;
     
     [SerializeField] private float roundTime = 180;
-    [SerializeField] private float pylonSeparation = 20f;
+    [SerializeField] private bool touchScreenInput;
     
+    public bool TouchInput { get { return touchScreenInput; } }
     public Planet Planet { get; private set; }
     public GridBuilder GridBuilder { get; private set; }
     public DrillingGame DrillingGame { get; private set; }
     public Scanner Scanner { get; private set; }
     public Hud Hud { get; private set; }
-    public float PylonSeparation { get { return pylonSeparation; } }
+//    public float PylonSeparation { get { return pylonSeparation; } }
     public int TotalChimneys { get; private set; }
     public float ChimneyValue { get { return 100f/TotalChimneys; } }
     public bool RoundStarted { get; private set; }

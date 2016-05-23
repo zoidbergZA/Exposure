@@ -6,6 +6,8 @@ public class GridBuilder : Minigame
 {
     [SerializeField] private GameObject PlacerHelperPrefab;
     [SerializeField] private Pylon pylonPrefab;
+    [SerializeField] private int pylonsPerPlace = 8;
+    [SerializeField] private float pylonSeparation = 26f;
     [SerializeField] private LayerMask placerMask;
 //    [SerializeField] private int maxPylons = 4;
 //    [SerializeField] private float nodeDistance = 2.87f; // match node graph max distance variable
@@ -14,6 +16,7 @@ public class GridBuilder : Minigame
     public bool ConnectionFinalized;
 //    public float GridTimeLeft { get; set; }
     public GeoThermalPlant StartPlant { get; private set; }
+    public float PylonSeparation { get { return pylonSeparation; } }
     public List<Pylon> Pylons { get; private set; }
     public List<Pylon> PoweredPylons { get; private set; } 
 //    public int MaxPylons { get { return maxPylons; } }
@@ -186,9 +189,9 @@ public class GridBuilder : Minigame
 
 //        GameObject placer = (GameObject)Instantiate(PlacerHelperPrefab, center, Quaternion.identity);
 //        placer.transform.forward = dir;
-        
+        DestroyUnbuiltPylons();
         // set raycaster positions
-        Vector3[] raycastPositions = new Vector3[6];
+        Vector3[] raycastPositions = new Vector3[pylonsPerPlace];
 
         for (int i = 0; i < raycastPositions.Length; i++)
         {
@@ -197,7 +200,7 @@ public class GridBuilder : Minigame
 
             Quaternion q = Quaternion.LookRotation(dir);
 
-            raycastPositions[i] = center + q*offset * GameManager.Instance.PylonSeparation;
+            raycastPositions[i] = center + q*offset * pylonSeparation;
 
             // project down from caster positions
             RaycastHit hit;
@@ -210,14 +213,14 @@ public class GridBuilder : Minigame
                 bool open = true;
                 foreach (Pylon p in Pylons)
                 {
-                    if (Vector3.Distance(hit.point, p.transform.position) <= GameManager.Instance.PylonSeparation * 0.5f)
+                    if (Vector3.Distance(hit.point, p.transform.position) <= pylonSeparation * 0.5f)
                     {
                         open = false;
                         break;
                     }
                 }
 
-                if (open && sample.g > 0.7f)
+                if (open && sample.g > 0.8f)
                 {
                     Pylon pylon = (Pylon) Instantiate(pylonPrefab, hit.point, location.rotation);
                     Pylons.Add(pylon);
