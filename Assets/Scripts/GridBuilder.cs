@@ -220,7 +220,7 @@ public class GridBuilder : Minigame
                     }
                 }
 
-                if (open && sample.b <= 0.05f)
+                if (open && sample.g >= 0.1f)
                 {
                     Pylon pylon = (Pylon) Instantiate(pylonPrefab, hit.point, location.rotation);
                     Pylons.Add(pylon);

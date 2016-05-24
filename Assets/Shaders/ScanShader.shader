@@ -6,8 +6,9 @@
 		_DebugMode("_DebugMode", Float) = 0
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
-		_ScanTex ("Albedo (RGB)", 2D) = "white" {}
-		
+		_ScanTex ("Build Map (RGB)", 2D) = "white" {}
+		_GroundTex ("Ground Map (RGB)", 2D) = "white" {}
+
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		
@@ -28,9 +29,11 @@
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
+		#include "UnityCG.cginc"
 
 		sampler2D _MainTex;
 		sampler2D _ScanTex;
+		sampler2D _GroundTex;
 
 		half _Glossiness;
 		half _Metallic;
@@ -58,6 +61,7 @@
 		{
 			float2 uv_MainTex;
 			float2 uv_ScanTex;
+			float2 uv_GroundTex;
 			float3 worldPos;
 		};
 
@@ -68,11 +72,11 @@
 
 	 //        if (d < 1)
 	 //        {
-	 //        	v.vertex.z += 2;
+	 //        	v.vertex.z = 0;
 	 //        }
 	 //        else
 	 //        {
-	 //        	v.vertex.z -= 2;
+	 //        	// v.vertex.z -= 2;
 	 //        }
 	 //    }
 
@@ -92,11 +96,12 @@
 
 			fixed4 mainSample = (tex2D (_MainTex, IN.uv_MainTex)) * _Color;
 			fixed4 scanSample = (tex2D (_ScanTex, IN.uv_ScanTex));
+			fixed4 groundSample = (tex2D (_GroundTex, IN.uv_GroundTex));
 
-			if (scanSample.r >= 0.9)
-			{
-				scanSample.g = 0;
-			}
+			// if (scanSample.r >= 0.9)
+			// {
+			// 	scanSample.g = 0;
+			// }
 
 			if (_DebugMode)
 			{
@@ -109,14 +114,14 @@
 					if (dist > _Radius - _Fade)
 					{
 						fixed frac = (_Radius - dist) / _Fade;
-						o.Albedo = frac * scanSample.rgb + (1 - frac) * mainSample.rgb;
+						o.Albedo = frac * groundSample.rgb + (1 - frac) * mainSample.rgb;
 						o.Metallic = (1 - frac) * _Metallic;
 						o.Smoothness = (1 - frac) * _Glossiness;
 						o.Alpha = 1;
 					}
 					else
 					{
-						o.Albedo = scanSample.rgb;
+						o.Albedo = groundSample.rgb;
 						o.Metallic = 0;
 						o.Smoothness = 0;
 						o.Alpha = 1;
