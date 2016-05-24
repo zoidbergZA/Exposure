@@ -101,9 +101,9 @@ public class DrillingGame : Minigame
         introShown = true;
         drill.transform.SetAsLastSibling();
         if (animator) animator.SetBool("isSlidingLeft", false);
-        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, 0, 0), panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
-        LeanTween.scale(mainPanel.gameObject.GetComponent<RectTransform>(), mainPanel.gameObject.GetComponent<RectTransform>().localScale * 1.4f, panelSlidingTime)
-        .setEase(LeanTweenType.easeShake);
+        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), Vector3.zero, panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
+        /*LeanTween.scale(mainPanel.gameObject.GetComponent<RectTransform>(), mainPanel.gameObject.GetComponent<RectTransform>().localScale * 1.4f, panelSlidingTime)
+        .setEase(LeanTweenType.punch);*/
     }
 
     private void generateMap()
@@ -216,7 +216,7 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-        if (!ReachedBottom(495, drill)) updateDrilling();
+        if (!ReachedBottom(616, drill)) updateDrilling();
         else state = DrillingGameState.SUCCESS;
     }
 
@@ -249,7 +249,7 @@ public class DrillingGame : Minigame
                     }
                 }
             }
-            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y + 518 <= rows[targetRow + 1]) targetRow++;
+            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y <= rows[targetRow + 1]) targetRow++;
         }
         else
         {
@@ -257,7 +257,7 @@ public class DrillingGame : Minigame
             {
                 if (targetColumn < columns.Length - 1)
                 {
-                    if (!Bumped && drill.rectTransform.anchoredPosition.y + 518 >= rows[targetRow + 1]) 
+                    if (!Bumped && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1]) 
                         drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
                     else drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
                     if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
@@ -268,7 +268,7 @@ public class DrillingGame : Minigame
             {
                 if (targetColumn > 0)
                 {
-                    if (!Bumped && drill.rectTransform.anchoredPosition.y + 518 >= rows[targetRow + 1]) 
+                    if (!Bumped && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1]) 
                         drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
                     else drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
                     if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
@@ -405,7 +405,7 @@ public class DrillingGame : Minigame
             if (drill) drill.gameObject.SetActive(true);
         } else
         {
-            if (bgActive) bgActive.gameObject.SetActive(true);
+            if (bgActive) bgActive.gameObject.SetActive(false);
             if (drill) drill.gameObject.SetActive(false);
             if (endFailToast) endFailToast.gameObject.SetActive(false);
             if (endOkToast) endOkToast.gameObject.SetActive(false);
@@ -428,7 +428,7 @@ public class DrillingGame : Minigame
         foreach (GameObject rock in rocks) Destroy(rock);
         drill.rectTransform.anchoredPosition = initDrillPos;
         rocks.Clear();
-        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -Screen.height / 2 - 220, 0), panelSlidingTime);
+        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -Screen.height / 2 - 220, 0), panelSlidingTime/2);
     }
 
     private void instantiateRock(int x, int y)
