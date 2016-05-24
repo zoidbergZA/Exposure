@@ -10,7 +10,6 @@ public class DrillingGame : Minigame
 
     [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
     [SerializeField] private UnityEngine.UI.Image mainPanel;
-    [SerializeField] private UnityEngine.UI.Image pressureIcon;
     [SerializeField] private UnityEngine.UI.Image bgActive;
     [SerializeField] private UnityEngine.UI.Image drill;
     [SerializeField] private UnityEngine.UI.Image globeDrillGroundIcon;
@@ -24,7 +23,6 @@ public class DrillingGame : Minigame
     [SerializeField] private GameObject groundTilePrefab;
     [SerializeField] private GameObject cablePrefab;
     [SerializeField] private GameObject bombPrefab;
-    [SerializeField] private GameObject canvas;
     [SerializeField] private bool AutoWin;
     [SerializeField] private float toastMessageTime = 3.0f;
     [SerializeField] public float stuckTime = 10.0f;
@@ -39,31 +37,28 @@ public class DrillingGame : Minigame
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
     private DrillingGameState state;
-    private bool makeDrill = false;
     private Vector3 initDrillPos;
     private int targetColumn;
     private int targetRow;
-    private float toastTimer;
-    private bool slidingLeft = false;
-    private bool introShown, finalShown = false;
-    private bool imagesActivated = false;
+    //bools
+    private bool introShown, finalShown, slidingLeft, makeDrill, imagesActivated = false;
+    //timers
     private float drillStuckChecked;
+    private float toastTimer;
     private float stuckTimer;
     private float jumpPhaseTimer;
     private float panelSlidingTimer;
 
-    public bool succeededDrill { get; set; }
+    public bool SucceededDrill { get; set; }
     private List<GameObject> rocks = new List<GameObject>();
     public DrillingGameState State { get { return state; } set { state = value; } }
     public void SetMakeDrill(bool value) { makeDrill = value; }
     public UnityEngine.UI.Image GetDrill { get { return drill; } }
     public float DiamondValue { get { return diamondValue; } }
-    public float ToastTimer { get { return toastTimer; } set { toastTimer = value; } }
     public UnityEngine.UI.Image GlobeDrillGroundIcon { get { return globeDrillGroundIcon; } }
     public UnityEngine.UI.Image GlobeDrillPipeIcon { get { return globeDrillPipeIcon; } }
     public UnityEngine.UI.Image BgActive { get { return bgActive; } }
     public UnityEngine.UI.Image MainPanel { get { return mainPanel; } }
-    public UnityEngine.UI.Image PressureIcon { get { return pressureIcon; } }
     public bool MovingLeft { get; set; }
     public bool MovingRight { get; set; }
     public bool WasMovingLeft{ get; set; }
@@ -80,13 +75,13 @@ public class DrillingGame : Minigame
     void Start()
     {
         activateImages(false);
-        if (drill) initDrillPos = drill.rectTransform.anchoredPosition;
         targetColumn = 0;
         targetRow = 0;
         toastTimer = toastMessageTime;
         jumpPhaseTimer = jumpPhaseTime;
         panelSlidingTimer = panelSlidingTime;
-        if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -Screen.height / 2 - 420, 0);
+        if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -(Screen.height / 2) - 420, 0);
+        if (drill) initDrillPos = drill.rectTransform.anchoredPosition;
         if (globeDrillPipeIcon && globeDrillGroundIcon) globeDrillPipeIcon.transform.SetSiblingIndex(globeDrillGroundIcon.transform.GetSiblingIndex() - 1);
         drillStuckChecked = Time.time;
     }
@@ -102,8 +97,6 @@ public class DrillingGame : Minigame
         drill.transform.SetAsLastSibling();
         if (animator) animator.SetBool("isSlidingLeft", false);
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), Vector3.zero, panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
-        /*LeanTween.scale(mainPanel.gameObject.GetComponent<RectTransform>(), mainPanel.gameObject.GetComponent<RectTransform>().localScale * 1.4f, panelSlidingTime)
-        .setEase(LeanTweenType.punch);*/
     }
 
     private void generateMap()
@@ -190,7 +183,7 @@ public class DrillingGame : Minigame
         toastTimer -= Time.deltaTime;
         if(introShown && !finalShown)
         {
-            if (succeededDrill)
+            if (SucceededDrill)
             {
                 endOkToast.gameObject.SetActive(true);
                 endOkToast.transform.SetAsLastSibling();
@@ -359,7 +352,7 @@ public class DrillingGame : Minigame
 
     private void handleSuccessState()
     {
-        succeededDrill = true;
+        SucceededDrill = true;
         state = DrillingGameState.STARTSTOPTOAST;
     }
 
@@ -422,13 +415,13 @@ public class DrillingGame : Minigame
         animator.SetBool("shouldJump", false);
         introShown = false;
         finalShown = false;
-        succeededDrill = false;
+        SucceededDrill = false;
         targetColumn = 0;
         targetRow = 0;
         foreach (GameObject rock in rocks) Destroy(rock);
         drill.rectTransform.anchoredPosition = initDrillPos;
         rocks.Clear();
-        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -Screen.height / 2 - 420, 0), panelSlidingTime/2);
+        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -(Screen.height / 2) - 420, 0), panelSlidingTime / 2);
     }
 
     private void instantiateRock(int x, int y)
@@ -495,7 +488,7 @@ public class DrillingGame : Minigame
     {
        if(stuckTimer <= 0)
        {
-           succeededDrill = false;
+           SucceededDrill = false;
            state = DrillingGameState.STARTSTOPTOAST;
            stuckTimer = stuckTime;
        }
