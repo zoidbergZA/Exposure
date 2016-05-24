@@ -23,6 +23,7 @@
 		
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
+		// #pragma vertex vert
 		#pragma surface surf Standard fullforwardshadows
 
 		// Use shader model 3.0 target, to get nicer looking lighting
@@ -39,12 +40,41 @@
 		fixed _DebugMode;
 		fixed4 _CenterPoint;
 
+		// // vertex shader inputs
+  //       struct appdata
+  //       {
+  //           float4 vertex : POSITION; // vertex position
+  //           float2 uv : TEXCOORD0; // texture coordinate
+  //       };
+
+  //       // vertex shader outputs ("vertex to fragment")
+  //       struct v2f
+  //       {
+  //           float2 uv : TEXCOORD0; // texture coordinate
+  //           float4 vertex : SV_POSITION; // clip space position
+  //       };
+
 		struct Input 
 		{
 			float2 uv_MainTex;
 			float2 uv_ScanTex;
 			float3 worldPos;
 		};
+
+		// // Vertex modifier
+	 //    void vert (inout appdata_full v) 
+	 //    {
+	 //    	fixed d = distance(v.vertex, _CenterPoint);
+
+	 //        if (d < 1)
+	 //        {
+	 //        	v.vertex.z += 2;
+	 //        }
+	 //        else
+	 //        {
+	 //        	v.vertex.z -= 2;
+	 //        }
+	 //    }
 
 		void surf (Input IN, inout SurfaceOutputStandard o)
 		{

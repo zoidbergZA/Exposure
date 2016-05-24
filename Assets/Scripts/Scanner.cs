@@ -72,7 +72,7 @@ public class Scanner : MonoBehaviour
             GUI.Label(new Rect(endPoint.x - 25f, Screen.height - endPoint.y - 25f, 50f, 50f), touchIcon);
             GUI.Label(new Rect(center.x - 25f, Screen.height - center.y - 25f, 50f, 50f), centerIcon);
 
-            GuiHelper.DrawLine(new Vector2(startPoint.x, Screen.height - startPoint.y), new Vector2(endPoint.x, Screen.height - endPoint.y), Color.blue, 1);
+            GuiHelper.DrawLine(new Vector2(startPoint.x, Screen.height - startPoint.y), new Vector2(endPoint.x, Screen.height - endPoint.y), Color.grey, 1);
 
             //            //max distance etension icon
             //            Vector3 scanlineDirection = (endPoint - startPoint).normalized;
@@ -80,13 +80,13 @@ public class Scanner : MonoBehaviour
             //            GUI.Label(new Rect(maxPoint.x - 25f, Screen.height - maxPoint.y - 25f, 50f, 50f), maxDistanceIcon);
         }
 
-        if (GameManager.Instance.TouchInput && Input.touches.Length > 0)
-        {
-            foreach (Touch t in Input.touches)
-            {
-                DrawTouchInfo(t);
-            }
-        }
+//        if (GameManager.Instance.TouchInput && Input.touches.Length > 0)
+//        {
+//            foreach (Touch t in Input.touches)
+//            {
+//                DrawTouchInfo(t);
+//            }
+//        }
     }
 
     public void StartScan()
@@ -194,7 +194,7 @@ public class Scanner : MonoBehaviour
         float scanDelta = Vector3.Distance(startPoint, endPoint);
         
         //check scan succeeded
-        if (scanDelta <= 80f && Time.time >= lastStartScanAt + 2.0f)
+        if (scanDelta <= 220f && Time.time >= lastStartScanAt + 2.0f)
         {
             Debug.Log("scan succeeded");
             ScanSucceeded();
