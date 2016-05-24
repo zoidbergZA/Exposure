@@ -127,11 +127,13 @@ public class Hud : MonoBehaviour
     public void HandleLeftButton()
     {
         GameManager.Instance.DrillingGame.MoveLeft();
+        Debug.Log("left button clicked!");
     }
 
     public void HandleRightButton()
     {
         GameManager.Instance.DrillingGame.MoveRight();
+        Debug.Log("right button clicked!");
     }
 
     public void HandleDownButton()
@@ -148,6 +150,7 @@ public class Hud : MonoBehaviour
             GameManager.Instance.DrillingGame.WasMovingLeft = true;
         }
         else GameManager.Instance.DrillingGame.WasMovingLeft = false;
+        Debug.Log("down button clicked!");
     }
 
 //    private void ShowScanButton()
