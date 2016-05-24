@@ -86,7 +86,7 @@ public class DrillingGame : Minigame
         toastTimer = toastMessageTime;
         jumpPhaseTimer = jumpPhaseTime;
         panelSlidingTimer = panelSlidingTime;
-        if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -Screen.height / 2 - 220, 0);
+        if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -Screen.height / 2 - 420, 0);
         if (globeDrillPipeIcon && globeDrillGroundIcon) globeDrillPipeIcon.transform.SetSiblingIndex(globeDrillGroundIcon.transform.GetSiblingIndex() - 1);
         drillStuckChecked = Time.time;
     }
@@ -428,7 +428,7 @@ public class DrillingGame : Minigame
         foreach (GameObject rock in rocks) Destroy(rock);
         drill.rectTransform.anchoredPosition = initDrillPos;
         rocks.Clear();
-        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -Screen.height / 2 - 220, 0), panelSlidingTime/2);
+        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -Screen.height / 2 - 420, 0), panelSlidingTime/2);
     }
 
     private void instantiateRock(int x, int y)

@@ -411,7 +411,7 @@ MonoBehaviour:
   hudCanvas: {fileID: 22370400}
   leftButton: {fileID: 2800000, guid: 499dcc3e4e50328469370748400050e5, type: 3}
   rightButton: {fileID: 2800000, guid: 0ebc5cee008ac3f48895a4514fbbd5e3, type: 3}
-  downButton: {fileID: 2800000, guid: 34c77da906df78442978c9a03ca1d9aa, type: 3}
+  downButton: {fileID: 2800000, guid: 9bf660bd73bc62a43a390fd311e6265f, type: 3}
   drillButton: {fileID: 2800000, guid: 60396a7dd3d8b5a40be6e0be761273e2, type: 3}
   scorePanel: {fileID: 120786}
   scoreText: {fileID: 11464062}
@@ -684,7 +684,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 22x
+  m_Text: x22
 --- !u!114 &11479724
 MonoBehaviour:
   m_ObjectHideFlags: 1
