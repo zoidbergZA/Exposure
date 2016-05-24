@@ -89,7 +89,7 @@ Material:
       data:
         first:
           name: _Radius
-        second: 2
+        second: 26.56
       data:
         first:
           name: _SrcBlend
@@ -154,6 +154,18 @@ Material:
         first:
           name: _setDuration
         second: 3
+      data:
+        first:
+          name: _isBending
+        second: 0
+      data:
+        first:
+          name: _DebugMode
+        second: 0
+      data:
+        first:
+          name: _Fade
+        second: 6
     m_Colors:
       data:
         first:
@@ -166,4 +178,8 @@ Material:
       data:
         first:
           name: _CenterCoords
+        second: {r: 0, g: 0, b: 0, a: 0}
+      data:
+        first:
+          name: _CenterPoint
         second: {r: 0, g: 0, b: 0, a: 0}
