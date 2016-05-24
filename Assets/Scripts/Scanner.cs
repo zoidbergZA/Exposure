@@ -4,8 +4,8 @@ using System.Collections;
 
 public class Scanner : MonoBehaviour
 {
-    public ScanProperties smallScan;
-    public ScanProperties globalScan;
+//    public ScanProperties smallScan;
+//    public ScanProperties globalScan;
 
     //    [SerializeField] private float cooldownTime = 7f;
     [SerializeField] private float maxScanDistance = 250f;
@@ -60,17 +60,6 @@ public class Scanner : MonoBehaviour
         if (IsScanning)
             HandleScanning();
 
-        //set center point to raycayt through center
-//        material.SetVector("_CenterPoint", new Vector4(center.x, center.y, center.z, 0));
-
-//        cooldownLeft -= Time.deltaTime;
-
-//        if (cooldownLeft <= 0)
-//        {
-//            cooldownLeft = cooldownTime;
-////            StartScan(globalScan);    //todo: global scans removed for testing local
-//        }
-
         material.SetFloat("_Radius", radius);
     }
 
@@ -79,14 +68,14 @@ public class Scanner : MonoBehaviour
         if (IsScanning)
         {
             //draw scanning debug
-            GUI.Label(new Rect(startPoint.x, Screen.height - startPoint.y, 30f, 30f), touchIcon);
-            GUI.Label(new Rect(endPoint.x, Screen.height - endPoint.y, 30f, 30f), touchIcon);
-            GUI.Label(new Rect(center.x, Screen.height - center.y, 30f, 30f), centerIcon);
+            GUI.Label(new Rect(startPoint.x - 25f, Screen.height - startPoint.y - 25f, 50f, 50f), touchIcon);
+            GUI.Label(new Rect(endPoint.x - 25f, Screen.height - endPoint.y - 25f, 50f, 50f), touchIcon);
+            GUI.Label(new Rect(center.x - 25f, Screen.height - center.y - 25f, 50f, 50f), centerIcon);
 
             //max distance etension icon
             Vector3 scanlineDirection = (endPoint - startPoint).normalized;
             Vector3 maxPoint = startPoint + scanlineDirection * maxScanDistance;
-            GUI.Label(new Rect(maxPoint.x, Screen.height - maxPoint.y, 30f, 30f), maxDistanceIcon);
+            GUI.Label(new Rect(maxPoint.x - 25f, Screen.height - maxPoint.y - 25f, 50f, 50f), maxDistanceIcon);
         }
 
         if (GameManager.Instance.TouchInput && Input.touches.Length > 0)
@@ -98,25 +87,6 @@ public class Scanner : MonoBehaviour
         }
     }
 
-//    public void StartScan(ScanProperties scanProperties)
-//    {
-//        IsScanning = true;
-//
-//        //direction to center point
-//        Vector3 dir = (GameManager.Instance.PlanetTransform.position - Camera.main.transform.position).normalized;
-//
-//        RaycastHit hit;
-//
-//        if (Physics.Raycast(Camera.main.transform.position, dir, out hit))
-//        {
-//            centerPoint = hit.point;
-//        }
-//
-//        LeanTween.value(gameObject, radiusTweenCallback, 5f, scanProperties.range, scanProperties.duration)
-//            .setEase(scanProperties.tweenType)
-//            .setOnComplete(EndScan);
-//    }
-
     public void StartScan()
     {
         if (IsScanning)
@@ -125,11 +95,6 @@ public class Scanner : MonoBehaviour
         IsScanning = true;
         lastStartScanAt = Time.time;
         GameManager.Instance.Director.OrbitPaused = true;
-
-//        smallScanId = LeanTween.value(gameObject, radiusTweenCallback, 9f, smallScan.range, smallScan.duration)
-//            .setEase(smallScan.tweenType)
-//            .setOnComplete(SmallScanCompleted)
-//            .id;
     }
 
     public void EndScan()
@@ -216,15 +181,13 @@ public class Scanner : MonoBehaviour
         float scanDelta = Vector3.Distance(startPoint, endPoint);
         
         //check scan succeeded
-        if (scanDelta <= 40f && Time.time >= lastStartScanAt + 1.0f)
+        if (scanDelta <= 40f && Time.time >= lastStartScanAt + 2.0f)
         {
             Debug.Log("scan succeeded");
             ScanSucceeded();
             return;   
         }
 
-//        radius = scanDelta * 0.15f;
-//        radius = Mathf.Max(radius, 21f);
         radius = Mathf.Clamp(scanDelta*0.15f, 21f, 40f);
 
         Ray ray = Camera.main.ScreenPointToRay(center);
@@ -234,9 +197,6 @@ public class Scanner : MonoBehaviour
         {
             material.SetVector("_CenterPoint", new Vector4(hit.point.x, hit.point.y, hit.point.z, 0));
         }
-
-        
-        //        Debug.Log("scanning " + startPoint + " , " + endPoint + " , " + Vector3.Distance(startPoint, endPoint));
     }
 
     private void ScanSucceeded()
@@ -258,31 +218,16 @@ public class Scanner : MonoBehaviour
         }
     }
 
-    private void SmallScanCompleted()
-    {
-//        Debug.Log("hello : " + Time.time);
-
-//        EndScan();
+//    void radiusTweenCallback(float val, float ratio)
+//    {
+//        radius = val;
 //
-//        if (Physics.Raycast(ray, out hit, scanRayMask))
-//        {
-//            Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-//            GameManager.Instance.Player.Drill(hit.point, hit.normal, 1f - sample.r);
-////            drilled = true;
-//            activateImages(false);
-//        }
-    }
-
-    void radiusTweenCallback(float val, float ratio)
-    {
-        radius = val;
-
-        Vector2 pos = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition;
-
-        pos.y = (emptyY - fullY) * ratio;
-
-        GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition = pos;
-    }
+//        Vector2 pos = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition;
+//
+//        pos.y = (emptyY - fullY) * ratio;
+//
+//        GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition = pos;
+//    }
 
     private void activateImages(bool activate)
     {
