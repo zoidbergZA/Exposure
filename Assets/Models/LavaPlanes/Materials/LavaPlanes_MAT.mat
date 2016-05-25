@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Conceptual Level Design 2nd itt
-  m_Shader: {fileID: 4800000, guid: 94869c75065065f469375d5729093b03, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_CustomRenderQueue: 2000
+  m_Name: LavaPlanes_MAT
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 1
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: c336d1eb1bd8a7e42b3b6a7eb7afdcf2, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -54,7 +54,7 @@ Material:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: c77e88500ac351044b861264bbdeb2d2, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -78,25 +78,7 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _ScanTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 3d6072251a0644d40942d379ed7c5681, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _GroundTex
-        second:
-          m_Texture: {fileID: 2800000, guid: fe8ec9ae84e0d7d43a92930f979700cb, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
     m_Floats:
-      data:
-        first:
-          name: _Radius
-        second: 26.56
       data:
         first:
           name: _SrcBlend
@@ -145,48 +127,12 @@ Material:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _ScanFactor
-        second: 1
-      data:
-        first:
-          name: _Duration
-        second: 3
-      data:
-        first:
-          name: _DurationBack
-        second: 3
-      data:
-        first:
-          name: _setDuration
-        second: 3
-      data:
-        first:
-          name: _isBending
-        second: 0
-      data:
-        first:
-          name: _DebugMode
-        second: 0
-      data:
-        first:
-          name: _Fade
-        second: 6
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-      data:
-        first:
-          name: _Color
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _CenterCoords
-        second: {r: 0, g: 0, b: 0, a: 0}
-      data:
-        first:
-          name: _CenterPoint
-        second: {r: 0, g: 0, b: 0, a: 0}
+          name: _Color
+        second: {r: 1, g: 0.11538333, b: 0, a: 1}
