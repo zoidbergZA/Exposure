@@ -10,10 +10,12 @@ public class SpecialEffect : MonoBehaviour
         Reset();
     }
 
-    public void Play()
+    public void Play(Vector3 position, Quaternion rotation)
     {
         for (int i = 0; i < particleSystems.Length; i++)
         {
+            particleSystems[i].transform.position = position;
+            particleSystems[i].transform.rotation = rotation;
             particleSystems[i].Play();
         } 
     }

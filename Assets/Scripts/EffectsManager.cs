@@ -49,8 +49,12 @@ public class RotatingBuffer
 
     public void Play(Vector3 position, Quaternion rotation)
     {
-        //play effect at head
+        effects[head].Play(position, rotation);
         
         //move head        
+        head++;
+
+        if (head >= effects.Length)
+            head = 0;
     }
 }
