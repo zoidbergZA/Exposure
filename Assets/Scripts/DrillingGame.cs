@@ -98,10 +98,10 @@ public class DrillingGame : Minigame
         {
             for(int j = 0; j < rows.Length-1; j++)
             {
-                instantiateGroundTile(columns[i], rows[j]);
-                //float rand = Random.Range(0f, 1f);
-                //if(rand > 0.2f) instantiateGroundTile(columns[i], rows[j]);
-                //else instantiateRock(columns[i], rows[j]); //try rock
+                //instantiateGroundTile(columns[i], rows[j]);
+                float rand = Random.Range(0f, 1f);
+                if (rand > 0.2f) instantiateGroundTile(columns[i], rows[j]);
+                else instantiateRock(columns[i], rows[j]); //try rock
                 //if (j == 0) instantiateGroundTile(columns[i], rows[j]);
                 //else
                 //{
@@ -303,11 +303,16 @@ public class DrillingGame : Minigame
         {
             drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill down
         }
+
         if (targetRow > 0)
         {
             if (drill.rectTransform.anchoredPosition.y >= rows[targetRow - 1]) targetRow--;
         }
-        else drillDir = DrillingDirection.DOWN;
+        else
+        {
+            SucceededDrill = false;
+            state = DrillingGameState.STARTSTOPTOAST;
+        }
     }
 
     private void updateDrilling()
