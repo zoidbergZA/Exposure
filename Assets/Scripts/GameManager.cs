@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Planet Planet { get; private set; }
+    public EffectsManager EffectsManager {get; private set; }
     public GridBuilder GridBuilder { get; private set; }
     public DrillingGame DrillingGame { get; private set; }
     public Scanner Scanner { get; private set; }
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        EffectsManager = FindObjectOfType<EffectsManager>();
         Planet = FindObjectOfType<Planet>();
         GridBuilder = FindObjectOfType<GridBuilder>();
         DrillingGame = FindObjectOfType<DrillingGame>();

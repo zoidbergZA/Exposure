@@ -4,52 +4,40 @@ using System.Collections;
 
 public class Scanner : MonoBehaviour
 {
-//    public ScanProperties smallScan;
-//    public ScanProperties globalScan;
-
-    //    [SerializeField] private float cooldownTime = 7f;
     [SerializeField] private float maxScanDistance = 250f;
+    [SerializeField] private float minScanDistance = 150f;
     [SerializeField] private float focusTime = 2f;
     [SerializeField] private Texture2D touchIcon;
     [SerializeField] private Texture2D centerIcon;
-//    [SerializeField] private Texture2D maxDistanceIcon;
-    [SerializeField] private LayerMask scanRayMask;
-
-//    private float cooldownLeft;
-//    private Vector3 centerPoint;
+//    [SerializeField] private LayerMask scanRayMask;
+    
     private Material material;
     private Renderer renderer;
     private float radius;
-//    private int smallScanId;
-//    private Ray ray;
-//    private RaycastHit hit;
-    private float emptyY;
-    private float fullY;
+    private bool isOnHotspot;
 
     private Vector3 startPoint;
     private Vector3 endPoint;
     private Vector3 center { get { return startPoint + ((endPoint - startPoint) / 2f); } }
     private Vector3 forwardDirection;
     private float lastStartScanAt;
-    private float focusTimer;
+//    private float focusTimer;
 
     public bool IsScanning { get; private set; }
-//    public float ScanProgress { get { return 1f - durationLeft/durationTime; } }
-//    public float Cooldown { get { return cooldownLeft; } }
-    
-    void Awake()
-    {
-//        cooldownLeft = cooldownTime;
-    }
 
+    public float ScanProgress
+    {
+        get
+        {
+            float fraction = 1f - (Vector3.Distance(startPoint, endPoint) - minScanDistance) / maxScanDistance;
+            return Mathf.Clamp01(fraction);
+        }
+    }
+    
     void Start()
     {
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
-
-        emptyY = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition.y;
-        fullY = GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition.y +
-            GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.rect.height;
     }
 
     void Update()
@@ -74,7 +62,11 @@ public class Scanner : MonoBehaviour
             GUI.Label(new Rect(endPoint.x - 25f, Screen.height - endPoint.y - 25f, 50f, 50f), touchIcon);
             GUI.Label(new Rect(center.x - 25f, Screen.height - center.y - 25f, 50f, 50f), centerIcon);
 
-            int progress = (int) (100f - focusTimer/focusTime * 100f);
+            string progress = "";
+
+            if (isOnHotspot)
+                progress = ((int) (ScanProgress*100f)).ToString();
+            
             GUI.Label(new Rect(center.x + 25f, Screen.height - center.y - 25f, 50f, 50f), progress + "%");
 
             GuiHelper.DrawLine(new Vector2(startPoint.x, Screen.height - startPoint.y), new Vector2(endPoint.x, Screen.height - endPoint.y), Color.grey, 1);
@@ -101,7 +93,7 @@ public class Scanner : MonoBehaviour
 
         IsScanning = true;
         lastStartScanAt = Time.time;
-        focusTimer = focusTime;
+//        focusTimer = focusTime;
         GameManager.Instance.Director.OrbitPaused = true;
     }
 
@@ -109,6 +101,7 @@ public class Scanner : MonoBehaviour
     {
         IsScanning = false;
         radius = 0;
+        isOnHotspot = false;
         GameManager.Instance.Director.OrbitPaused = false;
     }
 
@@ -194,62 +187,58 @@ public class Scanner : MonoBehaviour
                 endPoint = Input.mousePosition;
             }
         }
-
+        
         Ray ray = Camera.main.ScreenPointToRay(center);
         RaycastHit hit;
-
+//        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.yellow);
         float scanDelta = Vector3.Distance(startPoint, endPoint);
-
-        
-
-//        //check scan succeeded
-//        if (scanDelta <= 220f && Time.time >= lastStartScanAt + 2.0f)
-//        {
-//            Debug.Log("scan succeeded");
-//            ScanSucceeded();
-//            return;   
-//        }
         
         radius = Mathf.Clamp(scanDelta*0.12f, 17f, 26f);
 
         float sample = 0f;
 
-        if (Physics.Raycast(ray, out hit, scanRayMask))
+        if (Physics.Raycast(ray, out hit))
         {
             sample = GameManager.Instance.SampleHeatmap(hit.textureCoord).r;
 
+            if (sample >= 0.2f)
+                isOnHotspot = true;
+            else
+                isOnHotspot = false;
+
             material.SetVector("_CenterPoint", new Vector4(hit.point.x, hit.point.y, hit.point.z, 0));
+
+            if (isOnHotspot && ScanProgress >= 0.99f && Time.time >= lastStartScanAt + 2f)
+            {
+                Debug.Log("scan succeeded");
+                ScanSucceeded(sample, hit.point, hit.normal);
+            }
         }
 
-        if (sample >= 0.2f)
-            focusTimer -= Time.deltaTime;
-        else
-            focusTimer = focusTime;
-        
-        if (focusTimer <= 0)
-        {
-            Debug.Log("scan succeeded");
-            ScanSucceeded();
-        }
+//        if (sample >= 0.2f)
+//            focusTimer -= Time.deltaTime;
+//        else
+//            focusTimer = focusTime;
     }
 
-    private void ScanSucceeded()
+    private void ScanSucceeded(float sample, Vector3 location, Vector3 normal)
     {
         radius = 0;
         IsScanning = false;
+        GameManager.Instance.Player.Drill(location, normal, 1f - sample);
 
-        Ray ray = Camera.main.ScreenPointToRay(center);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, scanRayMask))
-        {
-            Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-            GameManager.Instance.Player.Drill(hit.point, hit.normal, 1f - sample.r);
-        }
-        else
-        {
-            Debug.Log("oops, couldn't drill :/");   
-        }
+        //        Ray ray = Camera.main.ScreenPointToRay(center);
+        //        RaycastHit hit;
+        //
+        //        if (Physics.Raycast(ray, out hit))
+        //        {
+        ////            Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
+        //            GameManager.Instance.Player.Drill(location, normal, 1f - sample);
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("oops, couldn't drill :/");   
+        //        }
     }
 
 //    void radiusTweenCallback(float val, float ratio)

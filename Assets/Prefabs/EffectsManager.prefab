@@ -39,6 +39,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa092617e5100845ac3b3fd8f31461d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferSize: 10
+  effectPrefabs:
+  - {fileID: 11434516, guid: ed0cc6bfb1404fa498d6a684703452ed, type: 2}
+  - {fileID: 11497566, guid: d7640cb9d78ff964e8e9fad80851b1b5, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
