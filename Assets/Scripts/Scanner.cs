@@ -9,7 +9,7 @@ public class Scanner : MonoBehaviour
     [SerializeField] private float focusTime = 2f;
     [SerializeField] private Texture2D touchIcon;
     [SerializeField] private Texture2D centerIcon;
-    [SerializeField] private LayerMask scanRayMask;
+//    [SerializeField] private LayerMask scanRayMask;
     
     private Material material;
     private Renderer renderer;
@@ -187,17 +187,17 @@ public class Scanner : MonoBehaviour
                 endPoint = Input.mousePosition;
             }
         }
-
+        
         Ray ray = Camera.main.ScreenPointToRay(center);
         RaycastHit hit;
-
+//        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.yellow);
         float scanDelta = Vector3.Distance(startPoint, endPoint);
         
         radius = Mathf.Clamp(scanDelta*0.12f, 17f, 26f);
 
         float sample = 0f;
 
-        if (Physics.Raycast(ray, out hit, scanRayMask))
+        if (Physics.Raycast(ray, out hit))
         {
             sample = GameManager.Instance.SampleHeatmap(hit.textureCoord).r;
 
@@ -207,37 +207,38 @@ public class Scanner : MonoBehaviour
                 isOnHotspot = false;
 
             material.SetVector("_CenterPoint", new Vector4(hit.point.x, hit.point.y, hit.point.z, 0));
+
+            if (isOnHotspot && ScanProgress >= 0.99f && Time.time >= lastStartScanAt + 2f)
+            {
+                Debug.Log("scan succeeded");
+                ScanSucceeded(sample, hit.point, hit.normal);
+            }
         }
 
 //        if (sample >= 0.2f)
 //            focusTimer -= Time.deltaTime;
 //        else
 //            focusTimer = focusTime;
-        
-        if (isOnHotspot && ScanProgress >= 0.99f && Time.time >= lastStartScanAt + 2f)
-        {
-            Debug.Log("scan succeeded");
-            ScanSucceeded();
-        }
     }
 
-    private void ScanSucceeded()
+    private void ScanSucceeded(float sample, Vector3 location, Vector3 normal)
     {
         radius = 0;
         IsScanning = false;
+        GameManager.Instance.Player.Drill(location, normal, 1f - sample);
 
-        Ray ray = Camera.main.ScreenPointToRay(center);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, scanRayMask))
-        {
-            Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-            GameManager.Instance.Player.Drill(hit.point, hit.normal, 1f - sample.r);
-        }
-        else
-        {
-            Debug.Log("oops, couldn't drill :/");   
-        }
+        //        Ray ray = Camera.main.ScreenPointToRay(center);
+        //        RaycastHit hit;
+        //
+        //        if (Physics.Raycast(ray, out hit))
+        //        {
+        ////            Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
+        //            GameManager.Instance.Player.Drill(location, normal, 1f - sample);
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("oops, couldn't drill :/");   
+        //        }
     }
 
 //    void radiusTweenCallback(float val, float ratio)
