@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
     
-    public bool TouchInput { get { return touchScreenInput; } }
+    public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Planet Planet { get; private set; }
     public GridBuilder GridBuilder { get; private set; }
     public DrillingGame DrillingGame { get; private set; }
@@ -69,6 +69,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        //temp
+        if (Input.GetKeyDown(KeyCode.F2))
+            TouchInput = !TouchInput;
+        //temp
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
