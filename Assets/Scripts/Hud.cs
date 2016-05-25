@@ -101,13 +101,38 @@ public class Hud : MonoBehaviour
         {
             leftButton.interactable = false;
             rightButton.interactable = false;
-            downButton.interactable = false;
+            downButton.interactable = true;
+            upButton.interactable = false;
         }
         else
         {
-            leftButton.interactable = true;
-            rightButton.interactable = true;
-            downButton.interactable = true;
+            switch(GameManager.Instance.DrillingGame.DrillDirection)
+            {
+                case DrillingGame.DrillingDirection.DOWN:
+                    leftButton.interactable = true;
+                    rightButton.interactable = true;
+                    downButton.interactable = true;
+                    upButton.interactable = false;
+                    break;
+                case DrillingGame.DrillingDirection.UP:
+                    leftButton.interactable = true;
+                    rightButton.interactable = true;
+                    downButton.interactable = false;
+                    upButton.interactable = true;
+                    break;
+                case DrillingGame.DrillingDirection.LEFT:
+                    leftButton.interactable = true;
+                    rightButton.interactable = false;
+                    downButton.interactable = true;
+                    upButton.interactable = true;
+                    break;
+                case DrillingGame.DrillingDirection.RIGHT:
+                    leftButton.interactable = false;
+                    rightButton.interactable = true;
+                    downButton.interactable = true;
+                    upButton.interactable = true;
+                    break;
+            }
         }
     }
     

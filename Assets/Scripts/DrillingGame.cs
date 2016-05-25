@@ -98,9 +98,10 @@ public class DrillingGame : Minigame
         {
             for(int j = 0; j < rows.Length-1; j++)
             {
-                float rand = Random.Range(0f, 1f);
-                if(rand > 0.2f) instantiateGroundTile(columns[i], rows[j]);
-                else instantiateRock(columns[i], rows[j]); //try rock
+                instantiateGroundTile(columns[i], rows[j]);
+                //float rand = Random.Range(0f, 1f);
+                //if(rand > 0.2f) instantiateGroundTile(columns[i], rows[j]);
+                //else instantiateRock(columns[i], rows[j]); //try rock
                 //if (j == 0) instantiateGroundTile(columns[i], rows[j]);
                 //else
                 //{
@@ -244,9 +245,9 @@ public class DrillingGame : Minigame
     {
         if (targetColumn > 0)
         {
-            if (drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1] && prevDrillDir == DrillingDirection.DOWN)
+            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1] && prevDrillDir == DrillingDirection.DOWN)
                 drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
-            else if (drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1] && prevDrillDir == DrillingDirection.UP)
+            else if (targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1] && prevDrillDir == DrillingDirection.UP)
                 drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill up
             else drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
             if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
@@ -262,9 +263,9 @@ public class DrillingGame : Minigame
     {
         if (targetColumn < columns.Length - 1)
         {
-            if (drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1] && prevDrillDir == DrillingDirection.DOWN)
+            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1] && prevDrillDir == DrillingDirection.DOWN)
                 drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
-            else if(drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1] && prevDrillDir == DrillingDirection.UP)
+            else if(targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1] && prevDrillDir == DrillingDirection.UP)
                 drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill up
             else drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
             if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
@@ -280,7 +281,7 @@ public class DrillingGame : Minigame
     {
         if (prevDrillDir == DrillingDirection.RIGHT)
         {
-            if (drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1])
+            if (targetColumn < columns.Length-1 && drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1])
                 drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
             else
             {
@@ -290,7 +291,7 @@ public class DrillingGame : Minigame
         }
         else if (prevDrillDir == DrillingDirection.LEFT)
         {
-            if (drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1])
+            if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1])
                 drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
             else
             {
@@ -300,9 +301,13 @@ public class DrillingGame : Minigame
         }
         else
         {
-            drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0);
+            drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill down
         }
-        if (targetRow > 0 && drill.rectTransform.anchoredPosition.y >= rows[targetRow - 1]) targetRow--;
+        if (targetRow > 0)
+        {
+            if (drill.rectTransform.anchoredPosition.y >= rows[targetRow - 1]) targetRow--;
+        }
+        else drillDir = DrillingDirection.DOWN;
     }
 
     private void updateDrilling()
