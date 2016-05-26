@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     public enum AxisOption
     {
@@ -37,6 +37,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         delta /= MovementRange;
         if (m_UseX) m_HorizontalVirtualAxis.Update(-delta.x);
         if (m_UseY) m_VerticalVirtualAxis.Update(delta.y);
+        Debug.Log("x: " + CrossPlatformInputManager.GetAxis("Horizontal"));
     }
 
     void CreateVirtualAxes()

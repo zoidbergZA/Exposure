@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class Hud : MonoBehaviour
 {
@@ -40,6 +41,8 @@ public class Hud : MonoBehaviour
         scoreText.text = GameManager.Instance.Player.Score.ToString();
         cableText.text = GameManager.Instance.Player.Cable + "x";
         updateMiniGameButtons();
+        //Debug.Log(CrossPlatformInputManager.GetAxis("Horizontal").ToString());
+        //Debug.Log(CrossPlatformInputManager.GetAxis("Vertical").ToString());
     }
 
     void OnGUI()
