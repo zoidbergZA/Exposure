@@ -7,19 +7,27 @@ public class Hud : MonoBehaviour
 {
     [SerializeField] private FloatingText floatingTextPrefab;
     [SerializeField] private Canvas hudCanvas;
-    [SerializeField] private Texture2D leftButton;
-    [SerializeField] private Texture2D rightButton;
-    [SerializeField] private Texture2D drillButton;
+    [SerializeField] private GameObject scorePanel;
+    [SerializeField] private Text scoreText;
     [SerializeField] private GameObject cablePanel;
     [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
-    private int buttoSize = 55;
+    [SerializeField] private UnityEngine.UI.Button drillButton;
+    [SerializeField] private UnityEngine.UI.Button leftButton;
+    [SerializeField] private UnityEngine.UI.Button rightButton;
+    [SerializeField] private UnityEngine.UI.Button downButton;
+    private int buttonSize = 55;
     private int buttonIndent = 10;
 
     private int wobblerTweenId;
+    private int scorePanelTweenId;
     private int cablePanelTweenId;
 
     public float WobbleValue { get; private set; }
+    public UnityEngine.UI.Button DrillButton { get { return drillButton; } }
+    public UnityEngine.UI.Button LeftButton { get { return leftButton; } }
+    public UnityEngine.UI.Button RightButton { get { return rightButton; } }
+    public UnityEngine.UI.Button DownButton { get { return downButton; } }
 
     void Awake()
     {
@@ -29,20 +37,34 @@ public class Hud : MonoBehaviour
 
     void Update()
     {
+        scoreText.text = GameManager.Instance.Player.Score.ToString();
         cableText.text = GameManager.Instance.Player.Cable + "x";
+        updateMiniGameButtons();
     }
 
     void OnGUI()
     {
-        ShowScanButton();
+//        ShowScanButton();
         ShowDebug();
-        ShowDrillButton();
-        ShowSteerButtons();
+        //ShowDrillButton();
+        //ShowSteerButtons();
     }
 
     public void GoToGameOver()
     {
         gameOverPanel.SetActive(true);
+    }
+
+    public void ShakeScorePanel()
+    {
+        if (LeanTween.isTweening(scorePanelTweenId))
+        {
+            LeanTween.cancel(scorePanelTweenId);
+            scorePanel.GetComponent<RectTransform>().localScale = Vector3.one;
+        }
+
+        scorePanelTweenId = LeanTween.scale(scorePanel.GetComponent<RectTransform>(), scorePanel.GetComponent<RectTransform>().localScale * 1.4f, 1f)
+            .setEase(LeanTweenType.punch).id;
     }
 
     public void ShakeCablePanel()
@@ -53,8 +75,7 @@ public class Hud : MonoBehaviour
             cablePanel.GetComponent<RectTransform>().localScale = Vector3.one;
         }
 
-        cablePanelTweenId = LeanTween.scale(cablePanel.GetComponent<RectTransform>(), cablePanel.GetComponent<RectTransform>().localScale*1.4f,
-            1f)
+        cablePanelTweenId = LeanTween.scale(cablePanel.GetComponent<RectTransform>(), cablePanel.GetComponent<RectTransform>().localScale*1.4f,1f)
             .setEase(LeanTweenType.punch).id;
     }
 
@@ -77,47 +98,75 @@ public class Hud : MonoBehaviour
         }
     }
 
-    private void ShowScanButton()
+    private void updateMiniGameButtons()
     {
-        if (GameManager.Instance.Scanner.IsReady && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
+        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING) drillButton.gameObject.SetActive(true);
+        else drillButton.gameObject.SetActive(false);
+
+        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
-            if (GUI.Button(new Rect(Screen.width - 65, Screen.height - buttoSize - 10, buttoSize, buttoSize), "scan"))
-            {
-                GameManager.Instance.Scanner.Scan();
-            }
+            leftButton.gameObject.SetActive(true);
+            rightButton.gameObject.SetActive(true);
+            downButton.gameObject.SetActive(true);
         }
         else
         {
-            GUI.Label(new Rect(Screen.width - 65, 10, buttoSize, buttoSize), GameManager.Instance.Scanner.Cooldown.ToString("F2"));
+            leftButton.gameObject.SetActive(false);
+            rightButton.gameObject.SetActive(false);
+            downButton.gameObject.SetActive(false);
         }
     }
 
-    private void ShowDrillButton()
+    public void HandleDrillButton()
     {
-        if(GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
-        {
-            if (GUI.Button(new Rect(((Screen.width / 3) / 2)-50, (Screen.height / 2) + 290, 100, 80), drillButton, ""))
-            {
-                GameManager.Instance.DrillingGame.SetMakeDrill(true);
-            }
-        }
+        GameManager.Instance.DrillingGame.SetMakeDrill(true);
+        GameManager.Instance.DrillingGame.Animator.SetBool("shouldJump", true);
+        Debug.Log("drill button clicked!");
     }
 
-    private void ShowSteerButtons()
+    public void HandleLeftButton()
     {
-        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
-        {
-            if (GUI.Button(new Rect(((Screen.width/3)/2)-180, (Screen.height/2) + 290, 100, 70), leftButton, ""))
-            {
-                GameManager.Instance.DrillingGame.MoveLeft();
-            }
-
-            if (GUI.Button(new Rect(((Screen.width/3)/2)+80, (Screen.height/2) + 290, 100, 70), rightButton, ""))
-            {
-                GameManager.Instance.DrillingGame.MoveRight();
-            }
-        }
+        GameManager.Instance.DrillingGame.MoveLeft();
+        Debug.Log("left button clicked!");
     }
+
+    public void HandleRightButton()
+    {
+        GameManager.Instance.DrillingGame.MoveRight();
+        Debug.Log("right button clicked!");
+    }
+
+    public void HandleDownButton()
+    {
+        if (GameManager.Instance.DrillingGame.MovingRight)
+        {
+            GameManager.Instance.DrillingGame.MovingRight = false;
+            GameManager.Instance.DrillingGame.WasMovingRight = true;
+        }
+        else GameManager.Instance.DrillingGame.WasMovingRight = false;
+        if (GameManager.Instance.DrillingGame.MovingLeft)
+        {
+            GameManager.Instance.DrillingGame.MovingLeft = false;
+            GameManager.Instance.DrillingGame.WasMovingLeft = true;
+        }
+        else GameManager.Instance.DrillingGame.WasMovingLeft = false;
+        Debug.Log("down button clicked!");
+    }
+
+//    private void ShowScanButton()
+//    {
+//        if (GameManager.Instance.Scanner.IsReady && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
+//        {
+//            if (GUI.Button(new Rect(Screen.width - 65, Screen.height - buttonSize - 10, buttonSize, buttonSize), "scan"))
+//            {
+//                GameManager.Instance.Scanner.Scan();
+//            }
+//        }
+//        else
+//        {
+//            GUI.Label(new Rect(Screen.width - 65, Screen.height - buttonSize - 10, buttonSize, buttonSize), GameManager.Instance.Scanner.Cooldown.ToString("F2"));
+//        }
+//    }
 
     private void ShowDebug()
     {

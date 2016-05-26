@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: ec3348e087b848c4590f2eb809e1dd7c, type: 3}
+          m_Texture: {fileID: 2800000, guid: c336d1eb1bd8a7e42b3b6a7eb7afdcf2, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -45,9 +45,16 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _EmissionMap
+          name: _OcclusionMap
         second:
           m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _EmissionMap
+        second:
+          m_Texture: {fileID: 2800000, guid: c77e88500ac351044b861264bbdeb2d2, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -66,13 +73,6 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _OcclusionMap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
           name: _MetallicGlossMap
         second:
           m_Texture: {fileID: 0}
@@ -82,14 +82,21 @@ Material:
         first:
           name: _ScanTex
         second:
-          m_Texture: {fileID: 2800000, guid: 963d403c1a26e8c4b8334d150d06d3d7, type: 3}
+          m_Texture: {fileID: 2800000, guid: 3d6072251a0644d40942d379ed7c5681, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _GroundTex
+        second:
+          m_Texture: {fileID: 2800000, guid: fe8ec9ae84e0d7d43a92930f979700cb, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
           name: _Radius
-        second: 2
+        second: 26.56
       data:
         first:
           name: _SrcBlend
@@ -154,6 +161,18 @@ Material:
         first:
           name: _setDuration
         second: 3
+      data:
+        first:
+          name: _isBending
+        second: 0
+      data:
+        first:
+          name: _DebugMode
+        second: 0
+      data:
+        first:
+          name: _Fade
+        second: 6
     m_Colors:
       data:
         first:
@@ -166,4 +185,8 @@ Material:
       data:
         first:
           name: _CenterCoords
+        second: {r: 0, g: 0, b: 0, a: 0}
+      data:
+        first:
+          name: _CenterPoint
         second: {r: 0, g: 0, b: 0, a: 0}

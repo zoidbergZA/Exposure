@@ -8,6 +8,8 @@ TagManager:
   - Planet
   - Rock
   - Diamond
+  - GroundTile
+  - Cable
   layers:
   - Default
   - TransparentFX

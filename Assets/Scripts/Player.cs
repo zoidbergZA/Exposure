@@ -18,16 +18,6 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask buildRayMask;
     [SerializeField] private Powerplant PowerplantPrefab;
     [SerializeField] private Drillspot DrillspotPrefab;
-    [SerializeField] private float drillToastTime = 3.0f;
-    [SerializeField] private UnityEngine.UI.Text testTimer;
-
-    private float drillToastTimer;
-    private bool toastMessageShown = false;
-    private bool drilled = false;
-    private Ray ray;
-    private RaycastHit hit;
-    private Vector3 initPressureImagePos;
-    private Vector3 initBgImagePos;
     
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
@@ -38,23 +28,24 @@ public class Player : MonoBehaviour
         Cable = startingCable;
     }
 
-    void Start()
-    {
-        initPressureImagePos = GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition;
-        initBgImagePos = GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition;
-    }
-
     void Update()
     {
         //temp
+        if (Input.GetKeyDown(KeyCode.F1))
+            GameManager.Instance.Restart();
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
             CollectCable(1);
-        //temp
+        if (Input.GetKeyDown(KeyCode.F2)) // jump to drilling game
+        {
+            Drillspot d = Instantiate(DrillspotPrefab, Vector3.zero, Quaternion.identity) as Drillspot;
+            StartDrillMinigame(d, 1f);
+        }
 
         switch (PlayerState)
         {
             case PlayerStates.Normal:
-                HandleNormalState();
+//                HandleNormalState();
                 break;
         }
     }
@@ -73,8 +64,6 @@ public class Player : MonoBehaviour
 
     public void GoToNormalState(Transform targetTransform)
     {
-        drillToastTimer = drillToastTime;
-        toastMessageShown = false;
         PlayerState = PlayerStates.Normal;
         GameManager.Instance.Director.SetMode(Director.Modes.Orbit, targetTransform);
     }
@@ -96,6 +85,7 @@ public class Player : MonoBehaviour
     public void ScorePoints(float amount, Transform location = null)
     {
         Score += amount;
+        GameManager.Instance.Hud.ShakeScorePanel();
 
         if (location)
         {
@@ -106,52 +96,17 @@ public class Player : MonoBehaviour
 
     private void HandleNormalState()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, drillRayMask))
-                {
-                    GameManager.Instance.Director.OrbitPaused = true;
-                    GameManager.Instance.DrillingGame.PressureIcon.rectTransform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y+100, Input.mousePosition.z);
-                }
-                activateImages(true);
-            }
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            moveUImages();
-
-            drillToastTimer -= Time.deltaTime;
-            if (drillToastTimer <= 0 && !drilled) toastMessageShown = true;
-            if(toastMessageShown)
+            if (Physics.Raycast(ray, out hit, drillRayMask))
             {
-                if (Physics.Raycast(ray, out hit, drillRayMask))
-                {
-                    Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-                    Drill(hit.point, hit.normal, 1f - sample.r);
-                    drilled = true;
-                    activateImages(false);
-                }
-                toastMessageShown = false;
+                Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
+                Drill(hit.point, hit.normal, 1f - sample.r);
             }
         }
-        else
-        {
-            if (GameManager.Instance.Director.OrbitPaused) GameManager.Instance.Director.OrbitPaused = false;
-            testTimer.text = "";
-            toastMessageShown = false;
-            drillToastTimer = drillToastTime;
-            drilled = false;
-            activateImages(false);
-            GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition = initPressureImagePos;
-            GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition = initBgImagePos;
-        }
-    }
-
-    private float getUpSpeed(float distance)
-    {
-        float result = distance / drillToastTimer;
-        return result;
     }
 
     private Pylon GetClosestPylon(Vector3 location)
@@ -173,28 +128,10 @@ public class Player : MonoBehaviour
         return closest;
     }
 
-    private void Drill(Vector3 location, Vector3 normal, float difficulty)
+    public void Drill(Vector3 location, Vector3 normal, float difficulty)
     {
         Drillspot drillspot = Instantiate(DrillspotPrefab, location, Quaternion.identity) as Drillspot;
         drillspot.Orientate(normal);
         drillspot.Difficulty = difficulty;
-    }
-
-    private void moveUImages()
-    {
-        if (GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.anchoredPosition.y < GameManager.Instance.DrillingGame.StartToast.rectTransform.anchoredPosition.y)
-            GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.Translate(0,
-                getUpSpeed(GameManager.Instance.DrillingGame.StartInnerToast.rectTransform.rect.height / 2) * Time.deltaTime, 0);
-
-        if (GameManager.Instance.DrillingGame.BgActive.rectTransform.anchoredPosition.y < initBgImagePos.y + GameManager.Instance.DrillingGame.BgActive.rectTransform.rect.height)
-            GameManager.Instance.DrillingGame.BgActive.rectTransform.Translate(0,
-                getUpSpeed(GameManager.Instance.DrillingGame.BgActive.rectTransform.rect.height / 2) * Time.deltaTime, 0);
-    }
-
-    private void activateImages(bool activate)
-    {
-        GameManager.Instance.DrillingGame.StartToast.gameObject.SetActive(activate);
-        GameManager.Instance.DrillingGame.StartInnerToast.gameObject.SetActive(activate);
-        GameManager.Instance.DrillingGame.BgActive.gameObject.SetActive(activate);
     }
 }
