@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
         //temp
         if (Input.GetKeyDown(KeyCode.F2))
             TouchInput = !TouchInput;
+        if (Input.GetKeyDown(KeyCode.F3))
+            Instance.Planet.DisableNextChimney();
         //temp
 
         if (Input.GetKeyDown(KeyCode.Escape))

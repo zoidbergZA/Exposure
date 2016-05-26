@@ -34,6 +34,7 @@ public class Chimney : MonoBehaviour
 
         ChimneyState = ChimneyStates.Unused;
         smokeSystem.enableEmission = false;
+        GameManager.Instance.Planet.RefreshHealth();
     }
 
     public void Demolish()

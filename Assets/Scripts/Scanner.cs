@@ -167,7 +167,7 @@ public class Scanner : MonoBehaviour
     {
         if (CheckCancelScan())
         {
-            Debug.Log("scan cancelled");
+//            Debug.Log("scan cancelled");
             EndScan();
             return;
         }
@@ -210,7 +210,7 @@ public class Scanner : MonoBehaviour
 
             if (isOnHotspot && ScanProgress >= 0.99f && Time.time >= lastStartScanAt + 2f)
             {
-                Debug.Log("scan succeeded");
+//                Debug.Log("scan succeeded");
                 ScanSucceeded(sample, hit.point, hit.normal);
             }
         }
