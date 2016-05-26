@@ -5,6 +5,7 @@
 		[MaterialToggle] 
 		_DebugMode("_DebugMode", Float) = 0
 		_Color ("Color", Color) = (1,1,1,1)
+		_EmissionMap ("Emission (RGB)", 2D) = "white" {}
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_ScanTex ("Build Map (RGB)", 2D) = "white" {}
 		_GroundTex ("Ground Map (RGB)", 2D) = "white" {}
@@ -31,10 +32,11 @@
 		#pragma target 3.0
 		#include "UnityCG.cginc"
 
-		sampler2D _MainTex;
+		sampler2D _MainTex;		
 		sampler2D _ScanTex;
 		sampler2D _GroundTex;
 
+		sampler2D _EmissionMap;
 		half _Glossiness;
 		half _Metallic;
 		fixed4 _Color;
@@ -62,6 +64,7 @@
 			float2 uv_MainTex;
 			float2 uv_ScanTex;
 			float2 uv_GroundTex;
+			float2 uv_EmissionMap;
 			float3 worldPos;
 		};
 
@@ -97,6 +100,7 @@
 			fixed4 mainSample = (tex2D (_MainTex, IN.uv_MainTex)) * _Color;
 			fixed4 scanSample = (tex2D (_ScanTex, IN.uv_ScanTex));
 			fixed4 groundSample = (tex2D (_GroundTex, IN.uv_GroundTex));
+			fixed4 emmisionSample = (tex2D (_EmissionMap, IN.uv_EmissionMap));
 
 			// if (scanSample.r >= 0.9)
 			// {
@@ -133,6 +137,7 @@
 					o.Metallic = _Metallic;
 					o.Smoothness = _Glossiness;
 					o.Alpha = mainSample.a;
+					// o.Emission = emmisionSample.rgb * 0.2;
 				}				
 			}
 			// fixed4 c = ((tex2D (_MainTex, IN.uv_MainTex) * _ScanFactor) + (tex2D(_ScanTex, IN.uv_ScanTex) * (1-_ScanFactor))) * _Color;

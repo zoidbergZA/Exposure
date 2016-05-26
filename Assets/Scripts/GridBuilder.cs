@@ -208,7 +208,7 @@ public class GridBuilder : Minigame
             if (Physics.Raycast(raycastPositions[i], dir, out hit, placerMask))
             {
                 Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-                Debug.Log(sample);
+//                Debug.Log(sample);
                 //check that no pylons are too close
                 bool open = true;
                 foreach (Pylon p in Pylons)
