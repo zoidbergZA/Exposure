@@ -34,7 +34,7 @@ public class Planet : MonoBehaviour
 
         Health = (float)unusedCount / (float)chimneys.Length;
         atmosphereLight.color = Color.Lerp(dirtyColor, cleanColor, Health);
-        Debug.Log("planet health: " + Health);
+//        Debug.Log("planet health: " + Health);
     }
 
     public void DisableNextChimney()

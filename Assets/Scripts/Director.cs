@@ -10,6 +10,7 @@ public class Director : MonoBehaviour
     }
 
     private Transform targetTransform;
+    [SerializeField] private Shaker shaker;
     [SerializeField] private Vector3 lookAtOffset;
     [SerializeField] private float orbitSpeed = 10f;
     [SerializeField] private float orbitZoom = 1f;
@@ -54,7 +55,9 @@ public class Director : MonoBehaviour
 
 	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);
 	    Camera.main.fieldOfView = targetFoV;
-//	    Camera.main.orthographicSize = currentZoom;
+
+//        if (Input.GetKeyDown(KeyCode.S))
+//            shaker.Shake();
     }
 
     public void SetMode(Modes mode, Transform targetTransform, float delay = 2f)
@@ -63,6 +66,11 @@ public class Director : MonoBehaviour
 //            StartCoroutine(DelayedStart(mode, targetTransform, delay));
 //        else
             SwitchMode(mode, targetTransform);
+    }
+
+    public void Shake()
+    {
+        shaker.Shake();
     }
 
     public void SetTarget(Transform target)
