@@ -100,10 +100,10 @@ public class DrillingGame : Minigame
         {
             for(int j = 0; j < rows.Length-1; j++)
             {
-                //instantiateGroundTile(columns[i], rows[j]);
-                float rand = Random.Range(0f, 1f);
-                if (rand > 0.2f) instantiateGroundTile(columns[i], rows[j]);
-                else instantiateRock(columns[i], rows[j]); //try rock
+                instantiateGroundTile(columns[i], rows[j]);
+                //float rand = Random.Range(0f, 1f);
+                //if (rand > 0.2f) instantiateGroundTile(columns[i], rows[j]);
+                //else instantiateRock(columns[i], rows[j]); //try rock
                 //if (j == 0) instantiateGroundTile(columns[i], rows[j]);
                 //else
                 //{
@@ -219,7 +219,7 @@ public class DrillingGame : Minigame
     {
         if (prevDrillDir == DrillingDirection.RIGHT)
         {
-            if (drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1])
+            if (targetColumn < columns.Length-1 && drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1])
                 drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
             else
             {
@@ -229,7 +229,7 @@ public class DrillingGame : Minigame
         }
         else if (prevDrillDir == DrillingDirection.LEFT)
         {
-            if (drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1])
+            if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1])
                 drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
             else
             {

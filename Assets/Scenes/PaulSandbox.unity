@@ -448,10 +448,6 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1478885463}
-    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: joystick
-      value: 
-      objectReference: {fileID: 767628225}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
   m_IsPrefabParent: 0
@@ -505,12 +501,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 455798, guid: 8f426c1c3c3cef94e822aad1be93f8d5, type: 2}
   m_PrefabInternal: {fileID: 500844375}
---- !u!114 &767628225 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11421078, guid: 2149e3b741f01744dbced709d3895f64,
-    type: 2}
-  m_PrefabInternal: {fileID: 489895172}
-  m_Script: {fileID: 11500000, guid: 8f5662b5bde726640950686f73d95aaf, type: 3}
 --- !u!1 &830111728
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,15 +762,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 53.961643
+      value: 53.96125
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -307.73947
+      value: -307.74237
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 101.32737
+      value: 101.32735
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalRotation.x

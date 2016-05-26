@@ -41,7 +41,7 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         if (m_UseY) m_VerticalVirtualAxis.Update(delta.y);
         Debug.Log("x: " + -delta.x + " | y: " + delta.y);
         GameManager.Instance.Hud.JoystickX = -delta.x;
-        GameManager.Instance.Hud.JoystickX = delta.y;
+        GameManager.Instance.Hud.JoystickY = delta.y;
     }
 
     void CreateVirtualAxes()

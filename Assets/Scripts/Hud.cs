@@ -44,6 +44,7 @@ public class Hud : MonoBehaviour
         scoreText.text = GameManager.Instance.Player.Score.ToString();
         cableText.text = GameManager.Instance.Player.Cable + "x";
         updateMiniGameButtons();
+        updateJoystick();
         //Debug.Log(CrossPlatformInputManager.GetAxis("Horizontal").ToString());
         //Debug.Log(CrossPlatformInputManager.GetAxis("Vertical").ToString());
     }
@@ -103,23 +104,42 @@ public class Hud : MonoBehaviour
 
     private void updateJoystick()
     {
-        if(joystickX >= 0.707f)
+        if (joystickX != 0 || joystickY != 0)
         {
-            //right
-        }
-        else if(joystickX <= -0.707)
-        {
-            //left
-        }
-        else
-        {
-            if(joystickX > 0.707f)
+            if (joystickX >= 0.707f)
             {
-                //up
+                //right
+                GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+                GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.RIGHT;
+            }
+            else if (joystickX <= -0.707)
+            {
+                //left
+                GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+                GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.LEFT;
             }
             else
             {
-                //down
+                if (joystickY > 0.707f)
+                {
+                    //up
+                    GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+                    GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.UP;
+                }
+                else
+                {
+                    //down
+                    if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
+                    {
+                        GameManager.Instance.DrillingGame.MakeDrill(true);
+                        GameManager.Instance.DrillingGame.Animator.SetBool("shouldJump", true);
+                    }
+                    if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+                    {
+                        GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+                        GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.DOWN;
+                    }
+                }
             }
         }
     }
