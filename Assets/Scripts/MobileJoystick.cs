@@ -24,9 +24,11 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis; // Reference to the joystick in the cross platform input
     CrossPlatformInputManager.VirtualAxis m_VerticalVirtualAxis; // Reference to the joystick in the cross platform input
 
+    public Vector3 StartPosition { set { m_StartPos = value; } }
+
     void Start()
     {
-        m_StartPos = transform.position;
+        //m_StartPos = transform.position;
         CreateVirtualAxes(); //chiggy
     }
 
@@ -37,7 +39,9 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         delta /= MovementRange;
         if (m_UseX) m_HorizontalVirtualAxis.Update(-delta.x);
         if (m_UseY) m_VerticalVirtualAxis.Update(delta.y);
-        Debug.Log("x: " + CrossPlatformInputManager.GetAxis("Horizontal"));
+        Debug.Log("x: " + -delta.x + " | y: " + delta.y);
+        GameManager.Instance.Hud.JoystickX = -delta.x;
+        GameManager.Instance.Hud.JoystickX = delta.y;
     }
 
     void CreateVirtualAxes()

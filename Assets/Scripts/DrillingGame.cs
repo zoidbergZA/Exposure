@@ -32,6 +32,8 @@ public class DrillingGame : Minigame
     [SerializeField] private float jumpPhaseTime = 0.25f;
     [SerializeField] private float panelSlidingTime = 1.5f;
     [SerializeField] private Animator animator;
+    [SerializeField] private MobileJoystick joystick;
+
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
     public enum DrillingDirection {  UP, DOWN, LEFT, RIGHT }
@@ -160,6 +162,7 @@ public class DrillingGame : Minigame
             else state = DrillingGameState.SUCCESS;
             generateMap();
             panelSlidingTimer = panelSlidingTime;
+            joystick.StartPosition = joystick.transform.position;
         }
         
     }

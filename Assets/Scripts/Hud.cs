@@ -23,12 +23,15 @@ public class Hud : MonoBehaviour
     private int wobblerTweenId;
     private int scorePanelTweenId;
     private int cablePanelTweenId;
+    private float joystickX, joystickY = 0;
 
     public float WobbleValue { get; private set; }
     public UnityEngine.UI.Button DrillButton { get { return upButton; } }
     public UnityEngine.UI.Button LeftButton { get { return leftButton; } }
     public UnityEngine.UI.Button RightButton { get { return rightButton; } }
     public UnityEngine.UI.Button DownButton { get { return downButton; } }
+    public float JoystickX { get { return joystickX; } set { joystickX = value; } }
+    public float JoystickY { get { return joystickY; } set { joystickY = value; } }
 
     void Awake()
     {
@@ -95,6 +98,29 @@ public class Hud : MonoBehaviour
         if (GUI.Button(new Rect(position.x - 20 - wobbleValue / 2, Screen.height - position.y - 20 - wobbleValue / 2, 40 + wobbleValue, 40 + wobbleValue), icon, ""))
         {
             callback();
+        }
+    }
+
+    private void updateJoystick()
+    {
+        if(joystickX >= 0.707f)
+        {
+            //right
+        }
+        else if(joystickX <= -0.707)
+        {
+            //left
+        }
+        else
+        {
+            if(joystickX > 0.707f)
+            {
+                //up
+            }
+            else
+            {
+                //down
+            }
         }
     }
 
