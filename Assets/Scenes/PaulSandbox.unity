@@ -448,21 +448,61 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1478885463}
-    - target: {fileID: 116538, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+    - target: {fileID: 142916, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402916, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 173822, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+    - target: {fileID: 184864, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22449388, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -449
+      objectReference: {fileID: 0}
+    - target: {fileID: 22449388, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 138906, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 22449388, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 179908, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 22449388, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22449388, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22449388, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 22449388, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 22449388, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22449388, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22449388, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22449388, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
@@ -595,7 +635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &845957392
 RectTransform:
   m_ObjectHideFlags: 0
@@ -778,23 +818,23 @@ Prefab:
     m_Modifications:
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 53.95849
+      value: 53.959263
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -307.76428
+      value: -307.7579
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 101.32714
+      value: 101.327225
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.648046
+      value: 0.64804596
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.0063103903
+      value: 0.006310421
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalRotation.z
@@ -1354,7 +1394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1456943974
 MonoBehaviour:
   m_ObjectHideFlags: 0
