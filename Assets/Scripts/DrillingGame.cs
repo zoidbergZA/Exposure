@@ -252,7 +252,11 @@ public class DrillingGame : Minigame
                 drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
             else if (targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1] && prevDrillDir == DrillingDirection.UP)
                 drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill up
-            else drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
+            else
+            {
+                drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
+                prevDrillDir = DrillingDirection.LEFT;
+            }
             if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
         }
         else
@@ -268,9 +272,13 @@ public class DrillingGame : Minigame
         {
             if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1] && prevDrillDir == DrillingDirection.DOWN)
                 drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
-            else if(targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1] && prevDrillDir == DrillingDirection.UP)
+            else if (targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1] && prevDrillDir == DrillingDirection.UP)
                 drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill up
-            else drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
+            else
+            {
+                drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
+                prevDrillDir = DrillingDirection.RIGHT;
+            }
             if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
         }
         else

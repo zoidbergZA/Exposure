@@ -45,8 +45,6 @@ public class Hud : MonoBehaviour
         cableText.text = GameManager.Instance.Player.Cable + "x";
         updateMiniGameButtons();
         updateJoystick();
-        //Debug.Log(CrossPlatformInputManager.GetAxis("Horizontal").ToString());
-        //Debug.Log(CrossPlatformInputManager.GetAxis("Vertical").ToString());
     }
 
     void OnGUI()
