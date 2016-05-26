@@ -24,8 +24,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-//    public GameObject PylonsHolder;
-    
+    public TextAsset csvFile;
+    //    public GameObject PylonsHolder;
+
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
     
@@ -66,6 +67,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        string[,] grid = CSVReader.SplitCsvGrid(csvFile.text);
+//        Debug.Log(grid[0][0].ToString());
+
         StartRound();
     }
 
