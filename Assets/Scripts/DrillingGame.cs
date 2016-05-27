@@ -31,6 +31,8 @@ public class DrillingGame : Minigame
     [SerializeField] private float succeededDrillValue = 5.0f;
     [SerializeField] private float jumpPhaseTime = 0.25f;
     [SerializeField] private float panelSlidingTime = 1.5f;
+    [SerializeField] public float stuckTime = 10.0f;
+    [SerializeField] private float drillStuckCooldown = 2.0f;
     [SerializeField] private Animator animator;
     [SerializeField] private MobileJoystick joystick;
 
@@ -49,6 +51,9 @@ public class DrillingGame : Minigame
     private float toastTimer;
     private float jumpPhaseTimer;
     private float panelSlidingTimer;
+    private float drillStuckChecked;
+    private float stuckTimer;
+
 
     public bool SucceededDrill { get; set; }
     private List<GameObject> rocks = new List<GameObject>();
@@ -56,6 +61,8 @@ public class DrillingGame : Minigame
     public DrillingDirection DrillDirection { get { return drillDir; } set { drillDir = value; } }
     public DrillingDirection PrevDrillDirection { get { return prevDrillDir; } set { prevDrillDir = value; } }
     public void MakeDrill(bool value) { makeDrill = value; }
+    public bool Bumped { get; set; }
+    public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
     public UnityEngine.UI.Image Drill { get { return drill; } }
     public float DiamondValue { get { return diamondValue; } }
     public UnityEngine.UI.Image GlobeDrillGroundIcon { get { return globeDrillGroundIcon; } }
@@ -76,6 +83,7 @@ public class DrillingGame : Minigame
         toastTimer = toastMessageTime;
         jumpPhaseTimer = jumpPhaseTime;
         panelSlidingTimer = panelSlidingTime;
+        drillStuckChecked = Time.time;
         if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -(Screen.height / 2) - 420, 0);
         if (drill) initDrillPos = drill.rectTransform.anchoredPosition;
         if (globeDrillPipeIcon && globeDrillGroundIcon) globeDrillPipeIcon.transform.SetSiblingIndex(globeDrillGroundIcon.transform.GetSiblingIndex() - 1);
@@ -449,7 +457,22 @@ public class DrillingGame : Minigame
             state = DrillingGameState.INACTIVE;
             End(false);
         }
+        if (Time.time - drillStuckChecked > drillStuckCooldown)
+        {
+            checkDrillerStuck();
+            drillStuckChecked = Time.time;
+        }
         Debug.Log("row: " + targetRow + " | column: " + targetColumn);
+    }
+
+    private void checkDrillerStuck()
+    {
+        if (stuckTimer <= 0)
+        {
+            SucceededDrill = false;
+            state = DrillingGameState.STARTSTOPTOAST;
+            stuckTimer = stuckTime;
+        }
     }
 
     public override void End(bool succeeded)

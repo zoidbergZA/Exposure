@@ -7,8 +7,8 @@ public class Driller : MonoBehaviour
     {
         if (coll.gameObject.tag == "Rock")
         {
-            GameManager.Instance.DrillingGame.SucceededDrill = false;
-            GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+            //GameManager.Instance.DrillingGame.SucceededDrill = false;
+            //GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
         }
         if (coll.gameObject.tag == "Diamond")
         {
@@ -33,6 +33,7 @@ public class Driller : MonoBehaviour
         if (coll.gameObject.tag == "Rock")
         {
             //to do in case of need
+            GameManager.Instance.DrillingGame.StuckTimer = GameManager.Instance.DrillingGame.stuckTime;
         }
         if (coll.gameObject.tag == "Diamond")
         {
@@ -45,6 +46,7 @@ public class Driller : MonoBehaviour
         if (coll.gameObject.tag == "Rock")
         {
             //to do in case of need
+            GameManager.Instance.DrillingGame.StuckTimer -= Time.deltaTime;
         }
         if (coll.gameObject.tag == "Diamond")
         {
