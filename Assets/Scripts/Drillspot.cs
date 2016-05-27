@@ -29,7 +29,7 @@ public class Drillspot : Placable
     {
         base.Start();
 
-        GameManager.Instance.EffectsManager.Play(0, transform.position, transform.rotation);
+        //GameManager.Instance.EffectsManager.Play(0, transform.position, transform.rotation);
     }
 
     public override void Update()
