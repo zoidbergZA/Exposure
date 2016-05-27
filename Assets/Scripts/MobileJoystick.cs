@@ -37,8 +37,8 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         var delta = m_StartPos - value;
         delta.y = -delta.y;
         delta /= MovementRange;
-        if (m_UseX) m_HorizontalVirtualAxis.Update(-delta.x);
-        if (m_UseY) m_VerticalVirtualAxis.Update(delta.y);
+        //if (m_UseX) m_HorizontalVirtualAxis.Update(-delta.x);
+        //if (m_UseY) m_VerticalVirtualAxis.Update(delta.y);
         GameManager.Instance.Hud.JoystickX = -delta.x;
         GameManager.Instance.Hud.JoystickY = delta.y;
     }
@@ -52,13 +52,13 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         // create new axes based on axes to use
         if (m_UseX)
         {
-            m_HorizontalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(horizontalAxisName);
-            CrossPlatformInputManager.RegisterVirtualAxis(m_HorizontalVirtualAxis);
+            //m_HorizontalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(horizontalAxisName);
+            //CrossPlatformInputManager.RegisterVirtualAxis(m_HorizontalVirtualAxis);
         }
         if (m_UseY)
         {
-            m_VerticalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(verticalAxisName);
-            CrossPlatformInputManager.RegisterVirtualAxis(m_VerticalVirtualAxis);
+            //m_VerticalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(verticalAxisName);
+            //CrossPlatformInputManager.RegisterVirtualAxis(m_VerticalVirtualAxis);
         }
     }
 
@@ -94,8 +94,6 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     void OnDisable()
     {
-        // remove the joysticks from the cross platform input
-        if (m_UseX) m_HorizontalVirtualAxis.Remove();
-        if (m_UseY) m_VerticalVirtualAxis.Remove();
+        
     }
 }

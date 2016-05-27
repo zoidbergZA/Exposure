@@ -35,6 +35,7 @@ public class DrillingGame : Minigame
     [SerializeField] private float drillStuckCooldown = 2.0f;
     [SerializeField] private Animator animator;
     [SerializeField] private MobileJoystick joystick;
+    [SerializeField] private Rigidbody2D myBody;
 
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
@@ -94,12 +95,12 @@ public class DrillingGame : Minigame
         if (IsRunning) return;
         this.drillspot = drillspot;
         Begin(difficulty);
-        state = DrillingGameState.ACTIVATION;
         imagesActivated = true;
         introShown = true;
         drill.transform.SetAsLastSibling();
         if (animator) animator.SetBool("isSlidingLeft", false);
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0,100,0), panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
+        state = DrillingGameState.ACTIVATION;
     }
 
     private void generateMap()
@@ -244,7 +245,7 @@ public class DrillingGame : Minigame
                 prevDrillDir = DrillingDirection.DOWN;
             }
         }
-        else drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
+        else drill.transform.Translate(0, -1 * drillSpeed * Time.deltaTime, 0); //drill down
 
         if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y <= rows[targetRow + 1]) targetRow++;
     }
@@ -342,7 +343,7 @@ public class DrillingGame : Minigame
                 prevDrillDir = DrillingDirection.UP;
             }
         }
-        else drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill down
+        else drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill up
 
         if (targetRow > 0)
         {
@@ -450,19 +451,23 @@ public class DrillingGame : Minigame
     public override void Update()
     {
         base.Update();
-        if(drill) updateState();
         if (IsRunning && Timeleft <= 0.5f) End(false);
         if (GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal && state != DrillingGameState.INACTIVE)
         {
             state = DrillingGameState.INACTIVE;
             End(false);
         }
+    }
+
+    void FixedUpdate()
+    {
+        if(drill) updateState();
         if (Time.time - drillStuckChecked > drillStuckCooldown)
         {
             checkDrillerStuck();
             drillStuckChecked = Time.time;
+            Debug.Log("row: " + targetRow + " | column: " + targetColumn + " | bumped: " + Bumped);
         }
-        Debug.Log("row: " + targetRow + " | column: " + targetColumn);
     }
 
     private void checkDrillerStuck()

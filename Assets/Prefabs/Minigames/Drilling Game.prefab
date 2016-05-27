@@ -316,14 +316,14 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109706}
   m_UseAutoMass: 0
-  m_Mass: 1000
-  m_LinearDrag: 1
+  m_Mass: 100
+  m_LinearDrag: 0.05
   m_AngularDrag: 0.05
   m_GravityScale: 0.01
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &6161728
 BoxCollider2D:
@@ -338,7 +338,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 35, y: 35}
+  m_Size: {x: 43, y: 43}
 --- !u!95 &9525064
 Animator:
   serializedVersion: 3
@@ -868,6 +868,7 @@ MonoBehaviour:
   drillStuckCooldown: 2
   animator: {fileID: 9525064}
   joystick: {fileID: 11421078}
+  myBody: {fileID: 5059338}
 --- !u!114 &11446804
 MonoBehaviour:
   m_ObjectHideFlags: 1
