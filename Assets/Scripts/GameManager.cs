@@ -24,8 +24,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-//    public GameObject PylonsHolder;
-    
+    public TextAsset csvFile;
+    //    public GameObject PylonsHolder;
+
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
     
@@ -66,6 +67,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        string[,] grid = CSVReader.SplitCsvGrid(csvFile.text);
+//        Debug.Log(grid[0][0].ToString());
+
         StartRound();
     }
 
@@ -74,6 +78,8 @@ public class GameManager : MonoBehaviour
         //temp
         if (Input.GetKeyDown(KeyCode.F2))
             TouchInput = !TouchInput;
+        if (Input.GetKeyDown(KeyCode.F3))
+            Instance.Planet.DisableNextChimney();
         //temp
 
         if (Input.GetKeyDown(KeyCode.Escape))

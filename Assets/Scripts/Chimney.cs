@@ -34,6 +34,7 @@ public class Chimney : MonoBehaviour
 
         ChimneyState = ChimneyStates.Unused;
         smokeSystem.enableEmission = false;
+        GameManager.Instance.Planet.RefreshHealth();
     }
 
     public void Demolish()
@@ -46,6 +47,7 @@ public class Chimney : MonoBehaviour
 
         chimneyAnimation.Play();
         GameManager.Instance.Player.ScorePoints(10, transform);
+        GameManager.Instance.Director.Shake();
     }
 
     void OnGUI()
