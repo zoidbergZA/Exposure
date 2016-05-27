@@ -100,27 +100,27 @@ public class DrillingGame : Minigame
         {
             for(int j = 0; j < rows.Length-1; j++)
             {
-                instantiateGroundTile(columns[i], rows[j]);
+                //instantiateGroundTile(columns[i], rows[j]);
                 //float rand = Random.Range(0f, 1f);
                 //if (rand > 0.2f) instantiateGroundTile(columns[i], rows[j]);
                 //else instantiateRock(columns[i], rows[j]); //try rock
-                //if (j == 0) instantiateGroundTile(columns[i], rows[j]);
-                //else
-                //{
-                //    float rand = Random.Range(0f, 1f);
-                //    if (rand <= RocksCurve.Evaluate(1 - Difficulty)) instantiateCable(columns[i], rows[j]); //try cable
-                //    else
-                //    {
-                //        rand = Random.Range(0f, 1f);
-                //        if (rand <= RocksCurve.Evaluate(1 - Difficulty)) instantiateRock(columns[i], rows[j]); //try rock
-                //        else
-                //        {
-                //            rand = Random.Range(0f, 1f); //else try daimond
-                //            if (rand <= CrystalsCurve.Evaluate(1 - Difficulty)) instantiateDiamond(columns[i], rows[j]);
-                //            else instantiateGroundTile(columns[i], rows[j]);
-                //        }
-                //    }
-                //}
+                if (j == 0) instantiateGroundTile(columns[i], rows[j]);
+                else
+                {
+                    float rand = Random.Range(0f, 1f);
+                    if (rand <= 0.05f) instantiateCable(columns[i], rows[j]); //try cable
+                    else
+                    {
+                        rand = Random.Range(0f, 1f);
+                        if (rand <= 0.08f) instantiateRock(columns[i], rows[j]); //try rock
+                        else
+                        {
+                            rand = Random.Range(0f, 1f); //else try daimond
+                            if (rand <= CrystalsCurve.Evaluate(1 - Difficulty)) instantiateDiamond(columns[i], rows[j]);
+                            else instantiateGroundTile(columns[i], rows[j]);
+                        }
+                    }
+                }
             }
         }
     }
@@ -175,7 +175,6 @@ public class DrillingGame : Minigame
             animator.SetBool("isDrilling", true);
             state = DrillingGameState.DRILLING;
             drillDir = DrillingDirection.DOWN;
-            prevDrillDir = DrillingDirection.DOWN;
             jumpPhaseTimer = jumpPhaseTime;
         }
     }
@@ -237,26 +236,37 @@ public class DrillingGame : Minigame
                 prevDrillDir = DrillingDirection.DOWN;
             }
         }
-        else
-        {
-            drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0);
-        }
+        else drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
+
         if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y <= rows[targetRow + 1]) targetRow++;
     }
 
     private void drillLeft()
     {
-        if (targetColumn > 0)
+        if (prevDrillDir == DrillingDirection.DOWN)
         {
-            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1] && prevDrillDir == DrillingDirection.DOWN)
+            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1])
                 drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
-            else if (targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1] && prevDrillDir == DrillingDirection.UP)
+            else
+            {
+                targetRow++;
+                prevDrillDir = DrillingDirection.LEFT;
+            }
+        }
+        else if (prevDrillDir == DrillingDirection.UP)
+        {
+            if (targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1])
                 drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill up
             else
             {
-                drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
+                targetRow--;
                 prevDrillDir = DrillingDirection.LEFT;
             }
+        }
+        else drill.transform.Translate(-1 * drillSpeed * Time.deltaTime, 0, 0); //drill left
+
+        if (targetColumn > 0)
+        {
             if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
         }
         else
@@ -268,17 +278,31 @@ public class DrillingGame : Minigame
 
     private void drillRight()
     {
-        if (targetColumn < columns.Length - 1)
+        if (prevDrillDir == DrillingDirection.DOWN)
         {
-            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1] && prevDrillDir == DrillingDirection.DOWN)
+            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1])
                 drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
-            else if (targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1] && prevDrillDir == DrillingDirection.UP)
+            else
+            {
+                targetRow++;
+                prevDrillDir = DrillingDirection.RIGHT;
+            }
+        }
+        else if (prevDrillDir == DrillingDirection.UP)
+        {
+            if (targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1])
                 drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill up
             else
             {
-                drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
+                targetRow--;
                 prevDrillDir = DrillingDirection.RIGHT;
             }
+        }
+        else drill.transform.Translate(1 * drillSpeed * Time.deltaTime, 0, 0); //drill right
+
+        //check against right wall and game over if bump
+        if (targetColumn < columns.Length - 1)
+        {
             if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
         }
         else
@@ -310,10 +334,7 @@ public class DrillingGame : Minigame
                 prevDrillDir = DrillingDirection.UP;
             }
         }
-        else
-        {
-            drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill down
-        }
+        else drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill down
 
         if (targetRow > 0)
         {
@@ -428,6 +449,7 @@ public class DrillingGame : Minigame
             state = DrillingGameState.INACTIVE;
             End(false);
         }
+        Debug.Log("row: " + targetRow + " | column: " + targetColumn);
     }
 
     public override void End(bool succeeded)
