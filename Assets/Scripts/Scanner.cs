@@ -70,7 +70,7 @@ public class Scanner : MonoBehaviour
             
             GUI.Label(new Rect(center.x, Screen.height - center.y + 80f, 50f, 50f), progress + "%");
 
-            GuiHelper.DrawLine(new Vector2(startPoint.x, Screen.height - startPoint.y), new Vector2(endPoint.x, Screen.height - endPoint.y), Color.grey, 1);
+//            GuiHelper.DrawLine(new Vector2(startPoint.x, Screen.height - startPoint.y), new Vector2(endPoint.x, Screen.height - endPoint.y), Color.grey, 1);
 
             //            //max distance etension icon
             //            Vector3 scanlineDirection = (endPoint - startPoint).normalized;
