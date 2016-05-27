@@ -60,16 +60,17 @@ public class Scanner : MonoBehaviour
             //draw scanning debug
             GUI.Label(new Rect(startPoint.x - 25f, Screen.height - startPoint.y - 25f, 50f, 50f), touchIcon);
             GUI.Label(new Rect(endPoint.x - 25f, Screen.height - endPoint.y - 25f, 50f, 50f), touchIcon);
-            GUI.Label(new Rect(center.x - 25f, Screen.height - center.y - 25f, 50f, 50f), centerIcon);
+//            GUI.Label(new Rect(center.x - 25f, Screen.height - center.y - 25f, 50f, 50f), centerIcon);
+            GUI.Label(CenteredRect(new Rect(center.x, center.y, 270f, 270f)), centerIcon);
 
             string progress = "";
 
             if (isOnHotspot)
                 progress = ((int) (ScanProgress*100f)).ToString();
             
-            GUI.Label(new Rect(center.x + 25f, Screen.height - center.y - 25f, 50f, 50f), progress + "%");
+            GUI.Label(new Rect(center.x, Screen.height - center.y + 80f, 50f, 50f), progress + "%");
 
-            GuiHelper.DrawLine(new Vector2(startPoint.x, Screen.height - startPoint.y), new Vector2(endPoint.x, Screen.height - endPoint.y), Color.grey, 1);
+//            GuiHelper.DrawLine(new Vector2(startPoint.x, Screen.height - startPoint.y), new Vector2(endPoint.x, Screen.height - endPoint.y), Color.grey, 1);
 
             //            //max distance etension icon
             //            Vector3 scanlineDirection = (endPoint - startPoint).normalized;
@@ -94,7 +95,7 @@ public class Scanner : MonoBehaviour
         IsScanning = true;
         lastStartScanAt = Time.time;
 //        focusTimer = focusTime;
-        GameManager.Instance.Director.OrbitPaused = true;
+//        GameManager.Instance.Director.OrbitPaused = true;
     }
 
     public void EndScan()
@@ -102,7 +103,19 @@ public class Scanner : MonoBehaviour
         IsScanning = false;
         radius = 0;
         isOnHotspot = false;
-        GameManager.Instance.Director.OrbitPaused = false;
+//        GameManager.Instance.Director.OrbitPaused = false;
+    }
+
+    private Rect CenteredRect(Rect rect)
+    {
+        Rect output = new Rect(
+                rect.x - rect.width/2f, 
+                Screen.height - rect.y - rect.height/2f,
+                rect.width,
+                rect.height
+            );
+
+        return output;
     }
 
     private void DrawTouchInfo(Touch touch)
@@ -192,8 +205,9 @@ public class Scanner : MonoBehaviour
         RaycastHit hit;
 //        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.yellow);
         float scanDelta = Vector3.Distance(startPoint, endPoint);
-        
-        radius = Mathf.Clamp(scanDelta*0.12f, 17f, 26f);
+
+//        radius = Mathf.Clamp(scanDelta*0.12f, 17f, 26f);
+        radius = Mathf.Clamp(scanDelta * 0.12f, 23f, 23f);
 
         float sample = 0f;
 
