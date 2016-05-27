@@ -108,7 +108,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 469206}
   - 33: {fileID: 3318298}
-  - 135: {fileID: 13526944}
   - 23: {fileID: 2388276}
   m_Layer: 0
   m_Name: Water
@@ -264,7 +263,7 @@ GameObject:
   - 4: {fileID: 473868}
   - 108: {fileID: 10804764}
   m_Layer: 0
-  m_Name: Atmospheer
+  m_Name: Atmosphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -949,8 +948,8 @@ Light:
   serializedVersion: 6
   m_Type: 2
   m_Color: {r: 0, g: 0.95686275, b: 1, a: 1}
-  m_Intensity: 5.8
-  m_Range: 263.82
+  m_Intensity: 8
+  m_Range: 279.98
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -996,6 +995,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scannableMesh: {fileID: 2307526}
+  atmosphereLight: {fileID: 10804764}
+  dirtyColor: {r: 0.53676474, g: 0.26043433, b: 0.110510394, a: 1}
+  cleanColor: {r: 0, g: 0.95686275, b: 1, a: 1}
 --- !u!114 &11430466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1023,18 +1025,6 @@ MonoBehaviour:
   connectIcon: {fileID: 2800000, guid: cca88ef0d19dbc547aa0ab4ce3122a62, type: 3}
   PlacerModel: {fileID: 102918}
   BuiltModel: {fileID: 158022}
---- !u!135 &13526944
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136322}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
