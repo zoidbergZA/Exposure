@@ -39,11 +39,12 @@ public class DrillingGame : Minigame
 
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
-    public enum DrillingDirection {  UP, DOWN, LEFT, RIGHT }
+    public enum DrillingDirection {  UP, DOWN, LEFT, RIGHT, IDLE }
     private DrillingGameState state;
     private DrillingDirection drillDir;
     private DrillingDirection prevDrillDir;
     private Vector3 initDrillPos;
+    private Vector3 drillPrevPosition;
     private int targetColumn;
     private int targetRow;
     //bools
@@ -79,8 +80,8 @@ public class DrillingGame : Minigame
     public DrillingDirection DrillDirection { get { return drillDir; } set { drillDir = value; } }
     public DrillingDirection PrevDrillDirection { get { return prevDrillDir; } set { prevDrillDir = value; } }
     public void MakeDrill(bool value) { makeDrill = value; }
-    public bool Bumped { get; set; }
     public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
+    public Vector3 DrillPrevPosition { get { return drillPrevPosition; } set { drillPrevPosition = value; } }
     public UnityEngine.UI.Image Drill { get { return drill; } }
     public float DiamondValue { get { return diamondValue; } }
     public UnityEngine.UI.Image GlobeDrillGroundIcon { get { return globeDrillGroundIcon; } }
@@ -298,7 +299,7 @@ public class DrillingGame : Minigame
     {
         if (prevDrillDir == DrillingDirection.DOWN)
         {
-            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1])
+            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y > rows[targetRow + 1])
                 drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
             else
             {
@@ -308,7 +309,7 @@ public class DrillingGame : Minigame
         }
         else if (prevDrillDir == DrillingDirection.UP)
         {
-            if (targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1])
+            if (targetRow > 0 && drill.rectTransform.anchoredPosition.y < rows[targetRow - 1])
                 drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill up
             else
             {
@@ -333,7 +334,7 @@ public class DrillingGame : Minigame
     {
         if (prevDrillDir == DrillingDirection.DOWN)
         {
-            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1])
+            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y > rows[targetRow + 1])
                 drill.transform.Translate(0, -1.0f * drillSpeed * Time.deltaTime, 0); //drill down
             else
             {
@@ -343,7 +344,7 @@ public class DrillingGame : Minigame
         }
         else if (prevDrillDir == DrillingDirection.UP)
         {
-            if (targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1])
+            if (targetRow > 0 && drill.rectTransform.anchoredPosition.y < rows[targetRow - 1])
                 drill.transform.Translate(0, 1.0f * drillSpeed * Time.deltaTime, 0); //drill up
             else
             {
@@ -501,6 +502,7 @@ public class DrillingGame : Minigame
             state = DrillingGameState.INACTIVE;
             End(false);
         }
+        drillPrevPosition = drill.rectTransform.anchoredPosition;
     }
 
     void FixedUpdate()
@@ -510,7 +512,7 @@ public class DrillingGame : Minigame
         {
             checkDrillerStuck();
             drillStuckChecked = Time.time;
-            Debug.Log("row: " + targetRow + " | column: " + targetColumn + " | bumped: " + Bumped);
+            Debug.Log("row: " + targetRow + " | column: " + targetColumn);
         }
     }
 
