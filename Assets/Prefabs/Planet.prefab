@@ -31,7 +31,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &111300
 GameObject:
@@ -64,7 +64,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &117636
 GameObject:
@@ -81,7 +81,7 @@ GameObject:
   m_TagString: Pylon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &118720
 GameObject:
@@ -97,7 +97,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 0
 --- !u!1 &136322
 GameObject:
@@ -199,7 +199,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &158022
 GameObject:
@@ -235,7 +235,7 @@ GameObject:
   m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &176180
 GameObject:
@@ -285,7 +285,7 @@ GameObject:
   m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 0
 --- !u!4 &413936
 Transform:
@@ -298,7 +298,7 @@ Transform:
   m_LocalScale: {x: 9.582837, y: 9.582837, z: 9.582837}
   m_Children: []
   m_Father: {fileID: 422710}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &417382
 Transform:
   m_ObjectHideFlags: 1
@@ -323,8 +323,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 455944}
-  - {fileID: 473884}
   - {fileID: 413936}
+  - {fileID: 473884}
   - {fileID: 473868}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -470,7 +470,7 @@ Transform:
   - {fileID: 435346}
   - {fileID: 417382}
   m_Father: {fileID: 422710}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &476744
 Transform:
   m_ObjectHideFlags: 1
@@ -995,9 +995,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scannableMesh: {fileID: 2307526}
+  flickPower: 50
+  propsHolder: {fileID: 0}
+  citiesHolder: {fileID: 0}
+  globeTransform: {fileID: 417382}
+  inertia: 0.93
   atmosphereLight: {fileID: 10804764}
   dirtyColor: {r: 0.53676474, g: 0.26043433, b: 0.110510394, a: 1}
   cleanColor: {r: 0, g: 0.95686275, b: 1, a: 1}
+  normalSpin: -2
 --- !u!114 &11430466
 MonoBehaviour:
   m_ObjectHideFlags: 1

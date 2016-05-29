@@ -21,18 +21,23 @@ public class Scanner : MonoBehaviour
     private Vector3 center { get { return startPoint + ((endPoint - startPoint) / 2f); } }
     private Vector3 forwardDirection;
     private float lastStartScanAt;
-//    private float focusTimer;
+    private float focusTimer;
 
     public bool IsScanning { get; private set; }
 
-    public float ScanProgress
+    public float Progress
     {
-        get
-        {
-            float fraction = 1f - (Vector3.Distance(startPoint, endPoint) - minScanDistance) / maxScanDistance;
-            return Mathf.Clamp01(fraction);
-        }
+        get { return 1f - focusTimer/focusTime; }
     }
+
+//    public float ScanProgress
+//    {
+//        get
+//        {
+//            float fraction = 1f - (Vector3.Distance(startPoint, endPoint) - minScanDistance) / maxScanDistance;
+//            return Mathf.Clamp01(fraction);
+//        }
+//    }
     
     void Start()
     {
@@ -66,7 +71,7 @@ public class Scanner : MonoBehaviour
             string progress = "";
 
             if (isOnHotspot)
-                progress = ((int) (ScanProgress*100f)).ToString();
+                progress = ((Progress*100f)).ToString("F0");
             
             GUI.Label(new Rect(center.x, Screen.height - center.y + 80f, 50f, 50f), progress + "%");
 
@@ -94,7 +99,7 @@ public class Scanner : MonoBehaviour
 
         IsScanning = true;
         lastStartScanAt = Time.time;
-//        focusTimer = focusTime;
+        focusTimer = focusTime;
 //        GameManager.Instance.Director.OrbitPaused = true;
     }
 
@@ -184,7 +189,7 @@ public class Scanner : MonoBehaviour
             EndScan();
             return;
         }
-
+        
         //update scan points
         {
             if (GameManager.Instance.TouchInput)
@@ -204,15 +209,18 @@ public class Scanner : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(center);
         RaycastHit hit;
 //        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.yellow);
-        float scanDelta = Vector3.Distance(startPoint, endPoint);
-
-//        radius = Mathf.Clamp(scanDelta*0.12f, 17f, 26f);
-        radius = Mathf.Clamp(scanDelta * 0.12f, 23f, 23f);
+//        float scanDelta = Vector3.Distance(startPoint, endPoint);
+//
+////        radius = Mathf.Clamp(scanDelta*0.12f, 17f, 26f);
+//        radius = Mathf.Clamp(scanDelta * 0.12f, 23f, 23f);
 
         float sample = 0f;
 
         if (Physics.Raycast(ray, out hit))
         {
+            float scanDelta = Vector3.Distance(hit.point, Camera.main.transform.position);
+            radius = Mathf.Clamp(scanDelta * 0.161f, 0f, 100f);
+
             sample = GameManager.Instance.SampleHeatmap(hit.textureCoord).r;
 
             if (sample >= 0.2f)
@@ -220,19 +228,22 @@ public class Scanner : MonoBehaviour
             else
                 isOnHotspot = false;
 
+//            if (isOnHotspot)
+//                Debug.Log(Progress + "  " + Time.time);
+
             material.SetVector("_CenterPoint", new Vector4(hit.point.x, hit.point.y, hit.point.z, 0));
 
-            if (isOnHotspot && ScanProgress >= 0.99f && Time.time >= lastStartScanAt + 2f)
+            if (isOnHotspot && Progress >= 0.99f && Time.time >= lastStartScanAt + 2f)
             {
 //                Debug.Log("scan succeeded");
                 ScanSucceeded(sample, hit.point, hit.normal);
             }
         }
 
-//        if (sample >= 0.2f)
-//            focusTimer -= Time.deltaTime;
-//        else
-//            focusTimer = focusTime;
+        if (sample >= 0.2f)
+            focusTimer -= Time.deltaTime;
+        else
+            focusTimer = focusTime;
     }
 
     private void ScanSucceeded(float sample, Vector3 location, Vector3 normal)
