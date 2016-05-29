@@ -55,6 +55,23 @@ public class DrillingGame : Minigame
     private float drillStuckChecked;
     private float stuckTimer;
 
+    // 19 X 14 test level tiles: ids to instantiate different objects
+    private int[] levelTiles = 
+    {
+        1,1,4,1,2,1,1,2,1,1,3,1,2,3,1,1,3,1,1,
+        1,1,1,1,1,1,1,3,1,1,3,1,2,1,1,1,3,1,1,
+        1,1,4,1,2,1,1,2,1,1,3,1,2,1,1,1,3,1,1,
+        1,1,1,1,3,1,1,1,1,1,3,1,2,3,1,1,3,1,1,
+        1,1,4,1,2,1,1,2,1,1,3,1,2,1,1,1,3,1,1,
+        1,1,1,1,1,1,1,3,1,1,3,1,2,1,1,1,3,1,1,
+        1,1,4,1,2,1,1,2,3,3,3,3,2,3,3,3,3,1,1,
+        1,1,1,1,3,1,1,1,1,1,3,1,2,3,1,1,3,1,1,
+        1,1,4,1,2,1,1,2,1,1,3,1,2,1,1,1,3,1,1,
+        1,1,1,1,1,1,1,3,1,1,3,1,2,1,1,1,3,1,1,
+        1,1,4,1,2,1,1,2,1,1,3,1,2,1,1,1,3,1,1,
+        1,3,3,3,3,3,3,3,1,3,3,3,2,3,3,3,3,3,1,
+        1,1,4,1,2,1,1,2,1,1,3,1,2,3,1,1,3,1,1
+    };
 
     public bool SucceededDrill { get; set; }
     private List<GameObject> rocks = new List<GameObject>();
@@ -103,7 +120,7 @@ public class DrillingGame : Minigame
         state = DrillingGameState.ACTIVATION;
     }
 
-    private void generateMap()
+    private void generateProceduralMap()
     {
         for(int i = 0; i < columns.Length; i++)
         {
@@ -129,6 +146,32 @@ public class DrillingGame : Minigame
                             else instantiateGroundTile(columns[i], rows[j]);
                         }
                     }
+                }
+            }
+        }
+    }
+
+    private void generateLevel(int[] tiles)
+    {
+        for (int i = 0; i < rows.Length; i++)
+        {
+            for (int j = 0; j < columns.Length; j++)
+            {
+                int id = tiles[(19 * i) + j];
+                switch(id)
+                {
+                    case 1:
+                        instantiateGroundTile(columns[j], rows[i]);
+                        break;
+                    case 3:
+                        instantiateRock(columns[j], rows[i]);
+                        break;
+                    case 2:
+                        instantiateCable(columns[j], rows[i]);
+                        break;
+                    case 4:
+                        instantiateDiamond(columns[j], rows[i]);
+                        break;
                 }
             }
         }
@@ -169,7 +212,8 @@ public class DrillingGame : Minigame
         {
             if (!AutoWin) state = DrillingGameState.SLIDING;
             else state = DrillingGameState.SUCCESS;
-            generateMap();
+            //generateProceduralMap(); // proceduraly generated level, spawning percentage share is based on inspector values or curves
+            generateLevel(levelTiles); // pre-designed levels, loading from csv
             panelSlidingTimer = panelSlidingTime;
             joystick.StartPosition = joystick.transform.position;
         }
