@@ -9,8 +9,8 @@ public class Driller : MonoBehaviour
         {
             //GameManager.Instance.DrillingGame.SucceededDrill = false;
             //GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-            GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition = GameManager.Instance.DrillingGame.DrillPrevPosition;
             GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.IDLE;
+            GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition = GameManager.Instance.DrillingGame.DrillPrevPosition;
         }
         if (coll.gameObject.tag == "Diamond")
         {
