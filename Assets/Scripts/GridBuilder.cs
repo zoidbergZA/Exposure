@@ -71,18 +71,9 @@ public class GridBuilder : Minigame
         GameManager.Instance.Player.ConsumeCable(1);
         ConnectedList.Add(connectable);
         StartPlant.SpanToPoint(connectable.connectionRef.position);
-        GameManager.Instance.Director.SetTarget(connectable.transform);
 
-        //check completetion conditions
-
-//        if (connectable is Pylon)
-//        {
-//            if (PoweredPylons.Contains((Pylon) connectable))
-//            {
-//                FinalizeGridConnection(true);
-//                return;
-//            }
-//        }
+        //todo: director jumpto()
+//        GameManager.Instance.Director.SetTarget(connectable.transform);
 
         if (connectable is City)
         {
