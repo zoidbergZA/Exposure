@@ -12,10 +12,9 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image mainPanel;
     [SerializeField] private UnityEngine.UI.Image bgActive;
     [SerializeField] private UnityEngine.UI.Image drill;
-    [SerializeField] private UnityEngine.UI.Image globeDrillGroundIcon;
-    [SerializeField] private UnityEngine.UI.Image globeDrillPipeIcon;
     [SerializeField] private UnityEngine.UI.Image endOkToast;
     [SerializeField] private UnityEngine.UI.Image endFailToast;
+    [SerializeField] private UnityEngine.UI.Image waterBar;
     [SerializeField] private int[] columns;
     [SerializeField] private int[] rows;
     [SerializeField] private GameObject rockPrefab;
@@ -61,15 +60,15 @@ public class DrillingGame : Minigame
     {
         1,1,4,1,1,1,1,1,1,1,3,1,1,3,1,1,1,1,1,
         1,1,1,1,1,1,1,3,1,1,3,1,1,1,1,1,1,1,1,
-        1,1,4,1,1,1,1,1,1,1,3,1,1,1,2,1,1,1,1,
-        1,5,1,1,3,1,1,1,1,1,3,1,1,3,1,1,1,1,1,
-        1,5,4,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,
-        1,5,1,1,1,1,1,3,1,1,3,1,1,1,1,1,3,3,1,
-        1,1,4,1,1,1,1,1,3,3,3,3,2,3,3,3,3,1,1,
+        1,5,4,1,1,1,1,1,1,1,3,1,1,1,2,1,1,1,1,
+        1,1,1,1,3,1,1,1,1,1,3,1,1,3,1,1,1,1,1,
+        1,1,4,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,3,1,1,3,1,1,1,1,1,3,3,1,
+        1,5,4,1,1,1,1,1,3,3,3,3,2,3,3,3,3,1,1,
         1,1,1,1,3,1,1,1,1,1,1,1,1,3,1,1,1,1,1,
         1,1,4,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,
         1,1,1,1,1,1,1,3,1,1,3,1,1,1,1,1,3,5,1,
-        1,1,4,1,1,5,1,1,1,1,3,1,1,1,1,1,3,1,1,
+        1,5,4,1,1,5,1,1,1,1,3,1,1,1,1,1,3,1,1,
         1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
         3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
     };
@@ -84,12 +83,12 @@ public class DrillingGame : Minigame
     public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
     public Vector3 DrillPrevPosition { get { return drillPrevPosition; } set { drillPrevPosition = value; } }
     public UnityEngine.UI.Image Drill { get { return drill; } }
+    public UnityEngine.UI.Image WaterBar { get { return waterBar; } }
     public float DiamondValue { get { return diamondValue; } }
-    public UnityEngine.UI.Image GlobeDrillGroundIcon { get { return globeDrillGroundIcon; } }
-    public UnityEngine.UI.Image GlobeDrillPipeIcon { get { return globeDrillPipeIcon; } }
     public UnityEngine.UI.Image BgActive { get { return bgActive; } }
     public UnityEngine.UI.Image MainPanel { get { return mainPanel; } }
     public Animator Animator { get { return animator; } }
+    public int GetWaterCount { get { return water.Count; } }
     public bool ReachedBottom(int bottom, UnityEngine.UI.Image drill)
     {
         return drill.rectTransform.anchoredPosition.y <= initDrillPos.y - bottom;
@@ -106,7 +105,6 @@ public class DrillingGame : Minigame
         drillStuckChecked = Time.time;
         if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -(Screen.height / 2) - 420, 0);
         if (drill) initDrillPos = drill.rectTransform.anchoredPosition;
-        if (globeDrillPipeIcon && globeDrillGroundIcon) globeDrillPipeIcon.transform.SetSiblingIndex(globeDrillGroundIcon.transform.GetSiblingIndex() - 1);
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -528,7 +526,7 @@ public class DrillingGame : Minigame
 
     private void updateWaterAmount()
     {
-        if (water.Count >= 3) Debug.Log("Water collected!");
+        if(waterBar && water.Count <= 3) waterBar.fillAmount = water.Count * 33.33333334f / 100f;
     }
 
     private void checkDrillerStuck()
@@ -649,5 +647,10 @@ public class DrillingGame : Minigame
 
         LeanTween.scale(waterTile.GetComponent<RectTransform>(), waterTile.GetComponent<RectTransform>().localScale * 1.2f, 1f)
             .setEase(LeanTweenType.punch);
+    }
+
+    public void AddWater(GameObject waterPiece)
+    {
+        this.water.Add(waterPiece);
     }
 }

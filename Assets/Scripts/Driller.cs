@@ -11,6 +11,7 @@ public class Driller : MonoBehaviour
             //GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
             GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.IDLE;
             GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition = GameManager.Instance.DrillingGame.DrillPrevPosition;
+            GameManager.Instance.DrillingGame.Drill.color = new Color(1, 0, 0);
         }
         if (coll.gameObject.tag == "Diamond")
         {
@@ -30,8 +31,11 @@ public class Driller : MonoBehaviour
         }
         if (coll.gameObject.tag == "Water")
         {
-            GameManager.Instance.Player.CollectCable(1);
-
+            GameManager.Instance.DrillingGame.AddWater(coll.gameObject);
+            if(GameManager.Instance.DrillingGame.GetWaterCount <= 3) 
+                LeanTween.scale(GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>(),
+                    GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>().localScale * 1.2f, 1f).setEase(LeanTweenType.punch);
+            
             Destroy(coll.gameObject);
         }
     }
@@ -42,6 +46,7 @@ public class Driller : MonoBehaviour
         {
             //to do in case of need
             GameManager.Instance.DrillingGame.StuckTimer = GameManager.Instance.DrillingGame.stuckTime;
+            GameManager.Instance.DrillingGame.Drill.color = new Color(1, 1, 1);
         }
         if (coll.gameObject.tag == "Diamond")
         {
