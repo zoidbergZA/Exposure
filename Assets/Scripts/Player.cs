@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F2) && GameManager.Instance.Player.PlayerState == PlayerStates.Normal) // jump to drilling game
         {
             Drillspot d = Instantiate(DrillspotPrefab, Vector3.zero, Quaternion.identity) as Drillspot;
-            StartDrillMinigame(d, 1f);
+            StartDrillMinigame(d, 0f);
         }
 
         switch (PlayerState)
