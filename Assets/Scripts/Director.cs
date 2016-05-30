@@ -40,20 +40,20 @@ public class Director : MonoBehaviour
 	
 	void Update ()
     {
-	    switch (Mode)
-	    {
-	        case Modes.Orbit:
-                if(!OrbitPaused) orbitTimer += Time.deltaTime;
-                targetPosition = new Vector3(Mathf.Sin(orbitTimer*orbitSpeed) * distance, targetTransform.position.y, Mathf.Cos(orbitTimer * orbitSpeed) * distance);
-                transform.LookAt(GameManager.Instance.PlanetTransform.position + Camera.main.transform.right * lookAtOffset.x);
-                break;
-
-            case Modes.Grid:
-                transform.LookAt(GameManager.Instance.PlanetTransform.position);
-                break;
-	    }
-
-	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);
+//	    switch (Mode)
+//	    {
+//	        case Modes.Orbit:
+//                if(!OrbitPaused) orbitTimer += Time.deltaTime;
+//                targetPosition = new Vector3(Mathf.Sin(orbitTimer*orbitSpeed) * distance, targetTransform.position.y, Mathf.Cos(orbitTimer * orbitSpeed) * distance);
+//                transform.LookAt(GameManager.Instance.PlanetTransform.position + Camera.main.transform.right * lookAtOffset.x);
+//                break;
+//
+//            case Modes.Grid:
+//                transform.LookAt(GameManager.Instance.PlanetTransform.position);
+//                break;
+//	    }
+//
+//	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);
 	    Camera.main.fieldOfView = targetFoV;
 
 //        if (Input.GetKeyDown(KeyCode.S))
@@ -101,13 +101,15 @@ public class Director : MonoBehaviour
             case Modes.Grid:
 //                Camera.main.orthographic = true;
 //                Camera.main.fieldOfView = 20f;
+                GameManager.Instance.Planet.IsSpinning = false;
                 targetPosition = targetTransform.position + targetTransform.up * distance;
                 LeanTween.value(gameObject, updateValueExampleCallback, targetFoV, 20f, 1.1f).setEase(LeanTweenType.easeInOutSine);
                 break;
 
             case Modes.Orbit:
                 //Camera.main.orthographic = false;
-//                Camera.main.fieldOfView = 40f;
+                //                Camera.main.fieldOfView = 40f;
+                GameManager.Instance.Planet.IsSpinning = true;
                 LeanTween.value(gameObject, updateValueExampleCallback, targetFoV, 40f, 1.1f).setEase(LeanTweenType.easeInOutSine);
                 break;
         }

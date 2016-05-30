@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
         BuildGrid
     }
 
+    public float flickPower = 50f;
+
     [SerializeField] private int startingCable = 3;
     [SerializeField] private LayerMask drillRayMask;
     [SerializeField] private LayerMask buildRayMask;
@@ -45,9 +47,14 @@ public class Player : MonoBehaviour
         switch (PlayerState)
         {
             case PlayerStates.Normal:
-//                HandleNormalState();
+                HandleNormalState();
                 break;
         }
+    }
+
+    void OnGUI()
+    {
+        flickPower = GUI.HorizontalSlider(new Rect(25, 55, 100, 30), flickPower, 10.0F, 500.0F);
     }
 
     public void CollectCable(int amount)
@@ -96,18 +103,36 @@ public class Player : MonoBehaviour
 
     private void HandleNormalState()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+        HandleFlick();
+    }
 
-            if (Physics.Raycast(ray, out hit, drillRayMask))
+    private void HandleFlick()
+    {
+        if (Input.touchCount == 1)
+        {
+            if (Input.touches[0].phase == TouchPhase.Moved)
             {
-                Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-                Drill(hit.point, hit.normal, 1f - sample.r);
+                float deltaX = Input.touches[0].deltaPosition.x;
+
+                GameManager.Instance.Planet.AddSpin(deltaX * flickPower);
             }
         }
     }
+
+//    private void HandleNormalState()
+//    {
+//        if (Input.GetMouseButtonDown(0))
+//        {
+//            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+//            RaycastHit hit;
+//
+//            if (Physics.Raycast(ray, out hit, drillRayMask))
+//            {
+//                Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
+//                Drill(hit.point, hit.normal, 1f - sample.r);
+//            }
+//        }
+//    }
 
     private Pylon GetClosestPylon(Vector3 location)
     {
