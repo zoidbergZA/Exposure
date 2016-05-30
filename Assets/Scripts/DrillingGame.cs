@@ -22,7 +22,7 @@ public class DrillingGame : Minigame
     [SerializeField] private GameObject diamondPrefab;
     [SerializeField] private GameObject groundTilePrefab;
     [SerializeField] private GameObject cablePrefab;
-    [SerializeField] private GameObject bombPrefab;
+    [SerializeField] private GameObject waterTilePrefab;
     [SerializeField] private bool AutoWin;
     [SerializeField] private float toastMessageTime = 3.0f;
     [SerializeField] private float drillSpeed = 3.0f;
@@ -62,20 +62,21 @@ public class DrillingGame : Minigame
         1,1,4,1,1,1,1,1,1,1,3,1,1,3,1,1,1,1,1,
         1,1,1,1,1,1,1,3,1,1,3,1,1,1,1,1,1,1,1,
         1,1,4,1,1,1,1,1,1,1,3,1,1,1,2,1,1,1,1,
-        1,1,1,1,3,1,1,1,1,1,3,1,1,3,1,1,1,1,1,
-        1,1,4,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,3,1,1,3,1,1,1,1,1,3,3,1,
+        1,5,1,1,3,1,1,1,1,1,3,1,1,3,1,1,1,1,1,
+        1,5,4,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,
+        1,5,1,1,1,1,1,3,1,1,3,1,1,1,1,1,3,3,1,
         1,1,4,1,1,1,1,1,3,3,3,3,2,3,3,3,3,1,1,
-        1,1,1,1,3,1,1,1,1,1,3,1,1,3,1,1,1,1,1,
-        1,1,4,1,1,1,1,2,1,1,3,1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,3,1,1,3,1,1,1,1,1,3,1,1,
-        1,1,4,1,1,1,1,1,1,1,3,1,1,1,1,1,3,1,1,
-        1,3,3,3,3,3,3,3,1,3,3,3,1,3,3,3,3,3,1,
-        1,1,4,1,1,1,1,1,1,1,3,1,1,3,1,1,1,1,1
+        1,1,1,1,3,1,1,1,1,1,1,1,1,3,1,1,1,1,1,
+        1,1,4,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,3,1,1,3,1,1,1,1,1,3,5,1,
+        1,1,4,1,1,5,1,1,1,1,3,1,1,1,1,1,3,1,1,
+        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+        3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
     };
 
     public bool SucceededDrill { get; set; }
-    private List<GameObject> rocks = new List<GameObject>();
+    private List<GameObject> tiles = new List<GameObject>();
+    private List<GameObject> water = new List<GameObject>();
     public DrillingGameState State { get { return state; } set { state = value; } }
     public DrillingDirection DrillDirection { get { return drillDir; } set { drillDir = value; } }
     public DrillingDirection PrevDrillDirection { get { return prevDrillDir; } set { prevDrillDir = value; } }
@@ -172,6 +173,9 @@ public class DrillingGame : Minigame
                         break;
                     case 4:
                         instantiateDiamond(columns[j], rows[i]);
+                        break;
+                    case 5:
+                        instantiateWaterTile(columns[j], rows[i]);
                         break;
                 }
             }
@@ -519,6 +523,12 @@ public class DrillingGame : Minigame
             Debug.Log("row: " + targetRow + " | column: " + targetColumn);
         }
         drillPrevPosition = drill.rectTransform.anchoredPosition;
+        updateWaterAmount();
+    }
+
+    private void updateWaterAmount()
+    {
+        if (water.Count >= 3) Debug.Log("Water collected!");
     }
 
     private void checkDrillerStuck()
@@ -575,9 +585,9 @@ public class DrillingGame : Minigame
         SucceededDrill = false;
         targetColumn = 0;
         targetRow = 0;
-        foreach (GameObject rock in rocks) Destroy(rock);
+        foreach (GameObject rock in tiles) Destroy(rock);
         drill.rectTransform.anchoredPosition = initDrillPos;
-        rocks.Clear();
+        tiles.Clear();
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -(Screen.height / 2) - 420, 0), panelSlidingTime / 2);
     }
 
@@ -587,7 +597,7 @@ public class DrillingGame : Minigame
         rock.transform.SetParent(mainPanel.transform, false);
         rock.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         rock.gameObject.SetActive(true);
-        rocks.Add(rock);
+        tiles.Add(rock);
 
         LeanTween.scale(rock.GetComponent<RectTransform>(), rock.GetComponent<RectTransform>().localScale * 1.2f, 1f)
             .setEase(LeanTweenType.punch);
@@ -599,7 +609,7 @@ public class DrillingGame : Minigame
         diamond.transform.SetParent(mainPanel.transform, false);
         diamond.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         diamond.gameObject.SetActive(true);
-        rocks.Add(diamond);
+        tiles.Add(diamond);
 
         LeanTween.scale(diamond.GetComponent<RectTransform>(), diamond.GetComponent<RectTransform>().localScale * 1.2f, 1f)
             .setEase(LeanTweenType.punch);
@@ -611,7 +621,7 @@ public class DrillingGame : Minigame
         groundTile.transform.SetParent(mainPanel.transform, false);
         groundTile.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         groundTile.gameObject.SetActive(true);
-        rocks.Add(groundTile);
+        tiles.Add(groundTile);
 
         LeanTween.scale(groundTile.GetComponent<RectTransform>(), groundTile.GetComponent<RectTransform>().localScale * 1.2f, 1f)
             .setEase(LeanTweenType.punch);
@@ -623,21 +633,21 @@ public class DrillingGame : Minigame
         cable.transform.SetParent(mainPanel.transform, false);
         cable.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         cable.gameObject.SetActive(true);
-        rocks.Add(cable);
+        tiles.Add(cable);
 
         LeanTween.scale(cable.GetComponent<RectTransform>(), cable.GetComponent<RectTransform>().localScale * 1.2f, 1f)
             .setEase(LeanTweenType.punch);
     }
 
-    private void instantiateBomb(int x, int y)
+    private void instantiateWaterTile(int x, int y)
     {
-        GameObject bomb = Instantiate(cablePrefab) as GameObject;
-        bomb.transform.SetParent(mainPanel.transform, false);
-        bomb.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
-        bomb.gameObject.SetActive(true);
-        rocks.Add(bomb);
+        GameObject waterTile = Instantiate(waterTilePrefab) as GameObject;
+        waterTile.transform.SetParent(mainPanel.transform, false);
+        waterTile.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
+        waterTile.gameObject.SetActive(true);
+        tiles.Add(waterTile);
 
-        LeanTween.scale(bomb.GetComponent<RectTransform>(), bomb.GetComponent<RectTransform>().localScale * 1.2f, 1f)
+        LeanTween.scale(waterTile.GetComponent<RectTransform>(), waterTile.GetComponent<RectTransform>().localScale * 1.2f, 1f)
             .setEase(LeanTweenType.punch);
     }
 }

@@ -28,6 +28,12 @@ public class Driller : MonoBehaviour
 
             Destroy(coll.gameObject);
         }
+        if (coll.gameObject.tag == "Water")
+        {
+            GameManager.Instance.Player.CollectCable(1);
+
+            Destroy(coll.gameObject);
+        }
     }
 
     void OnCollisionExit2D(Collision2D coll)

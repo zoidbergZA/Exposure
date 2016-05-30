@@ -10,6 +10,7 @@ TagManager:
   - Diamond
   - GroundTile
   - Cable
+  - Water
   layers:
   - Default
   - TransparentFX
