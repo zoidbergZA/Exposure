@@ -70,7 +70,7 @@ public class DrillingGame : Minigame
         1,1,1,1,1,1,1,3,1,1,3,1,1,1,1,1,3,5,1,
         1,5,4,1,1,5,1,1,1,1,3,1,1,1,1,1,3,1,1,
         1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+        3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
     };
 
     public bool SucceededDrill { get; set; }
@@ -126,10 +126,6 @@ public class DrillingGame : Minigame
         {
             for(int j = 0; j < rows.Length-1; j++)
             {
-                //instantiateGroundTile(columns[i], rows[j]);
-                //float rand = Random.Range(0f, 1f);
-                //if (rand > 0.2f) instantiateGroundTile(columns[i], rows[j]);
-                //else instantiateRock(columns[i], rows[j]); //try rock
                 if (j == 0) instantiateGroundTile(columns[i], rows[j]);
                 else
                 {
@@ -259,7 +255,8 @@ public class DrillingGame : Minigame
     {
         finalShown = true;
         toastTimer = toastMessageTime;
-        endOkToast.gameObject.SetActive(false);
+        if(gameSucceeded) endOkToast.gameObject.SetActive(false);
+        else endFailToast.gameObject.SetActive(false);
         state = DrillingGameState.INACTIVE;
         End(gameSucceeded);
     }
