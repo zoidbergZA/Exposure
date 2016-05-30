@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
         BuildGrid
     }
 
-    public float flickPower = 50f;
+    public float flickPower = 1f;
 
     [SerializeField] private int startingCable = 3;
     [SerializeField] private LayerMask drillRayMask;
@@ -52,10 +52,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    void OnGUI()
-    {
-        flickPower = GUI.HorizontalSlider(new Rect(25, 55, 100, 30), flickPower, 10.0F, 500.0F);
-    }
+//    void OnGUI()
+//    {
+//        flickPower = GUI.HorizontalSlider(new Rect(125, 155, 500, 60), flickPower, 0.2F, 9.0F);
+//
+//        GUI.Label(new Rect(630, 155, 60, 80), flickPower.ToString());
+//    }
 
     public void CollectCable(int amount)
     {
@@ -114,7 +116,7 @@ public class Player : MonoBehaviour
             {
                 float deltaX = Input.touches[0].deltaPosition.x;
 
-                GameManager.Instance.Planet.AddSpin(deltaX * flickPower);
+                GameManager.Instance.Planet.AddSpin(-deltaX * flickPower);
             }
         }
     }
@@ -156,6 +158,7 @@ public class Player : MonoBehaviour
     public void Drill(Vector3 location, Vector3 normal, float difficulty)
     {
         Drillspot drillspot = Instantiate(DrillspotPrefab, location, Quaternion.identity) as Drillspot;
+        drillspot.transform.SetParent(GameManager.Instance.PlanetTransform);
         drillspot.Orientate(normal);
         drillspot.Difficulty = difficulty;
     }

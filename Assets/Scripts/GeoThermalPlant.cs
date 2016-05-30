@@ -22,6 +22,7 @@ public class GeoThermalPlant : Powerplant
     {
         for (int i = spanIndex; i < 10; i++)
         {
+            point = transform.InverseTransformPoint(point); // world point to local space
             powerLineRenderer.SetPosition(i, point);
         }
 
@@ -34,7 +35,7 @@ public class GeoThermalPlant : Powerplant
         Vector3[] positions = new Vector3[10];
         for (int i = 0; i < positions.Length; i++)
         {
-            positions[i] = transform.position;
+            positions[i] = Vector3.zero; // transform.position;
         }
 
         powerLineRenderer.SetPositions(positions);
