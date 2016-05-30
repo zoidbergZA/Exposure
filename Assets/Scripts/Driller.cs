@@ -7,11 +7,15 @@ public class Driller : MonoBehaviour
     {
         if (coll.gameObject.tag == "Rock")
         {
-            //GameManager.Instance.DrillingGame.SucceededDrill = false;
-            //GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
             GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.IDLE;
-            GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition = GameManager.Instance.DrillingGame.DrillPrevPosition;
+            //GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition = GameManager.Instance.DrillingGame.DrillPrevPosition;
+            GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition =
+                new Vector2(GameManager.Instance.DrillingGame.columns[GameManager.Instance.DrillingGame.TargetColumn],
+                    GameManager.Instance.DrillingGame.rows[GameManager.Instance.DrillingGame.TargetRow]);
+
             GameManager.Instance.DrillingGame.Drill.color = new Color(1, 0, 0);
+            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
+            GameManager.Instance.DrillingGame.Bumped = true;
         }
         if (coll.gameObject.tag == "Diamond")
         {
@@ -45,8 +49,8 @@ public class Driller : MonoBehaviour
         if (coll.gameObject.tag == "Rock")
         {
             //to do in case of need
-            GameManager.Instance.DrillingGame.StuckTimer = GameManager.Instance.DrillingGame.stuckTime;
             GameManager.Instance.DrillingGame.Drill.color = new Color(1, 1, 1);
+            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 1, 1);
         }
         if (coll.gameObject.tag == "Diamond")
         {

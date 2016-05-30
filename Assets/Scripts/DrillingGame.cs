@@ -15,8 +15,10 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image endOkToast;
     [SerializeField] private UnityEngine.UI.Image endFailToast;
     [SerializeField] private UnityEngine.UI.Image waterBar;
-    [SerializeField] private int[] columns;
-    [SerializeField] private int[] rows;
+    [SerializeField] private UnityEngine.UI.Image steamImage;
+    [SerializeField] private UnityEngine.UI.Image drillLife;
+    [SerializeField] public int[] columns;
+    [SerializeField] public int[] rows;
     [SerializeField] private GameObject rockPrefab;
     [SerializeField] private GameObject diamondPrefab;
     [SerializeField] private GameObject groundTilePrefab;
@@ -34,7 +36,6 @@ public class DrillingGame : Minigame
     [SerializeField] private float drillStuckCooldown = 2.0f;
     [SerializeField] private Animator animator;
     [SerializeField] private MobileJoystick joystick;
-    [SerializeField] private Rigidbody2D myBody;
 
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
@@ -74,6 +75,7 @@ public class DrillingGame : Minigame
     };
 
     public bool SucceededDrill { get; set; }
+    public bool Bumped { get; set; }
     private List<GameObject> tiles = new List<GameObject>();
     private List<GameObject> water = new List<GameObject>();
     public DrillingGameState State { get { return state; } set { state = value; } }
@@ -84,11 +86,14 @@ public class DrillingGame : Minigame
     public Vector3 DrillPrevPosition { get { return drillPrevPosition; } set { drillPrevPosition = value; } }
     public UnityEngine.UI.Image Drill { get { return drill; } }
     public UnityEngine.UI.Image WaterBar { get { return waterBar; } }
+    public UnityEngine.UI.Image DrillLife { get { return drillLife; } }
     public float DiamondValue { get { return diamondValue; } }
     public UnityEngine.UI.Image BgActive { get { return bgActive; } }
     public UnityEngine.UI.Image MainPanel { get { return mainPanel; } }
     public Animator Animator { get { return animator; } }
     public int GetWaterCount { get { return water.Count; } }
+    public int TargetRow { get { return targetRow; } }
+    public int TargetColumn { get { return targetColumn; } }
     public bool ReachedBottom(int bottom, UnityEngine.UI.Image drill)
     {
         return drill.rectTransform.anchoredPosition.y <= initDrillPos.y - bottom;
@@ -118,6 +123,7 @@ public class DrillingGame : Minigame
         if (animator) animator.SetBool("isSlidingLeft", false);
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0,100,0), panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
         state = DrillingGameState.ACTIVATION;
+        stuckTimer = stuckTime;
     }
 
     private void generateProceduralMap()
@@ -240,7 +246,9 @@ public class DrillingGame : Minigame
             {
                 endOkToast.gameObject.SetActive(true);
                 endOkToast.transform.SetAsLastSibling();
-                if (toastTimer < 0.0f) fireToast(true);
+                if (toastTimer > 0)
+                    LeanTween.move(steamImage.gameObject.GetComponent<RectTransform>(), new Vector3(0, 50, 0), toastMessageTime).setEase(LeanTweenType.easeOutQuad);
+                else fireToast(true);
             }
             else
             {
@@ -291,7 +299,7 @@ public class DrillingGame : Minigame
         }
         else drill.transform.Translate(0, -1 * drillSpeed * Time.deltaTime, 0); //drill down
 
-        if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y <= rows[targetRow + 1]) targetRow++;
+        if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y < rows[targetRow + 1]) targetRow++;
     }
 
     private void drillLeft()
@@ -321,7 +329,7 @@ public class DrillingGame : Minigame
         //check against left wall and game over if bump
         if (targetColumn > 0)
         {
-            if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
+            if (drill.rectTransform.anchoredPosition.x < columns[targetColumn - 1]) targetColumn -= 1;
         }
         else
         {
@@ -357,7 +365,7 @@ public class DrillingGame : Minigame
         //check against right wall and game over if bump
         if (targetColumn < columns.Length - 1)
         {
-            if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
+            if (drill.rectTransform.anchoredPosition.x > columns[targetColumn + 1]) targetColumn += 1;
         }
         else
         {
@@ -392,13 +400,18 @@ public class DrillingGame : Minigame
 
         if (targetRow > 0)
         {
-            if (drill.rectTransform.anchoredPosition.y >= rows[targetRow - 1]) targetRow--;
+            if (drill.rectTransform.anchoredPosition.y > rows[targetRow - 1]) targetRow--;
         }
         else
         {
             SucceededDrill = false;
             state = DrillingGameState.STARTSTOPTOAST;
         }
+    }
+
+    private void handleIdle()
+    {
+
     }
 
     private void updateDrilling()
@@ -416,6 +429,9 @@ public class DrillingGame : Minigame
                 break;
             case DrillingDirection.UP:
                 drillUp();
+                break;
+            case DrillingDirection.IDLE:
+                handleIdle();
                 break;
         }
     }
@@ -518,12 +534,17 @@ public class DrillingGame : Minigame
             Debug.Log("row: " + targetRow + " | column: " + targetColumn);
         }
         drillPrevPosition = drill.rectTransform.anchoredPosition;
-        updateWaterAmount();
+        updateProgressBars();
     }
 
-    private void updateWaterAmount()
+    private void updateProgressBars()
     {
         if(waterBar && water.Count <= 3) waterBar.fillAmount = water.Count * 33.33333334f / 100f;
+        if (stuckTimer > stuckTime - (stuckTime / 3)) drillLife.fillAmount = 1.00f;
+        else if (stuckTimer <= stuckTime - (stuckTime / 3) && stuckTimer > stuckTime - (stuckTime / 3)*2) drillLife.fillAmount = 0.66f;
+        else if (stuckTimer <= stuckTime - (stuckTime / 3) * 2 && stuckTimer > 0.05f) drillLife.fillAmount = 0.33f;
+        else drillLife.fillAmount = 0.00f;
+
     }
 
     private void checkDrillerStuck()
