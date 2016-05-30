@@ -19,7 +19,9 @@ public class Director : MonoBehaviour
 
     //tweener values
     private Vector3 targetPosition;
+    private Quaternion fromRotation;
     private Quaternion targetRotation;
+    private float rotateProgress;
     private float targetFoV;
 
     public bool OrbitPaused { get; set; }
@@ -44,6 +46,8 @@ public class Director : MonoBehaviour
 	{
 	    transform.position = targetPosition;
 	    Camera.main.fieldOfView = targetFoV;
+
+        transform.rotation = Quaternion.Slerp(fromRotation, targetRotation, rotateProgress);
     }
 
     public void SetMode(Modes mode, Transform targetTransform, float delay = 2f)
@@ -103,7 +107,10 @@ public class Director : MonoBehaviour
         //
         //        LeanTween.rotateAround(gameObject, axis, angle, time);
 
-        transform.rotation = rotation;
+        fromRotation = transform.rotation;
+        targetRotation = rotation;
+        rotateProgress = 0f;
+
         LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time);
         LeanTween.value(gameObject, updateFOVCallback, targetFoV, fov, time).setEase(LeanTweenType.easeInOutSine);
     }
@@ -116,5 +123,6 @@ public class Director : MonoBehaviour
     void updateFOVCallback(float val, float ratio)
     {
         targetFoV = val;
+        rotateProgress = ratio;
     }
 }

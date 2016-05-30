@@ -43,8 +43,9 @@ MonoBehaviour:
   maxScanDistance: 250
   minScanDistance: 130
   focusTime: 2.3
-  touchIcon: {fileID: 2800000, guid: cca88ef0d19dbc547aa0ab4ce3122a62, type: 3}
-  centerIcon: {fileID: 2800000, guid: c91580f881f8d40428436e02e0cfd0c6, type: 3}
+  touchIcon: {fileID: 2800000, guid: ef34d65258ae6f049b1076f10e1ea018, type: 3}
+  progressIcon: {fileID: 2800000, guid: 0aed13d0e9a6e9244999c3c1a608031b, type: 3}
+  centerIcon: {fileID: 2800000, guid: 1c65d955b6b777042944ea52c70912f4, type: 3}
 --- !u!114 &11427104
 MonoBehaviour:
   m_ObjectHideFlags: 1

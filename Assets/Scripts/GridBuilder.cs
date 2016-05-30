@@ -70,7 +70,16 @@ public class GridBuilder : Minigame
     {
         GameManager.Instance.Player.ConsumeCable(1);
         ConnectedList.Add(connectable);
-        StartPlant.SpanToPoint(connectable.connectionRef.position);
+//        StartPlant.SpanToPoint(connectable.connectionRef.position);
+
+        if (ConnectedList.Count == 1)
+        {
+            connectable.AddConnection(StartPlant);
+        }
+        if (ConnectedList.Count > 1)
+        {
+            ConnectedList[ConnectedList.Count - 1].AddConnection(ConnectedList[ConnectedList.Count - 2]);
+        }
 
         //todo: director jumpto()
         //        GameManager.Instance.Director.SetTarget(connectable.transform);
@@ -104,7 +113,7 @@ public class GridBuilder : Minigame
         {
 //            Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + Timeleft + "/" + TimeOut);
             ConnectionFinalized = true;
-            StartPlant.ShowPathGuide(false);
+//            StartPlant.ShowPathGuide(false);
 
             for (int i = 0; i < ConnectedList.Count; i++)
             {

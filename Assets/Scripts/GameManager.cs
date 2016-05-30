@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -24,7 +25,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public TextAsset csvFile;
+    //global prefabs
+    public GameObject PipePrefab;
+
+    public TextAsset puzzle1;
     //    public GameObject PylonsHolder;
 
     [SerializeField] private float roundTime = 180;
@@ -67,9 +71,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        string[,] grid = CSVReader.SplitCsvGrid(csvFile.text);
-//        Debug.Log(grid[0][0].ToString());
-
+        int[] puzzle = LoadDrillingPuzzle(puzzle1);
+        
         StartRound();
     }
 
@@ -109,6 +112,28 @@ public class GameManager : MonoBehaviour
         Color heatmapSample = heatmap.GetPixel((int)pixelCoord.x, (int)pixelCoord.y);
 
         return heatmapSample;
+    }
+
+    private int[] LoadDrillingPuzzle(TextAsset map)
+    {
+        string[,] grid = CSVReader.SplitCsvGrid(map.text);
+        List<int> tiles = new List<int>();
+
+//        CSVReader.DebugOutputGrid(grid);
+        
+        for (int y = 0; y < grid.GetUpperBound(1); y++)
+        {
+            for (int x = 0; x < grid.GetUpperBound(0); x++)
+            {
+                int tile;
+                if (int.TryParse(grid[x, y], out tile))
+                {
+                    tiles.Add(tile); 
+                }
+            }
+        }
+        
+        return tiles.ToArray();
     }
 
     private void StartRound()
