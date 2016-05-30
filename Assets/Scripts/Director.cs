@@ -9,10 +9,9 @@ public class Director : MonoBehaviour
         Grid
     }
 
-    [SerializeField] private Shaker shaker;
-    [SerializeField] private float buildHeight = 100f;
+    public float buildHeight = 100f;
 
-//    private Transform targetTransform;
+    [SerializeField] private Shaker shaker;
 
     private Vector3 orbitPosition;
     private Quaternion orbitRotation;
@@ -42,7 +41,8 @@ public class Director : MonoBehaviour
     }
 	
 	void Update ()
-    {
+	{
+	    transform.position = targetPosition;
 	    Camera.main.fieldOfView = targetFoV;
     }
 
@@ -89,9 +89,28 @@ public class Director : MonoBehaviour
         }
     }
 
-    private void SwoopTo(Vector3 position, Quaternion rotation, float fov, float time, float delay = 0f)
+    public void SwoopTo(Vector3 position, Quaternion rotation, float fov, float time, float delay = 0f)
     {
+        //todo: rotation lerp
+
+        //        Quaternion deltaQuaternion = Quaternion.Inverse(targetRotation) * transform.rotation;
+        //        float angle = 0;
+        //        Vector3 axis = Vector3.zero;
+        //
+        //        deltaQuaternion.ToAngleAxis(out angle, out axis);
+        //
+        //        Debug.Log(angle + ", " + axis);
+        //
+        //        LeanTween.rotateAround(gameObject, axis, angle, time);
+
+        transform.rotation = rotation;
+        LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time);
         LeanTween.value(gameObject, updateFOVCallback, targetFoV, fov, time).setEase(LeanTweenType.easeInOutSine);
+    }
+
+    void updatePosCallback(Vector3 val)
+    {
+        targetPosition = val;
     }
 
     void updateFOVCallback(float val, float ratio)

@@ -158,6 +158,7 @@ public class Player : MonoBehaviour
     public void Drill(Vector3 location, Vector3 normal, float difficulty)
     {
         Drillspot drillspot = Instantiate(DrillspotPrefab, location, Quaternion.identity) as Drillspot;
+        drillspot.transform.SetParent(GameManager.Instance.PlanetTransform);
         drillspot.Orientate(normal);
         drillspot.Difficulty = difficulty;
     }

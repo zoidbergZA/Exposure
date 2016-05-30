@@ -538,12 +538,13 @@ public class DrillingGame : Minigame
         if (succeeded)
         {
             GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, drillspot.transform.position, drillspot.transform.rotation) as GeoThermalPlant;
-            Destroy(drillspot.gameObject);
+            plant.transform.SetParent(GameManager.Instance.PlanetTransform);
             GameManager.Instance.Player.StartBuildMinigame(plant, 1f);
             GameManager.Instance.Player.ScorePoints(succeededDrillValue);
         }
         else GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
-        
+
+//        Destroy(drillspot.gameObject);
         resetGameGuts();
     }
 
