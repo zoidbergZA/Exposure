@@ -316,14 +316,14 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109706}
   m_UseAutoMass: 0
-  m_Mass: 1000
+  m_Mass: 1
   m_LinearDrag: 1
-  m_AngularDrag: 0.05
-  m_GravityScale: 0.01
+  m_AngularDrag: 1
+  m_GravityScale: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &6161728
 BoxCollider2D:
@@ -338,7 +338,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 35, y: 35}
+  m_Size: {x: 42, y: 42}
 --- !u!95 &9525064
 Animator:
   serializedVersion: 3
@@ -850,14 +850,14 @@ MonoBehaviour:
   endOkToast: {fileID: 11482542}
   endFailToast: {fileID: 11413214}
   columns: 700000009c000000c8000000f4000000200100004c01000078010000a4010000d0010000fc010000280200005402000080020000ac020000d802000004030000300300005c03000088030000
-  rows: 84020000580200002c02000000020000d4010000a80100007c0100005001000024010000f8000000cc000000a00000007400000048000000
+  rows: 84020000580200002c02000000020000d4010000a80100007c0100005001000024010000f8000000cc000000a000000074000000
   rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
   diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
   groundTilePrefab: {fileID: 127976, guid: 1ca96e63dd385994d931526164f3b1c4, type: 2}
   cablePrefab: {fileID: 127976, guid: cea2cbff206580848b084e0e850d9d3f, type: 2}
   bombPrefab: {fileID: 0}
   AutoWin: 0
-  toastMessageTime: 1
+  toastMessageTime: 3
   drillSpeed: 80
   slideSpeed: 80
   diamondValue: 1
@@ -868,6 +868,7 @@ MonoBehaviour:
   drillStuckCooldown: 2
   animator: {fileID: 9525064}
   joystick: {fileID: 11421078}
+  myBody: {fileID: 5059338}
 --- !u!114 &11446804
 MonoBehaviour:
   m_ObjectHideFlags: 1
