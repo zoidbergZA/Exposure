@@ -13,7 +13,8 @@ public class Pylon : Connectable
 
     [SerializeField] private GameObject PlacerModel;
     [SerializeField] private GameObject BuiltModel;
-    private List<Pylon> Connections;
+    
+//    private List<Pylon> Connections;
 
     public States State { get; private set; }
 
@@ -21,17 +22,9 @@ public class Pylon : Connectable
     {
         base.Awake();
 
-        Connections = new List<Pylon>();
+//        Connections = new List<Pylon>();
         BuiltModel.SetActive(false);
 //        PlacerModel.SetActive(false); // commented for testing
-    }
-
-    public void AddConnection(Pylon other)
-    {
-        if (other.gameObject == this || Connections.Contains(other))
-            return;
-
-        Connections.Add(other);
     }
 
     public void Build()
