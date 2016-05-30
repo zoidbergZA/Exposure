@@ -995,11 +995,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scannableMesh: {fileID: 2307526}
-  flickPower: 50
   propsHolder: {fileID: 0}
   citiesHolder: {fileID: 0}
   globeTransform: {fileID: 417382}
-  inertia: 0.93
+  inertia: 0.884
   atmosphereLight: {fileID: 10804764}
   dirtyColor: {r: 0.53676474, g: 0.26043433, b: 0.110510394, a: 1}
   cleanColor: {r: 0, g: 0.95686275, b: 1, a: 1}

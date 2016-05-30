@@ -9,55 +9,41 @@ public class Director : MonoBehaviour
         Grid
     }
 
-    private Transform targetTransform;
-    [SerializeField] private Shaker shaker;
-    [SerializeField] private Vector3 lookAtOffset;
-    [SerializeField] private float orbitSpeed = 10f;
-    [SerializeField] private float orbitZoom = 1f;
-    [SerializeField] private float buildZoom = 0.8f;
+    public float buildHeight = 100f;
 
-    private float distance;
-//    private float currentZoom;
+    [SerializeField] private Shaker shaker;
+
+    private Vector3 orbitPosition;
+    private Quaternion orbitRotation;
+    private float orbitHeight;
+
+    //tweener values
     private Vector3 targetPosition;
+    private Quaternion targetRotation;
     private float targetFoV;
-    private float orbitTimer;
+
     public bool OrbitPaused { get; set; }
 
     public Modes Mode { get; private set; }
 
     void Awake()
     {
-        targetFoV = 40f;
+        orbitPosition = transform.position;
+        orbitRotation = transform.rotation;
+        targetFoV = Camera.main.fieldOfView;
+        targetPosition = transform.position;
+        targetRotation = transform.rotation;
     }
 
 	void Start ()
 	{
-	    targetTransform = GameManager.Instance.PlanetTransform;
-	    distance = Vector3.Distance(transform.position, targetTransform.position);
-        
-//	    currentZoom = orbitZoom;
-	}
+        orbitHeight = Vector3.Distance(transform.position, GameManager.Instance.PlanetTransform.position);
+    }
 	
 	void Update ()
-    {
-//	    switch (Mode)
-//	    {
-//	        case Modes.Orbit:
-//                if(!OrbitPaused) orbitTimer += Time.deltaTime;
-//                targetPosition = new Vector3(Mathf.Sin(orbitTimer*orbitSpeed) * distance, targetTransform.position.y, Mathf.Cos(orbitTimer * orbitSpeed) * distance);
-//                transform.LookAt(GameManager.Instance.PlanetTransform.position + Camera.main.transform.right * lookAtOffset.x);
-//                break;
-//
-//            case Modes.Grid:
-//                transform.LookAt(GameManager.Instance.PlanetTransform.position);
-//                break;
-//	    }
-//
-//	    transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);
+	{
+	    transform.position = targetPosition;
 	    Camera.main.fieldOfView = targetFoV;
-
-//        if (Input.GetKeyDown(KeyCode.S))
-//            shaker.Shake();
     }
 
     public void SetMode(Modes mode, Transform targetTransform, float delay = 2f)
@@ -73,17 +59,6 @@ public class Director : MonoBehaviour
         shaker.Shake();
     }
 
-    public void SetTarget(Transform target)
-    {
-        targetTransform = target;
-        targetPosition = targetTransform.position + targetTransform.up * distance;
-    }
-
-//    public void LookAt(Vector3 position)
-//    {
-//        Camera.main.transform.LookAt(position);
-//    }
-
     private IEnumerator DelayedStart(Modes newMode, Transform newTargetTransform, float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -91,31 +66,54 @@ public class Director : MonoBehaviour
         SwitchMode(newMode, newTargetTransform);
     }
 
-    private void SwitchMode(Modes newMode, Transform newTargetTransform)
+    private void SwitchMode(Modes newMode, Transform targetTransform)
     {
         Mode = newMode;
-        targetTransform = newTargetTransform;
 
         switch (Mode)
         {
             case Modes.Grid:
-//                Camera.main.orthographic = true;
-//                Camera.main.fieldOfView = 20f;
                 GameManager.Instance.Planet.IsSpinning = false;
-                targetPosition = targetTransform.position + targetTransform.up * distance;
-                LeanTween.value(gameObject, updateValueExampleCallback, targetFoV, 20f, 1.1f).setEase(LeanTweenType.easeInOutSine);
+
+                Vector3 newPos = targetTransform.position + targetTransform.up * buildHeight;
+                Quaternion newRot = Quaternion.LookRotation(targetTransform.position - newPos, Vector3.up);
+
+                SwoopTo(newPos, newRot, 20f, 2f);
                 break;
 
             case Modes.Orbit:
-                //Camera.main.orthographic = false;
-                //                Camera.main.fieldOfView = 40f;
                 GameManager.Instance.Planet.IsSpinning = true;
-                LeanTween.value(gameObject, updateValueExampleCallback, targetFoV, 40f, 1.1f).setEase(LeanTweenType.easeInOutSine);
+
+                SwoopTo(orbitPosition, orbitRotation, 40f, 2f);
                 break;
         }
     }
 
-    void updateValueExampleCallback(float val, float ratio)
+    public void SwoopTo(Vector3 position, Quaternion rotation, float fov, float time, float delay = 0f)
+    {
+        //todo: rotation lerp
+
+        //        Quaternion deltaQuaternion = Quaternion.Inverse(targetRotation) * transform.rotation;
+        //        float angle = 0;
+        //        Vector3 axis = Vector3.zero;
+        //
+        //        deltaQuaternion.ToAngleAxis(out angle, out axis);
+        //
+        //        Debug.Log(angle + ", " + axis);
+        //
+        //        LeanTween.rotateAround(gameObject, axis, angle, time);
+
+        transform.rotation = rotation;
+        LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time);
+        LeanTween.value(gameObject, updateFOVCallback, targetFoV, fov, time).setEase(LeanTweenType.easeInOutSine);
+    }
+
+    void updatePosCallback(Vector3 val)
+    {
+        targetPosition = val;
+    }
+
+    void updateFOVCallback(float val, float ratio)
     {
         targetFoV = val;
     }
