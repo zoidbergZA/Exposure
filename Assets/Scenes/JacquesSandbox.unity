@@ -191,6 +191,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: touchScreenInput
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
@@ -858,15 +862,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 53.960716
+      value: 53.958843
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -307.74646
+      value: -307.76135
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 101.32734
+      value: 101.32718
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1295,14 +1299,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 11435518, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1722534707}
-    - target: {fileID: 11430632, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
-      propertyPath: drillButton
-      value: 
-      objectReference: {fileID: 1348983316}
     - target: {fileID: 11430632, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: leftButton
       value: 
@@ -1315,15 +1311,13 @@ Prefab:
       propertyPath: downButton
       value: 
       objectReference: {fileID: 673522534}
+    - target: {fileID: 11435518, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1722534707}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1348983316 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11431180, guid: 2149e3b741f01744dbced709d3895f64,
-    type: 2}
-  m_PrefabInternal: {fileID: 2065773979}
-  m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1354661388
 Prefab:
   m_ObjectHideFlags: 0
@@ -1894,7 +1888,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 495444, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 107.30887
+      value: 112.8
       objectReference: {fileID: 0}
     - target: {fileID: 495444, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
       propertyPath: m_LocalPosition.y

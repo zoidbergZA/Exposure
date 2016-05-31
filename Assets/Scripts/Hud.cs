@@ -248,8 +248,8 @@ public class Hud : MonoBehaviour
             GUILayout.Label("round not started");
         }
 
-        //score
-        GUILayout.Label("score: " + GameManager.Instance.Player.Score + "/" + "100");
+//        //score
+//        GUILayout.Label("score: " + GameManager.Instance.Player.Score + "/" + "100");
     }
 
     void updateWobbleCallback(float val, float ratio)

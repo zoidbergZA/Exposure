@@ -1,0 +1,138 @@
+fileFormatVersion: 2
+guid: baee7fb1c29d62649bb8e56deb0c9425
+timeCreated: 1464683935
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Brick
+    100004: Bricks1
+    100006: Cilo3
+    100008: LargePipe8
+    100010: Pipes1
+    100012: polySurface1242
+    100014: polySurface1282
+    100016: Powerline7
+    100018: Powerpole3
+    100020: PumptDown1
+    100022: RoofPipes1
+    100024: smallPipes1
+    100026: Step_0
+    100028: Step_1
+    100030: Step_2
+    100032: Step_3
+    100034: Units6
+    400000: //RootNode
+    400002: Brick
+    400004: Bricks1
+    400006: Cilo3
+    400008: LargePipe8
+    400010: Pipes1
+    400012: polySurface1242
+    400014: polySurface1282
+    400016: Powerline7
+    400018: Powerpole3
+    400020: PumptDown1
+    400022: RoofPipes1
+    400024: smallPipes1
+    400026: Step_0
+    400028: Step_1
+    400030: Step_2
+    400032: Step_3
+    400034: Units6
+    2300000: Cilo3
+    2300002: polySurface1242
+    2300004: polySurface1282
+    2300006: Powerpole3
+    3300000: Cilo3
+    3300002: polySurface1242
+    3300004: polySurface1282
+    3300006: Powerpole3
+    4300000: Pipes1
+    4300002: Powerpole3
+    4300004: Cilo3
+    4300006: polySurface1242
+    4300008: Powerline7
+    4300010: Bricks1
+    4300012: polySurface1282
+    4300014: RoofPipes1
+    4300016: smallPipes1
+    4300018: PumptDown1
+    4300020: Units6
+    4300022: LargePipe8
+    7400000: Geotherminal
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Bricks1
+    13700002: LargePipe8
+    13700004: Pipes1
+    13700006: Powerline7
+    13700008: PumptDown1
+    13700010: RoofPipes1
+    13700012: smallPipes1
+    13700014: Units6
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 50
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
