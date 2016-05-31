@@ -49,17 +49,21 @@ public class Drillspot : Placable
 
     private void CompleteDrill()
     {
-        float rand = Random.Range(0f, 1f);
+        model.SetActive(false);
+        DrillState = DrillStates.Succeeded;
+        GameManager.Instance.Player.StartDrillMinigame(this, Difficulty);
 
-        if (rand < 1f)
-        {
-            DrillState = DrillStates.Succeeded;
-            GameManager.Instance.Player.StartDrillMinigame(this, Difficulty);
-        }
-        else
-        {
-            DrillState = DrillStates.Failed;
-            GetComponentInChildren<MeshRenderer>().material.color = Color.white;
-        }
+        //        float rand = Random.Range(0f, 1f);
+        //
+        //        if (rand < 1f)
+        //        {
+        //            DrillState = DrillStates.Succeeded;
+        //            GameManager.Instance.Player.StartDrillMinigame(this, Difficulty);
+        //        }
+        //        else
+        //        {
+        //            DrillState = DrillStates.Failed;
+        //            GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+        //        }
     }
 }

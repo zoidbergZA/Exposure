@@ -13,6 +13,7 @@ public class Chimney : MonoBehaviour
     [SerializeField] private Animation chimneyAnimation;
     [SerializeField] private Texture2D demolishIcon;
     [SerializeField] private ParticleSystem smokeSystem;
+    [SerializeField] private ParticleSystem explodeSystem;
     [SerializeField] private MeshRenderer unusedModel;
 
     public ChimneyStates ChimneyState { get; private set; }
@@ -45,6 +46,7 @@ public class Chimney : MonoBehaviour
         ChimneyState = ChimneyStates.Exploded;
         unusedModel.enabled = false;
 
+        explodeSystem.Play();
         chimneyAnimation.Play();
         GameManager.Instance.Player.ScorePoints(10, transform);
         GameManager.Instance.Director.Shake();
