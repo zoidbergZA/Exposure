@@ -51,7 +51,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &119316
 GameObject:
@@ -1075,7 +1075,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127250}
   serializedVersion: 2
-  lengthInSec: 7
+  lengthInSec: 5
   startDelay:
     scalar: 0
     maxCurve:
@@ -1116,13 +1116,13 @@ ParticleSystem:
   looping: 1
   prewarm: 0
   playOnAwake: 1
-  moveWithTransform: 1
+  moveWithTransform: 0
   scalingMode: 1
   InitialModule:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 8.25
+      scalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1286,7 +1286,7 @@ ParticleSystem:
         rgba: 4282542219
       minMaxState: 0
     startSize:
-      scalar: 27.57
+      scalar: 10
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1302,7 +1302,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 0.3627131
+          value: 0.3
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1434,7 +1434,7 @@ ParticleSystem:
     serializedVersion: 2
     m_Type: 0
     rate:
-      scalar: 6.7
+      scalar: 10
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1484,12 +1484,12 @@ ParticleSystem:
   SizeModule:
     enabled: 1
     curve:
-      scalar: 1
+      scalar: 7
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 0.36486483
+          value: 0.4
           inSlope: 2
           outSlope: 2
           tangentMode: 0

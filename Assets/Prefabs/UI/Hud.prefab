@@ -414,7 +414,7 @@ MonoBehaviour:
   cablePanel: {fileID: 163702}
   cableText: {fileID: 11472894}
   gameOverPanel: {fileID: 120254}
-  drillButton: {fileID: 0}
+  upButton: {fileID: 0}
   leftButton: {fileID: 0}
   rightButton: {fileID: 0}
   downButton: {fileID: 0}

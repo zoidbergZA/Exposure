@@ -4,6 +4,7 @@ using System.Collections;
 public abstract class Connectable : Placable
 {
     public Transform connectionRef;
+//    [SerializeField] private GameObject PipeModel;
 
     [SerializeField] private Texture2D connectIcon;
 
@@ -17,6 +18,24 @@ public abstract class Connectable : Placable
     {
         IsConnectable = false;
         Highlight(false);
+    }
+
+    public void AddConnection(Connectable other)
+    {
+        float dist = Vector3.Distance(connectionRef.position, other.connectionRef.position);
+        Debug.Log(dist);
+
+        GameObject pipeModel = Instantiate(GameManager.Instance.PipePrefab);
+
+        pipeModel.transform.SetParent(transform);
+        pipeModel.transform.localScale = new Vector3(1, 1, dist*0.5f);
+        pipeModel.transform.position = connectionRef.position;
+        pipeModel.transform.LookAt(other.connectionRef);
+
+        //        if (other.gameObject == this || Connections.Contains(other))
+        //            return;
+        //
+        //        Connections.Add(other);
     }
 
     private void ClickCallback()

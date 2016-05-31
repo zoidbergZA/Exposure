@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class Hud : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private GameObject cablePanel;
     [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private UnityEngine.UI.Button drillButton;
+    [SerializeField] private UnityEngine.UI.Button upButton;
     [SerializeField] private UnityEngine.UI.Button leftButton;
     [SerializeField] private UnityEngine.UI.Button rightButton;
     [SerializeField] private UnityEngine.UI.Button downButton;
@@ -22,12 +23,15 @@ public class Hud : MonoBehaviour
     private int wobblerTweenId;
     private int scorePanelTweenId;
     private int cablePanelTweenId;
+    private float joystickX, joystickY = 0;
 
     public float WobbleValue { get; private set; }
-    public UnityEngine.UI.Button DrillButton { get { return drillButton; } }
+    public UnityEngine.UI.Button DrillButton { get { return upButton; } }
     public UnityEngine.UI.Button LeftButton { get { return leftButton; } }
     public UnityEngine.UI.Button RightButton { get { return rightButton; } }
     public UnityEngine.UI.Button DownButton { get { return downButton; } }
+    public float JoystickX { get { return joystickX; } set { joystickX = value; } }
+    public float JoystickY { get { return joystickY; } set { joystickY = value; } }
 
     void Awake()
     {
@@ -39,15 +43,13 @@ public class Hud : MonoBehaviour
     {
         scoreText.text = GameManager.Instance.Player.Score.ToString();
         cableText.text = GameManager.Instance.Player.Cable + "x";
-        updateMiniGameButtons();
+        //updateMiniGameButtons();
+        updateJoystick();
     }
 
     void OnGUI()
     {
-//        ShowScanButton();
         ShowDebug();
-        //ShowDrillButton();
-        //ShowSteerButtons();
     }
 
     public void GoToGameOver()
@@ -98,75 +100,144 @@ public class Hud : MonoBehaviour
         }
     }
 
-    private void updateMiniGameButtons()
+    private void updateJoystick()
     {
-        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING) drillButton.gameObject.SetActive(true);
-        else drillButton.gameObject.SetActive(false);
-
         if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
-            leftButton.gameObject.SetActive(true);
-            rightButton.gameObject.SetActive(true);
-            downButton.gameObject.SetActive(true);
+            if (joystickX >= 0.707f)
+            {
+                //right
+                if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.RIGHT)
+                {
+                    GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+                }
+                GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.RIGHT;
+            }
+            else if (joystickX <= -0.707)
+            {
+                //left
+                if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.LEFT)
+                {
+                    GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+                }
+                GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.LEFT;
+            }
+            else
+            {
+                if (joystickY >= 0.707f)
+                {
+                    //up
+                    if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.UP)
+                    {
+                        GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+                    }
+                    GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.UP;
+                }
+                else if (joystickY <= -0.707f)
+                {
+                    //down
+                    if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.DOWN)
+                    {
+                        GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+                    }
+                    GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.DOWN;
+                }
+            }
+        }
+        else if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
+        {
+            if (joystickY < -0.707f)
+            {
+                GameManager.Instance.DrillingGame.MakeDrill(true);
+                GameManager.Instance.DrillingGame.Animator.SetBool("shouldJump", true);
+            }
+        }
+    }
+
+    private void updateMiniGameButtons()
+    {
+        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
+        {
+            leftButton.interactable = false;
+            rightButton.interactable = false;
+            downButton.interactable = true;
+            upButton.interactable = false;
         }
         else
         {
-            leftButton.gameObject.SetActive(false);
-            rightButton.gameObject.SetActive(false);
-            downButton.gameObject.SetActive(false);
+            switch(GameManager.Instance.DrillingGame.DrillDirection)
+            {
+                case DrillingGame.DrillingDirection.DOWN:
+                    leftButton.interactable = true;
+                    rightButton.interactable = true;
+                    downButton.interactable = true;
+                    upButton.interactable = false;
+                    break;
+                case DrillingGame.DrillingDirection.UP:
+                    leftButton.interactable = true;
+                    rightButton.interactable = true;
+                    downButton.interactable = false;
+                    upButton.interactable = true;
+                    break;
+                case DrillingGame.DrillingDirection.LEFT:
+                    leftButton.interactable = true;
+                    rightButton.interactable = false;
+                    downButton.interactable = true;
+                    upButton.interactable = true;
+                    break;
+                case DrillingGame.DrillingDirection.RIGHT:
+                    leftButton.interactable = false;
+                    rightButton.interactable = true;
+                    downButton.interactable = true;
+                    upButton.interactable = true;
+                    break;
+            }
         }
     }
-
-    public void HandleDrillButton()
-    {
-        GameManager.Instance.DrillingGame.SetMakeDrill(true);
-        GameManager.Instance.DrillingGame.Animator.SetBool("shouldJump", true);
-        Debug.Log("drill button clicked!");
-    }
-
+    
     public void HandleLeftButton()
     {
-        GameManager.Instance.DrillingGame.MoveLeft();
-        Debug.Log("left button clicked!");
+        if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.LEFT)
+        {
+            GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+        }
+        GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.LEFT;
     }
 
     public void HandleRightButton()
     {
-        GameManager.Instance.DrillingGame.MoveRight();
-        Debug.Log("right button clicked!");
+        if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.RIGHT)
+        {
+            GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+        }
+        GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.RIGHT;
+    }
+
+    public void HandleUpButton()
+    {
+        if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.UP)
+        {
+            GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+        }
+        GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.UP;
     }
 
     public void HandleDownButton()
     {
-        if (GameManager.Instance.DrillingGame.MovingRight)
+        if(GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
         {
-            GameManager.Instance.DrillingGame.MovingRight = false;
-            GameManager.Instance.DrillingGame.WasMovingRight = true;
+            GameManager.Instance.DrillingGame.MakeDrill(true);
+            GameManager.Instance.DrillingGame.Animator.SetBool("shouldJump", true);
         }
-        else GameManager.Instance.DrillingGame.WasMovingRight = false;
-        if (GameManager.Instance.DrillingGame.MovingLeft)
+        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
-            GameManager.Instance.DrillingGame.MovingLeft = false;
-            GameManager.Instance.DrillingGame.WasMovingLeft = true;
+            if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.DOWN)
+            {
+                GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+            }
+            GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.DOWN;
         }
-        else GameManager.Instance.DrillingGame.WasMovingLeft = false;
-        Debug.Log("down button clicked!");
     }
-
-//    private void ShowScanButton()
-//    {
-//        if (GameManager.Instance.Scanner.IsReady && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
-//        {
-//            if (GUI.Button(new Rect(Screen.width - 65, Screen.height - buttonSize - 10, buttonSize, buttonSize), "scan"))
-//            {
-//                GameManager.Instance.Scanner.Scan();
-//            }
-//        }
-//        else
-//        {
-//            GUI.Label(new Rect(Screen.width - 65, Screen.height - buttonSize - 10, buttonSize, buttonSize), GameManager.Instance.Scanner.Cooldown.ToString("F2"));
-//        }
-//    }
 
     private void ShowDebug()
     {

@@ -70,19 +70,23 @@ public class GridBuilder : Minigame
     {
         GameManager.Instance.Player.ConsumeCable(1);
         ConnectedList.Add(connectable);
-        StartPlant.SpanToPoint(connectable.connectionRef.position);
-        GameManager.Instance.Director.SetTarget(connectable.transform);
+//        StartPlant.SpanToPoint(connectable.connectionRef.position);
 
-        //check completetion conditions
+        if (ConnectedList.Count == 1)
+        {
+            connectable.AddConnection(StartPlant);
+        }
+        if (ConnectedList.Count > 1)
+        {
+            ConnectedList[ConnectedList.Count - 1].AddConnection(ConnectedList[ConnectedList.Count - 2]);
+        }
 
-//        if (connectable is Pylon)
-//        {
-//            if (PoweredPylons.Contains((Pylon) connectable))
-//            {
-//                FinalizeGridConnection(true);
-//                return;
-//            }
-//        }
+        //todo: director jumpto()
+        //        GameManager.Instance.Director.SetTarget(connectable.transform);
+        Vector3 newPos = connectable.transform.position + connectable.transform.up * GameManager.Instance.Director.buildHeight;
+        Quaternion newRot = Quaternion.LookRotation(connectable.transform.position - newPos, Vector3.up);
+
+        GameManager.Instance.Director.SwoopTo(newPos, newRot, 20f, 2f);
 
         if (connectable is City)
         {
@@ -109,7 +113,7 @@ public class GridBuilder : Minigame
         {
 //            Debug.Log("connection made! pylons used: " + ConnectedList.Count + "/" + maxPylons + ", time used: " + Timeleft + "/" + TimeOut);
             ConnectionFinalized = true;
-            StartPlant.ShowPathGuide(false);
+//            StartPlant.ShowPathGuide(false);
 
             for (int i = 0; i < ConnectedList.Count; i++)
             {
@@ -223,6 +227,7 @@ public class GridBuilder : Minigame
                 if (open && sample.g >= 0.1f)
                 {
                     Pylon pylon = (Pylon) Instantiate(pylonPrefab, hit.point, location.rotation);
+                    pylon.transform.SetParent(GameManager.Instance.PlanetTransform);
                     Pylons.Add(pylon);
                     
                     pylon.transform.up = hit.normal;

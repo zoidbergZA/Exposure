@@ -1,43 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GeoThermalPlant : Powerplant
+public class GeoThermalPlant : Connectable
 {
-    private LineRenderer cableRenderer;
-    private int spanIndex = 1; 
-
-    public override void Awake()
+    public override void CheckConnectable(Vector3 location)
     {
-        base.Awake();
-        
-        InitCableRenderer();
+        IsConnectable = false;
     }
 
-    public override void Start()
+    public override void Highlight(bool hightlight)
     {
-        base.Start();
+//        throw new System.NotImplementedException();
     }
 
-    public void SpanToPoint(Vector3 point)
+    public override void OnConnected()
     {
-        for (int i = spanIndex; i < 10; i++)
-        {
-            powerLineRenderer.SetPosition(i, point);
-        }
-
-//        powerLineRenderer.SetPosition(spanIndex, point);
-        spanIndex++;
-    }
-
-    public void InitCableRenderer()
-    {
-        Vector3[] positions = new Vector3[10];
-        for (int i = 0; i < positions.Length; i++)
-        {
-            positions[i] = transform.position;
-        }
-
-        powerLineRenderer.SetPositions(positions);
-        spanIndex = 1;
+//        throw new System.NotImplementedException();
     }
 }

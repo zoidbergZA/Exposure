@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
         BuildGrid
     }
 
+    public float flickPower = 1f;
+
     [SerializeField] private int startingCable = 3;
     [SerializeField] private LayerMask drillRayMask;
     [SerializeField] private LayerMask buildRayMask;
@@ -36,19 +38,26 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             CollectCable(1);
-        if (Input.GetKeyDown(KeyCode.F2)) // jump to drilling game
+        if (Input.GetKeyDown(KeyCode.F2) && GameManager.Instance.Player.PlayerState == PlayerStates.Normal) // jump to drilling game
         {
             Drillspot d = Instantiate(DrillspotPrefab, Vector3.zero, Quaternion.identity) as Drillspot;
-            StartDrillMinigame(d, 1f);
+            StartDrillMinigame(d, 0f);
         }
 
         switch (PlayerState)
         {
             case PlayerStates.Normal:
-//                HandleNormalState();
+                HandleNormalState();
                 break;
         }
     }
+
+//    void OnGUI()
+//    {
+//        flickPower = GUI.HorizontalSlider(new Rect(125, 155, 500, 60), flickPower, 0.2F, 9.0F);
+//
+//        GUI.Label(new Rect(630, 155, 60, 80), flickPower.ToString());
+//    }
 
     public void CollectCable(int amount)
     {
@@ -96,18 +105,36 @@ public class Player : MonoBehaviour
 
     private void HandleNormalState()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+        HandleFlick();
+    }
 
-            if (Physics.Raycast(ray, out hit, drillRayMask))
+    private void HandleFlick()
+    {
+        if (Input.touchCount == 1)
+        {
+            if (Input.touches[0].phase == TouchPhase.Moved)
             {
-                Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-                Drill(hit.point, hit.normal, 1f - sample.r);
+                float deltaX = Input.touches[0].deltaPosition.x;
+
+                GameManager.Instance.Planet.AddSpin(-deltaX * flickPower);
             }
         }
     }
+
+//    private void HandleNormalState()
+//    {
+//        if (Input.GetMouseButtonDown(0))
+//        {
+//            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+//            RaycastHit hit;
+//
+//            if (Physics.Raycast(ray, out hit, drillRayMask))
+//            {
+//                Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
+//                Drill(hit.point, hit.normal, 1f - sample.r);
+//            }
+//        }
+//    }
 
     private Pylon GetClosestPylon(Vector3 location)
     {
@@ -131,6 +158,7 @@ public class Player : MonoBehaviour
     public void Drill(Vector3 location, Vector3 normal, float difficulty)
     {
         Drillspot drillspot = Instantiate(DrillspotPrefab, location, Quaternion.identity) as Drillspot;
+        drillspot.transform.SetParent(GameManager.Instance.PlanetTransform);
         drillspot.Orientate(normal);
         drillspot.Difficulty = difficulty;
     }

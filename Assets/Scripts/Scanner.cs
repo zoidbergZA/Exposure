@@ -8,6 +8,7 @@ public class Scanner : MonoBehaviour
     [SerializeField] private float minScanDistance = 150f;
     [SerializeField] private float focusTime = 2f;
     [SerializeField] private Texture2D touchIcon;
+    [SerializeField] private Texture2D progressIcon;
     [SerializeField] private Texture2D centerIcon;
 //    [SerializeField] private LayerMask scanRayMask;
     
@@ -21,18 +22,23 @@ public class Scanner : MonoBehaviour
     private Vector3 center { get { return startPoint + ((endPoint - startPoint) / 2f); } }
     private Vector3 forwardDirection;
     private float lastStartScanAt;
-//    private float focusTimer;
+    private float focusTimer;
 
     public bool IsScanning { get; private set; }
 
-    public float ScanProgress
+    public float Progress
     {
-        get
-        {
-            float fraction = 1f - (Vector3.Distance(startPoint, endPoint) - minScanDistance) / maxScanDistance;
-            return Mathf.Clamp01(fraction);
-        }
+        get { return 1f - focusTimer/focusTime; }
     }
+
+//    public float ScanProgress
+//    {
+//        get
+//        {
+//            float fraction = 1f - (Vector3.Distance(startPoint, endPoint) - minScanDistance) / maxScanDistance;
+//            return Mathf.Clamp01(fraction);
+//        }
+//    }
     
     void Start()
     {
@@ -60,16 +66,20 @@ public class Scanner : MonoBehaviour
             //draw scanning debug
             GUI.Label(new Rect(startPoint.x - 25f, Screen.height - startPoint.y - 25f, 50f, 50f), touchIcon);
             GUI.Label(new Rect(endPoint.x - 25f, Screen.height - endPoint.y - 25f, 50f, 50f), touchIcon);
-            GUI.Label(new Rect(center.x - 25f, Screen.height - center.y - 25f, 50f, 50f), centerIcon);
+//            GUI.Label(new Rect(center.x - 25f, Screen.height - center.y - 25f, 50f, 50f), centerIcon);
+            GUI.Label(CenteredRect(new Rect(center.x, center.y, 270f, 270f)), centerIcon);
 
             string progress = "";
 
             if (isOnHotspot)
-                progress = ((int) (ScanProgress*100f)).ToString();
-            
-            GUI.Label(new Rect(center.x + 25f, Screen.height - center.y - 25f, 50f, 50f), progress + "%");
+            {
+                GUI.Label(CenteredRect(new Rect(center.x, center.y, 240f, 240f)), progressIcon);
 
-            GuiHelper.DrawLine(new Vector2(startPoint.x, Screen.height - startPoint.y), new Vector2(endPoint.x, Screen.height - endPoint.y), Color.grey, 1);
+                progress = ((Progress*100f)).ToString("F0");
+            }
+            GUI.Label(new Rect(center.x, Screen.height - center.y + 80f, 50f, 50f), progress + "%");
+
+//            GuiHelper.DrawLine(new Vector2(startPoint.x, Screen.height - startPoint.y), new Vector2(endPoint.x, Screen.height - endPoint.y), Color.grey, 1);
 
             //            //max distance etension icon
             //            Vector3 scanlineDirection = (endPoint - startPoint).normalized;
@@ -93,8 +103,8 @@ public class Scanner : MonoBehaviour
 
         IsScanning = true;
         lastStartScanAt = Time.time;
-//        focusTimer = focusTime;
-        GameManager.Instance.Director.OrbitPaused = true;
+        focusTimer = focusTime;
+//        GameManager.Instance.Director.OrbitPaused = true;
     }
 
     public void EndScan()
@@ -102,7 +112,19 @@ public class Scanner : MonoBehaviour
         IsScanning = false;
         radius = 0;
         isOnHotspot = false;
-        GameManager.Instance.Director.OrbitPaused = false;
+//        GameManager.Instance.Director.OrbitPaused = false;
+    }
+
+    private Rect CenteredRect(Rect rect)
+    {
+        Rect output = new Rect(
+                rect.x - rect.width/2f, 
+                Screen.height - rect.y - rect.height/2f,
+                rect.width,
+                rect.height
+            );
+
+        return output;
     }
 
     private void DrawTouchInfo(Touch touch)
@@ -171,7 +193,7 @@ public class Scanner : MonoBehaviour
             EndScan();
             return;
         }
-
+        
         //update scan points
         {
             if (GameManager.Instance.TouchInput)
@@ -191,14 +213,18 @@ public class Scanner : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(center);
         RaycastHit hit;
 //        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.yellow);
-        float scanDelta = Vector3.Distance(startPoint, endPoint);
-        
-        radius = Mathf.Clamp(scanDelta*0.12f, 17f, 26f);
+//        float scanDelta = Vector3.Distance(startPoint, endPoint);
+//
+////        radius = Mathf.Clamp(scanDelta*0.12f, 17f, 26f);
+//        radius = Mathf.Clamp(scanDelta * 0.12f, 23f, 23f);
 
         float sample = 0f;
 
         if (Physics.Raycast(ray, out hit))
         {
+            float scanDelta = Vector3.Distance(hit.point, Camera.main.transform.position);
+            radius = Mathf.Clamp(scanDelta * 0.161f, 0f, 100f);
+
             sample = GameManager.Instance.SampleHeatmap(hit.textureCoord).r;
 
             if (sample >= 0.2f)
@@ -206,19 +232,22 @@ public class Scanner : MonoBehaviour
             else
                 isOnHotspot = false;
 
+//            if (isOnHotspot)
+//                Debug.Log(Progress + "  " + Time.time);
+
             material.SetVector("_CenterPoint", new Vector4(hit.point.x, hit.point.y, hit.point.z, 0));
 
-            if (isOnHotspot && ScanProgress >= 0.99f && Time.time >= lastStartScanAt + 2f)
+            if (isOnHotspot && Progress >= 0.99f && Time.time >= lastStartScanAt + 2f)
             {
 //                Debug.Log("scan succeeded");
                 ScanSucceeded(sample, hit.point, hit.normal);
             }
         }
 
-//        if (sample >= 0.2f)
-//            focusTimer -= Time.deltaTime;
-//        else
-//            focusTimer = focusTime;
+        if (sample >= 0.2f)
+            focusTimer -= Time.deltaTime;
+        else
+            focusTimer = focusTime;
     }
 
     private void ScanSucceeded(float sample, Vector3 location, Vector3 normal)

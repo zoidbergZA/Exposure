@@ -29,7 +29,7 @@ public class Drillspot : Placable
     {
         base.Start();
 
-        GameManager.Instance.EffectsManager.Play(0, transform.position, transform.rotation);
+        //GameManager.Instance.EffectsManager.Play(0, transform.position, transform.rotation);
     }
 
     public override void Update()
@@ -49,9 +49,6 @@ public class Drillspot : Placable
 
     private void CompleteDrill()
     {
-//        //todo: check UV map if drill will succeed
-//        float difficulty = 0.5f;
-
         float rand = Random.Range(0f, 1f);
 
         if (rand < 1f)
