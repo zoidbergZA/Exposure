@@ -4,14 +4,15 @@ using System.Collections;
 
 public class Scanner : MonoBehaviour
 {
+    public float maxRadius = 100f;
+
     [SerializeField] private float maxScanDistance = 250f;
     [SerializeField] private float minScanDistance = 150f;
     [SerializeField] private float focusTime = 2f;
     [SerializeField] private Texture2D touchIcon;
     [SerializeField] private Texture2D progressIcon;
     [SerializeField] private Texture2D centerIcon;
-//    [SerializeField] private LayerMask scanRayMask;
-    
+
     private Material material;
     private Renderer renderer;
     private float radius;
@@ -61,19 +62,23 @@ public class Scanner : MonoBehaviour
 
     void OnGUI()
     {
+//            maxRadius = GUI.HorizontalSlider(new Rect(125, 220, 500, 60), maxRadius, 2F, 100.0F);
+//        
+//            GUI.Label(new Rect(630, 220, 60, 80), maxRadius.ToString());
+
         if (IsScanning)
         {
             //draw scanning debug
             GUI.Label(new Rect(startPoint.x - 25f, Screen.height - startPoint.y - 25f, 50f, 50f), touchIcon);
             GUI.Label(new Rect(endPoint.x - 25f, Screen.height - endPoint.y - 25f, 50f, 50f), touchIcon);
 //            GUI.Label(new Rect(center.x - 25f, Screen.height - center.y - 25f, 50f, 50f), centerIcon);
-            GUI.Label(CenteredRect(new Rect(center.x, center.y, 270f, 270f)), centerIcon);
+            GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, 270f, 270f)), centerIcon);
 
             string progress = "";
 
             if (isOnHotspot)
             {
-                GUI.Label(CenteredRect(new Rect(center.x, center.y, 240f, 240f)), progressIcon);
+                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, 240f, 240f)), progressIcon);
 
                 progress = ((Progress*100f)).ToString("F0");
             }
@@ -113,18 +118,6 @@ public class Scanner : MonoBehaviour
         radius = 0;
         isOnHotspot = false;
 //        GameManager.Instance.Director.OrbitPaused = false;
-    }
-
-    private Rect CenteredRect(Rect rect)
-    {
-        Rect output = new Rect(
-                rect.x - rect.width/2f, 
-                Screen.height - rect.y - rect.height/2f,
-                rect.width,
-                rect.height
-            );
-
-        return output;
     }
 
     private void DrawTouchInfo(Touch touch)
@@ -223,7 +216,7 @@ public class Scanner : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             float scanDelta = Vector3.Distance(hit.point, Camera.main.transform.position);
-            radius = Mathf.Clamp(scanDelta * 0.161f, 0f, 100f);
+            radius = Mathf.Clamp(scanDelta * 0.161f, 0f, maxRadius);
 
             sample = GameManager.Instance.SampleHeatmap(hit.textureCoord).r;
 

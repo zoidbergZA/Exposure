@@ -52,6 +52,18 @@ public class Hud : MonoBehaviour
         ShowDebug();
     }
 
+    public Rect CenteredRect(Rect rect)
+    {
+        Rect output = new Rect(
+                rect.x - rect.width / 2f,
+                Screen.height - rect.y - rect.height / 2f,
+                rect.width,
+                rect.height
+            );
+
+        return output;
+    }
+
     public void GoToGameOver()
     {
         gameOverPanel.SetActive(true);
@@ -92,12 +104,17 @@ public class Hud : MonoBehaviour
 
     public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callback)
     {
-        float wobbleValue = WobbleValue * 10f;
+        float wobbleValue = WobbleValue * 13f;
 
-        if (GUI.Button(new Rect(position.x - 20 - wobbleValue / 2, Screen.height - position.y - 20 - wobbleValue / 2, 40 + wobbleValue, 40 + wobbleValue), icon, ""))
+        if (GUI.Button(CenteredRect(new Rect(position.x, position.y, 70 + wobbleValue, 70 + wobbleValue)), icon, ""))
         {
             callback();
         }
+
+        //        if (GUI.Button(new Rect(position.x - 20 - wobbleValue / 2, Screen.height - position.y - 20 - wobbleValue / 2, 40 + wobbleValue, 40 + wobbleValue), icon, ""))
+        //        {
+        //            callback();
+        //        }
     }
 
     private void updateJoystick()
