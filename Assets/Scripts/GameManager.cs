@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -24,13 +25,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-//    public GameObject PylonsHolder;
-    
+    //global prefabs
+    public GameObject PipePrefab;
+
+    public TextAsset puzzle1;
+    //    public GameObject PylonsHolder;
+
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
     
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Planet Planet { get; private set; }
+    public EffectsManager EffectsManager {get; private set; }
     public GridBuilder GridBuilder { get; private set; }
     public DrillingGame DrillingGame { get; private set; }
     public Scanner Scanner { get; private set; }
@@ -46,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        EffectsManager = FindObjectOfType<EffectsManager>();
         Planet = FindObjectOfType<Planet>();
         GridBuilder = FindObjectOfType<GridBuilder>();
         DrillingGame = FindObjectOfType<DrillingGame>();
@@ -64,6 +71,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        int[] puzzle = LoadDrillingPuzzle(puzzle1);
+        
         StartRound();
     }
 
@@ -72,6 +81,8 @@ public class GameManager : MonoBehaviour
         //temp
         if (Input.GetKeyDown(KeyCode.F2))
             TouchInput = !TouchInput;
+        if (Input.GetKeyDown(KeyCode.F3))
+            Instance.Planet.DisableNextChimney();
         //temp
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -101,6 +112,28 @@ public class GameManager : MonoBehaviour
         Color heatmapSample = heatmap.GetPixel((int)pixelCoord.x, (int)pixelCoord.y);
 
         return heatmapSample;
+    }
+
+    private int[] LoadDrillingPuzzle(TextAsset map)
+    {
+        string[,] grid = CSVReader.SplitCsvGrid(map.text);
+        List<int> tiles = new List<int>();
+
+//        CSVReader.DebugOutputGrid(grid);
+        
+        for (int y = 0; y < grid.GetUpperBound(1); y++)
+        {
+            for (int x = 0; x < grid.GetUpperBound(0); x++)
+            {
+                int tile;
+                if (int.TryParse(grid[x, y], out tile))
+                {
+                    tiles.Add(tile); 
+                }
+            }
+        }
+        
+        return tiles.ToArray();
     }
 
     private void StartRound()

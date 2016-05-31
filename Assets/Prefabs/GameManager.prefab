@@ -39,8 +39,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 301c5c26863e4a8418f28783a960b187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PipePrefab: {fileID: 168552, guid: ac141081240eb3d48bc7456d887754ee, type: 2}
+  puzzle1: {fileID: 4900000, guid: 762e5389f81392143b6f282aa3df3729, type: 3}
   roundTime: 180
-  touchScreenInput: 1
+  touchScreenInput: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
