@@ -28,10 +28,7 @@ public class Scanner : MonoBehaviour
         {
             Vector3 scanpoint = startPoint + ((endPoint - startPoint)/2f);
             Vector3 center = new Vector3(Screen.width/2f, Screen.height/2f);
-            Vector3 output = Vector3.ClampMagnitude(scanpoint - center, 160f) + center;
-
-
-//            Debug.Log(Vector3.Distance(output, center));
+            Vector3 output = Vector3.ClampMagnitude(scanpoint - center, limiter) + center;
 
             return output;
         }
@@ -68,9 +65,14 @@ public class Scanner : MonoBehaviour
 
     void OnGUI()
     {
-//            maxRadius = GUI.HorizontalSlider(new Rect(125, 220, 500, 60), maxRadius, 2F, 100.0F);
-//        
-//            GUI.Label(new Rect(630, 220, 60, 80), maxRadius.ToString());
+        //            maxRadius = GUI.HorizontalSlider(new Rect(125, 220, 500, 60), maxRadius, 2F, 100.0F);
+        //        
+        //            GUI.Label(new Rect(630, 220, 60, 80), maxRadius.ToString());
+
+
+//        limiter = GUI.HorizontalSlider(new Rect(125, 220, 500, 60), limiter, 50.0F, 400.0F);
+//                
+//        GUI.Label(new Rect(630, 220, 60, 80), limiter.ToString());
 
         if (IsScanning)
         {
