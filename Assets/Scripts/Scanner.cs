@@ -11,7 +11,8 @@ public class Scanner : MonoBehaviour
     [SerializeField] private float minScanDistance = 150f;
     [SerializeField] private float focusTime = 2f;
     [SerializeField] private Texture2D touchIcon;
-    [SerializeField] private Texture2D progressIcon;
+    [SerializeField] private Texture2D goodIcon;
+    [SerializeField] private Texture2D progresIcon;
     [SerializeField] private Texture2D centerIcon;
 
     private Material material;
@@ -80,16 +81,19 @@ public class Scanner : MonoBehaviour
             GUI.Label(new Rect(startPoint.x - 25f, Screen.height - startPoint.y - 25f, 50f, 50f), touchIcon);
             GUI.Label(new Rect(endPoint.x - 25f, Screen.height - endPoint.y - 25f, 50f, 50f), touchIcon);
             GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, 270f, 270f)), centerIcon);
-
+            
             string progress = "";
 
             if (isOnHotspot)
             {
-                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, 240f, 240f)), progressIcon);
+                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, 240f, 240f)), goodIcon);
 
-                progress = ((Progress*100f)).ToString("F0");
+//                progress = ((Progress*100f)).ToString("F0");
+
+                float size = (1f -Progress) * 200f;
+                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, size, size)), progresIcon);
             }
-            GUI.Label(new Rect(center.x, Screen.height - center.y + 80f, 50f, 50f), progress + "%");
+//            GUI.Label(new Rect(center.x, Screen.height - center.y + 80f, 50f, 50f), progress + "%");
             }
     }
 
