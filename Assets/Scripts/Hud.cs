@@ -9,6 +9,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private FloatingText floatingTextPrefab;
     [SerializeField] private Canvas hudCanvas;
     [SerializeField] private GameObject scorePanel;
+    [SerializeField] private Text timeText;
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject cablePanel;
     [SerializeField] private Text cableText;
@@ -41,15 +42,17 @@ public class Hud : MonoBehaviour
 
     void Update()
     {
+        timeText.text = GameManager.Instance.TimeLeft.ToString("F2");
         scoreText.text = GameManager.Instance.Player.Score.ToString();
-        cableText.text = GameManager.Instance.Player.Cable + "x";
+//        cableText.text = GameManager.Instance.Player.Cable + "x";
+        
         //updateMiniGameButtons();
         updateJoystick();
     }
 
     void OnGUI()
     {
-        ShowDebug();
+//        ShowDebug();
     }
 
     public Rect CenteredRect(Rect rect)
