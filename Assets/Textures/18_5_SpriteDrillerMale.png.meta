@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 64ba6edcb890e3340acac0d71fc5e902
-timeCreated: 1463948777
+timeCreated: 1464692155
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -76,7 +76,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -12, y: 29.5}
@@ -95,7 +95,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -13, y: 31.5}
@@ -117,7 +117,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -19, y: 28.5}
@@ -136,7 +136,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -17, y: 31.5}
@@ -159,7 +159,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -30, y: -4.5}
@@ -189,7 +189,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -24, y: 15.5}
@@ -216,7 +216,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: 8, y: -30.5}
@@ -245,7 +245,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: 31, y: 17.5}
@@ -270,7 +270,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: 29, y: -17.5}
@@ -300,7 +300,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -14, y: 31.5}
@@ -318,7 +318,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: 16, y: 30.5}
@@ -349,7 +349,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -21, y: 31.5}
@@ -371,7 +371,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: 25, y: 26.5}
@@ -392,7 +392,7 @@ TextureImporter:
         width: 61.2
         height: 61.5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -31, y: -8.5}
@@ -405,89 +405,89 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1.5
-        width: 61.2
-        height: 61.5
+        y: 0
+        width: 61
+        height: 62
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 31, y: -4.5}
-        - {x: 31, y: 7.5}
-        - {x: 28, y: 6.5}
-        - {x: 28, y: 3.5}
-        - {x: 27, y: 17.5}
-        - {x: 10, y: 31.5}
-        - {x: -11, y: 31.5}
-        - {x: -31, y: 7.5}
-        - {x: -31, y: -20.5}
-        - {x: -30, y: -21.5}
-        - {x: -14, y: -25.5}
-        - {x: -9, y: -20.5}
-        - {x: -8, y: -25.5}
-        - {x: -6, y: -30.5}
-        - {x: 8, y: -30.5}
-        - {x: 30, y: -18.5}
-        - {x: 30, y: -14.5}
-        - {x: 26, y: -10.5}
+      - - {x: -11.5, y: 31}
+        - {x: -30.5, y: 9}
+        - {x: -30.5, y: -18}
+        - {x: -29.5, y: -20}
+        - {x: -17.5, y: -25}
+        - {x: -13.5, y: -25}
+        - {x: -8.5, y: -20}
+        - {x: -7.5, y: -25}
+        - {x: -4.5, y: -31}
+        - {x: 6.5, y: -31}
+        - {x: 18.5, y: -28}
+        - {x: 30.5, y: -21}
+        - {x: 30.5, y: 7}
+        - {x: 19.5, y: 31}
     - name: 18_5_SpriteDrillerMale_15
       rect:
         serializedVersion: 2
         x: 61
-        y: 1.5
-        width: 61.2
-        height: 61.5
+        y: 0
+        width: 61
+        height: 62
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -13, y: 31.5}
-        - {x: -31, y: 9.5}
-        - {x: -31, y: -21.5}
-        - {x: -14, y: -26.5}
-        - {x: 18, y: -26.5}
-        - {x: 31, y: -13.5}
-        - {x: 31, y: 11.5}
-        - {x: 10, y: 31.5}
+      - - {x: 11.5, y: 31}
+        - {x: -14.5, y: 31}
+        - {x: -30.5, y: 12}
+        - {x: -30.5, y: -21}
+        - {x: -13.5, y: -26}
+        - {x: 15.5, y: -26}
+        - {x: 30.5, y: -12}
+        - {x: 30.5, y: 16}
+        - {x: 25.5, y: 26}
     - name: 18_5_SpriteDrillerMale_16
       rect:
         serializedVersion: 2
         x: 122
-        y: 1.5
-        width: 61.2
-        height: 61.5
+        y: 0
+        width: 61
+        height: 62
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -13, y: 31.5}
-        - {x: -31, y: 22.5}
-        - {x: -31, y: -18.5}
-        - {x: -22, y: -22.5}
-        - {x: 23, y: -22.5}
-        - {x: 31, y: -5.5}
-        - {x: 31, y: 18.5}
-        - {x: 21, y: 31.5}
+      - - {x: 14.5, y: 31}
+        - {x: -22.5, y: 31}
+        - {x: -26.5, y: 27}
+        - {x: -30.5, y: 16}
+        - {x: -30.5, y: -12}
+        - {x: -23.5, y: -17}
+        - {x: -10.5, y: -22}
+        - {x: 9.5, y: -22}
+        - {x: 21.5, y: -13}
+        - {x: 30.5, y: -4}
+        - {x: 30.5, y: 22}
     - name: 18_5_SpriteDrillerMale_17
       rect:
         serializedVersion: 2
         x: 183
-        y: 1.5
-        width: 61.2
-        height: 61.5
+        y: 0
+        width: 61
+        height: 62
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -12, y: 31.5}
-        - {x: -31, y: 18.5}
-        - {x: -31, y: -13.5}
-        - {x: -18, y: -22.5}
-        - {x: -6, y: -28.5}
-        - {x: 5, y: -28.5}
-        - {x: 31, y: -18.5}
-        - {x: 31, y: 18.5}
-        - {x: 25, y: 31.5}
+      - - {x: -13.5, y: 31}
+        - {x: -30.5, y: 19}
+        - {x: -30.5, y: -13}
+        - {x: -17.5, y: -22}
+        - {x: -5.5, y: -28}
+        - {x: 5.5, y: -28}
+        - {x: 30.5, y: -18}
+        - {x: 30.5, y: 21}
+        - {x: 25.5, y: 31}
     outline: []
   spritePackingTag: 
   userData: 

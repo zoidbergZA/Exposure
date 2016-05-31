@@ -8,10 +8,7 @@ public class Driller : MonoBehaviour
         if (coll.gameObject.tag == "Rock")
         {
             GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.IDLE;
-            //GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition = GameManager.Instance.DrillingGame.DrillPrevPosition;
-            GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition =
-                new Vector2(GameManager.Instance.DrillingGame.columns[GameManager.Instance.DrillingGame.TargetColumn],
-                    GameManager.Instance.DrillingGame.rows[GameManager.Instance.DrillingGame.TargetRow]);
+            GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition = GameManager.Instance.DrillingGame.DrillPrevPosition;
 
             GameManager.Instance.DrillingGame.Drill.color = new Color(1, 0, 0);
             GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
@@ -38,7 +35,7 @@ public class Driller : MonoBehaviour
             GameManager.Instance.DrillingGame.AddWater(coll.gameObject);
             if(GameManager.Instance.DrillingGame.GetWaterCount <= 3) 
                 LeanTween.scale(GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>(),
-                    GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>().localScale * 1.2f, 1f).setEase(LeanTweenType.punch);
+                    GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>().localScale * 1.1f, 0.8f).setEase(LeanTweenType.punch);
             
             Destroy(coll.gameObject);
         }
