@@ -8,6 +8,7 @@ public class Scanner : MonoBehaviour
     [SerializeField] private float minScanDistance = 150f;
     [SerializeField] private float focusTime = 2f;
     [SerializeField] private Texture2D touchIcon;
+    [SerializeField] private Texture2D progressIcon;
     [SerializeField] private Texture2D centerIcon;
 //    [SerializeField] private LayerMask scanRayMask;
     
@@ -71,8 +72,11 @@ public class Scanner : MonoBehaviour
             string progress = "";
 
             if (isOnHotspot)
+            {
+                GUI.Label(CenteredRect(new Rect(center.x, center.y, 240f, 240f)), progressIcon);
+
                 progress = ((Progress*100f)).ToString("F0");
-            
+            }
             GUI.Label(new Rect(center.x, Screen.height - center.y + 80f, 50f, 50f), progress + "%");
 
 //            GuiHelper.DrawLine(new Vector2(startPoint.x, Screen.height - startPoint.y), new Vector2(endPoint.x, Screen.height - endPoint.y), Color.grey, 1);
