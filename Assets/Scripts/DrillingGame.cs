@@ -46,7 +46,7 @@ public class DrillingGame : Minigame
     private GameObject rightWall;
     private GameObject leftWall;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
-    public enum DrillingDirection {  UP, DOWN, LEFT, RIGHT }
+    public enum DrillingDirection {  UP, DOWN, LEFT, RIGHT, NONE }
     private DrillingGameState state;
     private DrillingDirection drillDir;
     private DrillingDirection prevDrillDir;
@@ -134,6 +134,8 @@ public class DrillingGame : Minigame
         stuckTimer = stuckTime;
         myBody.inertia = 0;
         myBody.freezeRotation = true;
+        prevDrillDir = DrillingDirection.NONE;
+        drillDir = DrillingDirection.NONE;
     }
 
     private void generateProceduralMap()
@@ -289,39 +291,43 @@ public class DrillingGame : Minigame
 
     private void drillDown()
     {
-        if (prevDrillDir == DrillingDirection.RIGHT)
+        switch(prevDrillDir)
         {
-            if (targetColumn < columns.Length-1 && drill.rectTransform.anchoredPosition.x <= columns[targetColumn + 1])
-            {
-                myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-            }
-            else
-            {
-                targetColumn++;
-                prevDrillDir = DrillingDirection.DOWN;
-            }
-        }
-        else if (prevDrillDir == DrillingDirection.LEFT)
-        {
-            if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x >= columns[targetColumn - 1])
-            {
-                myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-            }
-            else
-            {
-                targetColumn--;
-                prevDrillDir = DrillingDirection.DOWN;
-            }
-        }
-        else
-        {
-            myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
-            myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+            case DrillingDirection.RIGHT:
+                if (targetColumn < columns.Length - 1 && drill.rectTransform.anchoredPosition.x < columns[targetColumn])
+                {
+                    myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                    myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                }
+                else
+                {
+                    targetColumn++;
+                    prevDrillDir = DrillingDirection.NONE;
+                }
+                break;
+            case DrillingDirection.LEFT:
+                if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x > columns[targetColumn])
+                {
+                    myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
+                    myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                }
+                else
+                {
+                    targetColumn--;
+                    prevDrillDir = DrillingDirection.NONE;
+                }
+                break;
+            case DrillingDirection.NONE:
+                myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
+                myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                break;
+            default:
+                myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
+                myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                break;
         }
 
-        if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y < rows[targetRow + 1])
+        if (targetRow < rows.Length && drill.rectTransform.anchoredPosition.y <= rows[targetRow+1])
         {
             targetRow++;
 
@@ -333,122 +339,125 @@ public class DrillingGame : Minigame
 
     private void drillLeft()
     {
-        if (prevDrillDir == DrillingDirection.DOWN)
+        switch (prevDrillDir)
         {
-            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1])
-            {
-                myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-            }
-            else
-            {
-                targetRow++;
-                prevDrillDir = DrillingDirection.LEFT;
-            }
-        }
-        else if (prevDrillDir == DrillingDirection.UP)
-        {
-            if (targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1])
-            {
-                myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-            }
-            else
-            {
-                targetRow--;
-                prevDrillDir = DrillingDirection.LEFT;
-            }
-        }
-        else
-        {
-            if (targetColumn > 0)
-            {
+            case DrillingDirection.DOWN:
+                if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y > rows[targetRow])
+                {
+                    myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
+                    myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                }
+                else
+                {
+                    targetRow++;
+                    prevDrillDir = DrillingDirection.NONE;
+                }
+                break;
+            case DrillingDirection.UP:
+                if (targetRow > 0 && drill.rectTransform.anchoredPosition.y < rows[targetRow])
+                {
+                    myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
+                    myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                }
+                else
+                {
+                    targetRow--;
+                    prevDrillDir = DrillingDirection.NONE;
+                }
+                break;
+            case DrillingDirection.NONE:
                 myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-
-                if (drill.rectTransform.anchoredPosition.x < columns[targetColumn - 1]) targetColumn -= 1;
-            }
+                break;
+            default:
+                myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
+                myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                break;
         }
+
+        if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x <= columns[targetColumn-1]) targetColumn -= 1;
     }
 
     private void drillRight()
     {
-        if (prevDrillDir == DrillingDirection.DOWN)
+        switch (prevDrillDir)
         {
-            if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y >= rows[targetRow + 1])
-            {
-                myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-            }
-            else
-            {
-                targetRow++;
-                prevDrillDir = DrillingDirection.RIGHT;
-            }
-        }
-        else if (prevDrillDir == DrillingDirection.UP)
-        {
-            if (targetRow > 0 && drill.rectTransform.anchoredPosition.y <= rows[targetRow - 1])
-            {
-                myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-            }
-            else
-            {
-                targetRow--;
-                prevDrillDir = DrillingDirection.RIGHT;
-            }
-        }
-        else
-        {
-            if (targetColumn < columns.Length - 1)
-            {
+            case DrillingDirection.DOWN:
+                if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y > rows[targetRow])
+                {
+                    myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
+                    myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                }
+                else
+                {
+                    targetRow++;
+                    prevDrillDir = DrillingDirection.NONE;
+                }
+                break;
+            case DrillingDirection.UP:
+                if (targetRow > 0 && drill.rectTransform.anchoredPosition.y < rows[targetRow])
+                {
+                    myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
+                    myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                }
+                else
+                {
+                    targetRow--;
+                    prevDrillDir = DrillingDirection.NONE;
+                }
+                break;
+            case DrillingDirection.NONE:
                 myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-
-                if (drill.rectTransform.anchoredPosition.x > columns[targetColumn + 1]) targetColumn += 1;
-            }
+                break;
+            default:
+                myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                break;
         }
+
+        if (targetColumn < columns.Length && drill.rectTransform.anchoredPosition.x >= columns[targetColumn+1]) targetColumn += 1;
     }
 
     private void drillUp()
     {
-        if (prevDrillDir == DrillingDirection.RIGHT)
+        switch (prevDrillDir)
         {
-            if (targetColumn < columns.Length-1 && drill.rectTransform.anchoredPosition.x <= columns[targetColumn + 1])
-            {
-                myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-            }
-            else
-            {
-                targetColumn++;
-                prevDrillDir = DrillingDirection.UP;
-            }
-        }
-        else if (prevDrillDir == DrillingDirection.LEFT)
-        {
-            if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x >= columns[targetColumn - 1])
-            {
-                myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-            }
-            else
-            {
-                targetColumn--;
-                prevDrillDir = DrillingDirection.UP;
-            }
-        }
-        else
-        {
-            if (targetRow > 0)
-            {
+            case DrillingDirection.RIGHT:
+                if (targetColumn < columns.Length - 1 && drill.rectTransform.anchoredPosition.x < columns[targetColumn])
+                {
+                    myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                    myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                }
+                else
+                {
+                    targetColumn++;
+                    prevDrillDir = DrillingDirection.NONE;
+                }
+                break;
+            case DrillingDirection.LEFT:
+                if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x > columns[targetColumn])
+                {
+                    myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
+                    myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                }
+                else
+                {
+                    targetColumn--;
+                    prevDrillDir = DrillingDirection.NONE;
+                }
+                break;
+            case DrillingDirection.NONE:
                 myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-
-                if (drill.rectTransform.anchoredPosition.y > rows[targetRow - 1]) targetRow--;
-            }
+                break;
+            default:
+                myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
+                myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                break;
         }
+
+        if (targetRow > 0 && drill.rectTransform.anchoredPosition.y >= rows[targetRow]) targetRow--;
     }
     
     private void updateDrilling()
@@ -483,9 +492,9 @@ public class DrillingGame : Minigame
             if (slidingLeft == false)
             {
                 drill.transform.Translate(new Vector3(1 * slideSpeed * Time.deltaTime, 0, 0));
-                if (targetColumn < columns.Length - 1)
+                if (targetColumn < columns.Length)
                 {
-                    if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
+                    if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn+1]) targetColumn += 1;
                 }
                 else
                 {
@@ -498,7 +507,7 @@ public class DrillingGame : Minigame
                 drill.transform.Translate(new Vector3(-1 * slideSpeed * Time.deltaTime, 0, 0));
                 if (targetColumn > 0)
                 {
-                    if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
+                    if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn-1]) targetColumn -= 1;
                 }
                 else
                 {
@@ -511,8 +520,8 @@ public class DrillingGame : Minigame
         {
             if (slidingLeft == false)
             {
-                if (drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1])
-                    drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn + 1], drill.rectTransform.anchoredPosition.y);
+                if (drill.rectTransform.anchoredPosition.x < columns[targetColumn])
+                    drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], drill.rectTransform.anchoredPosition.y);
                 else
                 {
                     state = DrillingGameState.PREDRILLJUMP;
@@ -521,8 +530,8 @@ public class DrillingGame : Minigame
             }
             else
             {
-                if (drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1])
-                    drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn - 1], drill.rectTransform.anchoredPosition.y);
+                if (drill.rectTransform.anchoredPosition.x > columns[targetColumn])
+                    drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], drill.rectTransform.anchoredPosition.y);
                 else
                 {
                     state = DrillingGameState.PREDRILLJUMP;
