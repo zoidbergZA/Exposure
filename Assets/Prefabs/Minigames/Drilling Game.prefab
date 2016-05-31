@@ -1034,6 +1034,10 @@ MonoBehaviour:
   waterBar: {fileID: 11462990}
   steamImage: {fileID: 11410760}
   drillLife: {fileID: 11406088}
+  joystickImage: {fileID: 11498516}
+  arrowDown: {fileID: 21300000, guid: 73e124e36bb114c49b5e4efcfb6192b6, type: 3}
+  arrowUpDown: {fileID: 21300000, guid: 620429d352efddb48868f5a2620b34b2, type: 3}
+  arrowLeftRight: {fileID: 21300000, guid: 02f7874388c83614dad1f590737dbbb6, type: 3}
   columns: 700000009c000000c8000000f4000000200100004c01000078010000a4010000d0010000fc010000280200005402000080020000ac020000d802000004030000300300005c03000088030000
   rows: 84020000580200002c02000000020000d4010000a80100007c0100005001000024010000f8000000cc000000a000000074000000
   rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
@@ -1043,7 +1047,7 @@ MonoBehaviour:
   waterTilePrefab: {fileID: 127976, guid: 3267db04b997f7d4692353b2d7721a44, type: 2}
   AutoWin: 0
   toastMessageTime: 2.5
-  drillSpeed: 80
+  drillSpeed: 30
   slideSpeed: 80
   diamondValue: 1
   succeededDrillValue: 5
@@ -1256,7 +1260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1330,7 +1334,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b14f6d5f3796e5940bf2c4dfdfc2b2fa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 73e124e36bb114c49b5e4efcfb6192b6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

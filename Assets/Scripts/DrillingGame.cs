@@ -16,6 +16,10 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image waterBar;
     [SerializeField] private UnityEngine.UI.Image steamImage;
     [SerializeField] private UnityEngine.UI.Image drillLife;
+    [SerializeField] private UnityEngine.UI.Image joystickImage;
+    [SerializeField] private Sprite arrowDown;
+    [SerializeField] private Sprite arrowUpDown;
+    [SerializeField] private Sprite arrowLeftRight;
     [SerializeField] public int[] columns;
     [SerializeField] public int[] rows;
     [SerializeField] private GameObject rockPrefab;
@@ -47,7 +51,7 @@ public class DrillingGame : Minigame
     private int targetColumn;
     private int targetRow;
     //bools
-    private bool introShown, finalShown, slidingLeft, makeDrill, imagesActivated = false;
+    private bool finalShown, slidingLeft, makeDrill, imagesActivated = false;
     //timers
     private float toastTimer;
     private float jumpPhaseTimer;
@@ -108,6 +112,7 @@ public class DrillingGame : Minigame
         drillStuckChecked = Time.time;
         if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -(Screen.height) - 700, 0);
         if (drill) initDrillPos = drill.rectTransform.anchoredPosition;
+        //spriteArrowDown.texture = arrowDown;
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -116,7 +121,6 @@ public class DrillingGame : Minigame
         this.drillspot = drillspot;
         Begin(difficulty);
         imagesActivated = true;
-        introShown = true;
         drill.transform.SetAsLastSibling();
         if (animator) animator.SetBool("isSlidingLeft", false);
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0,100,0), panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
@@ -239,7 +243,7 @@ public class DrillingGame : Minigame
     private void handleStartStopState()
     {
         toastTimer -= Time.deltaTime;
-        if(introShown && !finalShown)
+        if(!finalShown)
         {
             if (SucceededDrill)
             {
@@ -563,6 +567,7 @@ public class DrillingGame : Minigame
         }
         drillPrevPosition = drill.rectTransform.anchoredPosition;
         updateProgressBars();
+        updateJoystickImages();
     }
 
     private void updateProgressBars()
@@ -623,7 +628,6 @@ public class DrillingGame : Minigame
         animator.SetBool("isSlidingLeft", false);
         animator.SetBool("isDrilling", false);
         animator.SetBool("shouldJump", false);
-        introShown = false;
         finalShown = false;
         SucceededDrill = false;
         targetColumn = 0;
@@ -637,6 +641,7 @@ public class DrillingGame : Minigame
         drill.color = new Color(1, 1, 1);
         drillLife.color = new Color(1, 1, 1);
         waterBar.fillAmount = 0f;
+        drillLife.fillAmount = 1f;
     }
 
     private void instantiateRock(int x, int y)
@@ -702,5 +707,19 @@ public class DrillingGame : Minigame
     public void AddWater(GameObject waterPiece)
     {
         this.water.Add(waterPiece);
+    }
+
+    private void updateJoystickImages()
+    {
+        if(state == DrillingGameState.SLIDING)
+            joystickImage.sprite = arrowDown;
+        if (state == DrillingGameState.DRILLING)
+        {
+            if(drillDir == DrillingDirection.UP || drillDir == DrillingDirection.DOWN)
+                joystickImage.sprite = arrowUpDown;
+            else if(drillDir == DrillingDirection.LEFT || drillDir == DrillingDirection.RIGHT)
+                joystickImage.sprite = arrowLeftRight;
+        }
+        else joystickImage.sprite = arrowDown;
     }
 }
