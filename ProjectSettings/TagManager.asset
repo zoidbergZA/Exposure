@@ -11,6 +11,7 @@ TagManager:
   - GroundTile
   - Cable
   - Water
+  - Walls
   layers:
   - Default
   - TransparentFX

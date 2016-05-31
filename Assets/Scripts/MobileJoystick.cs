@@ -62,15 +62,12 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         }
         else
         {
-            if (m_UseX && (GameManager.Instance.DrillingGame.DrillDirection == DrillingGame.DrillingDirection.DOWN ||
-            GameManager.Instance.DrillingGame.DrillDirection == DrillingGame.DrillingDirection.UP))
+            if (m_UseX)
             {
                 int delta = (int)(data.position.x - m_StartPos.x);
                 newPos.x = delta;
             }
-
-            if (m_UseY && (GameManager.Instance.DrillingGame.DrillDirection == DrillingGame.DrillingDirection.RIGHT ||
-                GameManager.Instance.DrillingGame.DrillDirection == DrillingGame.DrillingDirection.LEFT))
+            if (m_UseY)
             {
                 int delta = (int)(data.position.y - m_StartPos.y);
                 newPos.y = delta;
