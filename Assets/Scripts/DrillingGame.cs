@@ -55,7 +55,7 @@ public class DrillingGame : Minigame
     private int targetColumn;
     private int targetRow;
     //bools
-    private bool finalShown, slidingLeft, makeDrill, imagesActivated = false;
+    private bool slidingLeft, makeDrill, imagesActivated = false;
     //timers
     private float toastTimer;
     private float jumpPhaseTimer;
@@ -253,29 +253,25 @@ public class DrillingGame : Minigame
     private void handleStartStopState()
     {
         toastTimer -= Time.deltaTime;
-        if(!finalShown)
+        if (SucceededDrill)
         {
-            if (SucceededDrill)
-            {
-                endOkToast.gameObject.SetActive(true);
-                endOkToast.gameObject.transform.parent.SetAsLastSibling();
-                if (toastTimer > 0)
-                    LeanTween.move(steamImage.gameObject.GetComponent<RectTransform>(), new Vector3(0, 50, 0), toastMessageTime).setEase(LeanTweenType.easeOutQuad);
-                else fireToast(true);
-            }
-            else
-            {
-                endFailToast.gameObject.SetActive(true);
-                endFailToast.gameObject.transform.parent.SetAsLastSibling();
-                drillLife.fillAmount = 0f;
-                if (toastTimer < 0.0f) fireToast(false);
-            }
+            endOkToast.gameObject.SetActive(true);
+            endOkToast.gameObject.transform.parent.SetAsLastSibling();
+            if (toastTimer > 0)
+                LeanTween.move(steamImage.gameObject.GetComponent<RectTransform>(), new Vector3(0, 50, 0), toastMessageTime).setEase(LeanTweenType.easeOutQuad);
+            else fireToast(true);
+        }
+        else
+        {
+            endFailToast.gameObject.SetActive(true);
+            endFailToast.gameObject.transform.parent.SetAsLastSibling();
+            drillLife.fillAmount = 0f;
+            if (toastTimer < 0.0f) fireToast(false);
         }
     }
 
     private void fireToast(bool gameSucceeded)
     {
-        finalShown = true;
         toastTimer = toastMessageTime;
         if(gameSucceeded) endOkToast.gameObject.SetActive(false);
         else endFailToast.gameObject.SetActive(false);
@@ -485,14 +481,14 @@ public class DrillingGame : Minigame
         updateSlidingMovement();
     }
 
+    //columns and rows increment/decrement tested and works fine here
     private void updateSlidingMovement()
     {
         if (!makeDrill)
         {
             if (slidingLeft == false)
             {
-                drill.transform.Translate(new Vector3(1 * slideSpeed * Time.deltaTime, 0, 0));
-                if (targetColumn < columns.Length)
+                if (targetColumn < columns.Length-1)
                 {
                     if (drill.rectTransform.anchoredPosition.x >= columns[targetColumn+1]) targetColumn += 1;
                 }
@@ -501,10 +497,10 @@ public class DrillingGame : Minigame
                     slidingLeft = true;
                     animator.SetBool("isSlidingLeft", true);
                 }
+                drill.transform.Translate(new Vector3(1 * slideSpeed * Time.deltaTime, 0, 0));
             }
             else
             {
-                drill.transform.Translate(new Vector3(-1 * slideSpeed * Time.deltaTime, 0, 0));
                 if (targetColumn > 0)
                 {
                     if (drill.rectTransform.anchoredPosition.x <= columns[targetColumn-1]) targetColumn -= 1;
@@ -514,24 +510,25 @@ public class DrillingGame : Minigame
                     slidingLeft = false;
                     animator.SetBool("isSlidingLeft", false);
                 }
+                drill.transform.Translate(new Vector3(-1 * slideSpeed * Time.deltaTime, 0, 0));
             }
         }
         else
         {
             if (slidingLeft == false)
             {
-                if (drill.rectTransform.anchoredPosition.x < columns[targetColumn])
-                    drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], drill.rectTransform.anchoredPosition.y);
+                if (targetColumn < columns.Length-1 && drill.rectTransform.anchoredPosition.x < columns[targetColumn+1])
+                    drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn+1], drill.rectTransform.anchoredPosition.y);
                 else
                 {
                     state = DrillingGameState.PREDRILLJUMP;
-                    if (targetColumn < columns.Length - 1) targetColumn += 1;
+                    if (targetColumn < columns.Length) targetColumn += 1;
                 }
             }
             else
             {
-                if (drill.rectTransform.anchoredPosition.x > columns[targetColumn])
-                    drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], drill.rectTransform.anchoredPosition.y);
+                if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x > columns[targetColumn-1])
+                    drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn-1], drill.rectTransform.anchoredPosition.y);
                 else
                 {
                     state = DrillingGameState.PREDRILLJUMP;
@@ -639,7 +636,6 @@ public class DrillingGame : Minigame
         animator.SetBool("isSlidingLeft", false);
         animator.SetBool("isDrilling", false);
         animator.SetBool("shouldJump", false);
-        finalShown = false;
         SucceededDrill = false;
         targetColumn = 0;
         targetRow = 0;
