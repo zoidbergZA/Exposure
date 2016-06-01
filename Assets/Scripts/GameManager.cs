@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         return heatmapSample;
     }
 
-    private int[] LoadDrillingPuzzle(TextAsset map)
+    public int[] LoadDrillingPuzzle(TextAsset map)
     {
         string[,] grid = CSVReader.SplitCsvGrid(map.text);
         List<int> tiles = new List<int>();
