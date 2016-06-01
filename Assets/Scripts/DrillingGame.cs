@@ -24,9 +24,13 @@ public class DrillingGame : Minigame
     [SerializeField] public int[] rows;
     [SerializeField] private GameObject rockPrefab;
     [SerializeField] private GameObject diamondPrefab;
-    [SerializeField] private GameObject groundTilePrefab;
     [SerializeField] private GameObject cablePrefab;
     [SerializeField] private GameObject waterTilePrefab;
+    [SerializeField] private GameObject groundYellow;
+    [SerializeField] private GameObject groundGreen;
+    [SerializeField] private GameObject groundOrange;
+    [SerializeField] private GameObject groundRed;
+    [SerializeField] private GameObject groundAcid;
     [SerializeField] private bool AutoWin;
     [SerializeField] private float toastMessageTime = 3.0f;
     [SerializeField] private float drillSpeed = 3.0f;
@@ -66,19 +70,20 @@ public class DrillingGame : Minigame
     // 19 X 14 test level tiles: ids to instantiate different objects
     private int[] levelTiles = 
     {
-        1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        1,1,4,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,
-        1,3,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,
-        1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,
-        1,5,4,1,1,1,1,1,1,1,3,3,2,3,3,3,3,1,1,
-        1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,
-        1,5,4,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,5,1,
-        1,5,4,1,1,5,1,1,1,1,1,1,1,1,1,1,3,1,1,
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+        4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+        2,2,7,2,2,2,2,2,2,2,2,2,2,2,3,2,3,2,3,
+        2,2,2,2,2,0,2,0,2,1,2,2,3,2,2,2,2,2,2,
+        2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+        2,2,2,2,2,1,2,0,2,1,2,2,3,2,2,2,2,2,2,
+        3,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
+        8,8,1,8,8,0,8,7,8,1,8,8,3,8,3,8,3,8,3,
+        3,8,8,8,8,8,8,8,8,8,8,8,8,8,0,8,0,8,8,
+        8,8,8,8,8,8,8,1,8,1,8,8,8,8,8,8,8,8,8,
+        5,3,5,3,5,5,5,5,5,5,5,5,5,5,0,5,0,5,3,
+        5,5,5,5,5,5,5,1,5,5,5,5,5,5,5,5,5,5,5,
+        5,5,5,3,5,5,5,5,5,0,5,5,0,5,7,5,1,5,5,
+        6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,3,
+        6,6,6,3,6,6,3,6,6,6,6,6,6,6,0,6,1,6,6
     };
 
     public bool SucceededDrill { get; set; }
@@ -138,34 +143,7 @@ public class DrillingGame : Minigame
         drillDir = DrillingDirection.NONE;
     }
 
-    private void generateProceduralMap()
-    {
-        for(int i = 0; i < columns.Length; i++)
-        {
-            for(int j = 0; j < rows.Length-1; j++)
-            {
-                if (j == 0) instantiateGroundTile(columns[i], rows[j]);
-                else
-                {
-                    float rand = Random.Range(0f, 1f);
-                    if (rand <= 0.05f) instantiateCable(columns[i], rows[j]); //try cable
-                    else
-                    {
-                        rand = Random.Range(0f, 1f);
-                        if (rand <= 0.08f) instantiateRock(columns[i], rows[j]); //try rock
-                        else
-                        {
-                            rand = Random.Range(0f, 1f); //else try daimond
-                            if (rand <= CrystalsCurve.Evaluate(1 - Difficulty)) instantiateDiamond(columns[i], rows[j]);
-                            else instantiateGroundTile(columns[i], rows[j]);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // 0 - diamond, 1 - electricity, 3 - yellow, 4 - blocks, 5 - green, 6 - orange, 7 - red, 8 - water, 9 - yellow-egg
+    // 0 - diamond, 1 - electricity, 2 - yellow, 3 - blocks, 4 - green, 5 - orange, 6 - red, 7 - water, 8 - yellow-egg
     private void generateLevel(int[] tiles)
     {
         for (int i = 0; i < rows.Length; i++)
@@ -175,19 +153,19 @@ public class DrillingGame : Minigame
                 int id = tiles[(columns.Length * i) + j];
                 switch(id)
                 {
-                    case 1:
-                        instantiateGroundTile(columns[j], rows[i]);
+                    case 0:
+                        instantiateDiamond(columns[j], rows[i]);
                         break;
-                    case 2:
+                    case 1:
                         instantiateCable(columns[j], rows[i]);
+                        break;
+                    case 2: case 4: case 5: case 6: case 8:
+                        instantiateGroundTile(columns[j], rows[i], id);
                         break;
                     case 3:
                         instantiateRock(columns[j], rows[i]);
                         break;
-                    case 4:
-                        instantiateDiamond(columns[j], rows[i]);
-                        break;
-                    case 5:
+                    case 7:
                         instantiateWaterTile(columns[j], rows[i]);
                         break;
                 }
@@ -230,7 +208,6 @@ public class DrillingGame : Minigame
         {
             if (!AutoWin) state = DrillingGameState.SLIDING;
             else state = DrillingGameState.SUCCESS;
-            //generateProceduralMap(); // proceduraly generated level, spawning percentage share is based on inspector values or curves
             generateLevel(levelTiles); // pre-designed levels, loading from csv
             panelSlidingTimer = panelSlidingTime;
             joystick.StartPosition = joystick.transform.position;
@@ -770,9 +747,31 @@ public class DrillingGame : Minigame
             .setEase(LeanTweenType.punch);
     }
 
-    private void instantiateGroundTile(int x, int y)
+    // 0 - diamond, 1 - electricity, 2 - yellow, 3 - blocks, 4 - green, 5 - orange, 6 - red, 7 - water, 8 - yellow-egg
+    private void instantiateGroundTile(int x, int y, int type)
     {
-        GameObject groundTile = Instantiate(groundTilePrefab) as GameObject;
+        GameObject groundTile;
+        switch(type)
+        {
+            case 2:
+                groundTile = Instantiate(groundYellow) as GameObject;
+                break;
+            case 4:
+                groundTile = Instantiate(groundGreen) as GameObject;
+                break;
+            case 5:
+                groundTile = Instantiate(groundOrange) as GameObject;
+                break;
+            case 6:
+                groundTile = Instantiate(groundRed) as GameObject;
+                break;
+            case 8:
+                groundTile = Instantiate(groundAcid) as GameObject;
+                break;
+            default:
+                groundTile = Instantiate(groundYellow) as GameObject;
+                break;
+        }
         groundTile.transform.SetParent(mainPanel.transform, false);
         groundTile.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         groundTile.gameObject.SetActive(true);
