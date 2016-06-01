@@ -23,12 +23,11 @@ public class GridBuilder : Minigame
     {
         Pylons = new List<Pylon>();
         PoweredPylons = new List<Pylon>();
-        GameManager.Instance.Hud.ShowBuildArrow(false);
     }
 
     void Start()
     {
-//        InitPylons();
+        GameManager.Instance.Hud.ShowBuildArrow(false);
     }
 
     public override void Update()
