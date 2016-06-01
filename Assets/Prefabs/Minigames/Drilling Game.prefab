@@ -511,13 +511,13 @@ Rigidbody2D:
   m_GameObject: {fileID: 109706}
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 10
-  m_AngularDrag: 10
+  m_LinearDrag: 20
+  m_AngularDrag: 20
   m_GravityScale: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &6111688
 BoxCollider2D:
@@ -1166,7 +1166,6 @@ MonoBehaviour:
   diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
   cablePrefab: {fileID: 127976, guid: cea2cbff206580848b084e0e850d9d3f, type: 2}
   waterTilePrefab: {fileID: 127976, guid: 3267db04b997f7d4692353b2d7721a44, type: 2}
-  groundTilePrefab: {fileID: 127976, guid: 1ca96e63dd385994d931526164f3b1c4, type: 2}
   groundYellow: {fileID: 127976, guid: c7d1a6ebfaf5c864d9a4439acaf2ef92, type: 2}
   groundGreen: {fileID: 127976, guid: b27c5892d4842b94f848bb05181d0c51, type: 2}
   groundOrange: {fileID: 127976, guid: 99c563d53e12c414384523e01c684524, type: 2}
