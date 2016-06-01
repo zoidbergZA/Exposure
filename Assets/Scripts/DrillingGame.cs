@@ -336,10 +336,12 @@ public class DrillingGame : Minigame
             case DrillingDirection.NONE:
                 myBody.AddRelativeForce(new Vector2(0, ((!Bumped) ? -1 : 1) * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                myBody.freezeRotation = true;
                 break;
             default:
                 myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                myBody.freezeRotation = true;
                 break;
         }
 
@@ -404,10 +406,12 @@ public class DrillingGame : Minigame
             case DrillingDirection.NONE:
                 myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                myBody.freezeRotation = true;
                 break;
             default:
                 myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                myBody.freezeRotation = true;
                 break;
         }
 
@@ -465,10 +469,12 @@ public class DrillingGame : Minigame
             case DrillingDirection.NONE:
                 myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                myBody.freezeRotation = true;
                 break;
             default:
                 myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                myBody.freezeRotation = true;
                 break;
         }
 
@@ -526,10 +532,12 @@ public class DrillingGame : Minigame
             case DrillingDirection.NONE:
                 myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                myBody.freezeRotation = true;
                 break;
             default:
                 myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                myBody.freezeRotation = true;
                 break;
         }
 
