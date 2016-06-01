@@ -1179,8 +1179,8 @@ MonoBehaviour:
   succeededDrillValue: 5
   jumpPhaseTime: 0.85
   panelSlidingTime: 1.5
-  stuckTime: 20
-  drillStuckCooldown: 2
+  stuckTime: 3
+  drillStuckCooldown: 0.2
   animator: {fileID: 9525064}
   joystick: {fileID: 11411078}
   easyLevels:

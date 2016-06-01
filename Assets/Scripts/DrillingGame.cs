@@ -251,7 +251,6 @@ public class DrillingGame : Minigame
         {
             endFailToast.gameObject.SetActive(true);
             endFailToast.gameObject.transform.parent.SetAsLastSibling();
-            drillLife.fillAmount = 0f;
             if (toastTimer < 0.0f) fireToast(false);
         }
     }
@@ -259,10 +258,18 @@ public class DrillingGame : Minigame
     private void fireToast(bool gameSucceeded)
     {
         toastTimer = toastMessageTime;
-        LeanTween.move(steamImage.gameObject.GetComponent<RectTransform>(), new Vector3(0, -475, 0), toastMessageTime).setEase(LeanTweenType.easeOutQuad);
-        if(gameSucceeded) endOkToast.gameObject.SetActive(false);
-        else endFailToast.gameObject.SetActive(false);
+        if (gameSucceeded)
+        {
+            endOkToast.gameObject.SetActive(false);
+            LeanTween.move(steamImage.gameObject.GetComponent<RectTransform>(), new Vector3(0, -475, 0), toastMessageTime).setEase(LeanTweenType.easeOutQuad);
+        }
+        else
+        {
+            endFailToast.gameObject.SetActive(false);
+            drillLife.fillAmount = 0f;
+        }
         state = DrillingGameState.INACTIVE;
+
         End(gameSucceeded);
     }
 
