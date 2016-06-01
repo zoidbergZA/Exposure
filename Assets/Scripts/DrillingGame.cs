@@ -756,9 +756,9 @@ public class DrillingGame : Minigame
         if (state == DrillingGameState.DRILLING)
         {
             if(drillDir == DrillingDirection.UP || drillDir == DrillingDirection.DOWN)
-                joystickImage.sprite = arrowUpDown;
-            else if(drillDir == DrillingDirection.LEFT || drillDir == DrillingDirection.RIGHT)
                 joystickImage.sprite = arrowLeftRight;
+            else if(drillDir == DrillingDirection.LEFT || drillDir == DrillingDirection.RIGHT)
+                joystickImage.sprite = arrowUpDown;
         }
         else joystickImage.sprite = arrowDown;
     }
