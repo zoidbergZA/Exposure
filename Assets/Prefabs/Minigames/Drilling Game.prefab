@@ -199,9 +199,8 @@ GameObject:
   - 224: {fileID: 22449388}
   - 222: {fileID: 22238486}
   - 114: {fileID: 11498516}
-  - 114: {fileID: 11421078}
   m_Layer: 5
-  m_Name: MobileJoystick
+  m_Name: Directions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,6 +253,24 @@ GameObject:
   - 114: {fileID: 11427872}
   m_Layer: 5
   m_Name: Mask
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &156834
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 22486340}
+  - 222: {fileID: 22282836}
+  - 114: {fileID: 11456202}
+  - 114: {fileID: 11411078}
+  m_Layer: 5
+  m_Name: Joystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -494,13 +511,13 @@ Rigidbody2D:
   m_GameObject: {fileID: 109706}
   m_UseAutoMass: 0
   m_Mass: 0.1
-  m_LinearDrag: 10
-  m_AngularDrag: 10
+  m_LinearDrag: 20
+  m_AngularDrag: 20
   m_GravityScale: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &6111688
 BoxCollider2D:
@@ -557,7 +574,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 44, y: 44}
+  m_Size: {x: 43, y: 43}
 --- !u!95 &9525064
 Animator:
   serializedVersion: 3
@@ -673,6 +690,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11411078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f5662b5bde726640950686f73d95aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovementRange: 16
+  axesToUse: 0
+  horizontalAxisName: Horizontal
+  verticalAxisName: Vertical
 --- !u!114 &11412238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -806,21 +838,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11421078
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 142916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f5662b5bde726640950686f73d95aaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MovementRange: 18
-  axesToUse: 0
-  horizontalAxisName: Horizontal
-  verticalAxisName: Vertical
 --- !u!114 &11421548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1092,7 +1109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6082c5f55ad3da4692acda9f464d3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 180
+  timeOut: 1000
   RocksCurve:
     serializedVersion: 2
     m_Curve:
@@ -1140,28 +1157,44 @@ MonoBehaviour:
   steamImage: {fileID: 11410760}
   drillLife: {fileID: 11406088}
   joystickImage: {fileID: 11498516}
-  arrowDown: {fileID: 21300000, guid: 73e124e36bb114c49b5e4efcfb6192b6, type: 3}
-  arrowUpDown: {fileID: 21300000, guid: 620429d352efddb48868f5a2620b34b2, type: 3}
-  arrowLeftRight: {fileID: 21300000, guid: 02f7874388c83614dad1f590737dbbb6, type: 3}
+  arrowDown: {fileID: 21300000, guid: ca95b58ad50b3e346aff10b020eca14c, type: 3}
+  arrowUpDown: {fileID: 21300000, guid: 24e0bd82e170cae43bcdd82701bb7001, type: 3}
+  arrowLeftRight: {fileID: 21300000, guid: d4056f0dbf765c34c92f836e8867c3ea, type: 3}
   columns: 700000009c000000c8000000f4000000200100004c01000078010000a4010000d0010000fc010000280200005402000080020000ac020000d802000004030000300300005c03000088030000
   rows: 84020000580200002c02000000020000d4010000a80100007c0100005001000024010000f8000000cc000000a000000074000000
   rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
   diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
-  groundTilePrefab: {fileID: 127976, guid: 1ca96e63dd385994d931526164f3b1c4, type: 2}
   cablePrefab: {fileID: 127976, guid: cea2cbff206580848b084e0e850d9d3f, type: 2}
   waterTilePrefab: {fileID: 127976, guid: 3267db04b997f7d4692353b2d7721a44, type: 2}
+  groundYellow: {fileID: 127976, guid: c7d1a6ebfaf5c864d9a4439acaf2ef92, type: 2}
+  groundGreen: {fileID: 127976, guid: b27c5892d4842b94f848bb05181d0c51, type: 2}
+  groundOrange: {fileID: 127976, guid: 99c563d53e12c414384523e01c684524, type: 2}
+  groundRed: {fileID: 127976, guid: 0adbfd2e25f11304bb5b2f0378290b8e, type: 2}
+  groundAcid: {fileID: 127976, guid: efc001b50a2b2e2478eae8f2ef8176f3, type: 2}
   AutoWin: 0
   toastMessageTime: 2.5
-  drillSpeed: 80
+  drillSpeed: 60
   slideSpeed: 80
   diamondValue: 1
   succeededDrillValue: 5
   jumpPhaseTime: 0.85
   panelSlidingTime: 1.5
-  stuckTime: 30
-  drillStuckCooldown: 2
+  stuckTime: 20
+  drillStuckCooldown: 0.2
   animator: {fileID: 9525064}
-  joystick: {fileID: 11421078}
+  joystick: {fileID: 11411078}
+  easyLevels:
+  - {fileID: 4900000, guid: b04e35381770c4042b9c18c3a4a73e4e, type: 3}
+  - {fileID: 4900000, guid: 892f632c77e9a4e699d70cb0662a6044, type: 3}
+  - {fileID: 4900000, guid: 18cf5613cf7854737ab0348b5d010701, type: 3}
+  mediumLevels:
+  - {fileID: 4900000, guid: 325973f867e3a4cf1a4e292624cffcaf, type: 3}
+  - {fileID: 4900000, guid: 883cdee42cca54c06a8c5c598d5e8989, type: 3}
+  - {fileID: 4900000, guid: 2a17e86e5ac634511b0123d327acf7ef, type: 3}
+  hardLevels:
+  - {fileID: 4900000, guid: 1f46287965e2a43c3a00476214324774, type: 3}
+  - {fileID: 4900000, guid: 105f75df1a2f14dd9b40a01c041a2ee5, type: 3}
+  - {fileID: 4900000, guid: 1fc75e419cb8848188e23d53c8fcfb4b, type: 3}
 --- !u!114 &11446804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1199,6 +1232,33 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &11456202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: b89ff620178df834383cf80d76555760, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &11456470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1317,7 +1377,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 765fc48e2458ad048b9266aefe2850bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e1ce9af1b95feb47a219dd87cda3d4b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1439,7 +1499,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 73e124e36bb114c49b5e4efcfb6192b6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ca95b58ad50b3e346aff10b020eca14c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1531,6 +1591,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176762}
+--- !u!222 &22282836
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156834}
 --- !u!222 &22285502
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1792,7 +1858,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.000030517578}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 148, y: 148}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22450712
 RectTransform:
@@ -1897,6 +1963,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 22449388}
+  - {fileID: 22486340}
   m_Father: {fileID: 22467228}
   m_RootOrder: 3
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1980,6 +2047,23 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &22486340
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 22470478}
+  m_RootOrder: 1
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22489740
 RectTransform:
