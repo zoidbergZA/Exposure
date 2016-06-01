@@ -28,7 +28,6 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     void Start()
     {
-        //m_StartPos = transform.position;
         CreateVirtualAxes(); //chiggy
     }
 
@@ -37,8 +36,6 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         var delta = m_StartPos - value;
         delta.y = -delta.y;
         delta /= MovementRange;
-        //if (m_UseX) m_HorizontalVirtualAxis.Update(-delta.x);
-        //if (m_UseY) m_VerticalVirtualAxis.Update(delta.y);
         GameManager.Instance.Hud.JoystickX = -delta.x;
         GameManager.Instance.Hud.JoystickY = delta.y;
     }
@@ -48,18 +45,6 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         // set axes to use
         m_UseX = (axesToUse == AxisOption.Both || axesToUse == AxisOption.OnlyHorizontal);
         m_UseY = (axesToUse == AxisOption.Both || axesToUse == AxisOption.OnlyVertical);
-
-        // create new axes based on axes to use
-        if (m_UseX)
-        {
-            //m_HorizontalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(horizontalAxisName);
-            //CrossPlatformInputManager.RegisterVirtualAxis(m_HorizontalVirtualAxis);
-        }
-        if (m_UseY)
-        {
-            //m_VerticalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(verticalAxisName);
-            //CrossPlatformInputManager.RegisterVirtualAxis(m_VerticalVirtualAxis);
-        }
     }
 
 
@@ -67,16 +52,26 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         Vector3 newPos = Vector3.zero;
 
-        if (m_UseX)
+        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
         {
-            int delta = (int)(data.position.x - m_StartPos.x);
-            newPos.x = delta;
+            if (m_UseY)
+            {
+                int delta = (int)(data.position.y - m_StartPos.y);
+                newPos.y = delta;
+            }
         }
-
-        if (m_UseY)
+        else
         {
-            int delta = (int)(data.position.y - m_StartPos.y);
-            newPos.y = delta;
+            if (m_UseX)
+            {
+                int delta = (int)(data.position.x - m_StartPos.x);
+                newPos.x = delta;
+            }
+            if (m_UseY)
+            {
+                int delta = (int)(data.position.y - m_StartPos.y);
+                newPos.y = delta;
+            }
         }
         transform.position = Vector3.ClampMagnitude(new Vector3(newPos.x, newPos.y, newPos.z), MovementRange) + m_StartPos;
         UpdateVirtualAxes(transform.position);

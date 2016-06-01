@@ -258,13 +258,6 @@ public class Scanner : MonoBehaviour
 //
 //        GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.rectTransform.anchoredPosition = pos;
 //    }
-
-    private void activateImages(bool activate)
-    {
-        GameManager.Instance.DrillingGame.GlobeDrillGroundIcon.gameObject.SetActive(activate);
-        GameManager.Instance.DrillingGame.GlobeDrillPipeIcon.gameObject.SetActive(activate);
-        //GameManager.Instance.DrillingGame.BgActive.gameObject.SetActive(activate);
-    }
 }
 
 public static class GuiHelper
