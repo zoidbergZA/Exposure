@@ -40,11 +40,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d284a26c765cbc14b8badc49419b0522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRadius: 22
+  limiter: 160
   maxScanDistance: 250
   minScanDistance: 130
   focusTime: 2.3
   touchIcon: {fileID: 2800000, guid: ef34d65258ae6f049b1076f10e1ea018, type: 3}
-  progressIcon: {fileID: 2800000, guid: 0aed13d0e9a6e9244999c3c1a608031b, type: 3}
+  goodIcon: {fileID: 2800000, guid: 72c6f934ace19ed46825c4894a4bf1aa, type: 3}
+  progresIcon: {fileID: 2800000, guid: 95e77e02f229b0542bb85b01a09c9b3f, type: 3}
   centerIcon: {fileID: 2800000, guid: 1c65d955b6b777042944ea52c70912f4, type: 3}
 --- !u!114 &11427104
 MonoBehaviour:
@@ -65,7 +68,7 @@ MonoBehaviour:
   buildRayMask:
     serializedVersion: 2
     m_Bits: 512
-  PowerplantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
+  PowerplantPrefab: {fileID: 0}
   DrillspotPrefab: {fileID: 11406222, guid: 8e50dcc81e355a241b47b2649b69e298, type: 2}
 --- !u!1001 &100100000
 Prefab:
