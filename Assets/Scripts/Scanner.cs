@@ -5,8 +5,8 @@ using System.Collections;
 public class Scanner : MonoBehaviour
 {
     public float maxRadius = 100f;
+    public float limiter = 100f;
 
-    [SerializeField] private float limiter = 100f;
     [SerializeField] private float maxScanDistance = 250f;
     [SerializeField] private float minScanDistance = 150f;
     [SerializeField] private float focusTime = 2f;
@@ -66,15 +66,6 @@ public class Scanner : MonoBehaviour
 
     void OnGUI()
     {
-        //            maxRadius = GUI.HorizontalSlider(new Rect(125, 220, 500, 60), maxRadius, 2F, 100.0F);
-        //        
-        //            GUI.Label(new Rect(630, 220, 60, 80), maxRadius.ToString());
-
-
-//        limiter = GUI.HorizontalSlider(new Rect(125, 220, 500, 60), limiter, 50.0F, 400.0F);
-//                
-//        GUI.Label(new Rect(630, 220, 60, 80), limiter.ToString());
-
         if (IsScanning)
         {
             //draw scanning debug

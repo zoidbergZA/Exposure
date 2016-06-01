@@ -4,7 +4,6 @@ using System.Collections;
 public class Planet : MonoBehaviour
 {
     public MeshRenderer scannableMesh;
-//    public float flickPower = 50f;
 
     [SerializeField] private Transform propsHolder;
     [SerializeField] private Transform citiesHolder;
@@ -48,13 +47,6 @@ public class Planet : MonoBehaviour
             momentum -= 80;
         }
     }
-
-//    void OnGUI()
-//    {
-//        inertia = GUI.HorizontalSlider(new Rect(125, 220, 500, 60), inertia, 0.01F, 1.0F);
-//
-//        GUI.Label(new Rect(630, 220, 60, 80), inertia.ToString());
-//    }
 
     public void AddSpin(float amount)
     {
