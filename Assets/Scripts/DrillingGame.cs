@@ -43,6 +43,9 @@ public class DrillingGame : Minigame
     [SerializeField] private float drillStuckCooldown = 2.0f;
     [SerializeField] private Animator animator;
     [SerializeField] private MobileJoystick joystick;
+    [SerializeField] private TextAsset[] easyLevels;
+    [SerializeField] private TextAsset[] mediumLevels;
+    [SerializeField] private TextAsset[] hardLevels;
 
     private Rigidbody2D myBody;
     private Drillspot drillspot;
@@ -56,8 +59,9 @@ public class DrillingGame : Minigame
     private DrillingDirection prevDrillDir;
     private Vector3 initDrillPos;
     private Vector3 drillPrevPosition;
-    private int targetColumn;
-    private int targetRow;
+    private int targetColumn = 0;
+    private int targetRow = 0;
+    private int levelsCounter = 0;
     //bools
     private bool slidingLeft, makeDrill, imagesActivated = false;
     //timers
@@ -208,6 +212,13 @@ public class DrillingGame : Minigame
         {
             if (!AutoWin) state = DrillingGameState.SLIDING;
             else state = DrillingGameState.SUCCESS;
+
+            if (levelsCounter < 3)
+            {
+                //int[] tiles = GameManager.Instance.
+                //generateLevel(easyLevels[levelsCounter]);
+            }
+            
             generateLevel(levelTiles); // pre-designed levels, loading from csv
             panelSlidingTimer = panelSlidingTime;
             joystick.StartPosition = joystick.transform.position;
