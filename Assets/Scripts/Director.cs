@@ -79,7 +79,7 @@ public class Director : MonoBehaviour
             case Modes.Grid:
                 GameManager.Instance.Planet.IsSpinning = false;
 
-                Vector3 newPos = targetTransform.position + targetTransform.up * buildHeight;
+                Vector3 newPos = targetTransform.position + targetTransform.up * buildHeight + Vector3.down * 120f;
                 Quaternion newRot = Quaternion.LookRotation(targetTransform.position - newPos, Vector3.up);
 
                 SwoopTo(newPos, newRot, 20f, 2f);

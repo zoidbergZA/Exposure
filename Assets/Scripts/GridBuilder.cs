@@ -68,7 +68,7 @@ public class GridBuilder : Minigame
 
     public void MakeConnection(Connectable connectable)
     {
-        GameManager.Instance.Player.ConsumeCable(1);
+//        GameManager.Instance.Player.ConsumeCable(1);
         ConnectedList.Add(connectable);
 //        StartPlant.SpanToPoint(connectable.connectionRef.position);
 
@@ -123,8 +123,9 @@ public class GridBuilder : Minigame
                 }
             }
 
-            float points = GameManager.Instance.ChimneyValue;
-            
+//            float points = GameManager.Instance.ChimneyValue;
+            float points = 20;
+
             GameManager.Instance.Player.ScorePoints(points, ConnectedList[ConnectedList.Count - 1].transform);
         }
         else

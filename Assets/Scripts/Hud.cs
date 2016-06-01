@@ -9,6 +9,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private FloatingText floatingTextPrefab;
     [SerializeField] private Canvas hudCanvas;
     [SerializeField] private GameObject scorePanel;
+    [SerializeField] private Text timeText;
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject cablePanel;
     [SerializeField] private Text cableText;
@@ -41,15 +42,29 @@ public class Hud : MonoBehaviour
 
     void Update()
     {
+        timeText.text = GameManager.Instance.TimeLeft.ToString("F2");
         scoreText.text = GameManager.Instance.Player.Score.ToString();
-        cableText.text = GameManager.Instance.Player.Cable + "x";
+//        cableText.text = GameManager.Instance.Player.Cable + "x";
+        
         //updateMiniGameButtons();
         updateJoystick();
     }
 
     void OnGUI()
     {
-        ShowDebug();
+//        ShowDebug();
+    }
+
+    public Rect CenteredRect(Rect rect)
+    {
+        Rect output = new Rect(
+                rect.x - rect.width / 2f,
+                Screen.height - rect.y - rect.height / 2f,
+                rect.width,
+                rect.height
+            );
+
+        return output;
     }
 
     public void GoToGameOver()
@@ -92,12 +107,17 @@ public class Hud : MonoBehaviour
 
     public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callback)
     {
-        float wobbleValue = WobbleValue * 10f;
+        float wobbleValue = WobbleValue * 13f;
 
-        if (GUI.Button(new Rect(position.x - 20 - wobbleValue / 2, Screen.height - position.y - 20 - wobbleValue / 2, 40 + wobbleValue, 40 + wobbleValue), icon, ""))
+        if (GUI.Button(CenteredRect(new Rect(position.x, position.y, 70 + wobbleValue, 70 + wobbleValue)), icon, ""))
         {
             callback();
         }
+
+        //        if (GUI.Button(new Rect(position.x - 20 - wobbleValue / 2, Screen.height - position.y - 20 - wobbleValue / 2, 40 + wobbleValue, 40 + wobbleValue), icon, ""))
+        //        {
+        //            callback();
+        //        }
     }
 
     private void updateJoystick()
@@ -248,8 +268,8 @@ public class Hud : MonoBehaviour
             GUILayout.Label("round not started");
         }
 
-        //score
-        GUILayout.Label("score: " + GameManager.Instance.Player.Score + "/" + "100");
+//        //score
+//        GUILayout.Label("score: " + GameManager.Instance.Player.Score + "/" + "100");
     }
 
     void updateWobbleCallback(float val, float ratio)
