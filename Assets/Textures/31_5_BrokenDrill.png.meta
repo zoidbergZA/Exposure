@@ -1,0 +1,272 @@
+fileFormatVersion: 2
+guid: 33b5f3a38c69ea74ea6a047f138b8b8c
+timeCreated: 1464689194
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: 31_5_BrokenDrill_0
+    21300002: 31_5_BrokenDrill_1
+    21300004: 31_5_BrokenDrill_2
+    21300006: 31_5_BrokenDrill_3
+    21300008: 31_5_BrokenDrill_4
+    21300010: 31_5_BrokenDrill_5
+    21300012: 31_5_BrokenDrill_6
+    21300014: 31_5_BrokenDrill_7
+    21300016: 31_5_BrokenDrill_8
+    21300018: 31_5_BrokenDrill_9
+    21300020: 31_5_BrokenDrill_10
+    21300022: 31_5_BrokenDrill_11
+    21300024: 31_5_BrokenDrill_12
+    21300026: 31_5_BrokenDrill_13
+    21300028: 31_5_BrokenDrill_14
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: 31_5_BrokenDrill_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 540
+        height: 382
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 248, y: -187}
+        - {x: 255, y: -184}
+        - {x: 256, y: -182}
+        - {x: 257, y: -182}
+        - {x: 263, y: -176}
+        - {x: 263, y: -175}
+        - {x: 266, y: -173}
+        - {x: 269, y: -166}
+        - {x: 269, y: -163}
+        - {x: 270, y: -162}
+        - {x: 270, y: 164}
+        - {x: 269, y: 165}
+        - {x: 269, y: 167}
+        - {x: 268, y: 168}
+        - {x: 268, y: 170}
+        - {x: 266, y: 175}
+        - {x: 259, y: 182}
+        - {x: 258, y: 182}
+        - {x: 252, y: 187}
+        - {x: 248, y: 188}
+        - {x: 247, y: 189}
+        - {x: 245, y: 189}
+        - {x: 244, y: 190}
+        - {x: -242, y: 190}
+        - {x: -255, y: 184}
+        - {x: -262, y: 176}
+        - {x: -262, y: 175}
+        - {x: -264, y: 174}
+        - {x: -266, y: 169}
+        - {x: -267, y: 163}
+        - {x: -268, y: 162}
+        - {x: -268, y: -35}
+        - {x: -270, y: -36}
+        - {x: -270, y: -46}
+        - {x: -268, y: -47}
+        - {x: -268, y: -160}
+        - {x: -267, y: -161}
+        - {x: -267, y: -164}
+        - {x: -266, y: -165}
+        - {x: -266, y: -167}
+        - {x: -264, y: -172}
+        - {x: -262, y: -173}
+        - {x: -262, y: -174}
+        - {x: -253, y: -183}
+        - {x: -252, y: -183}
+        - {x: -248, y: -186}
+        - {x: -246, y: -186}
+        - {x: -242, y: -188}
+        - {x: -237, y: -188}
+        - {x: -236, y: -189}
+        - {x: 238, y: -189}
+        - {x: 239, y: -188}
+        - {x: 245, y: -188}
+        - {x: 246, y: -187}
+    - name: 31_5_BrokenDrill_1
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 0
+        width: 540
+        height: 382
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 250, y: -188}
+        - {x: 255, y: -186}
+        - {x: 263, y: -178}
+        - {x: 263, y: -177}
+        - {x: 267, y: -172}
+        - {x: 267, y: -170}
+        - {x: 269, y: -166}
+        - {x: 269, y: -82}
+        - {x: 270, y: -81}
+        - {x: 270, y: 158}
+        - {x: 269, y: 159}
+        - {x: 269, y: 163}
+        - {x: 268, y: 164}
+        - {x: 268, y: 166}
+        - {x: 265, y: 173}
+        - {x: 263, y: 174}
+        - {x: 263, y: 175}
+        - {x: 255, y: 183}
+        - {x: 254, y: 183}
+        - {x: 253, y: 185}
+        - {x: 246, y: 188}
+        - {x: 243, y: 188}
+        - {x: 242, y: 189}
+        - {x: -241, y: 189}
+        - {x: -242, y: 188}
+        - {x: -244, y: 188}
+        - {x: -245, y: 187}
+        - {x: -247, y: 187}
+        - {x: -252, y: 185}
+        - {x: -253, y: 183}
+        - {x: -254, y: 183}
+        - {x: -262, y: 175}
+        - {x: -262, y: 174}
+        - {x: -264, y: 173}
+        - {x: -267, y: 166}
+        - {x: -267, y: 164}
+        - {x: -268, y: 163}
+        - {x: -268, y: 158}
+        - {x: -269, y: 157}
+        - {x: -269, y: 17}
+        - {x: -270, y: 17}
+        - {x: -270, y: 6}
+        - {x: -269, y: 5}
+        - {x: -269, y: -30}
+        - {x: -268, y: -31}
+        - {x: -268, y: -40}
+        - {x: -269, y: -41}
+        - {x: -269, y: -166}
+        - {x: -268, y: -167}
+        - {x: -268, y: -170}
+        - {x: -266, y: -175}
+        - {x: -264, y: -176}
+        - {x: -264, y: -177}
+        - {x: -258, y: -183}
+        - {x: -257, y: -183}
+        - {x: -255, y: -186}
+        - {x: -250, y: -188}
+        - {x: -248, y: -188}
+        - {x: -244, y: -190}
+        - {x: -239, y: -190}
+        - {x: -238, y: -191}
+        - {x: 238, y: -191}
+        - {x: 239, y: -190}
+        - {x: 244, y: -190}
+        - {x: 245, y: -189}
+    - name: 31_5_BrokenDrill_2
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 0
+        width: 540
+        height: 382
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 251, y: -189}
+        - {x: 255, y: -186}
+        - {x: 256, y: -186}
+        - {x: 258, y: -184}
+        - {x: 259, y: -184}
+        - {x: 264, y: -179}
+        - {x: 264, y: -178}
+        - {x: 268, y: -173}
+        - {x: 268, y: -171}
+        - {x: 270, y: -167}
+        - {x: 270, y: -9}
+        - {x: 268, y: -7}
+        - {x: 268, y: 47}
+        - {x: 270, y: 48}
+        - {x: 270, y: 169}
+        - {x: 269, y: 170}
+        - {x: 269, y: 172}
+        - {x: 268, y: 173}
+        - {x: 267, y: 177}
+        - {x: 265, y: 179}
+        - {x: 265, y: 180}
+        - {x: 255, y: 190}
+        - {x: 252, y: 191}
+        - {x: -249, y: 191}
+        - {x: -254, y: 189}
+        - {x: -263, y: 179}
+        - {x: -263, y: 178}
+        - {x: -265, y: 176}
+        - {x: -265, y: 174}
+        - {x: -267, y: 171}
+        - {x: -267, y: 168}
+        - {x: -268, y: 167}
+        - {x: -268, y: 1}
+        - {x: -267, y: 0}
+        - {x: -267, y: -47}
+        - {x: -269, y: -49}
+        - {x: -269, y: -164}
+        - {x: -268, y: -165}
+        - {x: -268, y: -169}
+        - {x: -267, y: -170}
+        - {x: -267, y: -172}
+        - {x: -265, y: -177}
+        - {x: -256, y: -186}
+        - {x: -247, y: -190}
+        - {x: -244, y: -190}
+        - {x: -243, y: -191}
+        - {x: 245, y: -191}
+        - {x: 246, y: -190}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
