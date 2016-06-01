@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectionRef: {fileID: 464250}
-  connectIcon: {fileID: 2800000, guid: 596c7e9047568e54c92dc75a885db87c, type: 3}
+  connectIcon: {fileID: 2800000, guid: 9b48bf22fc1c0364ebe5cc0511ae997a, type: 3}
   PlacerModel: {fileID: 114302}
   BuiltModel: {fileID: 113898}
 --- !u!114 &11451952
@@ -281,7 +281,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: connectIcon
+      value: 
+      objectReference: {fileID: 2800000, guid: 9b48bf22fc1c0364ebe5cc0511ae997a, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 125730}

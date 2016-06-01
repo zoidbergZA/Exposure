@@ -1080,7 +1080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectionRef: {fileID: 431776}
-  connectIcon: {fileID: 2800000, guid: cca88ef0d19dbc547aa0ab4ce3122a62, type: 3}
+  connectIcon: {fileID: 2800000, guid: 50c00d26683728a44bdb8442d5149a0f, type: 3}
   chimneys:
   - {fileID: 11488612}
 --- !u!114 &11488612
@@ -1095,7 +1095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chimneyAnimation: {fileID: 11133166}
-  demolishIcon: {fileID: 2800000, guid: cca88ef0d19dbc547aa0ab4ce3122a62, type: 3}
+  demolishIcon: {fileID: 2800000, guid: 99366ded814d3fe49937967d5fc680e0, type: 3}
   smokeSystem: {fileID: 19807846}
   explodeSystem: {fileID: 19854190}
   unusedModel: {fileID: 2340858}
@@ -4145,7 +4145,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: connectIcon
+      value: 
+      objectReference: {fileID: 2800000, guid: 50c00d26683728a44bdb8442d5149a0f, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 113802}
