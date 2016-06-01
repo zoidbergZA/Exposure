@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Planet Planet { get; private set; }
+    public City[] Cities { get; private set; }
     public EffectsManager EffectsManager {get; private set; }
     public GridBuilder GridBuilder { get; private set; }
     public DrillingGame DrillingGame { get; private set; }
@@ -60,11 +61,11 @@ public class GameManager : MonoBehaviour
         Player = FindObjectOfType<Player>();
         Director = FindObjectOfType<Director>();
 
-        City[] cities = FindObjectsOfType<City>();
+        Cities = FindObjectsOfType<City>();
 
-        for (int i = 0; i < cities.Length; i++)
+        for (int i = 0; i < Cities.Length; i++)
         {
-            TotalChimneys += cities[i].ChimneyCount;
+            TotalChimneys += Cities[i].ChimneyCount;
         }
     }
 

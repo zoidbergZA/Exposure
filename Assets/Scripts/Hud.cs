@@ -8,6 +8,7 @@ public class Hud : MonoBehaviour
 {
     [SerializeField] private FloatingText floatingTextPrefab;
     [SerializeField] private Canvas hudCanvas;
+    [SerializeField] private Image buildArrow;
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private Text timeText;
     [SerializeField] private Text scoreText;
@@ -48,6 +49,13 @@ public class Hud : MonoBehaviour
         
         //updateMiniGameButtons();
         updateJoystick();
+
+//        //arrow test
+//        City closestCity = GameManager.Instance.GridBuilder.FindClosestCity(Vector3.zero);
+//        Vector3 cityScreenPos = Camera.main.WorldToScreenPoint(closestCity.transform.position);
+//
+//        Vector2 dir = (Vector2)cityScreenPos - new Vector2(Screen.width/2, Screen.height/2);
+//        PointBuildArrow(dir);
     }
 
     void OnGUI()
@@ -66,6 +74,21 @@ public class Hud : MonoBehaviour
             );
 
         return output;
+    }
+
+    public void ShowBuildArrow(bool show)
+    {
+        buildArrow.enabled = show;
+    }
+
+    public void PointBuildArrow(Vector2 direction)
+    {
+//        Debug.Log(direction);
+
+        float angle = Utils.AngleSigned(Vector3.up, (Vector3) direction, Vector3.forward);
+        buildArrow.rectTransform.eulerAngles = new Vector3(0, 0, angle);
+
+//        Debug.Log(angle);
     }
 
     public void GoToGameOver()
