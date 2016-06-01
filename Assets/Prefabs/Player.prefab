@@ -41,8 +41,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxRadius: 22
-  limiter: 160
-  maxScanDistance: 250
+  limiter: 380
+  maxScanDistance: 380
   minScanDistance: 130
   focusTime: 2.3
   touchIcon: {fileID: 2800000, guid: ef34d65258ae6f049b1076f10e1ea018, type: 3}
