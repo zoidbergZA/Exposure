@@ -52,7 +52,8 @@ public class Hud : MonoBehaviour
 
     void OnGUI()
     {
-//        ShowDebug();
+        if (GameManager.Instance.showDebug)
+            ShowDebug();
     }
 
     public Rect CenteredRect(Rect rect)
@@ -261,15 +262,17 @@ public class Hud : MonoBehaviour
 
     private void ShowDebug()
     {
-        if (GameManager.Instance.RoundStarted)
-            GUILayout.Label("time left: " + GameManager.Instance.TimeLeft.ToString("F2"));
-        else
-        {
-            GUILayout.Label("round not started");
-        }
+        GUILayout.BeginArea(new Rect(10, 60, 400, 300));
 
-//        //score
-//        GUILayout.Label("score: " + GameManager.Instance.Player.Score + "/" + "100");
+        GUILayout.Label("time left: " + GameManager.Instance.TimeLeft.ToString("F2"));
+
+        GUILayout.Label("scanner max radius: " + GameManager.Instance.Scanner.maxRadius);
+        GameManager.Instance.Scanner.maxRadius = GUILayout.HorizontalSlider(GameManager.Instance.Scanner.maxRadius, 2f, 100f);
+
+        GUILayout.Label("scanner max distance: " + GameManager.Instance.Scanner.limiter);
+        GameManager.Instance.Scanner.limiter = GUILayout.HorizontalSlider(GameManager.Instance.Scanner.limiter, 50f, 400f);
+
+        GUILayout.EndArea();
     }
 
     void updateWobbleCallback(float val, float ratio)

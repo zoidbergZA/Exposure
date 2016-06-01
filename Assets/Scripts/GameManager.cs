@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
     //global prefabs
     public GameObject PipePrefab;
 
+    public bool showDebug;
     public TextAsset puzzle1;
-    //    public GameObject PylonsHolder;
 
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
     public DrillingGame DrillingGame { get; private set; }
     public Scanner Scanner { get; private set; }
     public Hud Hud { get; private set; }
-//    public float PylonSeparation { get { return pylonSeparation; } }
     public int TotalChimneys { get; private set; }
     public float ChimneyValue { get { return 100f/TotalChimneys; } }
     public bool RoundStarted { get; private set; }
@@ -78,12 +77,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        //temp
+        //cheat codes
         if (Input.GetKeyDown(KeyCode.F2))
             TouchInput = !TouchInput;
         if (Input.GetKeyDown(KeyCode.F3))
             Instance.Planet.DisableNextChimney();
-        //temp
+        if (Input.GetKeyDown(KeyCode.F9))
+            showDebug = !showDebug;
+        //cheat codes
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
