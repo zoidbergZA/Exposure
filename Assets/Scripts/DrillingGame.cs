@@ -57,11 +57,11 @@ public class DrillingGame : Minigame
     private DrillingGameState state;
     private DrillingDirection drillDir;
     private DrillingDirection prevDrillDir;
-    private Vector3 initDrillPos;
-    private Vector3 drillPrevPosition;
+    private Vector2 initDrillPos;
     private int targetColumn = 0;
     private int targetRow = 0;
     private int levelsCounter = 0;
+    private int tileTweenId;
     //bools
     private bool slidingLeft, makeDrill, imagesActivated = false;
     //timers
@@ -70,25 +70,6 @@ public class DrillingGame : Minigame
     private float panelSlidingTimer;
     private float drillStuckChecked;
     private float stuckTimer;
-
-    // 19 X 14 test level tiles: ids to instantiate different objects
-    private int[] levelTiles = 
-    {
-        4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
-        2,2,7,2,2,2,2,2,2,2,2,2,2,2,3,2,3,2,3,
-        2,2,2,2,2,0,2,0,2,1,2,2,3,2,2,2,2,2,2,
-        2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-        2,2,2,2,2,1,2,0,2,1,2,2,3,2,2,2,2,2,2,
-        3,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
-        8,8,1,8,8,0,8,7,8,1,8,8,3,8,3,8,3,8,3,
-        3,8,8,8,8,8,8,8,8,8,8,8,8,8,0,8,0,8,8,
-        8,8,8,8,8,8,8,1,8,1,8,8,8,8,8,8,8,8,8,
-        5,3,5,3,5,5,5,5,5,5,5,5,5,5,0,5,0,5,3,
-        5,5,5,5,5,5,5,1,5,5,5,5,5,5,5,5,5,5,5,
-        5,5,5,3,5,5,5,5,5,0,5,5,0,5,7,5,1,5,5,
-        6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,3,
-        6,6,6,3,6,6,3,6,6,6,6,6,6,6,0,6,1,6,6
-    };
 
     public bool SucceededDrill { get; set; }
     public bool Bumped { get; set; }
@@ -99,7 +80,6 @@ public class DrillingGame : Minigame
     public DrillingDirection PrevDrillDirection { get { return prevDrillDir; } set { prevDrillDir = value; } }
     public void MakeDrill(bool value) { makeDrill = value; }
     public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
-    public Vector3 DrillPrevPosition { get { return drillPrevPosition; } set { drillPrevPosition = value; } }
     public UnityEngine.UI.Image Drill { get { return drill; } }
     public UnityEngine.UI.Image WaterBar { get { return waterBar; } }
     public UnityEngine.UI.Image DrillLife { get { return drillLife; } }
@@ -112,6 +92,13 @@ public class DrillingGame : Minigame
     public bool ReachedBottom(int bottom, UnityEngine.UI.Image drill)
     {
         return drill.rectTransform.anchoredPosition.y <= initDrillPos.y - bottom;
+    }
+
+    void Awake()
+    {
+        if(rockPrefab)
+            tileTweenId = LeanTween.scale(rockPrefab.GetComponent<RectTransform>(), rockPrefab.GetComponent<RectTransform>().localScale * 1.2f, 1f)
+                .setEase(LeanTweenType.punch).id;
     }
 
     void Start()
@@ -215,11 +202,21 @@ public class DrillingGame : Minigame
 
             if (levelsCounter < 3)
             {
-                //int[] tiles = GameManager.Instance.
-                //generateLevel(easyLevels[levelsCounter]);
+                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(easyLevels[levelsCounter]);
+                generateLevel(tiles);  // pre-designed levels, loading from csv
             }
-            
-            generateLevel(levelTiles); // pre-designed levels, loading from csv
+            else if (levelsCounter >=3 && levelsCounter < 6)
+            {
+                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(mediumLevels[levelsCounter-3]);
+                generateLevel(tiles);  // pre-designed levels, loading from csv
+            }
+            else if (levelsCounter >= 6)
+            {
+                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(hardLevels[levelsCounter - 6]);
+                generateLevel(tiles); // pre-designed levels, loading from csv
+            }
+            levelsCounter++;
+
             panelSlidingTimer = panelSlidingTime;
             joystick.StartPosition = joystick.transform.position;
         }
@@ -261,6 +258,7 @@ public class DrillingGame : Minigame
     private void fireToast(bool gameSucceeded)
     {
         toastTimer = toastMessageTime;
+        LeanTween.move(steamImage.gameObject.GetComponent<RectTransform>(), new Vector3(0, -475, 0), toastMessageTime).setEase(LeanTweenType.easeOutQuad);
         if(gameSucceeded) endOkToast.gameObject.SetActive(false);
         else endFailToast.gameObject.SetActive(false);
         state = DrillingGameState.INACTIVE;
@@ -647,10 +645,9 @@ public class DrillingGame : Minigame
         {
             checkDrillerStuck();
             drillStuckChecked = Time.time;
-            Debug.Log("row: " + targetRow + " | column: " + targetColumn + " | prev dir: " + prevDrillDir + " | dir: " + drillDir + " | bump: " + Bumped +
-                " | stuck: " + stuckTimer);
+            //Debug.Log("row: " + targetRow + " | column: " + targetColumn + " | prev dir: " + prevDrillDir + " | dir: " + drillDir + " | bump: " + Bumped +
+            //    " | stuck: " + stuckTimer);
         }
-        drillPrevPosition = drill.rectTransform.anchoredPosition;
         updateProgressBars();
         updateJoystickImages();
 
@@ -668,7 +665,6 @@ public class DrillingGame : Minigame
         else if (stuckTimer <= stuckTime - (stuckTime / 3) && stuckTimer > stuckTime - (stuckTime / 3)*2) drillLife.fillAmount = 0.66f;
         else if (stuckTimer <= stuckTime - (stuckTime / 3) * 2 && stuckTimer > 0.05f) drillLife.fillAmount = 0.33f;
         else drillLife.fillAmount = 0.00f;
-
     }
 
     private void checkDrillerStuck()
@@ -693,8 +689,6 @@ public class DrillingGame : Minigame
             GameManager.Instance.Player.ScorePoints(succeededDrillValue);
         }
         else GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
-
-//        Destroy(drillspot.gameObject);
         resetGameGuts();
     }
 
@@ -732,6 +726,9 @@ public class DrillingGame : Minigame
         drillLife.color = new Color(1, 1, 1);
         waterBar.fillAmount = 0f;
         drillLife.fillAmount = 1f;
+        if (ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = false;
+        if (rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = false;
+        if (leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = false;
     }
 
     private void instantiateRock(int x, int y)
@@ -741,9 +738,6 @@ public class DrillingGame : Minigame
         rock.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         rock.gameObject.SetActive(true);
         tiles.Add(rock);
-
-        LeanTween.scale(rock.GetComponent<RectTransform>(), rock.GetComponent<RectTransform>().localScale * 1.2f, 1f)
-            .setEase(LeanTweenType.punch);
     }
 
     private void instantiateDiamond(int x, int y)
@@ -753,12 +747,8 @@ public class DrillingGame : Minigame
         diamond.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         diamond.gameObject.SetActive(true);
         tiles.Add(diamond);
-
-        LeanTween.scale(diamond.GetComponent<RectTransform>(), diamond.GetComponent<RectTransform>().localScale * 1.2f, 1f)
-            .setEase(LeanTweenType.punch);
     }
 
-    // 0 - diamond, 1 - electricity, 2 - yellow, 3 - blocks, 4 - green, 5 - orange, 6 - red, 7 - water, 8 - yellow-egg
     private void instantiateGroundTile(int x, int y, int type)
     {
         GameObject groundTile;
@@ -787,9 +777,6 @@ public class DrillingGame : Minigame
         groundTile.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         groundTile.gameObject.SetActive(true);
         tiles.Add(groundTile);
-
-        LeanTween.scale(groundTile.GetComponent<RectTransform>(), groundTile.GetComponent<RectTransform>().localScale * 1.2f, 1f)
-            .setEase(LeanTweenType.punch);
     }
 
     private void instantiateCable(int x, int y)
@@ -799,9 +786,6 @@ public class DrillingGame : Minigame
         cable.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         cable.gameObject.SetActive(true);
         tiles.Add(cable);
-
-        LeanTween.scale(cable.GetComponent<RectTransform>(), cable.GetComponent<RectTransform>().localScale * 1.2f, 1f)
-            .setEase(LeanTweenType.punch);
     }
 
     private void instantiateWaterTile(int x, int y)
@@ -811,9 +795,6 @@ public class DrillingGame : Minigame
         waterTile.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         waterTile.gameObject.SetActive(true);
         tiles.Add(waterTile);
-
-        LeanTween.scale(waterTile.GetComponent<RectTransform>(), waterTile.GetComponent<RectTransform>().localScale * 1.2f, 1f)
-            .setEase(LeanTweenType.punch);
     }
 
     public void AddWater(GameObject waterPiece)
