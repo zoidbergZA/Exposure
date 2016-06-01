@@ -116,6 +116,7 @@ public class DrillingGame : Minigame
         ceiling = GameObject.Find("Ceiling");
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
+        SucceededDrill = true;
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -202,20 +203,20 @@ public class DrillingGame : Minigame
 
             if (levelsCounter < 3)
             {
-                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(easyLevels[levelsCounter]);
+                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(easyLevels[(SucceededDrill) ? levelsCounter : Random.Range(0, 3)]);
                 generateLevel(tiles);  // pre-designed levels, loading from csv
             }
             else if (levelsCounter >=3 && levelsCounter < 6)
             {
-                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(mediumLevels[levelsCounter-3]);
+                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(mediumLevels[(SucceededDrill) ? levelsCounter - 3 : Random.Range(3, 6)]);
                 generateLevel(tiles);  // pre-designed levels, loading from csv
             }
             else if (levelsCounter >= 6)
             {
-                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(hardLevels[levelsCounter - 6]);
+                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(hardLevels[(SucceededDrill) ? levelsCounter - 6 : Random.Range(6, 9)]);
                 generateLevel(tiles); // pre-designed levels, loading from csv
             }
-            levelsCounter++;
+            if (SucceededDrill) levelsCounter++;
 
             panelSlidingTimer = panelSlidingTime;
             joystick.StartPosition = joystick.transform.position;
@@ -320,7 +321,7 @@ public class DrillingGame : Minigame
                 }
                 break;
             case DrillingDirection.NONE:
-                myBody.AddRelativeForce(new Vector2(0, ((!Bumped) ? -1 : 1) * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
+                myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
                 myBody.freezeRotation = true;
                 break;
@@ -645,8 +646,8 @@ public class DrillingGame : Minigame
         {
             checkDrillerStuck();
             drillStuckChecked = Time.time;
-            //Debug.Log("row: " + targetRow + " | column: " + targetColumn + " | prev dir: " + prevDrillDir + " | dir: " + drillDir + " | bump: " + Bumped +
-            //    " | stuck: " + stuckTimer);
+            Debug.Log("row: " + targetRow + " | column: " + targetColumn + " | prev dir: " + prevDrillDir + " | dir: " + drillDir + " | bump: " + Bumped +
+                " | stuck: " + stuckTimer);
         }
         updateProgressBars();
         updateJoystickImages();
