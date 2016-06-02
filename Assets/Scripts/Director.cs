@@ -10,6 +10,8 @@ public class Director : MonoBehaviour
     }
 
     public float buildHeight = 100f;
+    public float normalZoom = 45f;
+    public float buildzoom = 45f;
 
     [SerializeField] private Shaker shaker;
 
@@ -82,13 +84,13 @@ public class Director : MonoBehaviour
                 Vector3 newPos = targetTransform.position + targetTransform.up * buildHeight + Vector3.down * 120f;
                 Quaternion newRot = Quaternion.LookRotation(targetTransform.position - newPos, Vector3.up);
 
-                SwoopTo(newPos, newRot, 20f, 2f);
+                SwoopTo(newPos, newRot, buildzoom, 2f);
                 break;
 
             case Modes.Orbit:
                 GameManager.Instance.Planet.IsSpinning = true;
 
-                SwoopTo(orbitPosition, orbitRotation, 40f, 2f);
+                SwoopTo(orbitPosition, orbitRotation, normalZoom, 2f);
                 break;
         }
     }
