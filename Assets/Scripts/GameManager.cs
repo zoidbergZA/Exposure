@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     //global prefabs
     public GameObject PipePrefab;
+    public Tutorial TutorialPrefab;
 
     public bool showDebug;
     public TextAsset puzzle1;
@@ -67,6 +68,8 @@ public class GameManager : MonoBehaviour
         {
             TotalChimneys += Cities[i].ChimneyCount;
         }
+
+        Instantiate(TutorialPrefab);
     }
 
     void Start()
