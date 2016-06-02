@@ -1157,9 +1157,9 @@ MonoBehaviour:
   steamImage: {fileID: 11410760}
   drillLife: {fileID: 11406088}
   joystickImage: {fileID: 11498516}
-  arrowDown: {fileID: 21300000, guid: ca95b58ad50b3e346aff10b020eca14c, type: 3}
-  arrowUpDown: {fileID: 21300000, guid: 24e0bd82e170cae43bcdd82701bb7001, type: 3}
-  arrowLeftRight: {fileID: 21300000, guid: d4056f0dbf765c34c92f836e8867c3ea, type: 3}
+  arrowDown: {fileID: 21300000, guid: ecb984caf6ce7fb4aa423007ccd63194, type: 3}
+  arrowUpDown: {fileID: 21300000, guid: 4e17dea0be40a0949812ac5d65c6bc1f, type: 3}
+  arrowLeftRight: {fileID: 21300000, guid: 00a999c385d698c428678ffab0f73dc6, type: 3}
   columns: 700000009c000000c8000000f4000000200100004c01000078010000a4010000d0010000fc010000280200005402000080020000ac020000d802000004030000300300005c03000088030000
   rows: 84020000580200002c02000000020000d4010000a80100007c0100005001000024010000f8000000cc000000a000000074000000
   rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
@@ -1499,7 +1499,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ca95b58ad50b3e346aff10b020eca14c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ecb984caf6ce7fb4aa423007ccd63194, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1733,7 +1733,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -614, y: 690}
+  m_AnchoredPosition: {x: 19, y: 690}
   m_SizeDelta: {x: 44, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22419038
@@ -1858,7 +1858,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.000030517578}
-  m_SizeDelta: {x: 148, y: 148}
+  m_SizeDelta: {x: 226, y: 226}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22450712
 RectTransform:
