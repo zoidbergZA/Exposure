@@ -13662,10 +13662,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 11435518, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1722534707}
     - target: {fileID: 11430632, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: upButton
       value: 
@@ -13682,6 +13678,10 @@ Prefab:
       propertyPath: downButton
       value: 
       objectReference: {fileID: 673522534}
+    - target: {fileID: 11435518, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1722534707}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
   m_IsPrefabParent: 0
