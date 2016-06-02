@@ -51,7 +51,7 @@ public class Hud : MonoBehaviour
 
         timeText.text = niceTime;
         scoreText.text = GameManager.Instance.Player.Score.ToString();
-//        cableText.text = GameManager.Instance.Player.Cable + "x";
+        cableText.text = GameManager.Instance.Player.Cable + "x";
         
         //updateMiniGameButtons();
         updateJoystick();

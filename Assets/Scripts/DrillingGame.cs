@@ -8,6 +8,15 @@ public class DrillingGame : Minigame
     public AnimationCurve RocksCurve;
     public AnimationCurve CrystalsCurve;
 
+    [SerializeField] private float toastMessageTime = 3.0f;
+    [SerializeField] private float drillSpeed = 3.0f;
+    [SerializeField] private float slideSpeed = 1.0f;
+    [SerializeField] private float diamondValue = 1.0f;
+    [SerializeField] private float succeededDrillValue = 5.0f;
+    [SerializeField] private float jumpPhaseTime = 0.25f;
+    [SerializeField] private float panelSlidingTime = 1.5f;
+    [SerializeField] public float stuckTime = 10.0f;
+    [SerializeField] private float drillStuckCooldown = 2.0f;
     [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
     [SerializeField] private UnityEngine.UI.Image mainPanel;
     [SerializeField] private UnityEngine.UI.Image drill;
@@ -20,8 +29,6 @@ public class DrillingGame : Minigame
     [SerializeField] private Sprite arrowDown;
     [SerializeField] private Sprite arrowUpDown;
     [SerializeField] private Sprite arrowLeftRight;
-    [SerializeField] public int[] columns;
-    [SerializeField] public int[] rows;
     [SerializeField] private GameObject rockPrefab;
     [SerializeField] private GameObject diamondPrefab;
     [SerializeField] private GameObject cablePrefab;
@@ -32,17 +39,11 @@ public class DrillingGame : Minigame
     [SerializeField] private GameObject groundRed;
     [SerializeField] private GameObject groundAcid;
     [SerializeField] private bool AutoWin;
-    [SerializeField] private float toastMessageTime = 3.0f;
-    [SerializeField] private float drillSpeed = 3.0f;
-    [SerializeField] private float slideSpeed = 1.0f;
-    [SerializeField] private float diamondValue = 1.0f;
-    [SerializeField] private float succeededDrillValue = 5.0f;
-    [SerializeField] private float jumpPhaseTime = 0.25f;
-    [SerializeField] private float panelSlidingTime = 1.5f;
-    [SerializeField] public float stuckTime = 10.0f;
-    [SerializeField] private float drillStuckCooldown = 2.0f;
     [SerializeField] private Animator animator;
     [SerializeField] private MobileJoystick joystick;
+    [SerializeField] private GameObject joystickPanel;
+    [SerializeField] public int[] columns;
+    [SerializeField] public int[] rows;
     [SerializeField] private TextAsset[] easyLevels;
     [SerializeField] private TextAsset[] mediumLevels;
     [SerializeField] private TextAsset[] hardLevels;
@@ -63,7 +64,7 @@ public class DrillingGame : Minigame
     private int levelsCounter = 0;
     private int tileTweenId;
     //bools
-    private bool slidingLeft, makeDrill, imagesActivated = false;
+    private bool slidingLeft, makeDrill, imagesActivated, joystickShaken = false;
     //timers
     private float toastTimer;
     private float jumpPhaseTimer;
@@ -128,12 +129,14 @@ public class DrillingGame : Minigame
         imagesActivated = true;
         drill.transform.SetAsLastSibling();
         if (animator) animator.SetBool("isSlidingLeft", false);
+        joystick.GetComponent<UnityEngine.UI.Image>().rectTransform.anchoredPosition = new Vector2(0, 0);
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0,100,0), panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
         state = DrillingGameState.ACTIVATION;
         stuckTimer = stuckTime;
         myBody.inertia = 0;
         prevDrillDir = DrillingDirection.NONE;
         drillDir = DrillingDirection.NONE;
+        joystickPanel.SetActive(true);
     }
 
     // 0 - diamond, 1 - electricity, 2 - yellow, 3 - blocks, 4 - green, 5 - orange, 6 - red, 7 - water, 8 - yellow-egg
@@ -240,6 +243,7 @@ public class DrillingGame : Minigame
     private void handleStartStopState()
     {
         toastTimer -= Time.deltaTime;
+        if (joystickPanel.gameObject.activeInHierarchy) joystickPanel.SetActive(false);
         if (SucceededDrill)
         {
             endOkToast.gameObject.SetActive(true);
@@ -364,7 +368,7 @@ public class DrillingGame : Minigame
                 }
                 else
                 {
-                    if (drill.rectTransform.anchoredPosition.y != columns[targetRow])
+                    if (drill.rectTransform.anchoredPosition.y != rows[targetRow])
                         drill.rectTransform.anchoredPosition = new Vector2(drill.rectTransform.anchoredPosition.x, rows[targetRow]);
                     prevDrillDir = DrillingDirection.NONE;
                 }
@@ -427,7 +431,7 @@ public class DrillingGame : Minigame
                 }
                 else
                 {
-                    if (drill.rectTransform.anchoredPosition.y != columns[targetRow])
+                    if (drill.rectTransform.anchoredPosition.y != rows[targetRow])
                         drill.rectTransform.anchoredPosition = new Vector2(drill.rectTransform.anchoredPosition.x, rows[targetRow]);
                     prevDrillDir = DrillingDirection.NONE;
                 }
@@ -554,6 +558,12 @@ public class DrillingGame : Minigame
     private void handleSlidingState()
     {
         activateImages(true);
+        if (!joystickShaken)
+        {
+            LeanTween.scale(joystickPanel.GetComponent<RectTransform>(), joystickPanel.GetComponent<RectTransform>().localScale * 1.2f, 3)
+                .setEase(LeanTweenType.punch);
+            joystickShaken = true;
+        }
         updateSlidingMovement();
     }
 
@@ -844,7 +854,6 @@ public class DrillingGame : Minigame
     {
         if (drill.rectTransform.anchoredPosition.y <= rows[0])
         {
-            Debug.Log("its true!");
             if (!ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = true;
             if (!rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = true;
             if (!leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = true;
