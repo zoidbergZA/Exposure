@@ -4,6 +4,11 @@ using System.Collections;
 
 public class Scanner : MonoBehaviour
 {
+    public delegate void ScanHandler();
+
+    public static event ScanHandler ScannerActivated;
+    public static event ScanHandler ScanStarted;
+
     public float maxRadius = 100f;
     public float limiter = 100f;
 
@@ -96,6 +101,11 @@ public class Scanner : MonoBehaviour
         IsScanning = true;
         lastStartScanAt = Time.time;
         focusTimer = focusTime;
+
+        if (ScanStarted != null)
+        {
+            ScanStarted();
+        }
     }
 
     public void EndScan()
