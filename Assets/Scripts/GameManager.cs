@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("round ended! score " + Player.Score + "/100");
 
-        Hud.GoToGameOver();
+        Hud.GoToGameOver((int)Player.Score);
         RoundStarted = false;
     }
 }

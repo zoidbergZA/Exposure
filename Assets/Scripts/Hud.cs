@@ -11,6 +11,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private Image buildArrow;
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private Text timeText;
+    [SerializeField] private Text gameOverText;
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject cablePanel;
     [SerializeField] private Text cableText;
@@ -96,9 +97,11 @@ public class Hud : MonoBehaviour
 //        Debug.Log(angle);
     }
 
-    public void GoToGameOver()
+    public void GoToGameOver(int score)
     {
         gameOverPanel.SetActive(true);
+
+        gameOverText.text = "score: " + score;
     }
 
     public void ShakeScorePanel()
