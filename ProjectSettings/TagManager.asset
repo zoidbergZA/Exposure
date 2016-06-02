@@ -12,6 +12,7 @@ TagManager:
   - Cable
   - Water
   - Walls
+  - Pipe
   layers:
   - Default
   - TransparentFX
