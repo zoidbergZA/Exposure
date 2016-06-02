@@ -14,7 +14,6 @@ public class Driller : MonoBehaviour
         if (coll.gameObject.tag == "Diamond")
         {
             GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
-            GameManager.Instance.Hud.NewFloatingText("1 point!", coll.gameObject.transform);
             Destroy(coll.gameObject);
         }
         if (coll.gameObject.tag == "GroundTile")
@@ -23,7 +22,7 @@ public class Driller : MonoBehaviour
         }
         if (coll.gameObject.tag == "Cable")
         {
-            GameManager.Instance.Player.CollectCable(1);
+            GameManager.Instance.Player.CollectCable(2);
 
             Destroy(coll.gameObject);
         }
