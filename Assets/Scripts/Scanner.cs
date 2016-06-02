@@ -82,7 +82,7 @@ public class Scanner : MonoBehaviour
 
             if (isOnHotspot)
             {
-                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, 240f, 240f)), goodIcon);
+                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, 270f, 270f)), goodIcon);
 
 //                progress = ((Progress*100f)).ToString("F0");
 

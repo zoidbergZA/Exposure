@@ -88,7 +88,7 @@ public class Director : MonoBehaviour
             case Modes.Orbit:
                 GameManager.Instance.Planet.IsSpinning = true;
 
-                SwoopTo(orbitPosition, orbitRotation, 40f, 2f);
+                SwoopTo(orbitPosition, orbitRotation, 45f, 2f);
                 break;
         }
     }
