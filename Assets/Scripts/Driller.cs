@@ -37,7 +37,7 @@ public class Driller : MonoBehaviour
         }
         if (coll.gameObject.tag == "Pipe")
         {
-            GameManager.Instance.DrillingGame.SucceededDrill = true;
+            GameManager.Instance.DrillingGame.SucceededDrill = false;
             GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
         }
     }

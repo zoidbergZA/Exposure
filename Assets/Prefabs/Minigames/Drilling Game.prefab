@@ -407,7 +407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &179908
 GameObject:
   m_ObjectHideFlags: 1
@@ -1178,6 +1178,8 @@ MonoBehaviour:
   groundOrange: {fileID: 127976, guid: 99c563d53e12c414384523e01c684524, type: 2}
   groundRed: {fileID: 127976, guid: 0adbfd2e25f11304bb5b2f0378290b8e, type: 2}
   groundAcid: {fileID: 127976, guid: efc001b50a2b2e2478eae8f2ef8176f3, type: 2}
+  pipeVertical: {fileID: 127976, guid: b929e139d5c50c14989fbf9790afb0d9, type: 2}
+  pipeHorizontal: {fileID: 127976, guid: baa1557c0b56f7741b7e677dcd35daca, type: 2}
   AutoWin: 0
   animator: {fileID: 9525064}
   joystick: {fileID: 11411078}

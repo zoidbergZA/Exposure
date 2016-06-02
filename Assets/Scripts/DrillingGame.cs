@@ -38,6 +38,8 @@ public class DrillingGame : Minigame
     [SerializeField] private GameObject groundOrange;
     [SerializeField] private GameObject groundRed;
     [SerializeField] private GameObject groundAcid;
+    [SerializeField] private GameObject pipeVertical;
+    [SerializeField] private GameObject pipeHorizontal;
     [SerializeField] private bool AutoWin;
     [SerializeField] private Animator animator;
     [SerializeField] private MobileJoystick joystick;
@@ -344,7 +346,11 @@ public class DrillingGame : Minigame
                 break;
         }
 
-        if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y <= rows[targetRow + 1]) targetRow++;
+        if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y <= rows[targetRow + 1])
+        {
+            instantiatePipeVertical();
+            targetRow++;
+        }
     }
 
     private void drillLeft()
@@ -362,6 +368,7 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
+                        instantiatePipeVertical();
                         targetRow++;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -384,6 +391,7 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
+                        instantiatePipeVertical();
                         targetRow--;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -407,7 +415,11 @@ public class DrillingGame : Minigame
                 break;
         }
 
-        if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x <= columns[targetColumn-1]) targetColumn -= 1;
+        if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1])
+        {
+            instantiatePipeHorizontal();
+            targetColumn -= 1;
+        }
     }
 
     private void drillRight()
@@ -425,6 +437,7 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
+                        instantiatePipeVertical();
                         targetRow++;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -447,6 +460,7 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
+                        instantiatePipeVertical();
                         targetRow--;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -470,7 +484,11 @@ public class DrillingGame : Minigame
                 break;
         }
 
-        if (targetColumn < columns.Length-1 && drill.rectTransform.anchoredPosition.x >= columns[targetColumn+1]) targetColumn += 1;
+        if (targetColumn < columns.Length - 1 && drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1])
+        {
+            instantiatePipeHorizontal();
+            targetColumn += 1;
+        }
     }
 
     private void drillUp()
@@ -533,7 +551,11 @@ public class DrillingGame : Minigame
                 break;
         }
 
-        if (targetRow > 0 && drill.rectTransform.anchoredPosition.y >= rows[targetRow-1]) targetRow--;
+        if (targetRow > 0 && drill.rectTransform.anchoredPosition.y >= rows[targetRow - 1])
+        {
+            instantiatePipeVertical();
+            targetRow--;
+        }
     }
     
     private void updateDrilling()
@@ -792,6 +814,30 @@ public class DrillingGame : Minigame
         groundTile.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
         groundTile.gameObject.SetActive(true);
         tiles.Add(groundTile);
+    }
+
+    private void instantiatePipeVertical()
+    {
+        if (targetRow >= 0 && targetColumn >= 0)
+        {
+            GameObject pipeVert = Instantiate(pipeVertical) as GameObject;
+            pipeVert.transform.SetParent(mainPanel.transform, false);
+            pipeVert.GetComponent<RectTransform>().anchoredPosition = new Vector2(columns[targetColumn], rows[targetRow]);
+            pipeVert.gameObject.SetActive(true);
+            tiles.Add(pipeVert);
+        }
+    }
+
+    private void instantiatePipeHorizontal()
+    {
+        if (targetRow >= 0 && targetColumn >= 0)
+        {
+            GameObject pipeHor = Instantiate(pipeHorizontal) as GameObject;
+            pipeHor.transform.SetParent(mainPanel.transform, false);
+            pipeHor.GetComponent<RectTransform>().anchoredPosition = new Vector2(columns[targetColumn], rows[targetRow]);
+            pipeHor.gameObject.SetActive(true);
+            tiles.Add(pipeHor);
+        }
     }
 
     private void instantiateCable(int x, int y)
