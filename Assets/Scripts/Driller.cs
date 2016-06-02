@@ -7,10 +7,8 @@ public class Driller : MonoBehaviour
     {
         if (coll.gameObject.tag == "Rock" || coll.gameObject.tag == "Walls")
         {
-            GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition = GameManager.Instance.DrillingGame.DrillPrevPosition;
-
-            GameManager.Instance.DrillingGame.Drill.color = new Color(1, 0, 0);
-            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
+            //GameManager.Instance.DrillingGame.Drill.color = new Color(1, 0, 0);
+            //GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
             GameManager.Instance.DrillingGame.Bumped = true;
         }
         if (coll.gameObject.tag == "Diamond")
@@ -44,8 +42,8 @@ public class Driller : MonoBehaviour
     {
         if (coll.gameObject.tag == "Rock" || coll.gameObject.tag == "Walls")
         {
-            GameManager.Instance.DrillingGame.Drill.color = new Color(1, 1, 1);
-            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 1, 1);
+            //GameManager.Instance.DrillingGame.Drill.color = new Color(1, 1, 1);
+            //GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 1, 1);
             GameManager.Instance.DrillingGame.Bumped = false;
         }
         if (coll.gameObject.tag == "Diamond")

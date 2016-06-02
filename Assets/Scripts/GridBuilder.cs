@@ -9,19 +9,15 @@ public class GridBuilder : Minigame
     [SerializeField] private int pylonsPerPlace = 8;
     [SerializeField] private float pylonSeparation = 26f;
     [SerializeField] private LayerMask placerMask;
-//    [SerializeField] private int maxPylons = 4;
-//    [SerializeField] private float nodeDistance = 2.87f; // match node graph max distance variable
 
+    public City ClosestCity { get; private set; }
     public List<Connectable> ConnectedList { get; private set; }
     public bool ConnectionFinalized;
-//    public float GridTimeLeft { get; set; }
     public GeoThermalPlant StartPlant { get; private set; }
     public float PylonSeparation { get { return pylonSeparation; } }
     public List<Pylon> Pylons { get; private set; }
-    public List<Pylon> PoweredPylons { get; private set; } 
-//    public int MaxPylons { get { return maxPylons; } }
+    public List<Pylon> PoweredPylons { get; private set; }
     public int PylonCount { get { return ConnectedList.Count; } }
-//    public float JumpDistance { get { return nodeDistance; } }
 
     void Awake()
     {
@@ -31,7 +27,20 @@ public class GridBuilder : Minigame
 
     void Start()
     {
-//        InitPylons();
+        GameManager.Instance.Hud.ShowBuildArrow(false);
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        if (ClosestCity && GameManager.Instance.Player.PlayerState == Player.PlayerStates.BuildGrid)
+        {
+            Vector3 cityScreenPos = Camera.main.WorldToScreenPoint(ClosestCity.transform.position);
+
+            Vector2 dir = (Vector2) cityScreenPos - new Vector2(Screen.width/2, Screen.height/2);
+            GameManager.Instance.Hud.PointBuildArrow(dir);
+        }
     }
 
     public override void End(bool succeeded)
@@ -49,6 +58,7 @@ public class GridBuilder : Minigame
         DestroyUnbuiltPylons();
         
         GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
+        GameManager.Instance.Hud.ShowBuildArrow(false);
     }
 
     public void StartBuild(GeoThermalPlant from, float difficulty)
@@ -62,8 +72,10 @@ public class GridBuilder : Minigame
         ConnectedList = new List<Connectable>();
         ConnectionFinalized = false;
         RefreshConnectables(StartPlant.transform.position);
-//        ShowUnbuiltPylons(true);
         PlaceAdjacentPylons(StartPlant.transform);
+        RefreshClosestCity(StartPlant.transform.position);
+
+        GameManager.Instance.Hud.ShowBuildArrow(true);
     }
 
     public void MakeConnection(Connectable connectable)
@@ -240,44 +252,28 @@ public class GridBuilder : Minigame
         RefreshConnectables(location.position);
     }
 
-//    private void TurnOffConnectables()
-//    {
-//        Connectable[] allConnectables = FindObjectsOfType<Connectable>();
-//        
-//        foreach (Connectable connectable in allConnectables)
-//        {
-//            connectable.TurnOff();
-//        }
-//    }
+    private void RefreshClosestCity(Vector3 position)
+    {
+        ClosestCity = FindClosestOpenCity(position);
+    }
 
-//    private void InitPylons()
-//    {
-//        for (int i = 0; i < Pylons.Length; i++)
-//        {
-//            for (int j = 0; j < Pylons.Length; j++)
-//            {
-//                if (Pylons[i] != Pylons[j])
-//                {
-//                    float dist = Vector3.Distance(Pylons[i].transform.position, Pylons[j].transform.position);
-//                    if (dist <= nodeDistance) // match with node graph 
-//                    {
-//                        Pylons[i].AddConnection(Pylons[j]);
-//                    }
-//                }
-//            }
-//        }
-//    }
+    private City FindClosestOpenCity(Vector3 position)
+    {
+        City closestCity = null;
+        float distance = Mathf.Infinity;
 
-//    private void ShowUnbuiltPylons(bool show)
-//    {
-//        foreach (Pylon pylon in Pylons)
-//        {
-//            if (pylon.State == Pylon.States.Ready)
-//            {
-//                pylon.ShowPlacer(show);
-//            }
-//        }
-//    }
+        for (int i = 0; i < GameManager.Instance.Cities.Length; i++)
+        {
+            float d = Vector3.Distance(position, GameManager.Instance.Cities[i].transform.position);
+            if (GameManager.Instance.Cities[i].HasWorkingChimney && d < distance)
+            {
+                closestCity = GameManager.Instance.Cities[i];
+                distance = d;
+            }
+        }
+
+        return closestCity;
+    }
 
     private void Reset()
     {

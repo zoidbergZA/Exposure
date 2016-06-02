@@ -8,6 +8,7 @@ public class Hud : MonoBehaviour
 {
     [SerializeField] private FloatingText floatingTextPrefab;
     [SerializeField] private Canvas hudCanvas;
+    [SerializeField] private Image buildArrow;
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private Text timeText;
     [SerializeField] private Text scoreText;
@@ -48,11 +49,19 @@ public class Hud : MonoBehaviour
         
         //updateMiniGameButtons();
         updateJoystick();
+
+//        //arrow test
+//        City closestCity = GameManager.Instance.GridBuilder.FindClosestCity(Vector3.zero);
+//        Vector3 cityScreenPos = Camera.main.WorldToScreenPoint(closestCity.transform.position);
+//
+//        Vector2 dir = (Vector2)cityScreenPos - new Vector2(Screen.width/2, Screen.height/2);
+//        PointBuildArrow(dir);
     }
 
     void OnGUI()
     {
-//        ShowDebug();
+        if (GameManager.Instance.showDebug)
+            ShowDebug();
     }
 
     public Rect CenteredRect(Rect rect)
@@ -65,6 +74,21 @@ public class Hud : MonoBehaviour
             );
 
         return output;
+    }
+
+    public void ShowBuildArrow(bool show)
+    {
+        buildArrow.enabled = show;
+    }
+
+    public void PointBuildArrow(Vector2 direction)
+    {
+//        Debug.Log(direction);
+
+        float angle = Utils.AngleSigned(Vector3.up, (Vector3) direction, Vector3.forward);
+        buildArrow.rectTransform.eulerAngles = new Vector3(0, 0, angle);
+
+//        Debug.Log(angle);
     }
 
     public void GoToGameOver()
@@ -257,15 +281,17 @@ public class Hud : MonoBehaviour
 
     private void ShowDebug()
     {
-        if (GameManager.Instance.RoundStarted)
-            GUILayout.Label("time left: " + GameManager.Instance.TimeLeft.ToString("F2"));
-        else
-        {
-            GUILayout.Label("round not started");
-        }
+        GUILayout.BeginArea(new Rect(10, 60, 400, 300));
 
-//        //score
-//        GUILayout.Label("score: " + GameManager.Instance.Player.Score + "/" + "100");
+        GUILayout.Label("time left: " + GameManager.Instance.TimeLeft.ToString("F2"));
+
+        GUILayout.Label("scanner max radius: " + GameManager.Instance.Scanner.maxRadius);
+        GameManager.Instance.Scanner.maxRadius = GUILayout.HorizontalSlider(GameManager.Instance.Scanner.maxRadius, 2f, 100f);
+
+        GUILayout.Label("scanner max distance: " + GameManager.Instance.Scanner.limiter);
+        GameManager.Instance.Scanner.limiter = GUILayout.HorizontalSlider(GameManager.Instance.Scanner.limiter, 50f, 400f);
+
+        GUILayout.EndArea();
     }
 
     void updateWobbleCallback(float val, float ratio)
