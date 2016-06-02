@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
@@ -11,28 +12,35 @@ public class Tutorial : MonoBehaviour
         Completed
     }
 
+    //todo: refactor to prompt class
+    [SerializeField] private Image scannerTip;
+    [SerializeField] private Image hotspotTip;
+    [SerializeField] private float scannerWait = 5f;
+    [SerializeField] private float hotspotWait = 8f;
+
     private Progression progress;
     private float promptAt;
-    private bool isShowingPrompt;
 
     void Awake()
     {
-        SetProgress(Progression.ActivateScanner, Time.time + 5f);
+        SetProgress(Progression.ActivateScanner, Time.time + scannerWait);
     }
 
     void OnEnable()
     {
         Scanner.ScanStarted += OnScanStarted;
+        Scanner.HotspotFound += OnHotspotFound;
     }
 
     void OnDisable()
     {
         Scanner.ScanStarted -= OnScanStarted;
+        Scanner.HotspotFound -= OnHotspotFound;
     }
 
     void Update()
     {
-        if (Time.time >= promptAt && !isShowingPrompt)
+        if (Time.time >= promptAt)
         {
             ShowPrompt();
         }
@@ -40,35 +48,59 @@ public class Tutorial : MonoBehaviour
 
     private void SetProgress(Progression newProgess, float promptAt)
     {
-        if (newProgess == Progression.Completed)
-        {
-            KillTutorial();
-            return;
-        }
-
+        DisableAllTips();
         progress = newProgess;
         this.promptAt = promptAt;
+
+        switch (newProgess)
+        {
+            case Progression.FindHotspot:
+
+                break;
+
+            case Progression.Completed:
+                KillTutorial();
+                break;
+        }
     }
 
     private void ShowPrompt()
     {
-        isShowingPrompt = true;
+        switch (progress)
+        {
+            case Progression.ActivateScanner:
+                scannerTip.enabled = true;
+                break;
+            case Progression.FindHotspot:
+                hotspotTip.enabled = true;
+                break;
+        }
+    }
 
-        Debug.Log("todo: show activate scanner tutorial " + Time.time);
+    private void DisableAllTips()
+    {
+        scannerTip.enabled = false;
+        hotspotTip.enabled = false;
     }
 
     private void KillTutorial()
     {
-        
+        Destroy(gameObject);
     }
 
     private void OnScanStarted()
     {
         if (progress == Progression.ActivateScanner)
         {
-            Debug.Log("scan started for tutorial " + Time.time);
+            SetProgress(Progression.FindHotspot, Time.time + hotspotWait);
+        }
+    }
 
-            SetProgress(Progression.FindHotspot, Time.time + 5f);
+    private void OnHotspotFound()
+    {
+        if (progress == Progression.FindHotspot)
+        {
+            SetProgress(Progression.Completed, 0);
         }
     }
 }

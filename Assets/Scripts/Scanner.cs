@@ -5,9 +5,9 @@ using System.Collections;
 public class Scanner : MonoBehaviour
 {
     public delegate void ScanHandler();
-
-    public static event ScanHandler ScannerActivated;
+    
     public static event ScanHandler ScanStarted;
+    public static event ScanHandler HotspotFound;
 
     public float maxRadius = 100f;
     public float limiter = 100f;
@@ -218,7 +218,9 @@ public class Scanner : MonoBehaviour
 
             if (isOnHotspot && Progress >= 0.99f && Time.time >= lastStartScanAt + 2f)
             {
-//                Debug.Log("scan succeeded");
+                if (HotspotFound != null)
+                    HotspotFound();
+
                 ScanSucceeded(sample, hit.point, hit.normal);
             }
         }
