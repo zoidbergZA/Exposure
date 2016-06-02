@@ -721,9 +721,11 @@ public class DrillingGame : Minigame
         targetRow = -1;
         foreach (GameObject rock in tiles) Destroy(rock);
         foreach (GameObject drop in water) Destroy(drop);
+        foreach (GameObject drop in UIwater) Destroy(drop);
         drill.rectTransform.anchoredPosition = initDrillPos;
         tiles.Clear();
         water.Clear();
+        UIwater.Clear();
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -(Screen.height) - 700, 0), panelSlidingTime / 2);
         drill.color = new Color(1, 1, 1);
         drillLife.color = new Color(1, 1, 1);

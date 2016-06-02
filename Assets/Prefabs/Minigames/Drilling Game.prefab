@@ -1180,7 +1180,7 @@ MonoBehaviour:
   jumpPhaseTime: 0.85
   panelSlidingTime: 1.5
   stuckTime: 3
-  drillStuckCooldown: 0.2
+  drillStuckCooldown: 2
   animator: {fileID: 9525064}
   joystick: {fileID: 11411078}
   easyLevels:
@@ -1858,7 +1858,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.000030517578}
-  m_SizeDelta: {x: 226, y: 226}
+  m_SizeDelta: {x: 227, y: 226}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22450712
 RectTransform:
