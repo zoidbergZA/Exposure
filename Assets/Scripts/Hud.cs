@@ -43,7 +43,12 @@ public class Hud : MonoBehaviour
 
     void Update()
     {
-        timeText.text = GameManager.Instance.TimeLeft.ToString("F2");
+        //timeleft
+        int minutes = Mathf.FloorToInt(GameManager.Instance.TimeLeft / 60F);
+        int seconds = Mathf.FloorToInt(GameManager.Instance.TimeLeft - minutes * 60);
+        string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+
+        timeText.text = niceTime;
         scoreText.text = GameManager.Instance.Player.Score.ToString();
 //        cableText.text = GameManager.Instance.Player.Cable + "x";
         
