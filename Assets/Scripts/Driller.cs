@@ -35,6 +35,11 @@ public class Driller : MonoBehaviour
             
             Destroy(coll.gameObject);
         }
+        if (coll.gameObject.tag == "Pipe")
+        {
+            GameManager.Instance.DrillingGame.SucceededDrill = true;
+            GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+        }
     }
 
     void OnCollisionExit2D(Collision2D coll)
