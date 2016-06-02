@@ -20,7 +20,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Button leftButton;
     [SerializeField] private UnityEngine.UI.Button rightButton;
     [SerializeField] private UnityEngine.UI.Button downButton;
-    private int buttonSize = 55;
+    [SerializeField] private int buttonSize = 55;
     private int buttonIndent = 10;
 
     private int wobblerTweenId;
@@ -141,15 +141,10 @@ public class Hud : MonoBehaviour
     {
         float wobbleValue = WobbleValue * 13f;
 
-        if (GUI.Button(CenteredRect(new Rect(position.x, position.y, 70 + wobbleValue, 70 + wobbleValue)), icon, ""))
+        if (GUI.Button(CenteredRect(new Rect(position.x, position.y, buttonSize + wobbleValue, buttonSize + wobbleValue)), icon, ""))
         {
             callback();
         }
-
-        //        if (GUI.Button(new Rect(position.x - 20 - wobbleValue / 2, Screen.height - position.y - 20 - wobbleValue / 2, 40 + wobbleValue, 40 + wobbleValue), icon, ""))
-        //        {
-        //            callback();
-        //        }
     }
 
     private void updateJoystick()
