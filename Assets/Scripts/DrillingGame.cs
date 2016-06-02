@@ -58,8 +58,8 @@ public class DrillingGame : Minigame
     private DrillingDirection drillDir;
     private DrillingDirection prevDrillDir;
     private Vector2 initDrillPos;
-    private int targetColumn = 0;
-    private int targetRow = 0;
+    private int targetColumn;
+    private int targetRow;
     private int levelsCounter = 0;
     private int tileTweenId;
     //bools
@@ -75,6 +75,7 @@ public class DrillingGame : Minigame
     public bool Bumped { get; set; }
     private List<GameObject> tiles = new List<GameObject>();
     private List<GameObject> water = new List<GameObject>();
+    private List<GameObject> UIwater = new List<GameObject>();
     public DrillingGameState State { get { return state; } set { state = value; } }
     public DrillingDirection DrillDirection { get { return drillDir; } set { drillDir = value; } }
     public DrillingDirection PrevDrillDirection { get { return prevDrillDir; } set { prevDrillDir = value; } }
@@ -96,16 +97,16 @@ public class DrillingGame : Minigame
 
     void Awake()
     {
-        if(rockPrefab)
+        /*if(rockPrefab)
             tileTweenId = LeanTween.scale(rockPrefab.GetComponent<RectTransform>(), rockPrefab.GetComponent<RectTransform>().localScale * 1.2f, 1f)
-                .setEase(LeanTweenType.punch).id;
+                .setEase(LeanTweenType.punch).id;*/
     }
 
     void Start()
     {
         activateImages(false);
-        targetColumn = 0;
-        targetRow = 0;
+        targetColumn = -1;
+        targetRow = -1;
         toastTimer = toastMessageTime;
         jumpPhaseTimer = jumpPhaseTime;
         panelSlidingTimer = panelSlidingTime;
@@ -339,14 +340,7 @@ public class DrillingGame : Minigame
                 break;
         }
 
-        if (targetRow < rows.Length-1 && drill.rectTransform.anchoredPosition.y <= rows[targetRow+1])
-        {
-            targetRow++;
-
-            if (!ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = true;
-            if (!rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = true;
-            if (!leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = true;
-        }
+        if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y <= rows[targetRow + 1]) targetRow++;
     }
 
     private void drillLeft()
@@ -653,11 +647,12 @@ public class DrillingGame : Minigame
         {
             checkDrillerStuck();
             drillStuckChecked = Time.time;
-            Debug.Log("row: " + targetRow + " | column: " + targetColumn + " | prev dir: " + prevDrillDir + " | dir: " + drillDir + " | bump: " + Bumped +
-                " | stuck: " + stuckTimer);
+            //Debug.Log("row: " + targetRow + " | column: " + targetColumn + " | prev dir: " + prevDrillDir + " | dir: " + drillDir + " | bump: " + Bumped +
+            //    " | stuck: " + stuckTimer);
         }
         updateProgressBars();
         updateJoystickImages();
+        updateWallsEnabling();
 
         if (state == DrillingGameState.DRILLING)
         {
@@ -722,8 +717,8 @@ public class DrillingGame : Minigame
         animator.SetBool("isDrilling", false);
         animator.SetBool("shouldJump", false);
         SucceededDrill = false;
-        targetColumn = 0;
-        targetRow = 0;
+        targetColumn = -1;
+        targetRow = -1;
         foreach (GameObject rock in tiles) Destroy(rock);
         foreach (GameObject drop in water) Destroy(drop);
         drill.rectTransform.anchoredPosition = initDrillPos;
@@ -743,7 +738,7 @@ public class DrillingGame : Minigame
     {
         GameObject rock = Instantiate(rockPrefab) as GameObject;
         rock.transform.SetParent(mainPanel.transform, false);
-        rock.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
+        rock.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
         rock.gameObject.SetActive(true);
         tiles.Add(rock);
     }
@@ -752,7 +747,7 @@ public class DrillingGame : Minigame
     {
         GameObject diamond = Instantiate(diamondPrefab) as GameObject;
         diamond.transform.SetParent(mainPanel.transform, false);
-        diamond.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
+        diamond.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
         diamond.gameObject.SetActive(true);
         tiles.Add(diamond);
     }
@@ -782,7 +777,7 @@ public class DrillingGame : Minigame
                 break;
         }
         groundTile.transform.SetParent(mainPanel.transform, false);
-        groundTile.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
+        groundTile.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
         groundTile.gameObject.SetActive(true);
         tiles.Add(groundTile);
     }
@@ -791,7 +786,7 @@ public class DrillingGame : Minigame
     {
         GameObject cable = Instantiate(cablePrefab) as GameObject;
         cable.transform.SetParent(mainPanel.transform, false);
-        cable.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
+        cable.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
         cable.gameObject.SetActive(true);
         tiles.Add(cable);
     }
@@ -800,9 +795,28 @@ public class DrillingGame : Minigame
     {
         GameObject waterTile = Instantiate(waterTilePrefab) as GameObject;
         waterTile.transform.SetParent(mainPanel.transform, false);
-        waterTile.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y);
         waterTile.gameObject.SetActive(true);
         tiles.Add(waterTile);
+        UIwater.Add(waterTile);
+
+        if(UIwater.Count == 1)
+        {
+            waterTile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 583);
+            LeanTween.move(waterTile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+            LeanTween.scale(waterTile.GetComponent<RectTransform>(), waterTile.GetComponent<RectTransform>().localScale * 0.5f, 1f);
+        }
+        else if (UIwater.Count == 2)
+        {
+            waterTile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 497);
+            LeanTween.move(waterTile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+            LeanTween.scale(waterTile.GetComponent<RectTransform>(), waterTile.GetComponent<RectTransform>().localScale * 0.5f, 1f);
+        }
+        else if (UIwater.Count == 3)
+        {
+            waterTile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 409);
+            LeanTween.move(waterTile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+            LeanTween.scale(waterTile.GetComponent<RectTransform>(), waterTile.GetComponent<RectTransform>().localScale * 0.5f, 1f);
+        }
     }
 
     public void AddWater(GameObject waterPiece)
@@ -822,5 +836,16 @@ public class DrillingGame : Minigame
                 joystickImage.sprite = arrowUpDown;
         }
         else joystickImage.sprite = arrowDown;
+    }
+
+    private void updateWallsEnabling()
+    {
+        if (drill.rectTransform.anchoredPosition.y <= rows[0])
+        {
+            Debug.Log("its true!");
+            if (!ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = true;
+            if (!rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = true;
+            if (!leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = true;
+        }
     }
 }
