@@ -69,6 +69,7 @@ public class DrillingGame : Minigame
     private int targetRow;
     private int levelsCounter = 0;
     private int tileTweenId;
+    private int curveId = 0;
     //bools
     private bool slidingLeft, makeDrill, imagesActivated, joystickShaken = false;
     //timers
@@ -84,6 +85,7 @@ public class DrillingGame : Minigame
     private List<GameObject> tiles = new List<GameObject>();
     private List<GameObject> water = new List<GameObject>();
     private List<GameObject> UIwater = new List<GameObject>();
+    private List<GameObject> bottomRow = new List<GameObject>();
     public DrillingGameState State { get { return state; } set { state = value; } }
     public DrillingDirection DrillDirection { get { return drillDir; } set { drillDir = value; } }
     public DrillingDirection PrevDrillDirection { get { return prevDrillDir; } set { prevDrillDir = value; } }
@@ -307,6 +309,7 @@ public class DrillingGame : Minigame
                     else
                     {
                         instantiatePipeHorizontal();
+                        curveId = 1;
                         targetColumn++;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -330,6 +333,7 @@ public class DrillingGame : Minigame
                     else
                     {
                         instantiatePipeHorizontal();
+                        curveId = 3;
                         targetColumn--;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -342,6 +346,16 @@ public class DrillingGame : Minigame
                 }
                 break;
             case DrillingDirection.NONE:
+                if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y <= rows[targetRow + 1])
+                {
+                    if(JustTurned)
+                    {
+                        instantiatePipeCurve(curveId);
+                        JustTurned = false;
+                    }
+                    instantiatePipeVertical();
+                    targetRow++;
+                }
                 myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
                 myBody.freezeRotation = true;
@@ -351,12 +365,6 @@ public class DrillingGame : Minigame
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
                 myBody.freezeRotation = true;
                 break;
-        }
-
-        if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y <= rows[targetRow + 1])
-        {
-            instantiatePipeVertical();
-            targetRow++;
         }
     }
 
@@ -376,6 +384,7 @@ public class DrillingGame : Minigame
                     else
                     {
                         instantiatePipeVertical();
+                        curveId = 4;
                         targetRow++;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -399,6 +408,7 @@ public class DrillingGame : Minigame
                     else
                     {
                         instantiatePipeVertical();
+                        curveId = 1;
                         targetRow--;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -411,6 +421,16 @@ public class DrillingGame : Minigame
                 }
                 break;
             case DrillingDirection.NONE:
+                if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1])
+                {
+                    if(JustTurned)
+                    {
+                        instantiatePipeCurve(curveId);
+                        JustTurned = false;
+                    }
+                    else instantiatePipeHorizontal();
+                    targetColumn -= 1;
+                }
                 myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
                 myBody.freezeRotation = true;
@@ -420,12 +440,6 @@ public class DrillingGame : Minigame
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
                 myBody.freezeRotation = true;
                 break;
-        }
-
-        if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1])
-        {
-            instantiatePipeHorizontal();
-            targetColumn -= 1;
         }
     }
 
@@ -445,6 +459,7 @@ public class DrillingGame : Minigame
                     else
                     {
                         instantiatePipeVertical();
+                        curveId = 2;
                         targetRow++;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -468,6 +483,7 @@ public class DrillingGame : Minigame
                     else
                     {
                         instantiatePipeVertical();
+                        curveId = 3;
                         targetRow--;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -484,7 +500,7 @@ public class DrillingGame : Minigame
                 {
                     if(JustTurned)
                     {
-                        instantiatePipeCurve(2);
+                        instantiatePipeCurve(curveId);
                         JustTurned = false;
                     }
                     else instantiatePipeHorizontal();
@@ -518,6 +534,7 @@ public class DrillingGame : Minigame
                     else
                     {
                         instantiatePipeHorizontal();
+                        curveId = 4;
                         targetColumn++;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -541,6 +558,7 @@ public class DrillingGame : Minigame
                     else
                     {
                         instantiatePipeHorizontal();
+                        curveId = 2;
                         targetColumn--;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -553,6 +571,16 @@ public class DrillingGame : Minigame
                 }
                 break;
             case DrillingDirection.NONE:
+                if (targetRow > 0 && drill.rectTransform.anchoredPosition.y >= rows[targetRow - 1])
+                {
+                    if(JustTurned)
+                    {
+                        instantiatePipeCurve(curveId);
+                        JustTurned = false;
+                    }
+                    else instantiatePipeVertical();
+                    targetRow--;
+                }
                 myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
                 myBody.freezeRotation = true;
@@ -562,12 +590,6 @@ public class DrillingGame : Minigame
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
                 myBody.freezeRotation = true;
                 break;
-        }
-
-        if (targetRow > 0 && drill.rectTransform.anchoredPosition.y >= rows[targetRow - 1])
-        {
-            instantiatePipeVertical();
-            targetRow--;
         }
     }
     
@@ -790,6 +812,7 @@ public class DrillingGame : Minigame
         rock.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
         rock.gameObject.SetActive(true);
         tiles.Add(rock);
+        if (x == rows.Length - 1) bottomRow.Add(rock);
     }
 
     private void instantiateDiamond(int x, int y)
@@ -859,29 +882,29 @@ public class DrillingGame : Minigame
     {
         if (targetRow >= 0 && targetColumn >= 0)
         {
-            GameObject pipeHor;
+            GameObject pipeCurve;
             switch(id)
             {
                 case 1:
-                    pipeHor = Instantiate(pipeCurve1) as GameObject;
+                    pipeCurve = Instantiate(pipeCurve1) as GameObject;
                     break;
                 case 2:
-                    pipeHor = Instantiate(pipeCurve2) as GameObject;
+                    pipeCurve = Instantiate(pipeCurve2) as GameObject;
                     break;
                 case 3:
-                    pipeHor = Instantiate(pipeCurve3) as GameObject;
+                    pipeCurve = Instantiate(pipeCurve3) as GameObject;
                     break;
                 case 4:
-                    pipeHor = Instantiate(pipeCurve4) as GameObject;
+                    pipeCurve = Instantiate(pipeCurve4) as GameObject;
                     break;
                 default:
-                    pipeHor = Instantiate(pipeCurve1) as GameObject;
+                    pipeCurve = Instantiate(pipeCurve1) as GameObject;
                     break;
             }
-            pipeHor.transform.SetParent(mainPanel.transform, false);
-            pipeHor.GetComponent<RectTransform>().anchoredPosition = new Vector2(columns[targetColumn], rows[targetRow]);
-            pipeHor.gameObject.SetActive(true);
-            tiles.Add(pipeHor);
+            pipeCurve.transform.SetParent(mainPanel.transform, false);
+            pipeCurve.GetComponent<RectTransform>().anchoredPosition = new Vector2(columns[targetColumn], rows[targetRow]);
+            pipeCurve.gameObject.SetActive(true);
+            tiles.Add(pipeCurve);
         }
     }
 
