@@ -128,6 +128,7 @@ public class DrillingGame : Minigame
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
         SucceededDrill = true;
+        levelsCounter = 0;
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -211,28 +212,27 @@ public class DrillingGame : Minigame
         panelSlidingTimer -= Time.deltaTime;
         if(panelSlidingTimer <= 0)
         {
-            if (!AutoWin) state = DrillingGameState.SLIDING;
-            else state = DrillingGameState.SUCCESS;
-
             if (levelsCounter < 3)
             {
-                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(easyLevels[(SucceededDrill) ? levelsCounter : Random.Range(0, 3)]);
+                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(easyLevels[(SucceededDrill == true) ? levelsCounter : Random.Range(0, 3)]);
                 generateLevel(tiles);  // pre-designed levels, loading from csv
             }
             else if (levelsCounter >=3 && levelsCounter < 6)
             {
-                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(mediumLevels[(SucceededDrill) ? levelsCounter - 3 : Random.Range(3, 6)]);
+                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(mediumLevels[(SucceededDrill == true) ? levelsCounter - 3 : Random.Range(3, 6)]);
                 generateLevel(tiles);  // pre-designed levels, loading from csv
             }
             else if (levelsCounter >= 6)
             {
-                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(hardLevels[(SucceededDrill) ? levelsCounter - 6 : Random.Range(6, 9)]);
+                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(hardLevels[(SucceededDrill == true) ? levelsCounter - 6 : Random.Range(6, 9)]);
                 generateLevel(tiles); // pre-designed levels, loading from csv
             }
             if (SucceededDrill) levelsCounter++;
-
+            Debug.Log(bottomRow.Count.ToString() + " | " + SucceededDrill + " | " + levelsCounter);
             panelSlidingTimer = panelSlidingTime;
             joystick.StartPosition = joystick.transform.position;
+            if (!AutoWin) state = DrillingGameState.SLIDING;
+            else state = DrillingGameState.SUCCESS;
         }
         
     }
@@ -353,7 +353,7 @@ public class DrillingGame : Minigame
                         instantiatePipeCurve(curveId);
                         JustTurned = false;
                     }
-                    instantiatePipeVertical();
+                    else instantiatePipeVertical();
                     targetRow++;
                 }
                 myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
@@ -735,6 +735,7 @@ public class DrillingGame : Minigame
         else if (stuckTimer <= stuckTime - (stuckTime / 3) && stuckTimer > stuckTime - (stuckTime / 3)*2) drillLife.fillAmount = 0.66f;
         else if (stuckTimer <= stuckTime - (stuckTime / 3) * 2 && stuckTimer > 0.05f) drillLife.fillAmount = 0.33f;
         else drillLife.fillAmount = 0.00f;
+        if (water.Count == 3) foreach (GameObject rock in bottomRow) Destroy(rock);
     }
 
     private void checkDrillerStuck()
@@ -791,10 +792,12 @@ public class DrillingGame : Minigame
         foreach (GameObject rock in tiles) Destroy(rock);
         foreach (GameObject drop in water) Destroy(drop);
         foreach (GameObject drop in UIwater) Destroy(drop);
+        foreach (GameObject rock in bottomRow) Destroy(rock);
         drill.rectTransform.anchoredPosition = initDrillPos;
         tiles.Clear();
         water.Clear();
         UIwater.Clear();
+        bottomRow.Clear();
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -(Screen.height) - 700, 0), panelSlidingTime / 2);
         drill.color = new Color(1, 1, 1);
         drillLife.color = new Color(1, 1, 1);
@@ -812,7 +815,7 @@ public class DrillingGame : Minigame
         rock.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
         rock.gameObject.SetActive(true);
         tiles.Add(rock);
-        if (x == rows.Length - 1) bottomRow.Add(rock);
+        if (y == rows[rows.Length - 1]) bottomRow.Add(rock);
     }
 
     private void instantiateDiamond(int x, int y)
