@@ -80,6 +80,7 @@ public class DrillingGame : Minigame
 
     public bool SucceededDrill { get; set; }
     public bool Bumped { get; set; }
+    public bool JustTurned { get; set; }
     private List<GameObject> tiles = new List<GameObject>();
     private List<GameObject> water = new List<GameObject>();
     private List<GameObject> UIwater = new List<GameObject>();
@@ -479,6 +480,16 @@ public class DrillingGame : Minigame
                 }
                 break;
             case DrillingDirection.NONE:
+                if (targetColumn < columns.Length - 1 && drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1])
+                {
+                    if(JustTurned)
+                    {
+                        instantiatePipeCurve(2);
+                        JustTurned = false;
+                    }
+                    else instantiatePipeHorizontal();
+                    targetColumn += 1;
+                }
                 myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
                 myBody.freezeRotation = true;
@@ -488,12 +499,6 @@ public class DrillingGame : Minigame
                 myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
                 myBody.freezeRotation = true;
                 break;
-        }
-
-        if (targetColumn < columns.Length - 1 && drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1])
-        {
-            instantiatePipeHorizontal();
-            targetColumn += 1;
         }
     }
 
@@ -753,6 +758,8 @@ public class DrillingGame : Minigame
     {
         makeDrill = false;
         slidingLeft = false;
+        joystickShaken = false;
+        JustTurned = false;
         animator.SetBool("isSlidingLeft", false);
         animator.SetBool("isDrilling", false);
         animator.SetBool("shouldJump", false);
@@ -841,6 +848,36 @@ public class DrillingGame : Minigame
         if (targetRow >= 0 && targetColumn >= 0)
         {
             GameObject pipeHor = Instantiate(pipeHorizontal) as GameObject;
+            pipeHor.transform.SetParent(mainPanel.transform, false);
+            pipeHor.GetComponent<RectTransform>().anchoredPosition = new Vector2(columns[targetColumn], rows[targetRow]);
+            pipeHor.gameObject.SetActive(true);
+            tiles.Add(pipeHor);
+        }
+    }
+
+    private void instantiatePipeCurve(int id)
+    {
+        if (targetRow >= 0 && targetColumn >= 0)
+        {
+            GameObject pipeHor;
+            switch(id)
+            {
+                case 1:
+                    pipeHor = Instantiate(pipeCurve1) as GameObject;
+                    break;
+                case 2:
+                    pipeHor = Instantiate(pipeCurve2) as GameObject;
+                    break;
+                case 3:
+                    pipeHor = Instantiate(pipeCurve3) as GameObject;
+                    break;
+                case 4:
+                    pipeHor = Instantiate(pipeCurve4) as GameObject;
+                    break;
+                default:
+                    pipeHor = Instantiate(pipeCurve1) as GameObject;
+                    break;
+            }
             pipeHor.transform.SetParent(mainPanel.transform, false);
             pipeHor.GetComponent<RectTransform>().anchoredPosition = new Vector2(columns[targetColumn], rows[targetRow]);
             pipeHor.gameObject.SetActive(true);
