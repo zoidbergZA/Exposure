@@ -69,7 +69,9 @@ public class GameManager : MonoBehaviour
             TotalChimneys += Cities[i].ChimneyCount;
         }
 
-        Instantiate(TutorialPrefab);
+        Tutorial tutorial = FindObjectOfType<Tutorial>();
+        if (!tutorial)
+            Instantiate(TutorialPrefab);
     }
 
     void Start()
