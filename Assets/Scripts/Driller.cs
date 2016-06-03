@@ -39,6 +39,8 @@ public class Driller : MonoBehaviour
         {
             GameManager.Instance.DrillingGame.SucceededDrill = false;
             GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+            GameManager.Instance.DrillingGame.Drill.color = new Color(1, 0, 0);
+            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
         }
     }
 

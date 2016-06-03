@@ -1148,7 +1148,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   toastMessageTime: 2.5
-  drillSpeed: 180
+  drillSpeed: 50
   slideSpeed: 80
   diamondValue: 1
   succeededDrillValue: 5
@@ -1180,6 +1180,10 @@ MonoBehaviour:
   groundAcid: {fileID: 127976, guid: efc001b50a2b2e2478eae8f2ef8176f3, type: 2}
   pipeVertical: {fileID: 127976, guid: b929e139d5c50c14989fbf9790afb0d9, type: 2}
   pipeHorizontal: {fileID: 127976, guid: baa1557c0b56f7741b7e677dcd35daca, type: 2}
+  pipeCurve1: {fileID: 127976, guid: 39d1ae278031aa54ebe336d9c95a662c, type: 2}
+  pipeCurve2: {fileID: 127976, guid: ccff515489906a14e9c4ee4841ce95ac, type: 2}
+  pipeCurve3: {fileID: 127976, guid: ee1561fa950831c4fb6076f750fd19f4, type: 2}
+  pipeCurve4: {fileID: 127976, guid: c3273043cb3e8f9469ad2eee5e283638, type: 2}
   AutoWin: 0
   animator: {fileID: 9525064}
   joystick: {fileID: 11411078}

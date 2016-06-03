@@ -40,6 +40,10 @@ public class DrillingGame : Minigame
     [SerializeField] private GameObject groundAcid;
     [SerializeField] private GameObject pipeVertical;
     [SerializeField] private GameObject pipeHorizontal;
+    [SerializeField] private GameObject pipeCurve1;
+    [SerializeField] private GameObject pipeCurve2;
+    [SerializeField] private GameObject pipeCurve3;
+    [SerializeField] private GameObject pipeCurve4;
     [SerializeField] private bool AutoWin;
     [SerializeField] private Animator animator;
     [SerializeField] private MobileJoystick joystick;
@@ -301,6 +305,7 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
+                        instantiatePipeHorizontal();
                         targetColumn++;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -323,6 +328,7 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
+                        instantiatePipeHorizontal();
                         targetColumn--;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -506,6 +512,7 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
+                        instantiatePipeHorizontal();
                         targetColumn++;
                         prevDrillDir = DrillingDirection.NONE;
                     }
@@ -528,6 +535,7 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
+                        instantiatePipeHorizontal();
                         targetColumn--;
                         prevDrillDir = DrillingDirection.NONE;
                     }
