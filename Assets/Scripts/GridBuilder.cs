@@ -76,7 +76,7 @@ public class GridBuilder : Minigame
         PlaceAdjacentPylons(StartPlant.transform);
         RefreshClosestCity(StartPlant.transform.position);
 
-//        GameManager.Instance.Hud.ShowBuildArrow(true);
+        GameManager.Instance.Hud.ShowBuildArrow(true);
     }
 
     public void MakeConnection(Connectable connectable)
