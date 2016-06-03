@@ -44,7 +44,7 @@ public class City : Connectable
     {
         float dist = Vector3.Distance(transform.position, location);
 
-        if (HasWorkingChimney && dist <= GameManager.Instance.GridBuilder.PylonSeparation * 1.3f)
+        if (HasWorkingChimney && dist <= GameManager.Instance.GridBuilder.PylonSeparation*separationMultiplier)
         {   
             IsConnectable = true;
             Highlight(true);

@@ -1080,6 +1080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectionRef: {fileID: 431776}
+  separationMultiplier: 2
   connectIcon: {fileID: 2800000, guid: 50c00d26683728a44bdb8442d5149a0f, type: 3}
   chimneys:
   - {fileID: 11488612}

@@ -44,7 +44,7 @@ MonoBehaviour:
   limiter: 380
   maxScanDistance: 380
   minScanDistance: 130
-  focusTime: 2.3
+  focusTime: 0.6
   touchIcon: {fileID: 2800000, guid: ef34d65258ae6f049b1076f10e1ea018, type: 3}
   goodIcon: {fileID: 2800000, guid: cb81a5450baa64309a583d28666096ec, type: 3}
   progresIcon: {fileID: 2800000, guid: 95e77e02f229b0542bb85b01a09c9b3f, type: 3}
