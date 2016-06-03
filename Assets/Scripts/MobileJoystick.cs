@@ -80,7 +80,11 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerUp(PointerEventData data)
     {
-        transform.position = m_StartPos;
+        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING ||
+            GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+        {
+            transform.position = m_StartPos;
+        }
         UpdateVirtualAxes(m_StartPos);
     }
 
