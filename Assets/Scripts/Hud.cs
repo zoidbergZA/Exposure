@@ -20,7 +20,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Button leftButton;
     [SerializeField] private UnityEngine.UI.Button rightButton;
     [SerializeField] private UnityEngine.UI.Button downButton;
-    private int buttonSize = 55;
+    [SerializeField] private int buttonSize = 55;
     private int buttonIndent = 10;
 
     private int wobblerTweenId;
@@ -51,7 +51,7 @@ public class Hud : MonoBehaviour
 
         timeText.text = niceTime;
         scoreText.text = GameManager.Instance.Player.Score.ToString();
-//        cableText.text = GameManager.Instance.Player.Cable + "x";
+        cableText.text = GameManager.Instance.Player.Cable.ToString();
         
         //updateMiniGameButtons();
         updateJoystick();
@@ -141,15 +141,10 @@ public class Hud : MonoBehaviour
     {
         float wobbleValue = WobbleValue * 13f;
 
-        if (GUI.Button(CenteredRect(new Rect(position.x, position.y, 70 + wobbleValue, 70 + wobbleValue)), icon, ""))
+        if (GUI.Button(CenteredRect(new Rect(position.x, position.y, buttonSize + wobbleValue, buttonSize + wobbleValue)), icon, ""))
         {
             callback();
         }
-
-        //        if (GUI.Button(new Rect(position.x - 20 - wobbleValue / 2, Screen.height - position.y - 20 - wobbleValue / 2, 40 + wobbleValue, 40 + wobbleValue), icon, ""))
-        //        {
-        //            callback();
-        //        }
     }
 
     private void updateJoystick()
@@ -161,16 +156,24 @@ public class Hud : MonoBehaviour
                 //right
                 if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.RIGHT)
                     GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
-                if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.LEFT)
+                if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.LEFT
+                    && GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.RIGHT)
+                {
                     GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.RIGHT;
+                    GameManager.Instance.DrillingGame.JustTurned = true;
+                }
             }
             else if (joystickX <= -0.707)
             {
                 //left
                 if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.LEFT)
                     GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
-                if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.RIGHT)
+                if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.RIGHT
+                    && GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.LEFT)
+                {
                     GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.LEFT;
+                    GameManager.Instance.DrillingGame.JustTurned = true;
+                }
             }
             else
             {
@@ -179,16 +182,24 @@ public class Hud : MonoBehaviour
                     //up
                     if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.UP)
                         GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
-                    if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.DOWN)
+                    if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.DOWN
+                        && GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.UP)
+                    {
                         GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.UP;
+                        GameManager.Instance.DrillingGame.JustTurned = true;
+                    }
                 }
                 else if (joystickY <= -0.707f)
                 {
                     //down
                     if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.DOWN)
                         GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
-                    if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.UP)
+                    if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.UP
+                        && GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.DOWN)
+                    {
                         GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.DOWN;
+                        GameManager.Instance.DrillingGame.JustTurned = true;
+                    }
                 }
             }
         }

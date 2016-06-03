@@ -319,6 +319,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildHeight: 200
+  normalZoom: 45
+  buildzoom: 35
   shaker: {fileID: 11418786}
 --- !u!114 &11478568
 MonoBehaviour:

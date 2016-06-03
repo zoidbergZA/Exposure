@@ -23,7 +23,7 @@ public abstract class Connectable : Placable
     public void AddConnection(Connectable other)
     {
         float dist = Vector3.Distance(connectionRef.position, other.connectionRef.position);
-        Debug.Log(dist);
+//        Debug.Log(dist);
 
         GameObject pipeModel = Instantiate(GameManager.Instance.PipePrefab);
 
