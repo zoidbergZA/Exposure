@@ -245,8 +245,7 @@ public class Scanner : MonoBehaviour
 
     private void ScanSucceeded(float sample, Vector3 location, Vector3 normal)
     {
-        radius = 0;
-        IsScanning = false;
+        EndScan();
         GameManager.Instance.Player.Drill(location, normal, 1f - sample);
 
         //        Ray ray = Camera.main.ScreenPointToRay(center);
