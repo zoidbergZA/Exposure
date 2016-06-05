@@ -5,8 +5,7 @@ using System.Collections.Generic;
 public class DrillingGame : Minigame
 {
     //temp - jacques test
-    public AnimationCurve RocksCurve;
-    public AnimationCurve CrystalsCurve;
+    private DrillGameMap map;
 
     [SerializeField] private float toastMessageTime = 3.0f;
     [SerializeField] private float drillSpeed = 3.0f;
@@ -107,6 +106,11 @@ public class DrillingGame : Minigame
 
     void Awake()
     {
+        //jacques map refactor test
+        map = new DrillGameMap(new Vector2(19, 14), new Vector2(44, 44), GameManager.Instance.LoadDrillingPuzzle(easyLevels[0]));
+
+        //jacques map refactor test
+
         /*if(rockPrefab)
             tileTweenId = LeanTween.scale(rockPrefab.GetComponent<RectTransform>(), rockPrefab.GetComponent<RectTransform>().localScale * 1.2f, 1f)
                 .setEase(LeanTweenType.punch).id;*/
