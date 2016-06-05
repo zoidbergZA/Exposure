@@ -289,7 +289,7 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-        if (!ReachedBottom(616, drill)) updateDrilling();
+        if (!ReachedBottom(636, drill)) updateDrilling();
         else state = DrillingGameState.SUCCESS;
     }
 
