@@ -3,18 +3,18 @@ using System.Collections;
 
 public class DrillController : MonoBehaviour
 {
-    public enum Directions
-    {
-        NONE,
-        LEFT,
-        RIGHT,
-        UP,
-        DOWN
-    }
+//    public enum Directions
+//    {
+//        NONE,
+//        LEFT,
+//        RIGHT,
+//        UP,
+//        DOWN
+//    }
 
     private Vector2 mouseOld;
 
-    public Directions Direction { get; private set; }
+    public DrillingDirection Direction { get; private set; }
 
     public void Update()
     {
@@ -23,7 +23,7 @@ public class DrillController : MonoBehaviour
         //return if no significant delta
         if (delta.sqrMagnitude <= 0.05f)
         {
-            Direction = Directions.NONE;
+            Direction = DrillingDirection.NONE;
             return;
         }
 
@@ -31,16 +31,16 @@ public class DrillController : MonoBehaviour
         if (Mathf.Abs(delta.x) >= Mathf.Abs(delta.y))
         {
             if (delta.x <= 0)
-                Direction = Directions.LEFT;
+                Direction = DrillingDirection.LEFT;
             else
-                Direction = Directions.RIGHT;
+                Direction = DrillingDirection.RIGHT;
         }
         else
         {
             if (delta.y >= 0)
-                Direction = Directions.UP;
+                Direction = DrillingDirection.UP;
             else
-                Direction = Directions.DOWN;
+                Direction = DrillingDirection.DOWN;
         }
     }
 
