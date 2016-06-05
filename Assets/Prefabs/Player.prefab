@@ -17,6 +17,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &103298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 446780}
+  - 33: {fileID: 3312800}
+  - 135: {fileID: 13569246}
+  - 23: {fileID: 2355690}
+  m_Layer: 0
+  m_Name: Gadget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!4 &430320
 Transform:
   m_ObjectHideFlags: 1
@@ -26,9 +44,55 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 446780}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!4 &446780
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103298}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_Children: []
+  m_Father: {fileID: 430320}
+  m_RootOrder: 0
+--- !u!23 &2355690
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103298}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 49241b6cc8a6609478d3d1bd3f3cdcc2, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!33 &3312800
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103298}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &11413944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -42,13 +106,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxRadius: 22
   limiter: 380
+  gadgetOffset: 20
   maxScanDistance: 380
   minScanDistance: 130
-  focusTime: 2.3
+  focusTime: 1
   touchIcon: {fileID: 2800000, guid: ef34d65258ae6f049b1076f10e1ea018, type: 3}
   goodIcon: {fileID: 2800000, guid: cb81a5450baa64309a583d28666096ec, type: 3}
   progresIcon: {fileID: 2800000, guid: 95e77e02f229b0542bb85b01a09c9b3f, type: 3}
-  centerIcon: {fileID: 2800000, guid: 719582c5b7fbb4005894482cf80f8745, type: 3}
+  centerIcon: {fileID: 0}
+  gadget: {fileID: 446780}
 --- !u!114 &11427104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,6 +136,18 @@ MonoBehaviour:
     m_Bits: 512
   PowerplantPrefab: {fileID: 0}
   DrillspotPrefab: {fileID: 11406222, guid: 8e50dcc81e355a241b47b2649b69e298, type: 2}
+--- !u!135 &13569246
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103298}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

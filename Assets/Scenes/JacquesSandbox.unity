@@ -1945,6 +1945,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: touchScreenInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: showDebug
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
@@ -6625,7 +6633,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     startSpeed:
-      scalar: 0.2
+      scalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -13752,52 +13760,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 455798, guid: 8f426c1c3c3cef94e822aad1be93f8d5, type: 2}
   m_PrefabInternal: {fileID: 1207795536}
---- !u!1001 &1215535618
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 430114, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 430114, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 430114, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 430114, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 430114, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 430114, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 430114, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 430114, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
-      propertyPath: m_RootOrder
-      value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 11442590, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1218621405
 Prefab:
   m_ObjectHideFlags: 0
@@ -17480,7 +17442,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     startSpeed:
-      scalar: 0.2
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -24917,7 +24879,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
       propertyPath: AutoWin
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11452108, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
       propertyPath: m_Enabled
