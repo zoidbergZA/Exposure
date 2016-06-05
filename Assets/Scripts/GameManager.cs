@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject PipePrefab;
     public Tutorial TutorialPrefab;
 
+    public bool enableTutorial;
     public bool showDebug;
     public TextAsset puzzle1;
 
@@ -70,8 +71,16 @@ public class GameManager : MonoBehaviour
         }
 
         Tutorial tutorial = FindObjectOfType<Tutorial>();
-        if (!tutorial)
-            Instantiate(TutorialPrefab);
+
+        if (enableTutorial)
+        {
+            if (!tutorial)
+                Instantiate(TutorialPrefab);
+        }
+        else if (tutorial)
+        {
+            Destroy(tutorial.gameObject);
+        }
     }
 
     void Start()

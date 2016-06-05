@@ -87,6 +87,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &119304
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 22408228}
+  - 222: {fileID: 22251404}
+  - 114: {fileID: 11477506}
+  m_Layer: 5
+  m_Name: Map Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &122242
 GameObject:
   m_ObjectHideFlags: 1
@@ -300,6 +317,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 437996}
   - 114: {fileID: 11439368}
+  - 114: {fileID: 11438222}
+  - 114: {fileID: 11468696}
   m_Layer: 0
   m_Name: Drilling Game
   m_TagString: Untagged
@@ -426,6 +445,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &181094
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 22437254}
+  - 222: {fileID: 22232192}
+  - 114: {fileID: 11498212}
+  - 114: {fileID: 11427868}
+  m_Layer: 5
+  m_Name: Drilling Agent
+  m_TagString: Diamond
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &184864
 GameObject:
   m_ObjectHideFlags: 1
@@ -1007,6 +1044,17 @@ MonoBehaviour:
         m_CallState: 1
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &11427868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 403dd1b21d51d6d4bbe13cd7386b7e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11427872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1098,6 +1146,17 @@ MonoBehaviour:
         m_CallState: 1
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &11438222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163044}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd19d0877a81244f8b918fe57ab911e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11439368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1110,43 +1169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeOut: 1000
-  RocksCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0.45
-      inSlope: -0.48784125
-      outSlope: -0.48784125
-      tangentMode: 0
-    - time: 0.2
-      value: 0.45
-      inSlope: -0.9188073
-      outSlope: -0.9188073
-      tangentMode: 0
-    - time: 1
-      value: 0.1
-      inSlope: -0.54435486
-      outSlope: -0.54435486
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  CrystalsCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: -0.008333334
-      value: 0.12187499
-      inSlope: 0.0612245
-      outSlope: 0.0612245
-      tangentMode: 0
-    - time: 1
-      value: 0.5
-      inSlope: 1.2000003
-      outSlope: 1.2000003
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
+  mapPanel: {fileID: 22408228}
   toastMessageTime: 2.5
   drillSpeed: 90
   slideSpeed: 80
@@ -1184,7 +1207,7 @@ MonoBehaviour:
   pipeCurve2: {fileID: 127976, guid: ccff515489906a14e9c4ee4841ce95ac, type: 2}
   pipeCurve3: {fileID: 127976, guid: ee1561fa950831c4fb6076f750fd19f4, type: 2}
   pipeCurve4: {fileID: 127976, guid: c3273043cb3e8f9469ad2eee5e283638, type: 2}
-  AutoWin: 0
+  AutoWin: 1
   animator: {fileID: 9525064}
   joystick: {fileID: 11411078}
   joystickPanel: {fileID: 176762}
@@ -1365,6 +1388,27 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
+--- !u!114 &11468696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163044}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6c0048d12d95f4098b9cc82efd9dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePrefabs:
+  - {fileID: 11419950, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
+  - {fileID: 11499880, guid: cea2cbff206580848b084e0e850d9d3f, type: 2}
+  - {fileID: 11477200, guid: efc001b50a2b2e2478eae8f2ef8176f3, type: 2}
+  - {fileID: 11481312, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
+  - {fileID: 11449764, guid: b27c5892d4842b94f848bb05181d0c51, type: 2}
+  - {fileID: 11430186, guid: 99c563d53e12c414384523e01c684524, type: 2}
+  - {fileID: 11433280, guid: 0adbfd2e25f11304bb5b2f0378290b8e, type: 2}
+  - {fileID: 11463116, guid: 3267db04b997f7d4692353b2d7721a44, type: 2}
+  - {fileID: 11458866, guid: c7d1a6ebfaf5c864d9a4439acaf2ef92, type: 2}
 --- !u!114 &11469266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1413,6 +1457,33 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: bf1e8d93cc474854e9d8f843ddb750d6, type: 3}
   m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!114 &11477506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1487,6 +1558,33 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
+--- !u!114 &11498212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300024, guid: 4baf6889ff3e8420b9f4542e596b3845, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &11498516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1556,6 +1654,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 132430}
+--- !u!222 &22232192
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181094}
 --- !u!222 &22238486
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1568,6 +1672,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122306}
+--- !u!222 &22251404
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119304}
 --- !u!222 &22253550
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1692,6 +1802,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -560}
   m_SizeDelta: {x: 109, y: 172}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &22408228
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119304}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 22437254}
+  m_Father: {fileID: 22467228}
+  m_RootOrder: 7
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 90, y: -120}
+  m_SizeDelta: {x: 200, y: 100}
+  m_Pivot: {x: 0, y: 1}
 --- !u!224 &22410418
 RectTransform:
   m_ObjectHideFlags: 1
@@ -1833,6 +1961,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -9}
   m_SizeDelta: {x: 566, y: 475}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &22437254
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181094}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 22408228}
+  m_RootOrder: 0
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 99.99998, y: 50.00009}
+  m_SizeDelta: {x: 44, y: 44}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22441094
 RectTransform:
   m_ObjectHideFlags: 1
@@ -1952,6 +2097,7 @@ RectTransform:
   - {fileID: 22478262}
   - {fileID: 22473070}
   - {fileID: 22429846}
+  - {fileID: 22408228}
   m_Father: {fileID: 22425266}
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
