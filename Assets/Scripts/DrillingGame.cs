@@ -6,6 +6,7 @@ public class DrillingGame : Minigame
 {
     //temp - jacques test
     private DrillGameMap map;
+    [SerializeField] private RectTransform mapPanel;
 
     [SerializeField] private float toastMessageTime = 3.0f;
     [SerializeField] private float drillSpeed = 3.0f;
@@ -107,7 +108,11 @@ public class DrillingGame : Minigame
     void Awake()
     {
         //jacques map refactor test
-        map = new DrillGameMap(new Vector2(19, 14), new Vector2(44, 44), GameManager.Instance.LoadDrillingPuzzle(easyLevels[0]));
+        Vector2 tileSize = new Vector2(44, 44);
+        Vector2 mapDimmensions = new Vector2(19, 14);
+
+        map = GetComponent<DrillGameMap>();
+        map.Initialize(mapPanel, mapDimmensions, tileSize, GameManager.Instance.LoadDrillingPuzzle(easyLevels[0]));
 
         //jacques map refactor test
 

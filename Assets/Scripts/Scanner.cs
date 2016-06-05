@@ -217,7 +217,9 @@ public class Scanner : MonoBehaviour
             //offset
             Vector3 offset = (GameManager.Instance.Planet.transform.position - gadget.position).normalized;
             gadget.position = hit.point + offset * gadgetOffset;
-            gadget.LookAt(transform.position - offset);
+//            gadget.LookAt((gadget.position - offset) * 10);
+            gadget.LookAt(Camera.main.transform.position);        
+//            Debug.DrawLine(gadget.transform.position, gadget.transform.position + (gadget.position - offset) * 10);
 
             sample = GameManager.Instance.SampleHeatmap(hit.textureCoord).r;
 
