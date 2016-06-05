@@ -17,6 +17,7 @@ public class DrillingGame : Minigame
     [SerializeField] private float panelSlidingTime = 1.5f;
     [SerializeField] public float stuckTime = 10.0f;
     [SerializeField] private float drillStuckCooldown = 2.0f;
+    [SerializeField] private float flashTileTime = 1.0f;
     [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
     [SerializeField] private UnityEngine.UI.Image mainPanel;
     [SerializeField] private UnityEngine.UI.Image drill;
@@ -26,6 +27,7 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image steamImage;
     [SerializeField] private UnityEngine.UI.Image drillLife;
     [SerializeField] private UnityEngine.UI.Image joystickImage;
+    [SerializeField] private UnityEngine.UI.Image flashTile;
     [SerializeField] private Sprite arrowDown;
     [SerializeField] private Sprite arrowUpDown;
     [SerializeField] private Sprite arrowLeftRight;
@@ -65,19 +67,21 @@ public class DrillingGame : Minigame
     private DrillingDirection drillDir;
     private DrillingDirection prevDrillDir;
     private Vector2 initDrillPos;
+    private Vector2 flashCoords;
     private int targetColumn;
     private int targetRow;
     private int levelsCounter = 0;
     private int tileTweenId;
     private int curveId = 0;
     //bools
-    private bool slidingLeft, makeDrill, imagesActivated, joystickShaken = false;
+    private bool slidingLeft, makeDrill, imagesActivated, joystickShaken, triggerFlash = false;
     //timers
     private float toastTimer;
     private float jumpPhaseTimer;
     private float panelSlidingTimer;
     private float drillStuckChecked;
     private float stuckTimer;
+    private float flashTileTimer;
 
     public bool SucceededDrill { get; set; }
     public bool Bumped { get; set; }
@@ -120,6 +124,7 @@ public class DrillingGame : Minigame
         toastTimer = toastMessageTime;
         jumpPhaseTimer = jumpPhaseTime;
         panelSlidingTimer = panelSlidingTime;
+        flashTileTimer = flashTileTime;
         drillStuckChecked = Time.time;
         if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -(Screen.height) - 700, 0);
         if (drill) initDrillPos = drill.rectTransform.anchoredPosition;
@@ -228,7 +233,6 @@ public class DrillingGame : Minigame
                 generateLevel(tiles); // pre-designed levels, loading from csv
             }
             if (SucceededDrill) levelsCounter++;
-            Debug.Log(bottomRow.Count.ToString() + " | " + SucceededDrill + " | " + levelsCounter);
             panelSlidingTimer = panelSlidingTime;
             joystick.StartPosition = joystick.transform.position;
             if (!AutoWin) state = DrillingGameState.SLIDING;
@@ -474,6 +478,8 @@ public class DrillingGame : Minigame
                     {
                         instantiatePipeVertical();
                         curveId = 2;
+                        flashCoords = new Vector2(columns[targetColumn + 1], rows[targetRow + 1]);
+                        triggerFlash = true;
                         targetRow++;
                         animator.SetBool("isDrillingDown", false);
                         prevDrillDir = DrillingDirection.NONE;
@@ -748,6 +754,7 @@ public class DrillingGame : Minigame
         updateProgressBars();
         updateJoystickImages();
         updateWallsEnabling();
+        if (triggerFlash) FlashTile();
 
         if (state == DrillingGameState.DRILLING)
         {
@@ -1005,6 +1012,22 @@ public class DrillingGame : Minigame
             if (!ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = true;
             if (!rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = true;
             if (!leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = true;
+        }
+    }
+
+    private void FlashTile()
+    {
+        flashTileTimer -= Time.deltaTime;
+        flashTile.rectTransform.anchoredPosition = flashCoords;
+        Debug.Log(flashCoords.ToString() + " | " + triggerFlash + " | " + flashTileTimer);
+        flashTile.transform.SetAsLastSibling();
+        flashTile.enabled = true;
+        if (flashTileTimer <= 0)
+        {
+            flashTileTimer = flashTileTime;
+            flashTile.transform.SetAsFirstSibling();
+            flashTile.enabled = false;
+            triggerFlash = false;
         }
     }
 }
