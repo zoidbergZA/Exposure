@@ -318,7 +318,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 154036}
-  m_LocalRotation: {x: 0, y: -0.66416353, z: 0, w: 0.7475873}
+  m_LocalRotation: {x: -0.016704489, y: -0.66406614, z: -0.005051398, w: 0.74747014}
   m_LocalPosition: {x: 0, y: -300, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -439,7 +439,7 @@ Transform:
   m_GameObject: {fileID: 136322}
   m_LocalRotation: {x: 0, y: 0.66416353, z: 0, w: 0.7475873}
   m_LocalPosition: {x: 0.030228, y: -0.0027037319, z: -0.14311}
-  m_LocalScale: {x: 23.387693, y: 23.749987, z: 23.749987}
+  m_LocalScale: {x: 23.68769, y: 23.68769, z: 23.68769}
   m_Children: []
   m_Father: {fileID: 417382}
   m_RootOrder: 0
@@ -999,6 +999,7 @@ MonoBehaviour:
   citiesHolder: {fileID: 0}
   globeTransform: {fileID: 417382}
   inertia: 0.884
+  startTrees: 0.2
   atmosphereLight: {fileID: 10804764}
   dirtyColor: {r: 0.53676474, g: 0.26043433, b: 0.110510394, a: 1}
   cleanColor: {r: 0, g: 0.95686275, b: 1, a: 1}
@@ -1027,6 +1028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectionRef: {fileID: 454192}
+  separationMultiplier: 1
   connectIcon: {fileID: 2800000, guid: cca88ef0d19dbc547aa0ab4ce3122a62, type: 3}
   PlacerModel: {fileID: 102918}
   BuiltModel: {fileID: 158022}

@@ -10,6 +10,8 @@ public class Planet : MonoBehaviour
     [SerializeField] private Transform globeTransform;
     [Range(0f, 1f)]
     [SerializeField] private float inertia;
+    [Range(0f, 1f)]
+    [SerializeField] private float startTrees;
     [SerializeField] private Light atmosphereLight;
     [SerializeField] private Color dirtyColor;
     [SerializeField] private Color cleanColor;
@@ -18,6 +20,8 @@ public class Planet : MonoBehaviour
     private float momentum;
     private float currentSpin;
     private Chimney[] chimneys;
+    private Tree[] trees;
+    int healthyTreesAtStart;
 
     public float Health { get; private set; }
     public bool IsSpinning { get; set; }
@@ -25,6 +29,8 @@ public class Planet : MonoBehaviour
     void Awake()
     {
         chimneys = FindObjectsOfType<Chimney>();
+        trees = FindObjectsOfType<Tree>();
+        InitializeTrees();
         currentSpin = normalSpin;
 
         propsHolder.SetParent(transform);
@@ -66,8 +72,8 @@ public class Planet : MonoBehaviour
         }
 
         Health = (float)unusedCount / (float)chimneys.Length;
+        RefreshTrees();
         atmosphereLight.color = Color.Lerp(dirtyColor, cleanColor, Health);
-//        Debug.Log("planet health: " + Health);
     }
 
     public void DisableNextChimney()
@@ -80,6 +86,25 @@ public class Planet : MonoBehaviour
                 chimney.Demolish();
                 return;
             }
+        }
+    }
+
+    private void InitializeTrees()
+    {
+        healthyTreesAtStart = Mathf.FloorToInt(startTrees * trees.Length);
+        for (int i = healthyTreesAtStart; i < trees.Length; i++)
+        {
+            trees[i].SetUngrown();
+        }
+    }
+
+    private void RefreshTrees()
+    {
+        int newHealthyTreeCount = healthyTreesAtStart +  Mathf.FloorToInt(Health * (trees.Length - healthyTreesAtStart));
+        
+        for (int i = 0; i < newHealthyTreeCount; i++)
+        {
+            trees[i].Grow();
         }
     }
 
