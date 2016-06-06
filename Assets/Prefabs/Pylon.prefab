@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectionRef: {fileID: 464250}
+  separationMultiplier: 1.3
   connectIcon: {fileID: 2800000, guid: 9b48bf22fc1c0364ebe5cc0511ae997a, type: 3}
   PlacerModel: {fileID: 114302}
   BuiltModel: {fileID: 113898}

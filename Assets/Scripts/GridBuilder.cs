@@ -9,6 +9,7 @@ public class GridBuilder : Minigame
     [SerializeField] private int pylonsPerPlace = 8;
     [SerializeField] private float pylonSeparation = 26f;
     [SerializeField] private LayerMask placerMask;
+    [SerializeField] private float swoopTime = 1.1f;
 
     public City ClosestCity { get; private set; }
     public List<Connectable> ConnectedList { get; private set; }
@@ -82,7 +83,6 @@ public class GridBuilder : Minigame
     {
 //        GameManager.Instance.Player.ConsumeCable(1);
         ConnectedList.Add(connectable);
-//        StartPlant.SpanToPoint(connectable.connectionRef.position);
 
         if (ConnectedList.Count == 1)
         {
@@ -92,13 +92,11 @@ public class GridBuilder : Minigame
         {
             ConnectedList[ConnectedList.Count - 1].AddConnection(ConnectedList[ConnectedList.Count - 2]);
         }
-
-        //todo: director jumpto()
-        //        GameManager.Instance.Director.SetTarget(connectable.transform);
+        
         Vector3 newPos = connectable.transform.position + connectable.transform.up * GameManager.Instance.Director.buildHeight;
         Quaternion newRot = Quaternion.LookRotation(connectable.transform.position - newPos, Vector3.up);
 
-        GameManager.Instance.Director.SwoopTo(newPos, newRot, 20f, 2f);
+        GameManager.Instance.Director.SwoopTo(newPos, newRot, GameManager.Instance.Director.buildzoom, swoopTime);
 
         if (connectable is City)
         {

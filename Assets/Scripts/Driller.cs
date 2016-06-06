@@ -7,14 +7,13 @@ public class Driller : MonoBehaviour
     {
         if (coll.gameObject.tag == "Rock" || coll.gameObject.tag == "Walls")
         {
-            //GameManager.Instance.DrillingGame.Drill.color = new Color(1, 0, 0);
-            //GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
+            GameManager.Instance.DrillingGame.Drill.color = new Color(1, 0, 0);
+            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
             GameManager.Instance.DrillingGame.Bumped = true;
         }
         if (coll.gameObject.tag == "Diamond")
         {
             GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
-            GameManager.Instance.Hud.NewFloatingText("1 point!", coll.gameObject.transform);
             Destroy(coll.gameObject);
         }
         if (coll.gameObject.tag == "GroundTile")
@@ -23,7 +22,7 @@ public class Driller : MonoBehaviour
         }
         if (coll.gameObject.tag == "Cable")
         {
-            GameManager.Instance.Player.CollectCable(1);
+            GameManager.Instance.Player.CollectCable(2);
 
             Destroy(coll.gameObject);
         }
@@ -36,14 +35,21 @@ public class Driller : MonoBehaviour
             
             Destroy(coll.gameObject);
         }
+        if (coll.gameObject.tag == "Pipe")
+        {
+            GameManager.Instance.DrillingGame.SucceededDrill = false;
+            GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+            GameManager.Instance.DrillingGame.Drill.color = new Color(1, 0, 0);
+            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
+        }
     }
 
     void OnCollisionExit2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "Rock" || coll.gameObject.tag == "Walls")
         {
-            //GameManager.Instance.DrillingGame.Drill.color = new Color(1, 1, 1);
-            //GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 1, 1);
+            GameManager.Instance.DrillingGame.Drill.color = new Color(1, 1, 1);
+            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 1, 1);
             GameManager.Instance.DrillingGame.Bumped = false;
         }
         if (coll.gameObject.tag == "Diamond")

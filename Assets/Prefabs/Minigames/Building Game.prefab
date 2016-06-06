@@ -42,11 +42,12 @@ MonoBehaviour:
   timeOut: 20
   PlacerHelperPrefab: {fileID: 124698, guid: c159ca2a320fea2459e942f588211ec3, type: 2}
   pylonPrefab: {fileID: 11436378, guid: 51ab1a46f67f1074bb4a2db8b697b8c5, type: 2}
-  pylonsPerPlace: 24
+  pylonsPerPlace: 18
   pylonSeparation: 17
   placerMask:
     serializedVersion: 2
     m_Bits: 256
+  swoopTime: 0.6
   ConnectionFinalized: 0
 --- !u!1001 &100100000
 Prefab:

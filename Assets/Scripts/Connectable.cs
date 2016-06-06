@@ -6,6 +6,7 @@ public abstract class Connectable : Placable
     public Transform connectionRef;
 //    [SerializeField] private GameObject PipeModel;
 
+    [SerializeField] protected float separationMultiplier = 1f;
     [SerializeField] private Texture2D connectIcon;
 
     public bool IsConnectable { get; protected set; }
@@ -23,7 +24,7 @@ public abstract class Connectable : Placable
     public void AddConnection(Connectable other)
     {
         float dist = Vector3.Distance(connectionRef.position, other.connectionRef.position);
-        Debug.Log(dist);
+//        Debug.Log(dist);
 
         GameObject pipeModel = Instantiate(GameManager.Instance.PipePrefab);
 
