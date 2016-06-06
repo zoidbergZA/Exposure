@@ -12,7 +12,7 @@ using Pathfinding.RVO;
  * \n
  * This script will try to follow a target transform, in regular intervals, the path to that target will be recalculated.
  * It will on FixedUpdate try to move towards the next point in the path.
- * However it will only move in the forward direction, but it will rotate around it's Y-axis
+ * However it will only move in the forward Direction, but it will rotate around it's Y-axis
  * to make it reach the target.
  *
  * \section variables Quick overview of the variables
@@ -336,7 +336,7 @@ public class AIPath : MonoBehaviour {
 	/** Point to where the AI is heading.
 	 * Filled in by #CalculateVelocity */
 	protected Vector3 targetPoint;
-	/** Relative direction to where the AI is heading.
+	/** Relative Direction to where the AI is heading.
 	 * Filled in by #CalculateVelocity */
 	protected Vector3 targetDirection;
 
@@ -348,7 +348,7 @@ public class AIPath : MonoBehaviour {
 	}
 
 	/** Calculates desired velocity.
-	 * Finds the target path segment and returns the forward direction, scaled with speed.
+	 * Finds the target path segment and returns the forward Direction, scaled with speed.
 	 * A whole bunch of restrictions on the velocity is applied to make sure it doesn't overshoot, does not look too far ahead,
 	 * and slows down when close to the target.
 	 * /see speed
@@ -420,7 +420,7 @@ public class AIPath : MonoBehaviour {
 		return forward*sp;
 	}
 
-	/** Rotates in the specified direction.
+	/** Rotates in the specified Direction.
 	 * Rotates around the Y-axis.
 	 * \see turningSpeed
 	 */

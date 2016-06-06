@@ -49,7 +49,7 @@ public class AILerp : MonoBehaviour {
 	/** Speed in world units */
 	public float speed = 3;
 
-	/** If true, the AI will rotate to face the movement direction */
+	/** If true, the AI will rotate to face the movement Direction */
 	public bool enableRotation = true;
 
 	/** If true, rotation will only be done along the Z axis */
@@ -93,7 +93,7 @@ public class AILerp : MonoBehaviour {
 
 	/** When a new path was returned, the AI was moving along this ray.
 	 * Used to smoothly interpolate between the previous movement and the movement along the new path.
-	 * The speed is equal to movement direction.
+	 * The speed is equal to movement Direction.
 	 */
 	protected Vector3 previousMovementOrigin;
 	protected Vector3 previousMovementDirection;
@@ -387,7 +387,7 @@ public class AILerp : MonoBehaviour {
 	}
 
 	/** Calculate the AI's next position (one frame in the future).
-	 * \param direction The direction of the segment the AI is currently traversing. Not normalized.
+	 * \param Direction The Direction of the segment the AI is currently traversing. Not normalized.
 	 */
 	protected virtual Vector3 CalculateNextPosition (out Vector3 direction) {
 		if (path == null || path.vectorPath == null || path.vectorPath.Count == 0) {

@@ -316,11 +316,11 @@ namespace Pathfinding {
 		[System.NonSerialized]
 		public readonly uint[] neighbourCosts = new uint[8];
 
-		/** Offsets in the X direction for neighbour nodes. Only 1, 0 or -1 */
+		/** Offsets in the X Direction for neighbour nodes. Only 1, 0 or -1 */
 		[System.NonSerialized]
 		public readonly int[] neighbourXOffsets = new int[8];
 
-		/** Offsets in the Z direction for neighbour nodes. Only 1, 0 or -1 */
+		/** Offsets in the Z Direction for neighbour nodes. Only 1, 0 or -1 */
 		[System.NonSerialized]
 		public readonly int[] neighbourZOffsets = new int[8];
 
@@ -436,8 +436,8 @@ namespace Pathfinding {
 			SetNodeConnection(index, x, z, dir, value);
 		}
 
-		/** Get the connecting node from the node at (x,z) in the specified direction.
-		 * \returns A GridNode if the node has a connection to that node. Null if no connection in that direction exists
+		/** Get the connecting node from the node at (x,z) in the specified Direction.
+		 * \returns A GridNode if the node has a connection to that node. Null if no connection in that Direction exists
 		 *
 		 * \see GridNode
 		 */
@@ -454,7 +454,7 @@ namespace Pathfinding {
 			return nodes[nindex];
 		}
 
-		/** Set if connection in the specified direction should be enabled.
+		/** Set if connection in the specified Direction should be enabled.
 		 * Note that bounds checking will still be done when getting the connection value again,
 		 * so it is not necessarily true that HasNodeConnection will return true just because you used
 		 * SetNodeConnection on a node to set a connection to true.
@@ -1536,8 +1536,8 @@ namespace Pathfinding {
 		}
 
 
-		/** Returns if \a node is connected to it's neighbour in the specified direction.
-		 * This will also return true if #neighbours = NumNeighbours.Four, the direction is diagonal and one can move through one of the adjacent nodes
+		/** Returns if \a node is connected to it's neighbour in the specified Direction.
+		 * This will also return true if #neighbours = NumNeighbours.Four, the Direction is diagonal and one can move through one of the adjacent nodes
 		 * to the targeted node.
 		 *
 		 * \see neighbourOffsets
