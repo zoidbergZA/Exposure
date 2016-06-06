@@ -8,6 +8,8 @@ public class Hud : MonoBehaviour
 {
     [SerializeField] private FloatingText floatingTextPrefab;
     [SerializeField] private Canvas hudCanvas;
+    [SerializeField] private Image joystickArrow;
+    [SerializeField] private float joystickArrowFadeSpeed = 2f;
     [SerializeField] private Image buildArrow;
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private Text timeText;
@@ -19,6 +21,7 @@ public class Hud : MonoBehaviour
 
     private int buttonSize = 55;
     private int buttonIndent = 10;
+    private Vector2 pointerArrowOffset;
 
     private int wobblerTweenId;
     private int scorePanelTweenId;
@@ -29,6 +32,7 @@ public class Hud : MonoBehaviour
     void Awake()
     {
         gameOverPanel.SetActive(false);
+        joystickArrow.color = new Color(1, 1 , 1, 0);
         wobblerTweenId = LeanTween.value(gameObject, updateWobbleCallback, 0f, 1f, 0.6f).setLoopPingPong().setEase(LeanTweenType.easeInOutSine).id;
     }
 
@@ -42,6 +46,13 @@ public class Hud : MonoBehaviour
         timeText.text = niceTime;
         scoreText.text = GameManager.Instance.Player.Score.ToString();
         cableText.text = GameManager.Instance.Player.Cable.ToString();
+
+        //joystick arrow
+        if (joystickArrow.color.a > 0)
+        {
+            joystickArrow.color = new Color(1, 1, 1, joystickArrow.color.a - Time.deltaTime * joystickArrowFadeSpeed);
+            joystickArrow.rectTransform.localPosition = GameManager.Instance.DrillingGame.Drill.rectTransform.localPosition + (Vector3)pointerArrowOffset;
+        }
 
         //        //arrow test
         //        City closestCity = GameManager.Instance.GridBuilder.FindClosestCity(Vector3.zero);
@@ -67,6 +78,33 @@ public class Hud : MonoBehaviour
             );
 
         return output;
+    }
+
+    public void PointJoystickArrow(DrillingDirection direction)
+    {
+        joystickArrow.color = new Color(1, 1, 1, 1);
+
+        float rotation = 0;
+//        Vector2 offset = Vector2.zero;
+
+        switch (direction)
+        {
+            case DrillingDirection.UP:
+                rotation = 0;
+                break;
+            case DrillingDirection.DOWN:
+                rotation = 180;
+                break;
+            case DrillingDirection.LEFT:
+                rotation = 90;
+                break;
+            case DrillingDirection.RIGHT:
+                rotation = 270;
+                break;
+        }
+
+//        joystickArrow.rectTransform.localPosition = offset;
+        joystickArrow.transform.localEulerAngles = new Vector3(0, 0, rotation);
     }
 
     public void ShowBuildArrow(bool show)
