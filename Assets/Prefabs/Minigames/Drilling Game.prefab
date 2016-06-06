@@ -1086,7 +1086,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 4479352623a56964c80b1c3344a15d9f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 384bdd258939c4889b6fb53397218205, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1179,6 +1179,7 @@ MonoBehaviour:
   panelSlidingTime: 1.5
   stuckTime: 5
   drillStuckCooldown: 2
+  flashTileTime: 1
   geoThermalPlantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae,
     type: 2}
   mainPanel: {fileID: 11421718}
@@ -1189,6 +1190,7 @@ MonoBehaviour:
   steamImage: {fileID: 11410760}
   drillLife: {fileID: 11406088}
   joystickImage: {fileID: 11498516}
+  flashTile: {fileID: 0}
   arrowDown: {fileID: 21300000, guid: ecb984caf6ce7fb4aa423007ccd63194, type: 3}
   arrowUpDown: {fileID: 21300000, guid: 4e17dea0be40a0949812ac5d65c6bc1f, type: 3}
   arrowLeftRight: {fileID: 21300000, guid: 00a999c385d698c428678ffab0f73dc6, type: 3}
