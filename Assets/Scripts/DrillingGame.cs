@@ -149,6 +149,7 @@ public class DrillingGame : Minigame
         if (IsRunning && Timeleft <= 0.5f)
         {
             SucceededDrill = false;
+            toastType = global::ToastType.NONE;
             state = DrillingGameState.STARTSTOPTOAST;
         }
         if (GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal && state != DrillingGameState.INACTIVE)
@@ -157,6 +158,7 @@ public class DrillingGame : Minigame
             End(false);
         }
     }
+
 
     void FixedUpdate()
     {
@@ -828,36 +830,6 @@ public class DrillingGame : Minigame
         SucceededDrill = true;
         toastType = global::ToastType.SUCCESS;
         state = DrillingGameState.STARTSTOPTOAST;
-    }
-
-    public override void Update()
-    {
-        base.Update();
-        if (IsRunning && Timeleft <= 0.5f)
-        {
-            SucceededDrill = false;
-            toastType = global::ToastType.NONE;
-            state = DrillingGameState.STARTSTOPTOAST;
-        }
-        if (GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal && state != DrillingGameState.INACTIVE)
-        {
-            state = DrillingGameState.INACTIVE;
-            End(false);
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if(drill) updateState();
-        if (Time.time - drillStuckChecked > drillStuckCooldown)
-        {
-            checkDrillerStuck();
-            drillStuckChecked = Time.time;
-        }
-        updateProgressBars();
-        updateWallsEnabling();
-        if (triggerFlash) FlashTile();
-        //Debug.Log("cur: " + GameManager.Instance.Joystick.CurrentInput + " | prev: " + GameManager.Instance.Joystick.PrevInput);
     }
 
     private void updateProgressBars()
