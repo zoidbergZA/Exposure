@@ -719,7 +719,7 @@ namespace Pathfinding {
 		Ray         /**< Uses a Ray, Physics.Linecast */
 	}
 
-	/** Determines collision check ray direction */
+	/** Determines collision check ray Direction */
 	public enum RayDirection {
 		Up,     /**< Casts the ray from the bottom upwards */
 		Down,   /**< Casts the ray from the top downwards */

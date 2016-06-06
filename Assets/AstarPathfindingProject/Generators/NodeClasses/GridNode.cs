@@ -66,7 +66,7 @@ namespace Pathfinding {
 		const int GridFlagsEdgeNodeOffset = 10;
 		const int GridFlagsEdgeNodeMask = 1 << GridFlagsEdgeNodeOffset;
 
-		/** Returns true if the node has a connection in the specified direction.
+		/** Returns true if the node has a connection in the specified Direction.
 		 * The dir parameter corresponds to directions in the grid as:
 		 * \code
 		 * [0] = -Y
@@ -85,7 +85,7 @@ namespace Pathfinding {
 			return (gridFlags >> dir & GridFlagsConnectionBit0) != 0;
 		}
 
-		/** Enables or disables a connection in a specified direction on the graph.
+		/** Enables or disables a connection in a specified Direction on the graph.
 		 *	\see GetConnectionInternal
 		 */
 		public void SetConnectionInternal (int dir, bool value) {

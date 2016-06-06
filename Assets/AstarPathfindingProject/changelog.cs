@@ -691,7 +691,7 @@
 
 - 3.2.2
 	- Changes
-		- Max Slope in grid graphs is now relative to the graph's up direction instead of world up (makes more sense I hope)
+		- Max Slope in grid graphs is now relative to the graph's up Direction instead of world up (makes more sense I hope)
 	- Note
 		- Update really too small to be an update by itself, but I was updating the build scripts I use for the project and had to upload a new version because of technical reasons.
 
@@ -836,7 +836,7 @@
 	- Fixed a bug where grid graphs would not update the correct area (using GraphUpdateObject) if it was rotated.
 	- Node position precision increased from 100 steps per world unit to 1000 steps per world unit (if 1 world unit = 1m, that is mm precision).
 		This also means that all costs and penalties in graphs will need to be multiplied by 10 to match the new scale.
-		It also means the max range of node positions is reduced a bit... but it is still quite large (about 2 150 000 world units in either direction, that should be enough).
+		It also means the max range of node positions is reduced a bit... but it is still quite large (about 2 150 000 world units in either Direction, that should be enough).
 	- If Unity 3.5 is used, the EditorGUIUtility.isProSkin field is used to toggle between light and dark skin.
 	- Added LayeredGridGraph which works almost the same as grid graphs, but support multiple layers of nodes.
 	- \note Dropped Unity 3.3 support.
