@@ -570,10 +570,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
   m_PrefabInternal: {fileID: 49395875}
---- !u!1 &49493206 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 160974, guid: 643cd85ec6f51784e9429dd0dbfd9fa1, type: 2}
-  m_PrefabInternal: {fileID: 1275045727}
 --- !u!1001 &51397404
 Prefab:
   m_ObjectHideFlags: 0
@@ -5794,18 +5790,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: joystickImage
+    - target: {fileID: 9577726, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 917549507}
-    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: joystick
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: joystickPanel
-      value: 
-      objectReference: {fileID: 49493206}
+      objectReference: {fileID: 9100000, guid: 2cf8f1054f914b34badc4602c8061090, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
   m_IsPrefabParent: 0
@@ -10477,12 +10465,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 455798, guid: b570aacde41d0fa46b5e39920ada58ea, type: 2}
   m_PrefabInternal: {fileID: 917026099}
---- !u!114 &917549507 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11466506, guid: 643cd85ec6f51784e9429dd0dbfd9fa1,
-    type: 2}
-  m_PrefabInternal: {fileID: 1275045727}
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &927058027
 Prefab:
   m_ObjectHideFlags: 0

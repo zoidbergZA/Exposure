@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public enum DrillingDirection { UP, DOWN, LEFT, RIGHT, NONE }
+public enum ToastType { SUCCESS, BROKEN_DRILL, BROKEN_PIPE, EXPLODED_BOMB, NONE }
 
 public class DrillingGame : Minigame
 {
@@ -24,7 +25,8 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image mainPanel;
     [SerializeField] private UnityEngine.UI.Image drill;
     [SerializeField] private UnityEngine.UI.Image endOkToast;
-    [SerializeField] private UnityEngine.UI.Image endFailToast;
+    [SerializeField] private UnityEngine.UI.Image brokenDrillToast;
+    [SerializeField] private UnityEngine.UI.Image brokenPipeToast;
     [SerializeField] private UnityEngine.UI.Image waterBar;
     [SerializeField] private UnityEngine.UI.Image steamImage;
     [SerializeField] private UnityEngine.UI.Image drillLife;
@@ -59,6 +61,7 @@ public class DrillingGame : Minigame
     private GameObject leftWall;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
     private DrillingGameState state;
+    private ToastType toastType;
     private Vector2 initDrillPos;
     private Vector2 flashCoords;
     private int targetColumn;
@@ -84,7 +87,8 @@ public class DrillingGame : Minigame
     private List<GameObject> bottomRow = new List<GameObject>();
 
     public DrillingAgent DrillingAgent { get; private set; }
-    public DrillingGameState State { get { return state; } set { state = value; } }
+    public DrillingGameState State { get { return state; } }
+    public ToastType ToastType { get { return toastType; } set { toastType = value; } }
     public void MakeDrill(bool value) { makeDrill = value; }
     public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
     public UnityEngine.UI.Image Drill { get { return drill; } }
@@ -262,21 +266,19 @@ public class DrillingGame : Minigame
         toastTimer -= Time.deltaTime;
         if (SucceededDrill)
         {
-            endOkToast.gameObject.SetActive(true);
-            endOkToast.gameObject.transform.parent.SetAsLastSibling();
+            activateToast(toastType);
             if (toastTimer > 0)
                 LeanTween.move(steamImage.gameObject.GetComponent<RectTransform>(), new Vector3(0, 50, 0), toastMessageTime).setEase(LeanTweenType.easeOutQuad);
-            else fireToast(true);
+            else deactivateToast(true);
         }
         else
         {
-            endFailToast.gameObject.SetActive(true);
-            endFailToast.gameObject.transform.parent.SetAsLastSibling();
-            if (toastTimer < 0.0f) fireToast(false);
+            activateToast(toastType);
+            if (toastTimer < 0.0f) deactivateToast(false);
         }
     }
 
-    private void fireToast(bool gameSucceeded)
+    private void deactivateToast(bool gameSucceeded)
     {
         toastTimer = toastMessageTime;
         if (gameSucceeded)
@@ -286,7 +288,18 @@ public class DrillingGame : Minigame
         }
         else
         {
-            endFailToast.gameObject.SetActive(false);
+            switch(toastType)
+            {
+                case global::ToastType.BROKEN_DRILL:
+                    brokenDrillToast.gameObject.SetActive(false);
+                    break;
+                case global::ToastType.BROKEN_PIPE:
+                    brokenPipeToast.gameObject.SetActive(false);
+                    break;
+                case global::ToastType.EXPLODED_BOMB:
+                    //todo
+                    break;
+            }
             drillLife.fillAmount = 0f;
         }
         state = DrillingGameState.INACTIVE;
@@ -727,6 +740,7 @@ public class DrillingGame : Minigame
     private void handleSuccessState()
     {
         SucceededDrill = true;
+        toastType = global::ToastType.SUCCESS;
         state = DrillingGameState.STARTSTOPTOAST;
     }
 
@@ -736,6 +750,7 @@ public class DrillingGame : Minigame
         if (IsRunning && Timeleft <= 0.5f)
         {
             SucceededDrill = false;
+            toastType = global::ToastType.NONE;
             state = DrillingGameState.STARTSTOPTOAST;
         }
         if (GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal && state != DrillingGameState.INACTIVE)
@@ -774,6 +789,7 @@ public class DrillingGame : Minigame
         if (stuckTimer <= 0)
         {
             SucceededDrill = false;
+            toastType = global::ToastType.BROKEN_DRILL;
             state = DrillingGameState.STARTSTOPTOAST;
             stuckTimer = stuckTime;
         }
@@ -802,7 +818,7 @@ public class DrillingGame : Minigame
         } else
         {
             if (drill) drill.gameObject.SetActive(false);
-            if (endFailToast) endFailToast.gameObject.SetActive(false);
+            if (brokenDrillToast) brokenDrillToast.gameObject.SetActive(false);
             if (endOkToast) endOkToast.gameObject.SetActive(false);
             imagesActivated = false;
         }
@@ -840,6 +856,7 @@ public class DrillingGame : Minigame
         if (ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = false;
         if (rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = false;
         if (leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = false;
+        toastType = global::ToastType.NONE;
     }
 
     private void instantiateRock(int x, int y)
@@ -1009,6 +1026,52 @@ public class DrillingGame : Minigame
             flashTile.transform.SetAsFirstSibling();
             flashTile.enabled = false;
             triggerFlash = false;
+        }
+    }
+
+    public void handleRockCollision(bool entered)
+    {
+        if (entered)
+        {
+            drill.color = new Color(1, 0, 0);
+            drillLife.color = new Color(1, 0, 0);
+        }
+        else
+        {
+            drill.color = new Color(1, 1, 1);
+            drillLife.color = new Color(1, 1, 1);
+        }
+        Bumped = entered;
+    }
+
+    public void handlePipeCollision()
+    {
+        SucceededDrill = false;
+        state = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+        toastType = global::ToastType.BROKEN_PIPE;
+        drill.color = new Color(1, 0, 0);
+        drillLife.color = new Color(1, 0, 0);
+    }
+
+    private void activateToast(ToastType type)
+    {
+        switch (type)
+        {
+            case global::ToastType.BROKEN_PIPE:
+                brokenPipeToast.gameObject.SetActive(true);
+                brokenPipeToast.gameObject.transform.parent.SetAsLastSibling();
+                break;
+            case global::ToastType.BROKEN_DRILL:
+                brokenDrillToast.gameObject.SetActive(true);
+                brokenDrillToast.gameObject.transform.parent.SetAsLastSibling();
+                break;
+            case global::ToastType.EXPLODED_BOMB:
+                //todo
+                break;
+            case global::ToastType.SUCCESS:
+                endOkToast.gameObject.SetActive(true);
+                endOkToast.gameObject.transform.parent.SetAsLastSibling();
+                break;
         }
     }
 }
