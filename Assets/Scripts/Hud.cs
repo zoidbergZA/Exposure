@@ -154,24 +154,24 @@ public class Hud : MonoBehaviour
             if (joystickX >= 0.907f) //normally should be 0.707 (sin 45 deg)
             {
                 //right
-                if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.RIGHT)
+                if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.RIGHT)
                     GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
-                if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.LEFT
-                    && GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.RIGHT)
+                if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingDirection.LEFT
+                    && GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.RIGHT)
                 {
-                    GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.RIGHT;
+                    GameManager.Instance.DrillingGame.DrillDirection = DrillingDirection.RIGHT;
                     GameManager.Instance.DrillingGame.JustTurned = true;
                 }
             }
             else if (joystickX <= -0.907) //normally should be -0.707 (sin 45 deg)
             {
                 //left
-                if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.LEFT)
+                if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.LEFT)
                     GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
-                if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.RIGHT
-                    && GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.LEFT)
+                if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingDirection.RIGHT
+                    && GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.LEFT)
                 {
-                    GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.LEFT;
+                    GameManager.Instance.DrillingGame.DrillDirection = DrillingDirection.LEFT;
                     GameManager.Instance.DrillingGame.JustTurned = true;
                 }
             }
@@ -183,8 +183,20 @@ public class Hud : MonoBehaviour
                 if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.DOWN
                     && GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.UP)
                 {
+<<<<<<< HEAD
                     GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.UP;
                     GameManager.Instance.DrillingGame.JustTurned = true;
+=======
+                    //up
+                    if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.UP)
+                        GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+                    if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingDirection.DOWN
+                        && GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.UP)
+                    {
+                        GameManager.Instance.DrillingGame.DrillDirection = DrillingDirection.UP;
+                        GameManager.Instance.DrillingGame.JustTurned = true;
+                    }
+>>>>>>> refs/remotes/origin/master
                 }
             }
             else if (joystickY <= -0.907f) //normally should be -0.707 (cos 45 deg)
@@ -195,8 +207,20 @@ public class Hud : MonoBehaviour
                 if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.UP
                     && GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.DOWN)
                 {
+<<<<<<< HEAD
                     GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.DOWN;
                     GameManager.Instance.DrillingGame.JustTurned = true;
+=======
+                    //down
+                    if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.DOWN)
+                        GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
+                    if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingDirection.UP
+                        && GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.DOWN)
+                    {
+                        GameManager.Instance.DrillingGame.DrillDirection = DrillingDirection.DOWN;
+                        GameManager.Instance.DrillingGame.JustTurned = true;
+                    }
+>>>>>>> refs/remotes/origin/master
                 }
             }
         }
@@ -223,25 +247,25 @@ public class Hud : MonoBehaviour
         {
             switch(GameManager.Instance.DrillingGame.DrillDirection)
             {
-                case DrillingGame.DrillingDirection.DOWN:
+                case DrillingDirection.DOWN:
                     leftButton.interactable = true;
                     rightButton.interactable = true;
                     downButton.interactable = true;
                     upButton.interactable = false;
                     break;
-                case DrillingGame.DrillingDirection.UP:
+                case DrillingDirection.UP:
                     leftButton.interactable = true;
                     rightButton.interactable = true;
                     downButton.interactable = false;
                     upButton.interactable = true;
                     break;
-                case DrillingGame.DrillingDirection.LEFT:
+                case DrillingDirection.LEFT:
                     leftButton.interactable = true;
                     rightButton.interactable = false;
                     downButton.interactable = true;
                     upButton.interactable = true;
                     break;
-                case DrillingGame.DrillingDirection.RIGHT:
+                case DrillingDirection.RIGHT:
                     leftButton.interactable = false;
                     rightButton.interactable = true;
                     downButton.interactable = true;
@@ -253,29 +277,29 @@ public class Hud : MonoBehaviour
     
     public void HandleLeftButton()
     {
-        if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.LEFT)
+        if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.LEFT)
         {
             GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
         }
-        GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.LEFT;
+        GameManager.Instance.DrillingGame.DrillDirection = DrillingDirection.LEFT;
     }
 
     public void HandleRightButton()
     {
-        if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.RIGHT)
+        if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.RIGHT)
         {
             GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
         }
-        GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.RIGHT;
+        GameManager.Instance.DrillingGame.DrillDirection = DrillingDirection.RIGHT;
     }
 
     public void HandleUpButton()
     {
-        if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.UP)
+        if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.UP)
         {
             GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
         }
-        GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.UP;
+        GameManager.Instance.DrillingGame.DrillDirection = DrillingDirection.UP;
     }
 
     public void HandleDownButton()
@@ -287,11 +311,11 @@ public class Hud : MonoBehaviour
         }
         if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
-            if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.DOWN)
+            if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.DOWN)
             {
                 GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
             }
-            GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.DOWN;
+            GameManager.Instance.DrillingGame.DrillDirection = DrillingDirection.DOWN;
         }
     }
 

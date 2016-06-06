@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public enum DrillingDirection { UP, DOWN, LEFT, RIGHT, NONE }
+
 public class DrillingGame : Minigame
 {
     //temp - jacques test
-    public AnimationCurve RocksCurve;
-    public AnimationCurve CrystalsCurve;
+    private DrillGameMap map;
+    [SerializeField] private RectTransform mapPanel;
 
     [SerializeField] private float toastMessageTime = 3.0f;
     [SerializeField] private float drillSpeed = 3.0f;
@@ -62,7 +64,6 @@ public class DrillingGame : Minigame
     private GameObject rightWall;
     private GameObject leftWall;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
-    public enum DrillingDirection {  UP, DOWN, LEFT, RIGHT, NONE }
     private DrillingGameState state;
     private DrillingDirection drillDir;
     private DrillingDirection prevDrillDir;
@@ -90,6 +91,8 @@ public class DrillingGame : Minigame
     private List<GameObject> water = new List<GameObject>();
     private List<GameObject> UIwater = new List<GameObject>();
     private List<GameObject> bottomRow = new List<GameObject>();
+
+    public DrillingAgent DrillingAgent { get; private set; }
     public DrillingGameState State { get { return state; } set { state = value; } }
     public DrillingDirection DrillDirection { get { return drillDir; } set { drillDir = value; } }
     public DrillingDirection PrevDrillDirection { get { return prevDrillDir; } set { prevDrillDir = value; } }
@@ -111,6 +114,19 @@ public class DrillingGame : Minigame
 
     void Awake()
     {
+        //jacques map refactor test
+
+//        DrillingAgent = FindObjectOfType<DrillingAgent>();
+//        Vector2 tileSize = new Vector2(44, 44);
+//        Vector2 mapDimmensions = new Vector2(19, 14);
+//
+//        map = GetComponent<DrillGameMap>();
+//        map.Initialize(mapPanel, mapDimmensions, tileSize, GameManager.Instance.LoadDrillingPuzzle(easyLevels[0]));
+//        DrillingAgent.Map = map;
+//        DrillingAgent.SetGridPosition(0, 8);
+
+        //jacques map refactor test
+
         /*if(rockPrefab)
             tileTweenId = LeanTween.scale(rockPrefab.GetComponent<RectTransform>(), rockPrefab.GetComponent<RectTransform>().localScale * 1.2f, 1f)
                 .setEase(LeanTweenType.punch).id;*/
