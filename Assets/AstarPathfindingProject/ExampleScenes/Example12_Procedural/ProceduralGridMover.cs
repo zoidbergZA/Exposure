@@ -128,7 +128,7 @@ public class ProceduralGridMover : MonoBehaviour {
 
 	/** Async method for moving the graph */
 	IEnumerator UpdateGraphCoroutine () {
-		// Find the direction
+		// Find the Direction
 		// that we want to move the graph in.
 		// Calcuculate this in graph space (where a distance of one is the size of one node)
 		Vector3 dir = PointToGraphSpace(target.position) - PointToGraphSpace(graph.center);
@@ -141,7 +141,7 @@ public class ProceduralGridMover : MonoBehaviour {
 		// Nothing do to
 		if (dir == Vector3.zero) yield break;
 
-		// Number of nodes to offset in each direction
+		// Number of nodes to offset in each Direction
 		Int2 offset = new Int2(-Mathf.RoundToInt(dir.x), -Mathf.RoundToInt(dir.z));
 
 		// Move the center (this is in world units, so we need to convert it back from graph space)
@@ -161,7 +161,7 @@ public class ProceduralGridMover : MonoBehaviour {
 
 		// Check if we have moved
 		// less than a whole graph
-		// width in any direction
+		// width in any Direction
 		if (Mathf.Abs(offset.x) <= width && Mathf.Abs(offset.y) <= depth) {
 			// Offset each node by the #offset variable
 			// nodes which would end up outside the graph

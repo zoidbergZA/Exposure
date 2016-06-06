@@ -20,7 +20,10 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask buildRayMask;
     [SerializeField] private Powerplant PowerplantPrefab;
     [SerializeField] private Drillspot DrillspotPrefab;
-    
+
+    public string PlayerName { get; private set; }
+    public int PlayerAge { get; private set; }
+    public bool PlayerIsMale { get; private set; }
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
     public int Cable { get; private set; }
@@ -52,12 +55,12 @@ public class Player : MonoBehaviour
         }
     }
 
-//    void OnGUI()
-//    {
-//        flickPower = GUI.HorizontalSlider(new Rect(125, 155, 500, 60), flickPower, 0.2F, 9.0F);
-//
-//        GUI.Label(new Rect(630, 155, 60, 80), flickPower.ToString());
-//    }
+    public void SetPlayerInfo(string name, int age, bool isMale)
+    {
+        PlayerName = name;
+        PlayerAge = age;
+        PlayerIsMale = isMale;
+    }
 
     public void CollectCable(int amount)
     {

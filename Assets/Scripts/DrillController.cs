@@ -27,7 +27,7 @@ public class DrillController : MonoBehaviour
             return;
         }
 
-        // get swipe direction
+        // get swipe Direction
         if (Mathf.Abs(delta.x) >= Mathf.Abs(delta.y))
         {
             if (delta.x <= 0)

@@ -438,9 +438,9 @@ namespace Pathfinding {
 
 		//Movement stuff
 
-		/** Returns in which direction to move from a point on the path.
+		/** Returns in which Direction to move from a point on the path.
 		 * A simple and quite slow (well, compared to more optimized algorithms) algorithm first finds the closest path segment (from #vectorPath) and then returns
-		 * the direction to the next point from there. The direction is not normalized.
+		 * the Direction to the next point from there. The Direction is not normalized.
 		 * \returns Direction to move from a \a point, returns Vector3.zero if #vectorPath is null or has a length of 0 */
 		public Vector3 GetMovementVector (Vector3 point) {
 			if (vectorPath == null || vectorPath.Count == 0) {

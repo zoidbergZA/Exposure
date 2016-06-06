@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public EffectsManager EffectsManager {get; private set; }
     public GridBuilder GridBuilder { get; private set; }
     public DrillingGame DrillingGame { get; private set; }
+    public MobileJoystick Joystick { get; private set; }
     public Scanner Scanner { get; private set; }
     public Hud Hud { get; private set; }
     public int TotalChimneys { get; private set; }
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
         Hud = FindObjectOfType<Hud>();
         Player = FindObjectOfType<Player>();
         Director = FindObjectOfType<Director>();
+        Joystick = FindObjectOfType<MobileJoystick>();
 
         Cities = FindObjectsOfType<City>();
 
