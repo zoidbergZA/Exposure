@@ -510,6 +510,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatingTextPrefab: {fileID: 11495112, guid: 52228e85de909a543bb005a19b7b4419, type: 2}
   hudCanvas: {fileID: 22370400}
+  joystickArrow: {fileID: 0}
+  joystickArrowFadeSpeed: 2
   buildArrow: {fileID: 11477068}
   scorePanel: {fileID: 180392}
   timeText: {fileID: 11464062}
@@ -518,11 +520,6 @@ MonoBehaviour:
   cablePanel: {fileID: 163702}
   cableText: {fileID: 11472894}
   gameOverPanel: {fileID: 120254}
-  upButton: {fileID: 0}
-  leftButton: {fileID: 0}
-  rightButton: {fileID: 0}
-  downButton: {fileID: 0}
-  buttonSize: 55
 --- !u!114 &11430870
 MonoBehaviour:
   m_ObjectHideFlags: 1
