@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 455798}
   - 114: {fileID: 11426192}
+  - 114: {fileID: 11458436}
   m_Layer: 0
   m_Name: Tree B
   m_TagString: Untagged
@@ -68,8 +69,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 184730}
-  m_LocalRotation: {x: 0.7076645, y: -0.11015918, z: 0.010658586, w: -0.6978269}
-  m_LocalPosition: {x: -17.00569, y: -301.3118, z: -114.12339}
+  m_LocalRotation: {x: 0.866381, y: -0.4748721, z: 0.108364984, w: 0.11017047}
+  m_LocalPosition: {x: -97.760124, y: -561.9081, z: 194.9769}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 432980}
@@ -143,12 +144,24 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 184730}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b4209806e98e8441a4864eb11d42ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   height: 0.5
+--- !u!114 &11458436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e8bdd17d7992e4a9f4bd082763792f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 116262}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
