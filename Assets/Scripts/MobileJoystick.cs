@@ -62,8 +62,8 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         }
         else if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
-            if (GameManager.Instance.DrillingGame.DrillDirection == DrillingGame.DrillingDirection.DOWN ||
-                GameManager.Instance.DrillingGame.DrillDirection == DrillingGame.DrillingDirection.UP)
+            if (GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.DOWN ||
+                GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.UP)
             {
                 if (m_UseX)
                 {
@@ -71,8 +71,8 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                     newPos.x = delta;
                 }
             }
-            else if (GameManager.Instance.DrillingGame.DrillDirection == DrillingGame.DrillingDirection.RIGHT ||
-                GameManager.Instance.DrillingGame.DrillDirection == DrillingGame.DrillingDirection.LEFT)
+            else if (GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.RIGHT ||
+                GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.LEFT)
             {
                 if (m_UseY)
                 {

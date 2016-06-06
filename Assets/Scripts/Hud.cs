@@ -6,21 +6,36 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Hud : MonoBehaviour
 {
-    [SerializeField] private FloatingText floatingTextPrefab;
-    [SerializeField] private Canvas hudCanvas;
-    [SerializeField] private Image buildArrow;
-    [SerializeField] private GameObject scorePanel;
-    [SerializeField] private Text timeText;
-    [SerializeField] private Text gameOverText;
-    [SerializeField] private Text scoreText;
-    [SerializeField] private GameObject cablePanel;
-    [SerializeField] private Text cableText;
-    [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private UnityEngine.UI.Button upButton;
-    [SerializeField] private UnityEngine.UI.Button leftButton;
-    [SerializeField] private UnityEngine.UI.Button rightButton;
-    [SerializeField] private UnityEngine.UI.Button downButton;
-    [SerializeField] private int buttonSize = 55;
+    [SerializeField]
+    private FloatingText floatingTextPrefab;
+    [SerializeField]
+    private Canvas hudCanvas;
+    [SerializeField]
+    private Image buildArrow;
+    [SerializeField]
+    private GameObject scorePanel;
+    [SerializeField]
+    private Text timeText;
+    [SerializeField]
+    private Text gameOverText;
+    [SerializeField]
+    private Text scoreText;
+    [SerializeField]
+    private GameObject cablePanel;
+    [SerializeField]
+    private Text cableText;
+    [SerializeField]
+    private GameObject gameOverPanel;
+    [SerializeField]
+    private UnityEngine.UI.Button upButton;
+    [SerializeField]
+    private UnityEngine.UI.Button leftButton;
+    [SerializeField]
+    private UnityEngine.UI.Button rightButton;
+    [SerializeField]
+    private UnityEngine.UI.Button downButton;
+    [SerializeField]
+    private int buttonSize = 55;
     private int buttonIndent = 10;
 
     private int wobblerTweenId;
@@ -52,16 +67,16 @@ public class Hud : MonoBehaviour
         timeText.text = niceTime;
         scoreText.text = GameManager.Instance.Player.Score.ToString();
         cableText.text = GameManager.Instance.Player.Cable.ToString();
-        
+
         //updateMiniGameButtons();
         updateJoystick();
 
-//        //arrow test
-//        City closestCity = GameManager.Instance.GridBuilder.FindClosestCity(Vector3.zero);
-//        Vector3 cityScreenPos = Camera.main.WorldToScreenPoint(closestCity.transform.position);
-//
-//        Vector2 dir = (Vector2)cityScreenPos - new Vector2(Screen.width/2, Screen.height/2);
-//        PointBuildArrow(dir);
+        //        //arrow test
+        //        City closestCity = GameManager.Instance.GridBuilder.FindClosestCity(Vector3.zero);
+        //        Vector3 cityScreenPos = Camera.main.WorldToScreenPoint(closestCity.transform.position);
+        //
+        //        Vector2 dir = (Vector2)cityScreenPos - new Vector2(Screen.width/2, Screen.height/2);
+        //        PointBuildArrow(dir);
     }
 
     void OnGUI()
@@ -89,12 +104,12 @@ public class Hud : MonoBehaviour
 
     public void PointBuildArrow(Vector2 direction)
     {
-//        Debug.Log(direction);
+        //        Debug.Log(direction);
 
-        float angle = Utils.AngleSigned(Vector3.up, (Vector3) direction, Vector3.forward);
+        float angle = Utils.AngleSigned(Vector3.up, (Vector3)direction, Vector3.forward);
         buildArrow.rectTransform.eulerAngles = new Vector3(0, 0, angle);
 
-//        Debug.Log(angle);
+        //        Debug.Log(angle);
     }
 
     public void GoToGameOver(int score)
@@ -124,7 +139,7 @@ public class Hud : MonoBehaviour
             cablePanel.GetComponent<RectTransform>().localScale = Vector3.one;
         }
 
-        cablePanelTweenId = LeanTween.scale(cablePanel.GetComponent<RectTransform>(), cablePanel.GetComponent<RectTransform>().localScale*1.4f,1f)
+        cablePanelTweenId = LeanTween.scale(cablePanel.GetComponent<RectTransform>(), cablePanel.GetComponent<RectTransform>().localScale * 1.4f, 1f)
             .setEase(LeanTweenType.punch).id;
     }
 
@@ -151,7 +166,7 @@ public class Hud : MonoBehaviour
     {
         if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
-            if (joystickX >= 0.907f) //normally should be 0.707 (sin 45 deg)
+            if (joystickX >= 0.707f)
             {
                 //right
                 if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.RIGHT)
@@ -163,7 +178,7 @@ public class Hud : MonoBehaviour
                     GameManager.Instance.DrillingGame.JustTurned = true;
                 }
             }
-            else if (joystickX <= -0.907) //normally should be -0.707 (sin 45 deg)
+            else if (joystickX <= -0.707)
             {
                 //left
                 if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.LEFT)
@@ -175,18 +190,10 @@ public class Hud : MonoBehaviour
                     GameManager.Instance.DrillingGame.JustTurned = true;
                 }
             }
-            else if (joystickY >= 0.907f) //normally should be 0.707 (cos 45 deg)
+            else
             {
-                //up
-                if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.UP)
-                    GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
-                if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.DOWN
-                    && GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.UP)
+                if (joystickY >= 0.707f)
                 {
-<<<<<<< HEAD
-                    GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.UP;
-                    GameManager.Instance.DrillingGame.JustTurned = true;
-=======
                     //up
                     if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.UP)
                         GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
@@ -196,21 +203,9 @@ public class Hud : MonoBehaviour
                         GameManager.Instance.DrillingGame.DrillDirection = DrillingDirection.UP;
                         GameManager.Instance.DrillingGame.JustTurned = true;
                     }
->>>>>>> refs/remotes/origin/master
                 }
-            }
-            else if (joystickY <= -0.907f) //normally should be -0.707 (cos 45 deg)
-            {
-                //down
-                if (GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.DOWN)
-                    GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
-                if (GameManager.Instance.DrillingGame.PrevDrillDirection != DrillingGame.DrillingDirection.UP
-                    && GameManager.Instance.DrillingGame.DrillDirection != DrillingGame.DrillingDirection.DOWN)
+                else if (joystickY <= -0.707f)
                 {
-<<<<<<< HEAD
-                    GameManager.Instance.DrillingGame.DrillDirection = DrillingGame.DrillingDirection.DOWN;
-                    GameManager.Instance.DrillingGame.JustTurned = true;
-=======
                     //down
                     if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.DOWN)
                         GameManager.Instance.DrillingGame.PrevDrillDirection = GameManager.Instance.DrillingGame.DrillDirection;
@@ -220,7 +215,6 @@ public class Hud : MonoBehaviour
                         GameManager.Instance.DrillingGame.DrillDirection = DrillingDirection.DOWN;
                         GameManager.Instance.DrillingGame.JustTurned = true;
                     }
->>>>>>> refs/remotes/origin/master
                 }
             }
         }
@@ -245,7 +239,7 @@ public class Hud : MonoBehaviour
         }
         else
         {
-            switch(GameManager.Instance.DrillingGame.DrillDirection)
+            switch (GameManager.Instance.DrillingGame.DrillDirection)
             {
                 case DrillingDirection.DOWN:
                     leftButton.interactable = true;
@@ -274,7 +268,7 @@ public class Hud : MonoBehaviour
             }
         }
     }
-    
+
     public void HandleLeftButton()
     {
         if (GameManager.Instance.DrillingGame.DrillDirection != DrillingDirection.LEFT)
@@ -304,7 +298,7 @@ public class Hud : MonoBehaviour
 
     public void HandleDownButton()
     {
-        if(GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
+        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
         {
             GameManager.Instance.DrillingGame.MakeDrill(true);
             GameManager.Instance.DrillingGame.Animator.SetBool("shouldJump", true);
