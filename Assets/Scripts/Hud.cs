@@ -105,6 +105,7 @@ public class Hud : MonoBehaviour
 
 //        joystickArrow.rectTransform.localPosition = offset;
         joystickArrow.transform.localEulerAngles = new Vector3(0, 0, rotation);
+        joystickArrow.transform.SetAsLastSibling();
     }
 
     public void ShowBuildArrow(bool show)
