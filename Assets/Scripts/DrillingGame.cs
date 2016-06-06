@@ -59,8 +59,6 @@ public class DrillingGame : Minigame
     private GameObject leftWall;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
     private DrillingGameState state;
-    private DrillingDirection Direction;
-    private DrillingDirection PrevDirection;
     private Vector2 initDrillPos;
     private Vector2 flashCoords;
     private int targetColumn;
@@ -144,8 +142,6 @@ public class DrillingGame : Minigame
         GameManager.Instance.Joystick.JoystickPanel.transform.SetParent(mainPanel.transform, true);
         GameManager.Instance.Joystick.JoystickPanel.GetComponent<UnityEngine.UI.Image>().rectTransform.anchoredPosition = new Vector2(500, -100);
         GameManager.Instance.Joystick.JoystickPanel.transform.localScale = new Vector3(1, 1, 1);
-        Direction = GameManager.Instance.Joystick.CurrentInput;
-        PrevDirection = GameManager.Instance.Joystick.PrevInput;
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -161,9 +157,6 @@ public class DrillingGame : Minigame
         state = DrillingGameState.ACTIVATION;
         stuckTimer = stuckTime;
         myBody.inertia = 0;
-        PrevDirection = DrillingDirection.NONE;
-        Direction = DrillingDirection.NONE;
-        GameManager.Instance.Joystick.JoystickPanel.SetActive(true);
     }
 
     // 0 - diamond, 1 - electricity, 2 - yellow, 3 - blocks, 4 - green, 5 - orange, 6 - red, 7 - water, 8 - yellow-egg
@@ -260,7 +253,6 @@ public class DrillingGame : Minigame
         {
             animator.SetBool("isDrillingDown", true);
             state = DrillingGameState.DRILLING;
-            Direction = DrillingDirection.DOWN;
             jumpPhaseTimer = jumpPhaseTime;
         }
     }
@@ -268,7 +260,6 @@ public class DrillingGame : Minigame
     private void handleStartStopState()
     {
         toastTimer -= Time.deltaTime;
-        if (GameManager.Instance.Joystick.JoystickPanel.gameObject.activeInHierarchy) GameManager.Instance.Joystick.JoystickPanel.SetActive(false);
         if (SucceededDrill)
         {
             endOkToast.gameObject.SetActive(true);
@@ -311,7 +302,7 @@ public class DrillingGame : Minigame
 
     private void drillDown()
     {
-        switch(PrevDirection)
+        switch(GameManager.Instance.Joystick.PrevInput)
         {
             case DrillingDirection.RIGHT:
                 if (targetColumn < columns.Length - 1 && !Bumped)
@@ -328,7 +319,7 @@ public class DrillingGame : Minigame
                         curveId = 1;
                         targetColumn++;
                         animator.SetBool("isDrillingRight", false);
-                        PrevDirection = DrillingDirection.NONE;
+                        GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                     }
                 }
                 else
@@ -337,7 +328,7 @@ public class DrillingGame : Minigame
                         drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], drill.rectTransform.anchoredPosition.y);
                     curveId = 1;
                     animator.SetBool("isDrillingRight", false);
-                    PrevDirection = DrillingDirection.NONE;
+                    GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.LEFT:
@@ -355,7 +346,7 @@ public class DrillingGame : Minigame
                         curveId = 3;
                         targetColumn--;
                         animator.SetBool("isDrillingLeft", false);
-                        PrevDirection = DrillingDirection.NONE;
+                        GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                     }
                 }
                 else
@@ -364,16 +355,16 @@ public class DrillingGame : Minigame
                         drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], drill.rectTransform.anchoredPosition.y);
                     curveId = 3;
                     animator.SetBool("isDrillingLeft", false);
-                    PrevDirection = DrillingDirection.NONE;
+                    GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.NONE:
                 if (targetRow < rows.Length - 1 && drill.rectTransform.anchoredPosition.y <= rows[targetRow + 1])
                 {
-                    if(GameManager.Instance.Joystick.JustTurned)
+                    if(GameManager.Instance.Joystick.JustMoved)
                     {
                         instantiatePipeCurve(curveId);
-                        GameManager.Instance.Joystick.JustTurned = false;
+                        GameManager.Instance.Joystick.JustMoved = false;
                     }
                     else instantiatePipeVertical();
                     targetRow++;
@@ -393,7 +384,7 @@ public class DrillingGame : Minigame
 
     private void drillLeft()
     {
-        switch (PrevDirection)
+        switch (GameManager.Instance.Joystick.PrevInput)
         {
             case DrillingDirection.DOWN:
                 if (targetRow < rows.Length - 1 && !Bumped)
@@ -410,7 +401,7 @@ public class DrillingGame : Minigame
                         curveId = 4;
                         targetRow++;
                         animator.SetBool("isDrillingDown", false);
-                        PrevDirection = DrillingDirection.NONE;
+                        GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                     }
                 }
                 else
@@ -419,7 +410,7 @@ public class DrillingGame : Minigame
                         drill.rectTransform.anchoredPosition = new Vector2(drill.rectTransform.anchoredPosition.x, rows[targetRow]);
                     curveId = 4;
                     animator.SetBool("isDrillingDown", false);
-                    PrevDirection = DrillingDirection.NONE;
+                    GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.UP:
@@ -437,7 +428,7 @@ public class DrillingGame : Minigame
                         curveId = 1;
                         targetRow--;
                         animator.SetBool("isDrillingUp", false);
-                        PrevDirection = DrillingDirection.NONE;
+                        GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                     }
                 }
                 else
@@ -446,16 +437,16 @@ public class DrillingGame : Minigame
                         drill.rectTransform.anchoredPosition = new Vector2(drill.rectTransform.anchoredPosition.x, rows[targetRow]);
                     curveId = 1;
                     animator.SetBool("isDrillingUp", false);
-                    PrevDirection = DrillingDirection.NONE;
+                    GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.NONE:
                 if (targetColumn > 0 && drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1])
                 {
-                    if (GameManager.Instance.Joystick.JustTurned)
+                    if (GameManager.Instance.Joystick.JustMoved)
                     {
                         instantiatePipeCurve(curveId);
-                        GameManager.Instance.Joystick.JustTurned = false;
+                        GameManager.Instance.Joystick.JustMoved = false;
                     }
                     else instantiatePipeHorizontal();
                     targetColumn -= 1;
@@ -475,7 +466,7 @@ public class DrillingGame : Minigame
 
     private void drillRight()
     {
-        switch (PrevDirection)
+        switch (GameManager.Instance.Joystick.PrevInput)
         {
             case DrillingDirection.DOWN:
                 if (targetRow < rows.Length - 1 && !Bumped)
@@ -494,7 +485,7 @@ public class DrillingGame : Minigame
                         triggerFlash = true;
                         targetRow++;
                         animator.SetBool("isDrillingDown", false);
-                        PrevDirection = DrillingDirection.NONE;
+                        GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                     }
                 }
                 else
@@ -503,7 +494,7 @@ public class DrillingGame : Minigame
                         drill.rectTransform.anchoredPosition = new Vector2(drill.rectTransform.anchoredPosition.x, rows[targetRow]);
                     curveId = 2;
                     animator.SetBool("isDrillingDown", false);
-                    PrevDirection = DrillingDirection.NONE;
+                    GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.UP:
@@ -521,7 +512,7 @@ public class DrillingGame : Minigame
                         curveId = 3;
                         targetRow--;
                         animator.SetBool("isDrillingUp", false);
-                        PrevDirection = DrillingDirection.NONE;
+                        GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                     }
                 }
                 else
@@ -530,16 +521,16 @@ public class DrillingGame : Minigame
                         drill.rectTransform.anchoredPosition = new Vector2(drill.rectTransform.anchoredPosition.x, rows[targetRow]);
                     curveId = 3;
                     animator.SetBool("isDrillingUp", false);
-                    PrevDirection = DrillingDirection.NONE;
+                    GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.NONE:
                 if (targetColumn < columns.Length - 1 && drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1])
                 {
-                    if (GameManager.Instance.Joystick.JustTurned)
+                    if (GameManager.Instance.Joystick.JustMoved)
                     {
                         instantiatePipeCurve(curveId);
-                        GameManager.Instance.Joystick.JustTurned = false;
+                        GameManager.Instance.Joystick.JustMoved = false;
                     }
                     else instantiatePipeHorizontal();
                     targetColumn += 1;
@@ -559,7 +550,7 @@ public class DrillingGame : Minigame
 
     private void drillUp()
     {
-        switch (PrevDirection)
+        switch (GameManager.Instance.Joystick.PrevInput)
         {
             case DrillingDirection.RIGHT:
                 if (targetColumn < columns.Length - 1 && !Bumped)
@@ -576,7 +567,7 @@ public class DrillingGame : Minigame
                         curveId = 4;
                         targetColumn++;
                         animator.SetBool("isDrillingRight", false);
-                        PrevDirection = DrillingDirection.NONE;
+                        GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                     }
                 }
                 else
@@ -585,7 +576,7 @@ public class DrillingGame : Minigame
                         drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], drill.rectTransform.anchoredPosition.y);
                     curveId = 4;
                     animator.SetBool("isDrillingRight", false);
-                    PrevDirection = DrillingDirection.NONE;
+                    GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.LEFT:
@@ -603,7 +594,7 @@ public class DrillingGame : Minigame
                         curveId = 2;
                         targetColumn--;
                         animator.SetBool("isDrillingLeft", false);
-                        PrevDirection = DrillingDirection.NONE;
+                        GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                     }
                 }
                 else
@@ -612,16 +603,16 @@ public class DrillingGame : Minigame
                         drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], drill.rectTransform.anchoredPosition.y);
                     curveId = 2;
                     animator.SetBool("isDrillingLeft", false);
-                    PrevDirection = DrillingDirection.NONE;
+                    GameManager.Instance.Joystick.PrevInput = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.NONE:
                 if (targetRow > 0 && drill.rectTransform.anchoredPosition.y >= rows[targetRow - 1])
                 {
-                    if (GameManager.Instance.Joystick.JustTurned)
+                    if (GameManager.Instance.Joystick.JustMoved)
                     {
                         instantiatePipeCurve(curveId);
-                        GameManager.Instance.Joystick.JustTurned = false;
+                        GameManager.Instance.Joystick.JustMoved = false;
                     }
                     else instantiatePipeVertical();
                     targetRow--;
@@ -641,7 +632,7 @@ public class DrillingGame : Minigame
     
     private void updateDrilling()
     {
-        switch(Direction)
+        switch (GameManager.Instance.Joystick.CurrentInput)
         {
             case DrillingDirection.DOWN:
                 drillDown();
@@ -764,9 +755,8 @@ public class DrillingGame : Minigame
         }
         updateProgressBars();
         updateWallsEnabling();
-        processJoystickInput();
         if (triggerFlash) FlashTile();
-        Debug.Log("cur: " + GameManager.Instance.Joystick.CurrentInput + " | prev: " + GameManager.Instance.Joystick.PrevInput);
+        //Debug.Log("cur: " + GameManager.Instance.Joystick.CurrentInput + " | prev: " + GameManager.Instance.Joystick.PrevInput);
     }
 
     private void updateProgressBars()
@@ -823,7 +813,7 @@ public class DrillingGame : Minigame
         makeDrill = false;
         slidingLeft = false;
         joystickShaken = false;
-        GameManager.Instance.Joystick.JustTurned = false;
+        GameManager.Instance.Joystick.JustMoved = false;
         animator.SetBool("isSlidingLeft", false);
         animator.SetBool("isDrillingDown", false);
         animator.SetBool("isDrillingUp", false);
@@ -1011,7 +1001,6 @@ public class DrillingGame : Minigame
     {
         flashTileTimer -= Time.deltaTime;
         flashTile.rectTransform.anchoredPosition = flashCoords;
-        //Debug.Log(flashCoords.ToString() + " | " + triggerFlash + " | " + flashTileTimer);
         flashTile.transform.SetAsLastSibling();
         flashTile.enabled = true;
         if (flashTileTimer <= 0)
@@ -1021,11 +1010,5 @@ public class DrillingGame : Minigame
             flashTile.enabled = false;
             triggerFlash = false;
         }
-    }
-
-    private void processJoystickInput()
-    {
-        Direction = GameManager.Instance.Joystick.CurrentInput;
-        PrevDirection = GameManager.Instance.Joystick.PrevInput;
     }
 }

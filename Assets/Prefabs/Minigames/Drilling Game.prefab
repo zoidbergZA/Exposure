@@ -1122,11 +1122,7 @@ MonoBehaviour:
   waterBar: {fileID: 11462990}
   steamImage: {fileID: 11410760}
   drillLife: {fileID: 11406088}
-  joystickImage: {fileID: 0}
   flashTile: {fileID: 11448906, guid: a72830818ab20e840b2c790d0994efe0, type: 2}
-  arrowDown: {fileID: 21300000, guid: ecb984caf6ce7fb4aa423007ccd63194, type: 3}
-  arrowUpDown: {fileID: 21300000, guid: 4e17dea0be40a0949812ac5d65c6bc1f, type: 3}
-  arrowLeftRight: {fileID: 21300000, guid: 00a999c385d698c428678ffab0f73dc6, type: 3}
   rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
   diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
   cablePrefab: {fileID: 127976, guid: cea2cbff206580848b084e0e850d9d3f, type: 2}
@@ -1144,8 +1140,6 @@ MonoBehaviour:
   pipeCurve4: {fileID: 127976, guid: c3273043cb3e8f9469ad2eee5e283638, type: 2}
   AutoWin: 0
   animator: {fileID: 9525064}
-  joystick: {fileID: 0}
-  joystickPanel: {fileID: 0}
   columns: 700000009c000000c8000000f4000000200100004c01000078010000a4010000d0010000fc010000280200005402000080020000ac020000d802000004030000300300005c03000088030000
   rows: 84020000580200002c02000000020000d4010000a80100007c0100005001000024010000f8000000cc000000a00000007400000048000000
   easyLevels:

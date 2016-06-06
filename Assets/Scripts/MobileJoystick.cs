@@ -12,11 +12,11 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     [SerializeField] private Sprite arrowLeftRight;
     [SerializeField] private GameObject joystickPanel;
 
-    public DrillingDirection CurrentInput { get; private set; }
-    public DrillingDirection PrevInput { get; private set; }
+    public DrillingDirection CurrentInput { get; set; }
+    public DrillingDirection PrevInput { get; set; }
     public GameObject JoystickPanel { get { return joystickPanel; } }
     public UnityEngine.UI.Image InnerPad { get { return innerPad; } }
-    public bool JustTurned { get; set; }
+    public bool JustMoved { get; set; }
     public Vector3 StartPosition { set { m_StartPos = value; } }
 
     private float joystickX, joystickY = 0;
@@ -50,6 +50,7 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         updateJoystick();
         updateJoystickImages();
+        //Debug.Log("x: " + joystickX + " | y: " + joystickY);
     }
 
     void UpdateVirtualAxes(Vector3 value)
@@ -134,7 +135,7 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 if (PrevInput != DrillingDirection.LEFT && CurrentInput != DrillingDirection.RIGHT)
                 {
                     CurrentInput = DrillingDirection.RIGHT;
-                    JustTurned = true;
+                    JustMoved = true;
                 }
             }
             else if (joystickX <= -0.707) // sin 45 deg
@@ -144,7 +145,7 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 if (PrevInput != DrillingDirection.RIGHT && CurrentInput != DrillingDirection.LEFT)
                 {
                     CurrentInput = DrillingDirection.LEFT;
-                    JustTurned = true;
+                    JustMoved = true;
                 }
             }
             else if (joystickY >= 0.707f) // cos 45 deg
@@ -154,7 +155,7 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 if (PrevInput != DrillingDirection.DOWN && CurrentInput != DrillingDirection.UP)
                 {
                     CurrentInput = DrillingDirection.UP;
-                    JustTurned = true;
+                    JustMoved = true;
                 }
             }
             else if (joystickY <= -0.707f) // cos 45 deg
@@ -164,7 +165,7 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 if (PrevInput != DrillingDirection.UP && CurrentInput != DrillingDirection.DOWN)
                 {
                     CurrentInput = DrillingDirection.DOWN;
-                    JustTurned = true;
+                    JustMoved = true;
                 }
             }
         }
@@ -174,6 +175,7 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             {
                 GameManager.Instance.DrillingGame.MakeDrill(true);
                 GameManager.Instance.DrillingGame.Animator.SetBool("shouldJump", true);
+                CurrentInput = DrillingDirection.DOWN;
             }
         }
     }
