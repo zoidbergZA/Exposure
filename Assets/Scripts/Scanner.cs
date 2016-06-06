@@ -12,6 +12,7 @@ public class Scanner : MonoBehaviour
     public float maxRadius = 100f;
     public float limiter = 100f;
 
+    [SerializeField] private float gadgetOffset = 20f;
     [SerializeField] private float maxScanDistance = 250f;
     [SerializeField] private float minScanDistance = 150f;
     [SerializeField] private float focusTime = 2f;
@@ -19,6 +20,7 @@ public class Scanner : MonoBehaviour
     [SerializeField] private Texture2D goodIcon;
     [SerializeField] private Texture2D progresIcon;
     [SerializeField] private Texture2D centerIcon;
+    [SerializeField] Transform gadget;
 
     private Material material;
     private Renderer renderer;
@@ -54,6 +56,7 @@ public class Scanner : MonoBehaviour
     {
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
+        gadget.gameObject.SetActive(false);
     }
 
     void Update()
@@ -82,7 +85,7 @@ public class Scanner : MonoBehaviour
 
             if (isOnHotspot)
             {
-                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, 270f, 270f)), goodIcon);
+                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, 200, 200)), goodIcon);
 
 //                progress = ((Progress*100f)).ToString("F0");
 
@@ -101,6 +104,7 @@ public class Scanner : MonoBehaviour
         IsScanning = true;
         lastStartScanAt = Time.time;
         focusTimer = focusTime;
+        gadget.gameObject.SetActive(true);
 
         if (ScanStarted != null)
         {
@@ -113,6 +117,7 @@ public class Scanner : MonoBehaviour
         IsScanning = false;
         radius = 0;
         isOnHotspot = false;
+        gadget.gameObject.SetActive(false);
     }
 
     private void DrawTouchInfo(Touch touch)
@@ -207,6 +212,16 @@ public class Scanner : MonoBehaviour
             float scanDelta = Vector3.Distance(hit.point, Camera.main.transform.position);
             radius = Mathf.Clamp(scanDelta * 0.161f, 0f, maxRadius);
 
+            gadget.localScale = new Vector3(radius*2.5f, radius*2.5f, radius*2.5f);
+
+            //offset
+            Vector3 offset = (GameManager.Instance.Planet.transform.position - gadget.position).normalized;
+            gadget.position = hit.point + offset * gadgetOffset;
+            //            gadget.LookAt((gadget.position - offset) * 10);
+            //            gadget.LookAt(Camera.main.transform.position);
+            gadget.LookAt(hit.point);
+            //            Debug.DrawLine(gadget.transform.position, gadget.transform.position + (gadget.position - offset) * 10);
+
             sample = GameManager.Instance.SampleHeatmap(hit.textureCoord).r;
 
             if (sample >= 0.2f)
@@ -233,8 +248,7 @@ public class Scanner : MonoBehaviour
 
     private void ScanSucceeded(float sample, Vector3 location, Vector3 normal)
     {
-        radius = 0;
-        IsScanning = false;
+        EndScan();
         GameManager.Instance.Player.Drill(location, normal, 1f - sample);
 
         //        Ray ray = Camera.main.ScreenPointToRay(center);

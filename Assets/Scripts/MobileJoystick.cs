@@ -60,17 +60,25 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 newPos.y = delta;
             }
         }
-        else
+        else if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
-            if (m_UseX)
+            if (GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.DOWN ||
+                GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.UP)
             {
-                int delta = (int)(data.position.x - m_StartPos.x);
-                newPos.x = delta;
+                if (m_UseX)
+                {
+                    int delta = (int)(data.position.x - m_StartPos.x);
+                    newPos.x = delta;
+                }
             }
-            if (m_UseY)
+            else if (GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.RIGHT ||
+                GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.LEFT)
             {
-                int delta = (int)(data.position.y - m_StartPos.y);
-                newPos.y = delta;
+                if (m_UseY)
+                {
+                    int delta = (int)(data.position.y - m_StartPos.y);
+                    newPos.y = delta;
+                }
             }
         }
         transform.position = Vector3.ClampMagnitude(new Vector3(newPos.x, newPos.y, newPos.z), MovementRange) + m_StartPos;
@@ -84,8 +92,8 @@ public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
             transform.position = m_StartPos;
+            UpdateVirtualAxes(m_StartPos);
         }
-        UpdateVirtualAxes(m_StartPos);
     }
 
 
