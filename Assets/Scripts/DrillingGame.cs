@@ -41,6 +41,7 @@ public class DrillingGame : Minigame
     private Rigidbody2D myBody;
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
+    public const int TILE_WIDTH = 44, TILE_HEIGHT = 44, MAP_WIDTH = 19, MAP_HEIGHT = 14;
     private DrillingGameState state;
     private ToastType toastType;
     private Vector2 initDrillPos;
@@ -71,6 +72,7 @@ public class DrillingGame : Minigame
     public DrillingDirection PrevInput { get; private set; }
     public DrillGameMap Map { get { return map; } }
     public Driller Driller { get; private set; }
+    public DrillGameHud Hud { get; private set; }
     public void MakeDrill(bool value) { makeDrill = value; }
     public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
     public UnityEngine.UI.Image WaterBar { get { return waterBar; } }
@@ -92,6 +94,7 @@ public class DrillingGame : Minigame
         CurrentInput = DrillingDirection.NONE;
         PrevInput = DrillingDirection.NONE;
         Driller = FindObjectOfType<Driller>();
+        Hud = FindObjectOfType<DrillGameHud>();
 
         joystickArrow.color = new Color(1, 1, 1, 0);
         /*if(rockPrefab)
@@ -235,18 +238,17 @@ public class DrillingGame : Minigame
             if (levelsCounter < 3)
             {
                 int[] tiles = GameManager.Instance.LoadDrillingPuzzle(easyLevels[(SucceededDrill == true) ? levelsCounter : Random.Range(0, 3)]);
-                //generateLevel(tiles);  // pre-designed levels, loading from csv
                 map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(easyLevels[levelsCounter]));
             }
             else if (levelsCounter >=3 && levelsCounter < 6)
             {
                 int[] tiles = GameManager.Instance.LoadDrillingPuzzle(mediumLevels[(SucceededDrill == true) ? levelsCounter - 3 : Random.Range(3, 6)]);
-                //generateLevel(tiles);  // pre-designed levels, loading from csv
+                map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(mediumLevels[levelsCounter - 3]));
             }
             else if (levelsCounter >= 6)
             {
                 int[] tiles = GameManager.Instance.LoadDrillingPuzzle(hardLevels[(SucceededDrill == true) ? levelsCounter - 6 : Random.Range(6, 9)]);
-                //generateLevel(tiles); // pre-designed levels, loading from csv
+                map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(mediumLevels[levelsCounter - 6]));
             }
             if (SucceededDrill) levelsCounter++;
             panelSlidingTimer = panelSlidingTime;
@@ -747,14 +749,14 @@ public class DrillingGame : Minigame
         {
             if (slidingLeft == false)
             {
-                if (targetColumn < columns.Length-1)
+                if (targetColumn < MAP_WIDTH - 1)
                 {
-                    if (Driller.Drill.rectTransform.anchoredPosition.x >= columns[targetColumn + 1]) targetColumn += 1;
+                    if (Driller.Position.x - Driller.ANCHORED_OFFSET >= (TILE_WIDTH * targetColumn) + TILE_WIDTH) targetColumn += 1;
                 }
                 else
                 {
                     slidingLeft = true;
-                    animator.SetBool("isSlidingLeft", true);
+                    Driller.SwitchAnimation("isSlidingLeft", true);
                 }
                 Driller.Drill.transform.Translate(new Vector3(1 * slideSpeed * Time.deltaTime, 0, 0));
             }
@@ -762,12 +764,12 @@ public class DrillingGame : Minigame
             {
                 if (targetColumn > 0)
                 {
-                    if (Driller.Drill.rectTransform.anchoredPosition.x <= columns[targetColumn - 1]) targetColumn -= 1;
+                    if (Driller.Position.x - Driller.ANCHORED_OFFSET <= (TILE_WIDTH * targetColumn) - TILE_WIDTH) targetColumn -= 1;
                 }
                 else
                 {
                     slidingLeft = false;
-                    animator.SetBool("isSlidingLeft", false);
+                    Driller.SwitchAnimation("isSlidingLeft", false);
                 }
                 Driller.Drill.transform.Translate(new Vector3(-1 * slideSpeed * Time.deltaTime, 0, 0));
             }
@@ -776,18 +778,18 @@ public class DrillingGame : Minigame
         {
             if (slidingLeft == false)
             {
-                if (targetColumn < columns.Length - 1 && Driller.Drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1])
-                    Driller.Drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn + 1], Driller.Drill.rectTransform.anchoredPosition.y);
+                if (Driller.Position.x - Driller.ANCHORED_OFFSET < (TILE_WIDTH * targetColumn) + TILE_WIDTH)
+                    Driller.Position = new Vector2((TILE_WIDTH * targetColumn) + TILE_WIDTH + Driller.ANCHORED_OFFSET, Driller.Position.y);
                 else
                 {
                     state = DrillingGameState.PREDRILLJUMP;
-                    if (targetColumn < columns.Length) targetColumn += 1;
+                    if (targetColumn < MAP_WIDTH) targetColumn += 1;
                 }
             }
             else
             {
-                if (targetColumn > 0 && Driller.Drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1])
-                    Driller.Drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn - 1], Driller.Drill.rectTransform.anchoredPosition.y);
+                if (Driller.Position.x - Driller.ANCHORED_OFFSET > (TILE_WIDTH * targetColumn) - TILE_WIDTH)
+                    Driller.Position = new Vector2((TILE_WIDTH * targetColumn) - TILE_WIDTH + Driller.ANCHORED_OFFSET, Driller.Position.y);
                 else
                 {
                     state = DrillingGameState.PREDRILLJUMP;
@@ -864,12 +866,6 @@ public class DrillingGame : Minigame
         slidingLeft = false;
         joystickShaken = false;
         JoystickJustMoved = false;
-        animator.SetBool("isSlidingLeft", false);
-        animator.SetBool("isDrillingDown", false);
-        animator.SetBool("isDrillingUp", false);
-        animator.SetBool("isDrillingRight", false);
-        animator.SetBool("isDrillingLeft", false);
-        animator.SetBool("shouldJump", false);
         SucceededDrill = false;
         targetColumn = -1;
         targetRow = -1;

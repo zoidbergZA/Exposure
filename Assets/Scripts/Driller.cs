@@ -3,7 +3,14 @@ using System.Collections;
 
 public class Driller : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
     public UnityEngine.UI.Image Drill { get; private set; }
+    public Animator Animator { get { return animator; } }
+    public const int ANCHORED_OFFSET = 112;
+    public Vector2 Position { 
+        get { return Drill.rectTransform.anchoredPosition; }
+        set { Drill.rectTransform.anchoredPosition = value; }
+    }
 
     void Awake()
     {
@@ -78,5 +85,20 @@ public class Driller : MonoBehaviour
         {
 
         }
+    }
+
+    public void resetAnimation()
+    {
+        animator.SetBool("isSlidingLeft", false);
+        animator.SetBool("isDrillingDown", false);
+        animator.SetBool("isDrillingUp", false);
+        animator.SetBool("isDrillingRight", false);
+        animator.SetBool("isDrillingLeft", false);
+        animator.SetBool("shouldJump", false);
+    }
+
+    public void SwitchAnimation(string param, bool turned)
+    {
+        animator.SetBool(param, turned);
     }
 }
