@@ -90,16 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f5662b5bde726640950686f73d95aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionArrows: {fileID: 11466506}
-  innerPad: {fileID: 11448152}
-  arrowDown: {fileID: 21300000, guid: ecb984caf6ce7fb4aa423007ccd63194, type: 3}
-  arrowUpDown: {fileID: 21300000, guid: 4e17dea0be40a0949812ac5d65c6bc1f, type: 3}
-  arrowLeftRight: {fileID: 21300000, guid: 00a999c385d698c428678ffab0f73dc6, type: 3}
   joystickPanel: {fileID: 160974}
-  MovementRange: 16
-  axesToUse: 0
-  horizontalAxisName: Horizontal
-  verticalAxisName: Vertical
 --- !u!114 &11466506
 MonoBehaviour:
   m_ObjectHideFlags: 1
