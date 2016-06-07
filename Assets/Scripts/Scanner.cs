@@ -62,6 +62,9 @@ public class Scanner : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.RoundStarted)
+            return;
+
         if (GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal && !IsScanning)
         {
             CheckStartScan();
@@ -75,7 +78,7 @@ public class Scanner : MonoBehaviour
 
     void OnGUI()
     {
-        if (IsScanning)
+        if (IsScanning && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
         {
             //draw scanning debug
             GUI.Label(new Rect(startPoint.x - 25f, Screen.height - startPoint.y - 25f, 50f, 50f), touchIcon);
@@ -136,6 +139,9 @@ public class Scanner : MonoBehaviour
 
     private void CheckStartScan()
     {
+        if (GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
+            return;
+
         if (GameManager.Instance.TouchInput)
         {
             if (Input.touches.Length == 2)
