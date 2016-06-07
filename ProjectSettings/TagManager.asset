@@ -13,6 +13,9 @@ TagManager:
   - Water
   - Walls
   - Pipe
+  - Mine
+  - MineArea
+  - DrillLife
   layers:
   - Default
   - TransparentFX

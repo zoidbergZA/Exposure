@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 public enum DrillingDirection { UP, DOWN, LEFT, RIGHT, NONE }
-public enum ToastType { SUCCESS, BROKEN_DRILL, BROKEN_PIPE, EXPLODED_BOMB, NONE }
+public enum ToastType { SUCCESS, BROKEN_DRILL, BROKEN_PIPE, EXPLODED_BOMB, TRIGGERED_BOMB, NONE }
 
 public class DrillingGame : Minigame
 {
     //temp - jacques test
-    private DrillGameMap map;
+    [SerializeField] private DrillGameMap map;
     [SerializeField] private RectTransform mapPanel;
 
     [SerializeField] private float toastMessageTime = 3.0f;
@@ -21,11 +21,11 @@ public class DrillingGame : Minigame
     [SerializeField] public float stuckTime = 10.0f;
     [SerializeField] private float drillStuckCooldown = 2.0f;
     [SerializeField] private float flashTileTime = 1.0f;
+    [SerializeField] private float joystickArrowFadeSpeed = 2f;
     [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
     [SerializeField] private UnityEngine.UI.Image mainPanel;
     [SerializeField] private UnityEngine.UI.Image drill;
     [SerializeField] private UnityEngine.UI.Image joystickArrow;
-    [SerializeField] private float joystickArrowFadeSpeed = 2f;
     [SerializeField] private UnityEngine.UI.Image endOkToast;
     [SerializeField] private UnityEngine.UI.Image brokenDrillToast;
     [SerializeField] private UnityEngine.UI.Image brokenPipeToast;
@@ -93,6 +93,7 @@ public class DrillingGame : Minigame
     public DrillingGameState State { get { return state; } }
     public DrillingDirection CurrentInput { get; private set; }
     public DrillingDirection PrevInput { get; private set; }
+    public DrillGameMap Map { get { return map; } }
     public void MakeDrill(bool value) { makeDrill = value; }
     public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
     public UnityEngine.UI.Image Drill { get { return drill; } }
@@ -183,7 +184,7 @@ public class DrillingGame : Minigame
         updateProgressBars();
         updateWallsEnabling();
         if (triggerFlash) FlashTile();
-        //Debug.Log("cur: " + GameManager.Instance.Joystick.CurrentInput + " | prev: " + GameManager.Instance.Joystick.PrevInput);
+        //Debug.Log("cur: " + CurrentInput + " | prev: " + PrevInput);
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -228,36 +229,6 @@ public class DrillingGame : Minigame
         joystickArrow.transform.SetAsLastSibling();
     }
 
-    // 0 - diamond, 1 - electricity, 2 - yellow, 3 - blocks, 4 - green, 5 - orange, 6 - red, 7 - water, 8 - yellow-egg
-    private void generateLevel(int[] tiles)
-    {
-        for (int i = 0; i < rows.Length; i++)
-        {
-            for (int j = 0; j < columns.Length; j++)
-            {
-                int id = tiles[(columns.Length * i) + j];
-                switch(id)
-                {
-                    case 0:
-                        instantiateDiamond(columns[j], rows[i]);
-                        break;
-                    case 1:
-                        instantiateCable(columns[j], rows[i]);
-                        break;
-                    case 2: case 4: case 5: case 6: case 8:
-                        instantiateGroundTile(columns[j], rows[i], id);
-                        break;
-                    case 3:
-                        instantiateRock(columns[j], rows[i]);
-                        break;
-                    case 7:
-                        instantiateWaterTile(columns[j], rows[i]);
-                        break;
-                }
-            }
-        }
-    }
-
     private void updateState()
     {
         switch(state)
@@ -294,17 +265,18 @@ public class DrillingGame : Minigame
             if (levelsCounter < 3)
             {
                 int[] tiles = GameManager.Instance.LoadDrillingPuzzle(easyLevels[(SucceededDrill == true) ? levelsCounter : Random.Range(0, 3)]);
-                generateLevel(tiles);  // pre-designed levels, loading from csv
+                //generateLevel(tiles);  // pre-designed levels, loading from csv
+                map.Initialize(mapPanel, new Vector2(19, 14), new Vector2(44, 44), GameManager.Instance.LoadDrillingPuzzle(easyLevels[levelsCounter]));
             }
             else if (levelsCounter >=3 && levelsCounter < 6)
             {
                 int[] tiles = GameManager.Instance.LoadDrillingPuzzle(mediumLevels[(SucceededDrill == true) ? levelsCounter - 3 : Random.Range(3, 6)]);
-                generateLevel(tiles);  // pre-designed levels, loading from csv
+                //generateLevel(tiles);  // pre-designed levels, loading from csv
             }
             else if (levelsCounter >= 6)
             {
                 int[] tiles = GameManager.Instance.LoadDrillingPuzzle(hardLevels[(SucceededDrill == true) ? levelsCounter - 6 : Random.Range(6, 9)]);
-                generateLevel(tiles); // pre-designed levels, loading from csv
+                //generateLevel(tiles); // pre-designed levels, loading from csv
             }
             if (SucceededDrill) levelsCounter++;
             panelSlidingTimer = panelSlidingTime;
@@ -374,9 +346,6 @@ public class DrillingGame : Minigame
 
     private void updateInput()
     {
-        if (GameManager.Instance.Joystick.CurrentInput != DrillingDirection.NONE)
-            CurrentInput = GameManager.Instance.Joystick.CurrentInput;
-
         if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
             if (GameManager.Instance.Joystick.JoystickInput.x >= 0.707f) // sin 45 deg
@@ -453,7 +422,8 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
-                        instantiatePipeHorizontal();
+                        map.instantiatePipe(targetColumn, targetRow, 0, mapPanel,
+                            new Vector2(DrillGameMap.TILE_WIDTH, DrillGameMap.TILE_HEIGHT), new Vector2(DrillGameMap.MAP_WIDTH, DrillGameMap.MAP_HEIGHT));
                         curveId = 1;
                         targetColumn++;
                         animator.SetBool("isDrillingRight", false);
@@ -480,7 +450,8 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
-                        instantiatePipeHorizontal();
+                        map.instantiatePipe(targetColumn, targetRow, 0, mapPanel,
+                           new Vector2(DrillGameMap.TILE_WIDTH, DrillGameMap.TILE_HEIGHT), new Vector2(DrillGameMap.MAP_WIDTH, DrillGameMap.MAP_HEIGHT));
                         curveId = 3;
                         targetColumn--;
                         animator.SetBool("isDrillingLeft", false);
@@ -504,7 +475,8 @@ public class DrillingGame : Minigame
                         instantiatePipeCurve(curveId);
                         JoystickJustMoved = false;
                     }
-                    else instantiatePipeVertical();
+                    else map.instantiatePipe(targetColumn, targetRow, 1, mapPanel,
+                           new Vector2(DrillGameMap.TILE_WIDTH, DrillGameMap.TILE_HEIGHT), new Vector2(DrillGameMap.MAP_WIDTH, DrillGameMap.MAP_HEIGHT));
                     targetRow++;
                 }
                 if (!animator.GetBool("isDrillingDown")) animator.SetBool("isDrillingDown", true);
@@ -921,6 +893,7 @@ public class DrillingGame : Minigame
 
     private void resetGameGuts()
     {
+        map.ClearMap();
         makeDrill = false;
         slidingLeft = false;
         joystickShaken = false;
@@ -934,15 +907,7 @@ public class DrillingGame : Minigame
         SucceededDrill = false;
         targetColumn = -1;
         targetRow = -1;
-        foreach (GameObject rock in tiles) Destroy(rock);
-        foreach (GameObject drop in water) Destroy(drop);
-        foreach (GameObject drop in UIwater) Destroy(drop);
-        foreach (GameObject rock in bottomRow) Destroy(rock);
         drill.rectTransform.anchoredPosition = initDrillPos;
-        tiles.Clear();
-        water.Clear();
-        UIwater.Clear();
-        bottomRow.Clear();
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -(Screen.height) - 700, 0), panelSlidingTime / 2);
         drill.color = new Color(1, 1, 1);
         drillLife.color = new Color(1, 1, 1);
@@ -952,55 +917,6 @@ public class DrillingGame : Minigame
         if (rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = false;
         if (leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = false;
         toastType = global::ToastType.NONE;
-    }
-
-    private void instantiateRock(int x, int y)
-    {
-        GameObject rock = Instantiate(rockPrefab) as GameObject;
-        rock.transform.SetParent(mainPanel.transform, false);
-        rock.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
-        rock.gameObject.SetActive(true);
-        tiles.Add(rock);
-        if (y == rows[rows.Length - 1]) bottomRow.Add(rock);
-    }
-
-    private void instantiateDiamond(int x, int y)
-    {
-        GameObject diamond = Instantiate(diamondPrefab) as GameObject;
-        diamond.transform.SetParent(mainPanel.transform, false);
-        diamond.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
-        diamond.gameObject.SetActive(true);
-        tiles.Add(diamond);
-    }
-
-    private void instantiateGroundTile(int x, int y, int type)
-    {
-        GameObject groundTile;
-        switch(type)
-        {
-            case 2:
-                groundTile = Instantiate(groundYellow) as GameObject;
-                break;
-            case 4:
-                groundTile = Instantiate(groundGreen) as GameObject;
-                break;
-            case 5:
-                groundTile = Instantiate(groundOrange) as GameObject;
-                break;
-            case 6:
-                groundTile = Instantiate(groundRed) as GameObject;
-                break;
-            case 8:
-                groundTile = Instantiate(groundAcid) as GameObject;
-                break;
-            default:
-                groundTile = Instantiate(groundYellow) as GameObject;
-                break;
-        }
-        groundTile.transform.SetParent(mainPanel.transform, false);
-        groundTile.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
-        groundTile.gameObject.SetActive(true);
-        tiles.Add(groundTile);
     }
 
     private void instantiatePipeVertical()
@@ -1054,43 +970,6 @@ public class DrillingGame : Minigame
             pipeCurve.GetComponent<RectTransform>().anchoredPosition = new Vector2(columns[targetColumn], rows[targetRow]);
             pipeCurve.gameObject.SetActive(true);
             tiles.Add(pipeCurve);
-        }
-    }
-
-    private void instantiateCable(int x, int y)
-    {
-        GameObject cable = Instantiate(cablePrefab) as GameObject;
-        cable.transform.SetParent(mainPanel.transform, false);
-        cable.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
-        cable.gameObject.SetActive(true);
-        tiles.Add(cable);
-    }
-
-    private void instantiateWaterTile(int x, int y)
-    {
-        GameObject waterTile = Instantiate(waterTilePrefab) as GameObject;
-        waterTile.transform.SetParent(mainPanel.transform, false);
-        waterTile.gameObject.SetActive(true);
-        tiles.Add(waterTile);
-        UIwater.Add(waterTile);
-
-        if(UIwater.Count == 1)
-        {
-            waterTile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 583);
-            LeanTween.move(waterTile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
-            LeanTween.scale(waterTile.GetComponent<RectTransform>(), waterTile.GetComponent<RectTransform>().localScale * 0.5f, 1f);
-        }
-        else if (UIwater.Count == 2)
-        {
-            waterTile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 497);
-            LeanTween.move(waterTile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
-            LeanTween.scale(waterTile.GetComponent<RectTransform>(), waterTile.GetComponent<RectTransform>().localScale * 0.5f, 1f);
-        }
-        else if (UIwater.Count == 3)
-        {
-            waterTile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 409);
-            LeanTween.move(waterTile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
-            LeanTween.scale(waterTile.GetComponent<RectTransform>(), waterTile.GetComponent<RectTransform>().localScale * 0.5f, 1f);
         }
     }
 
@@ -1148,6 +1027,24 @@ public class DrillingGame : Minigame
         drillLife.color = new Color(1, 0, 0);
     }
 
+    public void handleMineCollision()
+    {
+        SucceededDrill = false;
+        state = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+        toastType = global::ToastType.EXPLODED_BOMB;
+        drill.color = new Color(1, 0, 0);
+        drillLife.color = new Color(1, 0, 0);
+    }
+
+    public void handleMineAreaCollision()
+    {
+        SucceededDrill = false;
+        state = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+        toastType = global::ToastType.TRIGGERED_BOMB;
+        drill.color = new Color(1, 0, 0);
+        drillLife.color = new Color(1, 0, 0);
+    }
+
     private void activateToast(ToastType type)
     {
         switch (type)
@@ -1161,6 +1058,9 @@ public class DrillingGame : Minigame
                 brokenDrillToast.gameObject.transform.parent.SetAsLastSibling();
                 break;
             case global::ToastType.EXPLODED_BOMB:
+                //todo
+                break;
+            case global::ToastType.TRIGGERED_BOMB:
                 //todo
                 break;
             case global::ToastType.SUCCESS:

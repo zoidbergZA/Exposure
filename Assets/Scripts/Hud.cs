@@ -13,6 +13,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private Text timeText;
     [SerializeField] private Text gameOverText;
     [SerializeField] private Text scoreText;
+    [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject cablePanel;
     [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
@@ -30,6 +31,11 @@ public class Hud : MonoBehaviour
     {
         gameOverPanel.SetActive(false);
         wobblerTweenId = LeanTween.value(gameObject, updateWobbleCallback, 0f, 1f, 0.6f).setLoopPingPong().setEase(LeanTweenType.easeInOutSine).id;
+    }
+
+    void Start()
+    {
+        startPanel.SetActive(true);
     }
 
     void Update()
@@ -85,6 +91,12 @@ public class Hud : MonoBehaviour
         //        Debug.Log(angle);
     }
 
+    public void OnStartRoundClicked()
+    {
+        ShowStartPanel(false);
+        GameManager.Instance.StartRound();
+    }
+
     public void GoToGameOver(int score)
     {
         gameOverPanel.SetActive(true);
@@ -133,6 +145,11 @@ public class Hud : MonoBehaviour
         {
             callback();
         }
+    }
+
+    private void ShowStartPanel(bool show)
+    {
+        startPanel.SetActive(show);
     }
 
     private void ShowDebug()

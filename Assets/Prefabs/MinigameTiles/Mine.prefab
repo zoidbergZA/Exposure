@@ -11,14 +11,14 @@ GameObject:
   - 222: {fileID: 22212150}
   - 114: {fileID: 11448906}
   - 61: {fileID: 6159128}
-  - 114: {fileID: 11436752}
+  - 114: {fileID: 11463116}
   m_Layer: 5
-  m_Name: GroundTile
-  m_TagString: GroundTile
+  m_Name: Mine
+  m_TagString: Mine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &6159128
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -33,17 +33,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 36, y: 36}
---- !u!114 &11436752
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 127976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a58b589ab0b134684f60b81288944a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11448906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -63,7 +52,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 60aa7a7fe22ba4606a12646e4aaaf57b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78b9ee9cc554d414b9ecbca926fbb2c9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -71,6 +60,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11463116
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a58b589ab0b134684f60b81288944a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &22212150
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -85,13 +85,13 @@ RectTransform:
   m_GameObject: {fileID: 127976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 265}
+  m_AnchoredPosition: {x: 22, y: 22}
   m_SizeDelta: {x: 44, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &100100000
