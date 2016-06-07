@@ -61,10 +61,6 @@ public class DrillingGame : Minigame
 
     public bool SucceededDrill { get; set; }
     public bool Bumped { get; set; }
-    private List<GameObject> tiles = new List<GameObject>();
-    private List<GameObject> water = new List<GameObject>();
-    private List<GameObject> UIwater = new List<GameObject>();
-    private List<GameObject> bottomRow = new List<GameObject>();
 
     public ToastType ToastType { get { return toastType; } set { toastType = value; } }
     public DrillingGameState State { get { return state; } }
@@ -80,7 +76,6 @@ public class DrillingGame : Minigame
     public float DiamondValue { get { return diamondValue; } }
     public UnityEngine.UI.Image MainPanel { get { return mainPanel; } }
     public Animator Animator { get { return animator; } }
-    public int GetWaterCount { get { return water.Count; } }
     public int TargetRow { get { return targetRow; } }
     public int TargetColumn { get { return targetColumn; } }
     public bool ReachedBottom(int bottom, UnityEngine.UI.Image drill)
@@ -813,7 +808,7 @@ public class DrillingGame : Minigame
 
     private void updateProgressBars()
     {
-        if(waterBar && water.Count <= 3) waterBar.fillAmount = water.Count * 33.33333334f / 100f;
+        if (waterBar && map.GetWaterCount <= 3) waterBar.fillAmount = map.GetWaterCount * 33.33333334f / 100f;
         if (stuckTimer > stuckTime - (stuckTime / 3)) drillLife.fillAmount = 1.00f;
         else if (stuckTimer <= stuckTime - (stuckTime / 3) && stuckTimer > stuckTime - (stuckTime / 3)*2) drillLife.fillAmount = 0.66f;
         else if (stuckTimer <= stuckTime - (stuckTime / 3) * 2 && stuckTimer > 0.05f) drillLife.fillAmount = 0.33f;

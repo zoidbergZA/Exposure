@@ -41,7 +41,7 @@ public class Driller : MonoBehaviour
                 break;
             case "Water":
                 GameManager.Instance.DrillingGame.Map.AddWater(coll.gameObject.GetComponent<DrillingGameTile>());
-                if(GameManager.Instance.DrillingGame.GetWaterCount <= 3) 
+                if(GameManager.Instance.DrillingGame.Map.GetWaterCount <= 3) 
                     LeanTween.scale(GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>(),
                         GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>().localScale * 1.1f, 0.8f).setEase(LeanTweenType.punch);
                 Destroy(coll.gameObject);
