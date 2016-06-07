@@ -36,16 +36,20 @@ public class MobileJoystick : MonoBehaviour
             if (Input.touchCount > 0)
             {
                 if (Input.touches[0].phase == TouchPhase.Began)
-                    dragStart = Input.touches[0].position;
-
-                Vector2 dragDelta = Input.touches[0].position - dragStart;
-
-                if (dragDelta.sqrMagnitude >= minDragDistance)
                 {
-                    input = Input.touches[0].deltaPosition;
+                    dragStart = Input.touches[0].position;
+                    input = Input.touches[0].position - (Vector2)GameManager.Instance.DrillingGame.Drill.rectTransform.position;
+                    dragPrevious = Input.touches[0].position;
                 }
+                else if (Input.touches[0].phase == TouchPhase.Moved)
+                {
+                    Vector2 dragDelta = Input.touches[0].position - dragStart;
 
-//                dragPrevious = Input.mousePosition;
+                    if (dragDelta.sqrMagnitude >= minDragDistance)
+                    {
+                        input = Input.touches[0].deltaPosition;
+                    }
+                }
             }
         }
         else
@@ -64,9 +68,14 @@ public class MobileJoystick : MonoBehaviour
             if (input.sqrMagnitude < 0.1f)
             {
                 if (Input.GetMouseButtonDown(0))
+                {
                     dragStart = Input.mousePosition;
+                    input = Input.mousePosition - GameManager.Instance.DrillingGame.Drill.rectTransform.position;
+                    Debug.Log(GameManager.Instance.DrillingGame.Drill.rectTransform.position);
+                    dragPrevious = Input.mousePosition;
+                }
 
-                if (Input.GetMouseButton(0))
+                else if (Input.GetMouseButton(0))
                 {
                     Vector2 dragDelta = (Vector2)Input.mousePosition - dragStart;
 
