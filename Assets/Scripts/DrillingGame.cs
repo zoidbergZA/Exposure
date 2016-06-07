@@ -92,6 +92,7 @@ public class DrillingGame : Minigame
     {
         CurrentInput = DrillingDirection.NONE;
         PrevInput = DrillingDirection.NONE;
+        Driller = FindObjectOfType<Driller>();
 
         joystickArrow.color = new Color(1, 1, 1, 0);
         /*if(rockPrefab)
@@ -101,7 +102,6 @@ public class DrillingGame : Minigame
 
     void Start()
     {
-        Driller = FindObjectOfType<Driller>();
         activateImages(false);
         targetColumn = -1;
         targetRow = -1;
