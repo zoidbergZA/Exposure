@@ -183,7 +183,7 @@ public class DrillingGame : Minigame
         updateProgressBars();
         updateWallsEnabling();
         if (triggerFlash) FlashTile();
-        //Debug.Log("cur: " + GameManager.Instance.Joystick.CurrentInput + " | prev: " + GameManager.Instance.Joystick.PrevInput);
+        Debug.Log("cur: " + CurrentInput + " | prev: " + PrevInput);
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
