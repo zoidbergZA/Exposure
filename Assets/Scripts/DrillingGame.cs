@@ -24,6 +24,8 @@ public class DrillingGame : Minigame
     [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
     [SerializeField] private UnityEngine.UI.Image mainPanel;
     [SerializeField] private UnityEngine.UI.Image drill;
+    [SerializeField] private UnityEngine.UI.Image joystickArrow;
+    [SerializeField] private float joystickArrowFadeSpeed = 2f;
     [SerializeField] private UnityEngine.UI.Image endOkToast;
     [SerializeField] private UnityEngine.UI.Image brokenDrillToast;
     [SerializeField] private UnityEngine.UI.Image brokenPipeToast;
@@ -113,6 +115,7 @@ public class DrillingGame : Minigame
         CurrentInput = DrillingDirection.NONE;
         PrevInput = DrillingDirection.NONE;
 
+        joystickArrow.color = new Color(1, 1, 1, 0);
         /*if(rockPrefab)
             tileTweenId = LeanTween.scale(rockPrefab.GetComponent<RectTransform>(), rockPrefab.GetComponent<RectTransform>().localScale * 1.2f, 1f)
                 .setEase(LeanTweenType.punch).id;*/
@@ -136,9 +139,9 @@ public class DrillingGame : Minigame
         leftWall = GameObject.Find("Left wall");
         SucceededDrill = true;
         levelsCounter = 0;
-        GameManager.Instance.Joystick.JoystickPanel.transform.SetParent(mainPanel.transform, true);
-        GameManager.Instance.Joystick.JoystickPanel.GetComponent<UnityEngine.UI.Image>().rectTransform.anchoredPosition = new Vector2(500, -100);
-        GameManager.Instance.Joystick.JoystickPanel.transform.localScale = new Vector3(1, 1, 1);
+//        GameManager.Instance.Joystick.JoystickPanel.transform.SetParent(mainPanel.transform, true);
+//        GameManager.Instance.Joystick.JoystickPanel.GetComponent<UnityEngine.UI.Image>().rectTransform.anchoredPosition = new Vector2(500, -100);
+//        GameManager.Instance.Joystick.JoystickPanel.transform.localScale = new Vector3(1, 1, 1);
     }
 
     public override void Update()
@@ -156,6 +159,13 @@ public class DrillingGame : Minigame
         {
             state = DrillingGameState.INACTIVE;
             End(false);
+        }
+
+        //joystick arrow
+        if (joystickArrow.color.a > 0)
+        {
+            joystickArrow.color = new Color(1, 1, 1, joystickArrow.color.a - Time.deltaTime * joystickArrowFadeSpeed);
+            joystickArrow.rectTransform.localPosition = GameManager.Instance.DrillingGame.Drill.rectTransform.localPosition;
         }
     }
 
@@ -189,6 +199,33 @@ public class DrillingGame : Minigame
         state = DrillingGameState.ACTIVATION;
         stuckTimer = stuckTime;
         myBody.inertia = 0;
+    }
+
+    public void PointJoystickArrow(DrillingDirection direction)
+    {
+        joystickArrow.color = new Color(1, 1, 1, 1);
+
+        float rotation = 0;
+
+        switch (direction)
+        {
+            case DrillingDirection.UP:
+                rotation = 0;
+                break;
+            case DrillingDirection.DOWN:
+                rotation = 180;
+                break;
+            case DrillingDirection.LEFT:
+                rotation = 90;
+                break;
+            case DrillingDirection.RIGHT:
+                rotation = 270;
+                break;
+        }
+
+        //        joystickArrow.rectTransform.localPosition = offset;
+        joystickArrow.transform.localEulerAngles = new Vector3(0, 0, rotation);
+        joystickArrow.transform.SetAsLastSibling();
     }
 
     // 0 - diamond, 1 - electricity, 2 - yellow, 3 - blocks, 4 - green, 5 - orange, 6 - red, 7 - water, 8 - yellow-egg
