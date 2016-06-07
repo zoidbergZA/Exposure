@@ -223,23 +223,16 @@ public class DrillingGame : Minigame
         if(panelSlidingTimer <= 0)
         {
             if (levelsCounter < 3)
-            {
-                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(easyLevels[(SucceededDrill == true) ? levelsCounter : Random.Range(0, 3)]);
-                map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(easyLevels[levelsCounter]));
-            }
+                map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(easyLevels[Random.Range(0, 3)]));
             else if (levelsCounter >=3 && levelsCounter < 6)
-            {
-                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(mediumLevels[(SucceededDrill == true) ? levelsCounter - 3 : Random.Range(3, 6)]);
                 map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(mediumLevels[levelsCounter - 3]));
-            }
             else if (levelsCounter >= 6)
-            {
-                int[] tiles = GameManager.Instance.LoadDrillingPuzzle(hardLevels[(SucceededDrill == true) ? levelsCounter - 6 : Random.Range(6, 9)]);
                 map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(mediumLevels[levelsCounter - 6]));
-            }
             if (SucceededDrill) levelsCounter++;
             panelSlidingTimer = panelSlidingTime;
 //            GameManager.Instance.Joystick.StartPosition = GameManager.Instance.Joystick.transform.position;
+            
+            //cheat flag to skip mini-game
             if (!AutoWin) state = DrillingGameState.SLIDING;
             else state = DrillingGameState.SUCCESS;
         }
