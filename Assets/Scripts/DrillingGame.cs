@@ -373,7 +373,7 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-        if (!ReachedBottom((DrillGameMap.MAP_HEIGHT * DrillGameMap.TILE_HEIGHT) * DrillGameMap.TILE_HEIGHT, Driller.Drill)) updateDrilling();
+        if (!ReachedBottom((DrillGameMap.MAP_HEIGHT * DrillGameMap.TILE_HEIGHT) + DrillGameMap.TILE_HEIGHT, Driller.Drill)) updateDrilling();
         else state = DrillingGameState.SUCCESS;
     }
 
