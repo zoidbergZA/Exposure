@@ -71,7 +71,6 @@ public class MobileJoystick : MonoBehaviour
                 {
                     dragStart = Input.mousePosition;
                     input = Input.mousePosition - GameManager.Instance.DrillingGame.Drill.rectTransform.position;
-                    Debug.Log(GameManager.Instance.DrillingGame.Drill.rectTransform.position);
                     dragPrevious = Input.mousePosition;
                 }
 
