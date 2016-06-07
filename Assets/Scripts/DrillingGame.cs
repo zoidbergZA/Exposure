@@ -183,7 +183,7 @@ public class DrillingGame : Minigame
         updateProgressBars();
         updateWallsEnabling();
         if (triggerFlash) FlashTile();
-        Debug.Log("cur: " + CurrentInput + " | prev: " + PrevInput);
+        //Debug.Log("cur: " + CurrentInput + " | prev: " + PrevInput);
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -374,8 +374,8 @@ public class DrillingGame : Minigame
 
     private void updateInput()
     {
-        if (GameManager.Instance.Joystick.CurrentInput != DrillingDirection.NONE)
-            CurrentInput = GameManager.Instance.Joystick.CurrentInput;
+        //if (GameManager.Instance.Joystick.CurrentInput != DrillingDirection.NONE)
+        //    CurrentInput = GameManager.Instance.Joystick.CurrentInput;
 
         if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
