@@ -63,7 +63,7 @@ public class DrillingGame : Minigame
     public bool Bumped { get; set; }
 
     public ToastType ToastType { get { return toastType; } set { toastType = value; } }
-    public DrillingGameState State { get { return state; } }
+    public DrillingGameState State { get { return state; } set { state = value; } }
     public DrillingDirection CurrentInput { get; private set; }
     public DrillingDirection PrevInput { get; private set; }
     public DrillGameMap Map { get { return map; } }
@@ -873,48 +873,6 @@ public class DrillingGame : Minigame
         toastType = global::ToastType.NONE;
 
         map.Reset();
-    }
-
-    public void handleRockCollision(bool entered)
-    {
-        if (entered)
-        {
-            Driller.Drill.color = new Color(1, 0, 0);
-            drillLife.color = new Color(1, 0, 0);
-        }
-        else
-        {
-            Driller.Drill.color = new Color(1, 1, 1);
-            drillLife.color = new Color(1, 1, 1);
-        }
-        Bumped = entered;
-    }
-
-    public void handlePipeCollision()
-    {
-        SucceededDrill = false;
-        state = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-        toastType = global::ToastType.BROKEN_PIPE;
-        Driller.Drill.color = new Color(1, 0, 0);
-        drillLife.color = new Color(1, 0, 0);
-    }
-
-    public void handleMineCollision()
-    {
-        SucceededDrill = false;
-        state = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-        toastType = global::ToastType.EXPLODED_BOMB;
-        Driller.Drill.color = new Color(1, 0, 0);
-        drillLife.color = new Color(1, 0, 0);
-    }
-
-    public void handleMineAreaCollision()
-    {
-        SucceededDrill = false;
-        state = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-        toastType = global::ToastType.TRIGGERED_BOMB;
-        Driller.Drill.color = new Color(1, 0, 0);
-        drillLife.color = new Color(1, 0, 0);
     }
 
     private void activateToast(ToastType type)

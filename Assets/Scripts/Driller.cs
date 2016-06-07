@@ -7,7 +7,8 @@ public class Driller : MonoBehaviour
     public UnityEngine.UI.Image Drill { get; private set; }
     public Animator Animator { get { return animator; } }
     public const int ANCHORED_OFFSET = 112;
-    public Vector2 Position { 
+    public Vector2 Position
+    { 
         get { return Drill.rectTransform.anchoredPosition; }
         set { Drill.rectTransform.anchoredPosition = value; }
     }
@@ -21,12 +22,13 @@ public class Driller : MonoBehaviour
     {
         
     }
+
     void OnCollisionEnter2D(Collision2D coll)
     {
         switch(coll.gameObject.tag)
         {
             case "Rock": case "Walls":
-                GameManager.Instance.DrillingGame.handleRockCollision(true);
+                handleRockCollision(true);
                 break;
             case "Diamond":
                 GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
@@ -47,18 +49,20 @@ public class Driller : MonoBehaviour
                 Destroy(coll.gameObject);
                 break;
             case "Pipe":
-                GameManager.Instance.DrillingGame.handlePipeCollision();
+                handlePipeCollision();
                 break;
             case "Mine":
                 //todo the same as pipe but with different animation
-                GameManager.Instance.DrillingGame.handlePipeCollision();
+                handlePipeCollision();
                 break;
             case "MineArea":
                 //todo countdown
-                GameManager.Instance.DrillingGame.handlePipeCollision();
+                handlePipeCollision();
                 break;
             case "DrillLife":
-                //todo
+                //todo - complete function
+                handleDrillLifeCollision();
+                Destroy(coll.gameObject);
                 break;
         }
     }
@@ -67,11 +71,7 @@ public class Driller : MonoBehaviour
     {
         if (coll.gameObject.tag == "Rock" || coll.gameObject.tag == "Walls")
         {
-            GameManager.Instance.DrillingGame.handleRockCollision(false);
-        }
-        if (coll.gameObject.tag == "Diamond")
-        {
-
+            handleRockCollision(false);
         }
     }
 
@@ -80,10 +80,6 @@ public class Driller : MonoBehaviour
         if (coll.gameObject.tag == "Rock" || coll.gameObject.tag == "Walls")
         {
             GameManager.Instance.DrillingGame.StuckTimer -= Time.deltaTime;
-        }
-        if (coll.gameObject.tag == "Diamond")
-        {
-
         }
     }
 
@@ -100,5 +96,51 @@ public class Driller : MonoBehaviour
     public void SwitchAnimation(string param, bool turned)
     {
         animator.SetBool(param, turned);
+    }
+
+    public void handleRockCollision(bool entered)
+    {
+        if (entered)
+        {
+            Drill.color = new Color(1, 0, 0);
+            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
+        }
+        else
+        {
+            Drill.color = new Color(1, 1, 1);
+            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 1, 1);
+        }
+        GameManager.Instance.DrillingGame.Bumped = entered;
+    }
+
+    public void handlePipeCollision()
+    {
+        GameManager.Instance.DrillingGame.SucceededDrill = false;
+        GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+        GameManager.Instance.DrillingGame.ToastType = global::ToastType.BROKEN_PIPE;
+        Drill.color = new Color(1, 0, 0);
+        GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
+    }
+
+    public void handleMineCollision()
+    {
+        GameManager.Instance.DrillingGame.SucceededDrill = false;
+        GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+        GameManager.Instance.DrillingGame.ToastType = global::ToastType.EXPLODED_BOMB;
+        Drill.color = new Color(1, 0, 0);
+        GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
+    }
+
+    public void handleMineAreaCollision()
+    {
+        GameManager.Instance.DrillingGame.SucceededDrill = false;
+        GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+        GameManager.Instance.DrillingGame.ToastType = global::ToastType.TRIGGERED_BOMB;
+        Drill.color = new Color(1, 0, 0);
+        GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
+    }
+    public void handleDrillLifeCollision()
+    {
+        GameManager.Instance.Player.ScorePoints(5);
     }
 }
