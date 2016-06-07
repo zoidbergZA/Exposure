@@ -1945,22 +1945,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
-    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: touchScreenInput
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: showDebug
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: enableTutorial
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: puzzle1
-      value: 
-      objectReference: {fileID: 4900000, guid: 4299a044e8c3c4a498eafb4f9b25e250, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
@@ -6427,7 +6411,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474848, guid: 8a74e9c53f652bb4d938b25c610a32a3, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 474848, guid: 8a74e9c53f652bb4d938b25c610a32a3, type: 2}
       propertyPath: m_LocalScale.z
@@ -14709,7 +14693,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 422710, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11403772, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
       propertyPath: propsHolder
@@ -20870,7 +20854,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22417360, guid: 643cd85ec6f51784e9429dd0dbfd9fa1, type: 2}
       propertyPath: m_RootOrder
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 22417360, guid: 643cd85ec6f51784e9429dd0dbfd9fa1, type: 2}
       propertyPath: m_AnchoredPosition.x
