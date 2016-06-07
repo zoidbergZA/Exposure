@@ -15,6 +15,7 @@ TagManager:
   - Pipe
   - Mine
   - MineArea
+  - DrillLife
   layers:
   - Default
   - TransparentFX
