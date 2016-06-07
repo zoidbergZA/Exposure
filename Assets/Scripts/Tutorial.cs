@@ -7,6 +7,7 @@ public class Tutorial : MonoBehaviour
 {
     public enum Progression
     {
+        Ready,
         ActivateScanner,
         FindHotspot,
         Completed
@@ -23,7 +24,9 @@ public class Tutorial : MonoBehaviour
 
     void Awake()
     {
-        SetProgress(Progression.ActivateScanner, Time.time + scannerWait);
+        progress = Progression.Ready;
+        DisableAllTips();
+//        SetProgress(Progression.ActivateScanner, Time.time + scannerWait);
     }
 
     void OnEnable()
@@ -40,22 +43,28 @@ public class Tutorial : MonoBehaviour
 
     void Update()
     {
+        if (progress == Progression.Ready)
+            return;
+
         if (Time.time >= promptAt)
         {
             ShowPrompt();
         }
     }
 
-    private void SetProgress(Progression newProgess, float promptAt)
+    public void SetProgress(Progression newProgess)
     {
         DisableAllTips();
         progress = newProgess;
-        this.promptAt = promptAt;
-
+        
         switch (newProgess)
         {
-            case Progression.FindHotspot:
+            case Progression.ActivateScanner:
+                promptAt = Time.time + scannerWait;
+                break;
 
+            case Progression.FindHotspot:
+                promptAt = Time.time + hotspotWait;
                 break;
 
             case Progression.Completed:
@@ -92,7 +101,7 @@ public class Tutorial : MonoBehaviour
     {
         if (progress == Progression.ActivateScanner)
         {
-            SetProgress(Progression.FindHotspot, Time.time + hotspotWait);
+            SetProgress(Progression.FindHotspot);
         }
     }
 
@@ -100,7 +109,7 @@ public class Tutorial : MonoBehaviour
     {
         if (progress == Progression.FindHotspot)
         {
-            SetProgress(Progression.Completed, 0);
+            SetProgress(Progression.Completed);
         }
     }
 }
