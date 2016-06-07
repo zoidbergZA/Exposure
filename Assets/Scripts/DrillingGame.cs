@@ -31,14 +31,12 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image steamImage;
     [SerializeField] private UnityEngine.UI.Image drillLife;
     [SerializeField] private bool AutoWin;
-    [SerializeField] private Animator animator;
     [SerializeField] public int[] columns;
     [SerializeField] public int[] rows;
     [SerializeField] private TextAsset[] easyLevels;
     [SerializeField] private TextAsset[] mediumLevels;
     [SerializeField] private TextAsset[] hardLevels;
 
-    private Rigidbody2D myBody;
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
     public const int TILE_WIDTH = 44, TILE_HEIGHT = 44, MAP_WIDTH = 19, MAP_HEIGHT = 14;
@@ -75,7 +73,6 @@ public class DrillingGame : Minigame
     public UnityEngine.UI.Image DrillLife { get { return drillLife; } }
     public float DiamondValue { get { return diamondValue; } }
     public UnityEngine.UI.Image MainPanel { get { return mainPanel; } }
-    public Animator Animator { get { return animator; } }
     public int TargetRow { get { return targetRow; } }
     public int TargetColumn { get { return targetColumn; } }
     public bool ReachedBottom(int bottom, UnityEngine.UI.Image drill)
@@ -92,9 +89,6 @@ public class DrillingGame : Minigame
         Hud = FindObjectOfType<DrillGameHud>();
 
         joystickArrow.color = new Color(1, 1, 1, 0);
-        /*if(rockPrefab)
-            tileTweenId = LeanTween.scale(rockPrefab.GetComponent<RectTransform>(), rockPrefab.GetComponent<RectTransform>().localScale * 1.2f, 1f)
-                .setEase(LeanTweenType.punch).id;*/
     }
 
     void Start()
@@ -108,7 +102,6 @@ public class DrillingGame : Minigame
         drillStuckChecked = Time.time;
         if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -(Screen.height) - 700, 0);
         initDrillPos = Driller.Drill.rectTransform.anchoredPosition;
-        myBody = Driller.Drill.GetComponent<Rigidbody2D>();
         SucceededDrill = true;
         levelsCounter = 0;
 //        GameManager.Instance.Joystick.JoystickPanel.transform.SetParent(mainPanel.transform, true);
@@ -162,12 +155,11 @@ public class DrillingGame : Minigame
         Begin(difficulty);
         imagesActivated = true;
         Driller.Drill.transform.SetAsLastSibling();
-        if (animator) animator.SetBool("isSlidingLeft", false);
+        Driller.SwitchAnimation("isSlidingLeft", false);
 //        GameManager.Instance.Joystick.InnerPad.GetComponent<UnityEngine.UI.Image>().rectTransform.anchoredPosition = new Vector2(0, 0);
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0,100,0), panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
         state = DrillingGameState.ACTIVATION;
         stuckTimer = stuckTime;
-        myBody.inertia = 0;
     }
 
     public void PointJoystickArrow(DrillingDirection direction)
@@ -259,7 +251,7 @@ public class DrillingGame : Minigame
         jumpPhaseTimer -= Time.deltaTime;
         if (jumpPhaseTimer <= 0)
         {
-            animator.SetBool("isDrillingDown", true);
+            Driller.SwitchAnimation("isDrillingDown", true);
             state = DrillingGameState.DRILLING;
             jumpPhaseTimer = jumpPhaseTime;
         }
@@ -361,7 +353,7 @@ public class DrillingGame : Minigame
             if (GameManager.Instance.Joystick.JoystickInput.y < -0.707f)
             {
                 MakeDrill(true);
-                Animator.SetBool("shouldJump", true);
+                Driller.SwitchAnimation("shouldJump", true);
                 CurrentInput = DrillingDirection.DOWN;
                 
             }
@@ -383,16 +375,15 @@ public class DrillingGame : Minigame
                 {
                     if (Driller.Drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1])
                     {
-                        myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
-                        myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                        myBody.freezeRotation = true;
+                        Driller.Body.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                        Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
                     }
                     else
                     {
                         map.instantiatePipe(targetColumn, targetRow, 0, mapPanel);
                         curveId = 2;
                         targetColumn++;
-                        animator.SetBool("isDrillingRight", false);
+                        Driller.SwitchAnimation("isDrillingRight", false);
                         PrevInput = DrillingDirection.NONE;
                     }
                 }
@@ -401,7 +392,7 @@ public class DrillingGame : Minigame
                     if (Driller.Drill.rectTransform.anchoredPosition.x != columns[targetColumn])
                         Driller.Drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], Driller.Drill.rectTransform.anchoredPosition.y);
                     curveId = 2;
-                    animator.SetBool("isDrillingRight", false);
+                    Driller.SwitchAnimation("isDrillingRight", false);
                     PrevInput = DrillingDirection.NONE;
                 }
                 break;
@@ -410,16 +401,15 @@ public class DrillingGame : Minigame
                 {
                     if (Driller.Drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1])
                     {
-                        myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
-                        myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                        myBody.freezeRotation = true;
+                        Driller.Body.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
+                        Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
                     }
                     else
                     {
                         map.instantiatePipe(targetColumn, targetRow, 0, mapPanel);
                         curveId = 4;
                         targetColumn--;
-                        animator.SetBool("isDrillingLeft", false);
+                        Driller.SwitchAnimation("isDrillingLeft", false);
                         PrevInput = DrillingDirection.NONE;
                     }
                 }
@@ -428,7 +418,7 @@ public class DrillingGame : Minigame
                     if (Driller.Drill.rectTransform.anchoredPosition.x != columns[targetColumn])
                         Driller.Drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], Driller.Drill.rectTransform.anchoredPosition.y);
                     curveId = 4;
-                    animator.SetBool("isDrillingLeft", false);
+                    Driller.SwitchAnimation("isDrillingLeft", false);
                     PrevInput = DrillingDirection.NONE;
                 }
                 break;
@@ -443,15 +433,13 @@ public class DrillingGame : Minigame
                     else map.instantiatePipe(targetColumn, targetRow, 1, mapPanel);
                     targetRow++;
                 }
-                if (!animator.GetBool("isDrillingDown")) animator.SetBool("isDrillingDown", true);
-                myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-                myBody.freezeRotation = true;
+                if (!Driller.Animator.GetBool("isDrillingDown")) Driller.SwitchAnimation("isDrillingDown", true);
+                Driller.Body.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
                 break;
             default:
-                myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-                myBody.freezeRotation = true;
+                Driller.Body.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
                 break;
         }
     }
@@ -465,16 +453,15 @@ public class DrillingGame : Minigame
                 {
                     if (Driller.Drill.rectTransform.anchoredPosition.y > rows[targetRow + 1])
                     {
-                        myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
-                        myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-                        myBody.freezeRotation = true;
+                        Driller.Body.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
+                        Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
                     }
                     else
                     {
                         map.instantiatePipe(targetColumn, targetRow, 1, mapPanel);
                         curveId = 5;
                         targetRow++;
-                        animator.SetBool("isDrillingDown", false);
+                        Driller.SwitchAnimation("isDrillingDown", false);
                         PrevInput = DrillingDirection.NONE;
                     }
                 }
@@ -483,7 +470,7 @@ public class DrillingGame : Minigame
                     if (Driller.Drill.rectTransform.anchoredPosition.y != rows[targetRow])
                         Driller.Drill.rectTransform.anchoredPosition = new Vector2(Driller.Drill.rectTransform.anchoredPosition.x, rows[targetRow]);
                     curveId = 5;
-                    animator.SetBool("isDrillingDown", false);
+                    Driller.SwitchAnimation("isDrillingDown", false);
                     PrevInput = DrillingDirection.NONE;
                 }
                 break;
@@ -492,16 +479,15 @@ public class DrillingGame : Minigame
                 {
                     if (Driller.Drill.rectTransform.anchoredPosition.y < rows[targetRow - 1])
                     {
-                        myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
-                        myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-                        myBody.freezeRotation = true;
+                        Driller.Body.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
+                        Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
                     }
                     else
                     {
                         map.instantiatePipe(targetColumn, targetRow, 1, mapPanel);
                         curveId = 2;
                         targetRow--;
-                        animator.SetBool("isDrillingUp", false);
+                        Driller.SwitchAnimation("isDrillingUp", false);
                         PrevInput = DrillingDirection.NONE;
                     }
                 }
@@ -510,7 +496,7 @@ public class DrillingGame : Minigame
                     if (Driller.Drill.rectTransform.anchoredPosition.y != columns[targetRow])
                         Driller.Drill.rectTransform.anchoredPosition = new Vector2(Driller.Drill.rectTransform.anchoredPosition.x, rows[targetRow]);
                     curveId = 2;
-                    animator.SetBool("isDrillingUp", false);
+                    Driller.SwitchAnimation("isDrillingUp", false);
                     PrevInput = DrillingDirection.NONE;
                 }
                 break;
@@ -525,15 +511,13 @@ public class DrillingGame : Minigame
                     else map.instantiatePipe(targetColumn, targetRow, 0, mapPanel);
                     targetColumn -= 1;
                 }
-                if (!animator.GetBool("isDrillingLeft")) animator.SetBool("isDrillingLeft", true);
-                myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                myBody.freezeRotation = true;
+                if (!Driller.Animator.GetBool("isDrillingLeft")) Driller.SwitchAnimation("isDrillingLeft", true);
+                Driller.Body.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
                 break;
             default:
-                myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                myBody.freezeRotation = true;
+                Driller.Body.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
                 break;
         }
     }
@@ -547,9 +531,8 @@ public class DrillingGame : Minigame
                 {
                     if (Driller.Drill.rectTransform.anchoredPosition.y > rows[targetRow + 1])
                     {
-                        myBody.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
-                        myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-                        myBody.freezeRotation = true;
+                        Driller.Body.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
+                        Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
                     }
                     else
                     {
@@ -559,7 +542,7 @@ public class DrillingGame : Minigame
                             (DrillGameMap.TILE_HEIGHT * targetRow) + DrillGameMap.TILE_HEIGHT);
                         map.TriggerFlash = true;
                         targetRow++;
-                        animator.SetBool("isDrillingDown", false);
+                        Driller.SwitchAnimation("isDrillingDown", false);
                         PrevInput = DrillingDirection.NONE;
                     }
                 }
@@ -568,7 +551,7 @@ public class DrillingGame : Minigame
                     if (Driller.Drill.rectTransform.anchoredPosition.y != rows[targetRow])
                         Driller.Drill.rectTransform.anchoredPosition = new Vector2(Driller.Drill.rectTransform.anchoredPosition.x, rows[targetRow]);
                     curveId = 3;
-                    animator.SetBool("isDrillingDown", false);
+                    Driller.SwitchAnimation("isDrillingDown", false);
                     PrevInput = DrillingDirection.NONE;
                 }
                 break;
@@ -577,16 +560,15 @@ public class DrillingGame : Minigame
                 {
                     if (Driller.Drill.rectTransform.anchoredPosition.y < rows[targetRow - 1])
                     {
-                        myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
-                        myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-                        myBody.freezeRotation = true;
+                        Driller.Body.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
+                        Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
                     }
                     else
                     {
                         map.instantiatePipe(targetColumn, targetRow, 1, mapPanel);
                         curveId = 4;
                         targetRow--;
-                        animator.SetBool("isDrillingUp", false);
+                        Driller.SwitchAnimation("isDrillingUp", false);
                         PrevInput = DrillingDirection.NONE;
                     }
                 }
@@ -595,7 +577,7 @@ public class DrillingGame : Minigame
                     if (Driller.Drill.rectTransform.anchoredPosition.y != columns[targetRow])
                         Driller.Drill.rectTransform.anchoredPosition = new Vector2(Driller.Drill.rectTransform.anchoredPosition.x, rows[targetRow]);
                     curveId = 4;
-                    animator.SetBool("isDrillingUp", false);
+                    Driller.SwitchAnimation("isDrillingUp", false);
                     PrevInput = DrillingDirection.NONE;
                 }
                 break;
@@ -610,15 +592,13 @@ public class DrillingGame : Minigame
                     else map.instantiatePipe(targetColumn, targetRow, 0, mapPanel);
                     targetColumn += 1;
                 }
-                if (!animator.GetBool("isDrillingRight")) animator.SetBool("isDrillingRight", true);
-                myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                myBody.freezeRotation = true;
+                if (!Driller.Animator.GetBool("isDrillingRight")) Driller.SwitchAnimation("isDrillingRight", true);
+                Driller.Body.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
                 break;
             default:
-                myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                myBody.freezeRotation = true;
+                Driller.Body.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
                 break;
         }
     }
@@ -632,16 +612,15 @@ public class DrillingGame : Minigame
                 {
                     if (Driller.Drill.rectTransform.anchoredPosition.x < columns[targetColumn + 1])
                     {
-                        myBody.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
-                        myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                        myBody.freezeRotation = true;
+                        Driller.Body.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                        Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
                     }
                     else
                     {
                         map.instantiatePipe(targetColumn, targetRow, 0, mapPanel);
                         curveId = 5;
                         targetColumn++;
-                        animator.SetBool("isDrillingRight", false);
+                        Driller.SwitchAnimation("isDrillingRight", false);
                         PrevInput = DrillingDirection.NONE;
                     }
                 }
@@ -650,7 +629,7 @@ public class DrillingGame : Minigame
                     if (Driller.Drill.rectTransform.anchoredPosition.x != columns[targetColumn])
                         Driller.Drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], Driller.Drill.rectTransform.anchoredPosition.y);
                     curveId = 5;
-                    animator.SetBool("isDrillingRight", false);
+                    Driller.SwitchAnimation("isDrillingRight", false);
                     PrevInput = DrillingDirection.NONE;
                 }
                 break;
@@ -659,16 +638,15 @@ public class DrillingGame : Minigame
                 {
                     if (Driller.Drill.rectTransform.anchoredPosition.x > columns[targetColumn - 1])
                     {
-                        myBody.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
-                        myBody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                        myBody.freezeRotation = true;
+                        Driller.Body.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
+                        Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
                     }
                     else
                     {
                         map.instantiatePipe(targetColumn, targetRow, 0, mapPanel);
                         curveId = 3;
                         targetColumn--;
-                        animator.SetBool("isDrillingLeft", false);
+                        Driller.SwitchAnimation("isDrillingLeft", false);
                         PrevInput = DrillingDirection.NONE;
                     }
                 }
@@ -677,7 +655,7 @@ public class DrillingGame : Minigame
                     if (Driller.Drill.rectTransform.anchoredPosition.x != columns[targetColumn])
                         Driller.Drill.rectTransform.anchoredPosition = new Vector2(columns[targetColumn], Driller.Drill.rectTransform.anchoredPosition.y);
                     curveId = 3;
-                    animator.SetBool("isDrillingLeft", false);
+                    Driller.SwitchAnimation("isDrillingLeft", false);
                     PrevInput = DrillingDirection.NONE;
                 }
                 break;
@@ -692,15 +670,13 @@ public class DrillingGame : Minigame
                     else map.instantiatePipe(targetColumn, targetRow, 1, mapPanel);
                     targetRow--;
                 }
-                if (!animator.GetBool("isDrillingUp")) animator.SetBool("isDrillingUp", true);
-                myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-                myBody.freezeRotation = true;
+                if (!Driller.Animator.GetBool("isDrillingUp")) Driller.SwitchAnimation("isDrillingUp", true);
+                Driller.Body.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
                 break;
             default:
-                myBody.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
-                myBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-                myBody.freezeRotation = true;
+                Driller.Body.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
                 break;
         }
     }

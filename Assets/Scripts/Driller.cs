@@ -12,15 +12,23 @@ public class Driller : MonoBehaviour
         get { return Drill.rectTransform.anchoredPosition; }
         set { Drill.rectTransform.anchoredPosition = value; }
     }
+    public Rigidbody2D Body { get; private set; }
 
     void Awake()
     {
         Drill = GetComponent<UnityEngine.UI.Image>();
+        Body = GetComponent<Rigidbody2D>();
     }
 
     void Start()
     {
         
+    }
+
+    void Update()
+    {
+        Body.inertia = 0;
+        Body.freezeRotation = true;
     }
 
     void OnCollisionEnter2D(Collision2D coll)
