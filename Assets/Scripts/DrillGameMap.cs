@@ -11,6 +11,7 @@ public class DrillGameMap : MonoBehaviour
 
     public bool TriggerFlash { get; set; }
     public Vector2 FlashCoords { get; set; }
+    public int GetWaterCount { get { return water.Count; } }
 
     private GameObject ceiling;
     private GameObject rightWall;
