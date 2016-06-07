@@ -39,6 +39,7 @@ public class DrillGameMap : MonoBehaviour
     void Update()
     {
         updateWallsEnabling();
+        checkWaterAndDestroyBottom();
         if (TriggerFlash) FlashNextTile();
     }
 
@@ -179,6 +180,18 @@ public class DrillGameMap : MonoBehaviour
             flashTile.transform.SetAsFirstSibling();
             flashTile.enabled = false;
             TriggerFlash = false;
+        }
+    }
+
+    private void checkWaterAndDestroyBottom()
+    {
+        if (water.Count == 3)
+        {
+            foreach (DrillingGameTile rock in bottomRow)
+            {
+                if (rock != null)
+                    Destroy(rock.gameObject);
+            }
         }
     }
 }

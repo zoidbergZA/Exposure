@@ -816,7 +816,6 @@ public class DrillingGame : Minigame
         else if (stuckTimer <= stuckTime - (stuckTime / 3) && stuckTimer > stuckTime - (stuckTime / 3)*2) drillLife.fillAmount = 0.66f;
         else if (stuckTimer <= stuckTime - (stuckTime / 3) * 2 && stuckTimer > 0.05f) drillLife.fillAmount = 0.33f;
         else drillLife.fillAmount = 0.00f;
-        if (water.Count == 3) foreach (GameObject rock in bottomRow) Destroy(rock);
     }
 
     private void checkDrillerStuck()
