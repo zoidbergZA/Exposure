@@ -62,6 +62,9 @@ public class Scanner : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.RoundStarted)
+            return;
+
         if (GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal && !IsScanning)
         {
             CheckStartScan();
@@ -136,6 +139,9 @@ public class Scanner : MonoBehaviour
 
     private void CheckStartScan()
     {
+        if (GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
+            return;
+
         if (GameManager.Instance.TouchInput)
         {
             if (Input.touches.Length == 2)

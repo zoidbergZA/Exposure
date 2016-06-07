@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     {
         int[] puzzle = LoadDrillingPuzzle(puzzle1);
         
-        StartRound();
+//        StartRound();
     }
 
     void Update()
@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
         return tiles.ToArray();
     }
 
-    private void StartRound()
+    public void StartRound()
     {
         RoundStarted = true;
         TimeLeft = roundTime;
