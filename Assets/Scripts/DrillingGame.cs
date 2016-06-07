@@ -20,7 +20,6 @@ public class DrillingGame : Minigame
     [SerializeField] private float panelSlidingTime = 1.5f;
     [SerializeField] public float stuckTime = 10.0f;
     [SerializeField] private float drillStuckCooldown = 2.0f;
-    [SerializeField] private float flashTileTime = 1.0f;
     [SerializeField] private float joystickArrowFadeSpeed = 2f;
     [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
     [SerializeField] private UnityEngine.UI.Image mainPanel;
@@ -32,7 +31,6 @@ public class DrillingGame : Minigame
     [SerializeField] private UnityEngine.UI.Image waterBar;
     [SerializeField] private UnityEngine.UI.Image steamImage;
     [SerializeField] private UnityEngine.UI.Image drillLife;
-    [SerializeField] private UnityEngine.UI.Image flashTile;
     [SerializeField] private bool AutoWin;
     [SerializeField] private Animator animator;
     [SerializeField] public int[] columns;
@@ -47,21 +45,19 @@ public class DrillingGame : Minigame
     private DrillingGameState state;
     private ToastType toastType;
     private Vector2 initDrillPos;
-    private Vector2 flashCoords;
     private int targetColumn;
     private int targetRow;
     private int levelsCounter = 0;
     private int tileTweenId;
     private int curveId = 0;
     //bools
-    private bool slidingLeft, makeDrill, imagesActivated, joystickShaken, triggerFlash = false;
+    private bool slidingLeft, makeDrill, imagesActivated, joystickShaken = false;
     //timers
     private float toastTimer;
     private float jumpPhaseTimer;
     private float panelSlidingTimer;
     private float drillStuckChecked;
     private float stuckTimer;
-    private float flashTileTimer;
 
     public bool SucceededDrill { get; set; }
     public bool Bumped { get; set; }
@@ -70,7 +66,6 @@ public class DrillingGame : Minigame
     private List<GameObject> UIwater = new List<GameObject>();
     private List<GameObject> bottomRow = new List<GameObject>();
 
-    public DrillingAgent DrillingAgent { get; private set; }
     public ToastType ToastType { get { return toastType; } set { toastType = value; } }
     public DrillingGameState State { get { return state; } }
     public DrillingDirection CurrentInput { get; private set; }
@@ -112,7 +107,6 @@ public class DrillingGame : Minigame
         toastTimer = toastMessageTime;
         jumpPhaseTimer = jumpPhaseTime;
         panelSlidingTimer = panelSlidingTime;
-        flashTileTimer = flashTileTime;
         drillStuckChecked = Time.time;
         if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -(Screen.height) - 700, 0);
         if (drill) initDrillPos = drill.rectTransform.anchoredPosition;
@@ -161,9 +155,6 @@ public class DrillingGame : Minigame
             drillStuckChecked = Time.time;
         }
         updateProgressBars();
-        updateWallsEnabling();
-        if (triggerFlash) FlashTile();
-        //Debug.Log("cur: " + CurrentInput + " | prev: " + PrevInput);
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -567,8 +558,9 @@ public class DrillingGame : Minigame
                     {
                         map.instantiatePipe(targetColumn, targetRow, 1, mapPanel);
                         curveId = 3;
-                        flashCoords = new Vector2(columns[targetColumn + 1], rows[targetRow + 1]);
-                        triggerFlash = true;
+                        map.FlashCoords = new Vector2((DrillGameMap.TILE_WIDTH * targetColumn) + DrillGameMap.TILE_WIDTH,
+                            (DrillGameMap.TILE_HEIGHT * targetRow) + DrillGameMap.TILE_HEIGHT);
+                        map.TriggerFlash = true;
                         targetRow++;
                         animator.SetBool("isDrillingDown", false);
                         PrevInput = DrillingDirection.NONE;
@@ -869,7 +861,6 @@ public class DrillingGame : Minigame
 
     private void resetGameGuts()
     {
-        map.Reset();
         makeDrill = false;
         slidingLeft = false;
         joystickShaken = false;
@@ -890,21 +881,8 @@ public class DrillingGame : Minigame
         waterBar.fillAmount = 0f;
         drillLife.fillAmount = 1f;
         toastType = global::ToastType.NONE;
-    }
 
-    private void FlashTile()
-    {
-        flashTileTimer -= Time.deltaTime;
-        flashTile.rectTransform.anchoredPosition = flashCoords;
-        flashTile.transform.SetAsLastSibling();
-        flashTile.enabled = true;
-        if (flashTileTimer <= 0)
-        {
-            flashTileTimer = flashTileTime;
-            flashTile.transform.SetAsFirstSibling();
-            flashTile.enabled = false;
-            triggerFlash = false;
-        }
+        map.Reset();
     }
 
     public void handleRockCollision(bool entered)

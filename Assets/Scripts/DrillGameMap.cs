@@ -7,11 +7,17 @@ public class DrillGameMap : MonoBehaviour
 
     [SerializeField] private DrillingGameTile[] tilePrefabs;
     [SerializeField] private DrillingGameTile[] pipePrefabs;
+    [SerializeField] private float flashTileTime = 1.0f;
+
+    public bool TriggerFlash { get; set; }
+    public Vector2 FlashCoords { get; set; }
 
     private GameObject ceiling;
     private GameObject rightWall;
     private GameObject leftWall;
     private RectTransform parentPanel;
+    private UnityEngine.UI.Image flashTile;
+    private float flashTileTimer;
     private int[] tileData;
     private DrillingGameTile[,] tiles;
     private List<DrillingGameTile> tilesList = new List<DrillingGameTile>();
@@ -26,11 +32,14 @@ public class DrillGameMap : MonoBehaviour
         ceiling = GameObject.Find("Ceiling");
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
+        if (tilePrefabs[14]) flashTile = tilePrefabs[14].GetComponent<UnityEngine.UI.Image>();
+        flashTileTimer = flashTileTime;
     }
 
     void Update()
     {
         updateWallsEnabling();
+        if (TriggerFlash) FlashNextTile();
     }
 
     public DrillingGameTile GetTileAtCoordinate(int x, int y)
@@ -97,10 +106,10 @@ public class DrillGameMap : MonoBehaviour
 
     public void Reset()
     {
-        foreach (DrillingGameTile tile in tilesList) Destroy(tile);
-        foreach (DrillingGameTile tile in bottomRow) Destroy(tile);
-        foreach (DrillingGameTile tile in UIwater) Destroy(tile);
-        foreach (DrillingGameTile tile in water) Destroy(tile);
+        foreach (DrillingGameTile tile in tilesList) if(tile != null) Destroy(tile.gameObject);
+        foreach (DrillingGameTile tile in bottomRow) if (tile != null) Destroy(tile.gameObject);
+        foreach (DrillingGameTile tile in UIwater) if (tile != null) Destroy(tile.gameObject);
+        foreach (DrillingGameTile tile in water) if (tile != null) Destroy(tile.gameObject);
         tilesList.Clear();
         bottomRow.Clear();
         UIwater.Clear();
@@ -155,6 +164,21 @@ public class DrillGameMap : MonoBehaviour
             if (!ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = true;
             if (!rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = true;
             if (!leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = true;
+        }
+    }
+
+    private void FlashNextTile()
+    {
+        flashTileTimer -= Time.deltaTime;
+        flashTile.rectTransform.anchoredPosition = FlashCoords;
+        flashTile.transform.SetAsLastSibling();
+        flashTile.enabled = true;
+        if (flashTileTimer <= 0)
+        {
+            flashTileTimer = flashTileTime;
+            flashTile.transform.SetAsFirstSibling();
+            flashTile.enabled = false;
+            TriggerFlash = false;
         }
     }
 }
