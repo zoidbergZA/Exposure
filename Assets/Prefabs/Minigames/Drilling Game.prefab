@@ -633,6 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b7ed3efc3325840bd114c42cfdd4c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 9525064}
 --- !u!114 &11421718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -764,7 +765,6 @@ MonoBehaviour:
   geoThermalPlantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae,
     type: 2}
   mainPanel: {fileID: 11421718}
-  drill: {fileID: 11424778}
   joystickArrow: {fileID: 11464182}
   endOkToast: {fileID: 11482542}
   brokenDrillToast: {fileID: 11459920}
@@ -773,13 +773,12 @@ MonoBehaviour:
   steamImage: {fileID: 11410760}
   drillLife: {fileID: 11406088}
   AutoWin: 0
-  animator: {fileID: 9525064}
   columns: 700000009c000000c8000000f4000000200100004c01000078010000a4010000d0010000fc010000280200005402000080020000ac020000d802000004030000300300005c03000088030000
   rows: 84020000580200002c02000000020000d4010000a80100007c0100005001000024010000f8000000cc000000a00000007400000048000000
   easyLevels:
   - {fileID: 4900000, guid: 7cdd732afd1ed204ab5626a03c13526b, type: 3}
   - {fileID: 4900000, guid: 4299a044e8c3c4a498eafb4f9b25e250, type: 3}
-  - {fileID: 4900000, guid: 18cf5613cf7854737ab0348b5d010701, type: 3}
+  - {fileID: 4900000, guid: 6b36c2d0e8022ab47b15d9742c4ab2fc, type: 3}
   mediumLevels:
   - {fileID: 4900000, guid: 325973f867e3a4cf1a4e292624cffcaf, type: 3}
   - {fileID: 4900000, guid: 883cdee42cca54c06a8c5c598d5e8989, type: 3}
@@ -1309,7 +1308,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 19, y: 690}
+  m_AnchoredPosition: {x: 112, y: 690}
   m_SizeDelta: {x: 44, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22424550
