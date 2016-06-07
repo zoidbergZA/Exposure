@@ -71,9 +71,9 @@ public class DrillingGame : Minigame
     public DrillingDirection CurrentInput { get; private set; }
     public DrillingDirection PrevInput { get; private set; }
     public DrillGameMap Map { get { return map; } }
+    public Driller Driller { get; private set; }
     public void MakeDrill(bool value) { makeDrill = value; }
     public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
-    public UnityEngine.UI.Image Drill { get { return drill; } }
     public UnityEngine.UI.Image WaterBar { get { return waterBar; } }
     public UnityEngine.UI.Image DrillLife { get { return drillLife; } }
     public float DiamondValue { get { return diamondValue; } }
@@ -101,6 +101,7 @@ public class DrillingGame : Minigame
 
     void Start()
     {
+        Driller = FindObjectOfType<Driller>();
         activateImages(false);
         targetColumn = -1;
         targetRow = -1;
@@ -109,8 +110,8 @@ public class DrillingGame : Minigame
         panelSlidingTimer = panelSlidingTime;
         drillStuckChecked = Time.time;
         if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -(Screen.height) - 700, 0);
-        if (drill) initDrillPos = drill.rectTransform.anchoredPosition;
-        myBody = drill.GetComponent<Rigidbody2D>();
+        initDrillPos = Driller.Drill.rectTransform.anchoredPosition;
+        myBody = Driller.Drill.GetComponent<Rigidbody2D>();
         SucceededDrill = true;
         levelsCounter = 0;
 //        GameManager.Instance.Joystick.JoystickPanel.transform.SetParent(mainPanel.transform, true);
@@ -139,7 +140,7 @@ public class DrillingGame : Minigame
         if (joystickArrow.color.a > 0)
         {
             joystickArrow.color = new Color(1, 1, 1, joystickArrow.color.a - Time.deltaTime * joystickArrowFadeSpeed);
-            joystickArrow.rectTransform.localPosition = GameManager.Instance.DrillingGame.Drill.rectTransform.localPosition;
+            joystickArrow.rectTransform.localPosition = GameManager.Instance.DrillingGame.Driller.Drill.rectTransform.localPosition;
         }
     }
 
@@ -163,7 +164,7 @@ public class DrillingGame : Minigame
         this.drillspot = drillspot;
         Begin(difficulty);
         imagesActivated = true;
-        drill.transform.SetAsLastSibling();
+        Driller.Drill.transform.SetAsLastSibling();
         if (animator) animator.SetBool("isSlidingLeft", false);
 //        GameManager.Instance.Joystick.InnerPad.GetComponent<UnityEngine.UI.Image>().rectTransform.anchoredPosition = new Vector2(0, 0);
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0,100,0), panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
@@ -373,7 +374,7 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-        if (!ReachedBottom(636, drill)) updateDrilling();
+        if (!ReachedBottom((DrillGameMap.MAP_HEIGHT * DrillGameMap.TILE_HEIGHT) * DrillGameMap.TILE_HEIGHT, Driller.Drill)) updateDrilling();
         else state = DrillingGameState.SUCCESS;
     }
 
@@ -889,12 +890,12 @@ public class DrillingGame : Minigame
     {
         if (entered)
         {
-            drill.color = new Color(1, 0, 0);
+            Driller.Drill.color = new Color(1, 0, 0);
             drillLife.color = new Color(1, 0, 0);
         }
         else
         {
-            drill.color = new Color(1, 1, 1);
+            Driller.Drill.color = new Color(1, 1, 1);
             drillLife.color = new Color(1, 1, 1);
         }
         Bumped = entered;
@@ -905,7 +906,7 @@ public class DrillingGame : Minigame
         SucceededDrill = false;
         state = DrillingGame.DrillingGameState.STARTSTOPTOAST;
         toastType = global::ToastType.BROKEN_PIPE;
-        drill.color = new Color(1, 0, 0);
+        Driller.Drill.color = new Color(1, 0, 0);
         drillLife.color = new Color(1, 0, 0);
     }
 
@@ -914,7 +915,7 @@ public class DrillingGame : Minigame
         SucceededDrill = false;
         state = DrillingGame.DrillingGameState.STARTSTOPTOAST;
         toastType = global::ToastType.EXPLODED_BOMB;
-        drill.color = new Color(1, 0, 0);
+        Driller.Drill.color = new Color(1, 0, 0);
         drillLife.color = new Color(1, 0, 0);
     }
 
@@ -923,7 +924,7 @@ public class DrillingGame : Minigame
         SucceededDrill = false;
         state = DrillingGame.DrillingGameState.STARTSTOPTOAST;
         toastType = global::ToastType.TRIGGERED_BOMB;
-        drill.color = new Color(1, 0, 0);
+        Driller.Drill.color = new Color(1, 0, 0);
         drillLife.color = new Color(1, 0, 0);
     }
 

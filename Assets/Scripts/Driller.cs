@@ -3,6 +3,12 @@ using System.Collections;
 
 public class Driller : MonoBehaviour
 {
+    public UnityEngine.UI.Image Drill { get; private set; }
+
+    void Start()
+    {
+        Drill = GetComponent<UnityEngine.UI.Image>();
+    }
     void OnCollisionEnter2D(Collision2D coll)
     {
         switch(coll.gameObject.tag)

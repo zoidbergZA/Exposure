@@ -159,7 +159,7 @@ public class DrillGameMap : MonoBehaviour
 
     private void updateWallsEnabling()
     {
-        if (GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition.y <= (MAP_HEIGHT * TILE_HEIGHT) - TILE_HEIGHT)
+        if (GameManager.Instance.DrillingGame.Driller.Drill.rectTransform.anchoredPosition.y <= (MAP_HEIGHT * TILE_HEIGHT) - TILE_HEIGHT)
         {
             if (!ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = true;
             if (!rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = true;
