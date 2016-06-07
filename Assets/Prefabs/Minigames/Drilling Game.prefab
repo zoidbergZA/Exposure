@@ -251,7 +251,6 @@ GameObject:
   - 4: {fileID: 437996}
   - 114: {fileID: 11439368}
   - 114: {fileID: 11438222}
-  - 114: {fileID: 11468696}
   m_Layer: 0
   m_Name: Drilling Game
   m_TagString: Untagged
@@ -490,7 +489,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 40, y: 40}
+  m_Size: {x: 38, y: 38}
 --- !u!95 &9525064
 Animator:
   serializedVersion: 3
@@ -1001,28 +1000,6 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
---- !u!114 &11468696
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 163044}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a6c0048d12d95f4098b9cc82efd9dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilePrefabs:
-  - {fileID: 11419950, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
-  - {fileID: 11499880, guid: cea2cbff206580848b084e0e850d9d3f, type: 2}
-  - {fileID: 11477200, guid: efc001b50a2b2e2478eae8f2ef8176f3, type: 2}
-  - {fileID: 11481312, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
-  - {fileID: 11449764, guid: b27c5892d4842b94f848bb05181d0c51, type: 2}
-  - {fileID: 11430186, guid: 99c563d53e12c414384523e01c684524, type: 2}
-  - {fileID: 11433280, guid: 0adbfd2e25f11304bb5b2f0378290b8e, type: 2}
-  - {fileID: 11463116, guid: 3267db04b997f7d4692353b2d7721a44, type: 2}
-  - {fileID: 11458866, guid: c7d1a6ebfaf5c864d9a4439acaf2ef92, type: 2}
-  pipePrefabs: []
 --- !u!114 &11474716
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 
 public class DrillGameMap : MonoBehaviour
 {
-    public Vector2 Dimmensions { get; private set; }
-    public Vector2 TileSize { get; private set; }
     public Rect BoundingRect { get; private set; }
 
     [SerializeField] private DrillingGameTile[] tilePrefabs;
     [SerializeField] private DrillingGameTile[] pipePrefabs;
 
+    private GameObject ceiling;
+    private GameObject rightWall;
+    private GameObject leftWall;
     private RectTransform parentPanel;
     private int[] tileData;
     private DrillingGameTile[,] tiles;
@@ -20,14 +21,16 @@ public class DrillGameMap : MonoBehaviour
 
     public const int TILE_WIDTH = 44, TILE_HEIGHT = 44, MAP_WIDTH = 19, MAP_HEIGHT = 14;
 
+    void Start()
+    {
+        ceiling = GameObject.Find("Ceiling");
+        rightWall = GameObject.Find("Right wall");
+        leftWall = GameObject.Find("Left wall");
+    }
+
     void Update()
     {
-//        float phase = Time.time*0.1f;
-//        int x = 2;
-//        int y = Mathf.FloorToInt(phase);
-//
-//        DrillingGameTile tile = GetTileAtCoordinate(x, y);
-//        Debug.Log(x + ", " + y + ", " + tile.name);
+        updateWallsEnabling();
     }
 
     public DrillingGameTile GetTileAtCoordinate(int x, int y)
@@ -37,7 +40,7 @@ public class DrillGameMap : MonoBehaviour
 
     public Vector2 GetTilePivotPosition(int x, int y)
     {
-        return  new Vector2(TileSize.x * x + TileSize.x/2f, TileSize.y * Dimmensions.y - TileSize.y * y - TileSize.x / 2f);
+        return new Vector2(TILE_WIDTH * x + TILE_WIDTH / 2f, TILE_HEIGHT * MAP_HEIGHT - TILE_HEIGHT * y - TILE_WIDTH / 2f);
     }
 
     public Vector2 GetCoordinateAt(Vector2 position)
@@ -47,30 +50,28 @@ public class DrillGameMap : MonoBehaviour
             Debug.LogException(new UnityException("GetCoordinate our of bounds!"));
         }
 
-        Vector2 coord = new Vector2(position.x / TileSize.x, position.y / TileSize.y);
+        Vector2 coord = new Vector2(position.x / TILE_WIDTH, position.y / TILE_HEIGHT);
         coord.x = Mathf.FloorToInt(coord.x);
         coord.y = Mathf.FloorToInt(coord.y);
 
         return coord;
     }
 
-    public void Initialize(RectTransform parentPanel, Vector2 dimmensions, Vector2 tileSize, int[] tileData)
+    public void Initialize(RectTransform parentPanel, int[] tileData)
     {
-        Dimmensions = dimmensions;
-        TileSize = tileSize;
         this.tileData = tileData;
-        BoundingRect = new Rect(0, 0, Dimmensions.x * TileSize.x, Dimmensions.y * TileSize.y);
-        tiles = new DrillingGameTile[(int)dimmensions.x, (int)dimmensions.y];
+        BoundingRect = new Rect(0, 0, MAP_WIDTH * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT);
+        tiles = new DrillingGameTile[MAP_WIDTH, MAP_HEIGHT];
 
         //set parent panel size
-        parentPanel.sizeDelta = new Vector2(dimmensions.x * tileSize.x, dimmensions.y * tileSize.y);
+        parentPanel.sizeDelta = new Vector2(MAP_WIDTH * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT);
 
         //populate map
-        for (int i = 0; i < dimmensions.y; i++)
+        for (int i = 0; i < MAP_HEIGHT; i++)
         {
-            for (int j = 0; j < dimmensions.x; j++)
+            for (int j = 0; j < MAP_WIDTH; j++)
             {
-                int id = tileData[((int)dimmensions.x * i) + j];
+                int id = tileData[(MAP_WIDTH * i) + j];
 
                 if (id >= 0)
                 {
@@ -80,12 +81,12 @@ public class DrillGameMap : MonoBehaviour
                     if (id == 7)
                     {
                         UIwater.Add(t);
-                        relocateWaterTiles(UIwater.Count, t, j * (int)tileSize.x, (int)dimmensions.y * (int)tileSize.y - i * (int)tileSize.y);
+                        relocateWaterTiles(UIwater.Count, t, j * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT - i * TILE_HEIGHT);
                     }
                     else
                     {
                         t.GetComponent<RectTransform>().localScale = Vector3.one;
-                        t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * tileSize.x, dimmensions.y * tileSize.y - i * tileSize.y);
+                        t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT - i * TILE_HEIGHT);
                     }
                     tilesList.Add(t);
                     if (id == 4 && j == 14) bottomRow.Add(t);
@@ -94,7 +95,7 @@ public class DrillGameMap : MonoBehaviour
         }
     }
 
-    public void ClearMap()
+    public void Reset()
     {
         foreach (DrillingGameTile tile in tilesList) Destroy(tile);
         foreach (DrillingGameTile tile in bottomRow) Destroy(tile);
@@ -104,6 +105,10 @@ public class DrillGameMap : MonoBehaviour
         bottomRow.Clear();
         UIwater.Clear();
         water.Clear();
+
+        if (ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = false;
+        if (rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = false;
+        if (leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = false;
     }
 
     public void AddWater(DrillingGameTile waterPiece)
@@ -133,13 +138,23 @@ public class DrillGameMap : MonoBehaviour
         }
     }
 
-    public void instantiatePipe(int x, int y, int pipeId, RectTransform parentPanel, Vector2 tileSize, Vector2 dimentions)
+    public void instantiatePipe(int x, int y, int pipeId, RectTransform parentPanel)
     {
         DrillingGameTile pipe = Instantiate(pipePrefabs[pipeId]);
         pipe.transform.SetParent(parentPanel, false);
-        pipe.GetComponent<RectTransform>().anchoredPosition = new Vector2(x * tileSize.x, dimentions.y * tileSize.y - y * tileSize.y);
+        pipe.GetComponent<RectTransform>().anchoredPosition = new Vector2(x * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT - y * TILE_HEIGHT);
         pipe.GetComponent<RectTransform>().localScale = Vector3.one;
         pipe.gameObject.SetActive(true);
         tilesList.Add(pipe);
+    }
+
+    private void updateWallsEnabling()
+    {
+        if (GameManager.Instance.DrillingGame.Drill.rectTransform.anchoredPosition.y <= (MAP_HEIGHT * TILE_HEIGHT) - TILE_HEIGHT)
+        {
+            if (!ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = true;
+            if (!rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = true;
+            if (!leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = true;
+        }
     }
 }
