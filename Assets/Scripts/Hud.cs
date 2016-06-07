@@ -19,7 +19,7 @@ public class Hud : MonoBehaviour
 
     private int buttonSize = 55;
     private int buttonIndent = 10;
-
+    
     private int wobblerTweenId;
     private int scorePanelTweenId;
     private int cablePanelTweenId;
@@ -42,6 +42,7 @@ public class Hud : MonoBehaviour
         timeText.text = niceTime;
         scoreText.text = GameManager.Instance.Player.Score.ToString();
         cableText.text = GameManager.Instance.Player.Cable.ToString();
+       
 
         //        //arrow test
         //        City closestCity = GameManager.Instance.GridBuilder.FindClosestCity(Vector3.zero);
