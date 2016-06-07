@@ -32,7 +32,7 @@ public class DrillGameMap : MonoBehaviour
         ceiling = GameObject.Find("Ceiling");
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
-        if (tilePrefabs[14]) flashTile = tilePrefabs[14].GetComponent<UnityEngine.UI.Image>();
+        if (tilePrefabs[13]) flashTile = tilePrefabs[13].GetComponent<UnityEngine.UI.Image>();
         flashTileTimer = flashTileTime;
     }
 
