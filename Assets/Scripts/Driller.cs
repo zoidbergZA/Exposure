@@ -3,6 +3,12 @@ using System.Collections;
 
 public class Driller : MonoBehaviour
 {
+    public UnityEngine.UI.Image Drill { get; private set; }
+
+    void Start()
+    {
+        Drill = GetComponent<UnityEngine.UI.Image>();
+    }
     void OnCollisionEnter2D(Collision2D coll)
     {
         switch(coll.gameObject.tag)
@@ -22,7 +28,6 @@ public class Driller : MonoBehaviour
                 Destroy(coll.gameObject);
                 break;
             case "Water":
-                GameManager.Instance.DrillingGame.AddWater(coll.gameObject);
                 GameManager.Instance.DrillingGame.Map.AddWater(coll.gameObject.GetComponent<DrillingGameTile>());
                 if(GameManager.Instance.DrillingGame.GetWaterCount <= 3) 
                     LeanTween.scale(GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>(),
@@ -33,9 +38,11 @@ public class Driller : MonoBehaviour
                 GameManager.Instance.DrillingGame.handlePipeCollision();
                 break;
             case "Mine":
+                //todo the same as pipe but with different animation
                 GameManager.Instance.DrillingGame.handlePipeCollision();
                 break;
             case "MineArea":
+                //todo countdown
                 GameManager.Instance.DrillingGame.handlePipeCollision();
                 break;
             case "DrillLife":
