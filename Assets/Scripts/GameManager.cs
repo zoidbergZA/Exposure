@@ -35,7 +35,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
-    
+    private Tutorial tutorial;
+
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Planet Planet { get; private set; }
     public City[] Cities { get; private set; }
@@ -72,24 +73,27 @@ public class GameManager : MonoBehaviour
             TotalChimneys += Cities[i].ChimneyCount;
         }
 
-        Tutorial tutorial = FindObjectOfType<Tutorial>();
+        tutorial = FindObjectOfType<Tutorial>();
 
         if (enableTutorial)
         {
             if (!tutorial)
-                Instantiate(TutorialPrefab);
+                tutorial = Instantiate(TutorialPrefab);
         }
         else if (tutorial)
         {
             Destroy(tutorial.gameObject);
         }
+
+        //disable tutorial at awake, enable at StartRound()
+        if (tutorial)
+            tutorial.gameObject.SetActive(false);
+
     }
 
     void Start()
     {
         int[] puzzle = LoadDrillingPuzzle(puzzle1);
-        
-//        StartRound();
     }
 
     void Update()
@@ -158,6 +162,12 @@ public class GameManager : MonoBehaviour
     {
         RoundStarted = true;
         TimeLeft = roundTime;
+
+        if (tutorial)
+        {
+            tutorial.gameObject.SetActive(true);
+            tutorial.SetProgress(Tutorial.Progression.ActivateScanner);
+        }
     }
 
     private void EndRound()

@@ -1957,6 +1957,10 @@ Prefab:
       propertyPath: enableTutorial
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: puzzle1
+      value: 
+      objectReference: {fileID: 4900000, guid: 4299a044e8c3c4a498eafb4f9b25e250, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
