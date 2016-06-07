@@ -1947,7 +1947,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: touchScreenInput
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: showDebug
@@ -8032,7 +8032,7 @@ Transform:
   m_LocalScale: {x: 5.6422844, y: 5.642291, z: 5.642291}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
 --- !u!1001 &658938692
 Prefab:
   m_ObjectHideFlags: 0
@@ -9968,7 +9968,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1001 &835185322
 Prefab:
   m_ObjectHideFlags: 0
@@ -14775,7 +14775,7 @@ Transform:
   - {fileID: 1205791915}
   - {fileID: 822917859}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1001 &1319961440
 Prefab:
   m_ObjectHideFlags: 0
