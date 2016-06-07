@@ -78,7 +78,7 @@ public class Scanner : MonoBehaviour
 
     void OnGUI()
     {
-        if (IsScanning)
+        if (IsScanning && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
         {
             //draw scanning debug
             GUI.Label(new Rect(startPoint.x - 25f, Screen.height - startPoint.y - 25f, 50f, 50f), touchIcon);
