@@ -518,11 +518,6 @@ MonoBehaviour:
   cablePanel: {fileID: 163702}
   cableText: {fileID: 11472894}
   gameOverPanel: {fileID: 120254}
-  upButton: {fileID: 0}
-  leftButton: {fileID: 0}
-  rightButton: {fileID: 0}
-  downButton: {fileID: 0}
-  buttonSize: 55
 --- !u!114 &11430870
 MonoBehaviour:
   m_ObjectHideFlags: 1

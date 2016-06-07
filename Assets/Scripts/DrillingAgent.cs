@@ -7,7 +7,7 @@ public class DrillingAgent : MonoBehaviour
     public RectTransform RectTransform { get; private set; }
     public DrillingDirection DrillingDirection { get; private set; }
     public DrillingDirection NextDirection { get; private set; }
-    public Vector2 CurrentTile { get; private set; } // current point of control (where direction will change)
+    public Vector2 CurrentTile { get; private set; } // current point of control (where Direction will change)
 
     void Awake()
     {
@@ -38,9 +38,9 @@ public class DrillingAgent : MonoBehaviour
 
     private void OnCurrentTileReached()
     {
-        //set current tile based on movement direction
+        //set current tile based on movement Direction
 
-        //change current DrillingDirection to next direction
+        //change current DrillingDirection to next Direction
 
         //handle collition with next tile
     }

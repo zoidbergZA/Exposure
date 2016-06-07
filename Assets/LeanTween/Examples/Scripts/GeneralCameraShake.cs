@@ -63,7 +63,7 @@ public class GeneralCameraShake : MonoBehaviour {
 		        GameObject[] lamps = GameObject.FindGameObjectsWithTag("GameController"); // I just arbitrarily tagged the lamps with this since it was available in the scene
 		        foreach (GameObject lamp in lamps) {
 		        	float z = lamp.transform.eulerAngles.z;
-		        	z = z > 0.0f && z < 180f ? 1 : -1; // push the lamps in whatever direction they are currently swinging
+		        	z = z > 0.0f && z < 180f ? 1 : -1; // push the lamps in whatever Direction they are currently swinging
 		            lamp.GetComponent<Rigidbody>().AddForce(new Vector3(z, 0f, 0f ) * 15 * height);
 		        }
 

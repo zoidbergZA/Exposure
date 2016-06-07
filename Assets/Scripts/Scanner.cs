@@ -12,6 +12,7 @@ public class Scanner : MonoBehaviour
     public float maxRadius = 100f;
     public float limiter = 100f;
 
+    [SerializeField] private float goodIconSize = 190f;
     [SerializeField] private float gadgetOffset = 20f;
     [SerializeField] private float maxScanDistance = 250f;
     [SerializeField] private float minScanDistance = 150f;
@@ -85,7 +86,7 @@ public class Scanner : MonoBehaviour
 
             if (isOnHotspot)
             {
-                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, 200, 200)), goodIcon);
+                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, goodIconSize, goodIconSize)), goodIcon);
 
 //                progress = ((Progress*100f)).ToString("F0");
 

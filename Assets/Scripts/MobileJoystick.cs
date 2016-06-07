@@ -3,104 +3,115 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class MobileJoystick : MonoBehaviour
 {
-    public enum AxisOption
+    [SerializeField] private GameObject joystickPanel;
+    [SerializeField] private float minDragDistance = 20f;
+
+    public DrillingDirection CurrentInput { get; private set; }
+    public GameObject JoystickPanel { get { return joystickPanel; } }
+    public Vector2 JoystickInput { get; private set; }
+
+    private Vector2 dragPrevious;
+    private Vector2 dragStart;
+
+    void Awake()
     {
-        // Options for which axes to use
-        Both, // Use both
-        OnlyHorizontal, // Only horizontal
-        OnlyVertical // Only vertical
+        CurrentInput = DrillingDirection.NONE;   
     }
 
-    public int MovementRange = 100;
-    public AxisOption axesToUse = AxisOption.Both; // The options for the axes that the still will use
-    public string horizontalAxisName = "Horizontal"; // The name given to the horizontal axis for the cross platform input
-    public string verticalAxisName = "Vertical"; // The name given to the vertical axis for the cross platform input
-
-    Vector3 m_StartPos;
-    bool m_UseX; // Toggle for using the x axis
-    bool m_UseY; // Toggle for using the Y axis
-    CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis; // Reference to the joystick in the cross platform input
-    CrossPlatformInputManager.VirtualAxis m_VerticalVirtualAxis; // Reference to the joystick in the cross platform input
-
-    public Vector3 StartPosition { set { m_StartPos = value; } }
-
-    void Start()
+    void Update()
     {
-        CreateVirtualAxes(); //chiggy
+        UpdateInput();
+        //Debug.Log("x: " + joystickX + " | y: " + joystickY);
+//        Debug.Log(CurrentInput);
     }
 
-    void UpdateVirtualAxes(Vector3 value)
+    private void UpdateInput()
     {
-        var delta = m_StartPos - value;
-        delta.y = -delta.y;
-        delta /= MovementRange;
-        GameManager.Instance.Hud.JoystickX = -delta.x;
-        GameManager.Instance.Hud.JoystickY = delta.y;
-    }
+        Vector2 input = Vector2.zero;
 
-    void CreateVirtualAxes()
-    {
-        // set axes to use
-        m_UseX = (axesToUse == AxisOption.Both || axesToUse == AxisOption.OnlyHorizontal);
-        m_UseY = (axesToUse == AxisOption.Both || axesToUse == AxisOption.OnlyVertical);
-    }
-
-
-    public void OnDrag(PointerEventData data)
-    {
-        Vector3 newPos = Vector3.zero;
-
-        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
+        if (GameManager.Instance.TouchInput)
         {
-            if (m_UseY)
+            if (Input.touchCount > 0)
             {
-                int delta = (int)(data.position.y - m_StartPos.y);
-                newPos.y = delta;
-            }
-        }
-        else if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
-        {
-            if (GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.DOWN ||
-                GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.UP)
-            {
-                if (m_UseX)
+                if (Input.touches[0].phase == TouchPhase.Began)
                 {
-                    int delta = (int)(data.position.x - m_StartPos.x);
-                    newPos.x = delta;
+                    dragStart = Input.touches[0].position;
+                    input = Input.touches[0].position - (Vector2)GameManager.Instance.DrillingGame.Drill.rectTransform.position;
+                    dragPrevious = Input.touches[0].position;
                 }
-            }
-            else if (GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.RIGHT ||
-                GameManager.Instance.DrillingGame.DrillDirection == DrillingDirection.LEFT)
-            {
-                if (m_UseY)
+                else if (Input.touches[0].phase == TouchPhase.Moved)
                 {
-                    int delta = (int)(data.position.y - m_StartPos.y);
-                    newPos.y = delta;
+                    Vector2 dragDelta = Input.touches[0].position - dragStart;
+
+                    if (dragDelta.sqrMagnitude >= minDragDistance)
+                    {
+                        input = Input.touches[0].deltaPosition;
+                    }
                 }
             }
         }
-        transform.position = Vector3.ClampMagnitude(new Vector3(newPos.x, newPos.y, newPos.z), MovementRange) + m_StartPos;
-        UpdateVirtualAxes(transform.position);
-    }
-
-
-    public void OnPointerUp(PointerEventData data)
-    {
-        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING ||
-            GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+        else
         {
-            transform.position = m_StartPos;
-            UpdateVirtualAxes(m_StartPos);
+            //try keyboard input first
+            if (Input.GetKey(KeyCode.UpArrow))
+                input.y = 1f;
+            else if (Input.GetKey(KeyCode.DownArrow))
+                input.y = -1f;
+            else if (Input.GetKey(KeyCode.LeftArrow))
+                input.x = -1f;
+            else if (Input.GetKey(KeyCode.RightArrow))
+                input.x = 1f;
+
+            //then try mouse input
+            if (input.sqrMagnitude < 0.1f)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    dragStart = Input.mousePosition;
+                    input = Input.mousePosition - GameManager.Instance.DrillingGame.Drill.rectTransform.position;
+                    dragPrevious = Input.mousePosition;
+                }
+
+                else if (Input.GetMouseButton(0))
+                {
+                    Vector2 dragDelta = (Vector2)Input.mousePosition - dragStart;
+
+                    if (dragDelta.sqrMagnitude >= minDragDistance)
+                    {
+                        input = (Vector2) Input.mousePosition - dragPrevious;
+                    }
+
+                    dragPrevious = Input.mousePosition;
+                }
+            }
         }
+
+        JoystickInput = input;
+        SetCurrentDirection();
     }
 
-
-    public void OnPointerDown(PointerEventData data) { }
-
-    void OnDisable()
+    private void SetCurrentDirection()
     {
-        
+        if (JoystickInput.sqrMagnitude < 0.1f)
+            return;
+
+        if (Mathf.Abs(JoystickInput.x) > Mathf.Abs(JoystickInput.y))
+        {
+            if (JoystickInput.x < 0)
+                CurrentInput = DrillingDirection.LEFT;
+            else
+                CurrentInput = DrillingDirection.RIGHT;
+        }
+        else
+        {
+            if (JoystickInput.y < 0)
+                CurrentInput = DrillingDirection.DOWN;
+            else
+                CurrentInput = DrillingDirection.UP;
+        }
+
+        GameManager.Instance.DrillingGame.PointJoystickArrow(CurrentInput);
     }
 }
