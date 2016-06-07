@@ -5,9 +5,14 @@ public class Driller : MonoBehaviour
 {
     public UnityEngine.UI.Image Drill { get; private set; }
 
-    void Start()
+    void Awake()
     {
         Drill = GetComponent<UnityEngine.UI.Image>();
+    }
+
+    void Start()
+    {
+        
     }
     void OnCollisionEnter2D(Collision2D coll)
     {
