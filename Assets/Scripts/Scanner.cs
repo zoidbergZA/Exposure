@@ -217,13 +217,14 @@ public class Scanner : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             float scanDelta = Vector3.Distance(hit.point, Camera.main.transform.position);
-            radius = Mathf.Clamp(scanDelta * 0.161f, 0f, maxRadius);
+//            radius = Mathf.Clamp(scanDelta * 0.161f, 0f, maxRadius);
+            radius = maxRadius;
 
-            gadget.localScale = new Vector3(radius*2.5f, radius*2.5f, radius*2.5f);
+            gadget.localScale = new Vector3(maxRadius, maxRadius, maxRadius);
 
             //offset
             Vector3 offset = (GameManager.Instance.Planet.transform.position - gadget.position).normalized;
-            gadget.position = hit.point + offset * gadgetOffset;
+            gadget.position = hit.point;
             //            gadget.LookAt((gadget.position - offset) * 10);
             //            gadget.LookAt(Camera.main.transform.position);
             gadget.LookAt(hit.point);
