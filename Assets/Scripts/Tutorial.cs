@@ -75,6 +75,8 @@ public class Tutorial : MonoBehaviour
 
     private void ShowPrompt()
     {
+        DisableAllTips();
+
         switch (progress)
         {
             case Progression.ActivateScanner:

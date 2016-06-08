@@ -12,12 +12,12 @@ public class Arguments : MonoBehaviour
 	
 	void Awake()
     {
-		string[] arguments = Environment.GetCommandLineArgs();
-		userID = Convert.ToInt32(arguments[2]);
-		gameID = Convert.ToInt32(arguments[3]);
-		username = arguments[4];
-		gametime = Convert.ToInt32(arguments[5]);
-		conURL = arguments[6];
+//		string[] arguments = Environment.GetCommandLineArgs();
+//		userID = Convert.ToInt32(arguments[2]);
+//		gameID = Convert.ToInt32(arguments[3]);
+//		username = arguments[4];
+//		gametime = Convert.ToInt32(arguments[5]);
+//		conURL = arguments[6];
 	}
 	
 	public int getUserID()
