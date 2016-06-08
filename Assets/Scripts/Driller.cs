@@ -6,11 +6,20 @@ public class Driller : MonoBehaviour
     [SerializeField] private Animator animator;
     public UnityEngine.UI.Image Drill { get; private set; }
     public Animator Animator { get { return animator; } }
-    public const int ANCHORED_OFFSET = 112;
+    public const int ANCHORED_X_OFFSET = 112;
+    public const int ANCHORED_Y_OFFSET = 690;
     public Vector2 Position
     { 
-        get { return Drill.rectTransform.anchoredPosition; }
-        set { Drill.rectTransform.anchoredPosition = value; }
+        get
+        { 
+            return new Vector2(Drill.rectTransform.anchoredPosition.x - ANCHORED_X_OFFSET, Drill.rectTransform.anchoredPosition.y - ANCHORED_Y_OFFSET); 
+        }
+        set
+        { 
+            Drill.rectTransform.anchoredPosition = value;
+            Drill.rectTransform.anchoredPosition = 
+                new Vector2(Drill.rectTransform.anchoredPosition.x + ANCHORED_X_OFFSET, Drill.rectTransform.anchoredPosition.y + ANCHORED_Y_OFFSET);
+        }
     }
     public Rigidbody2D Body { get; private set; }
 
@@ -57,7 +66,8 @@ public class Driller : MonoBehaviour
                 Destroy(coll.gameObject);
                 break;
             case "Pipe":
-                handlePipeCollision();
+                handleRockCollision(true);
+                //handlePipeCollision();
                 break;
             case "Mine":
                 //todo the same as pipe but with different animation
@@ -118,7 +128,7 @@ public class Driller : MonoBehaviour
             Drill.color = new Color(1, 1, 1);
             GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 1, 1);
         }
-        GameManager.Instance.DrillingGame.Bumped = entered;
+        GameManager.Instance.DrillingGame.Bumped = true;
     }
 
     public void handlePipeCollision()
