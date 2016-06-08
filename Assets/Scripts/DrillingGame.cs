@@ -121,7 +121,7 @@ public class DrillingGame : Minigame
             joystickArrow.color = new Color(1, 1, 1, joystickArrow.color.a - Time.deltaTime * joystickArrowFadeSpeed);
             joystickArrow.rectTransform.localPosition = GameManager.Instance.DrillingGame.Driller.Drill.rectTransform.localPosition;
         }
-        Debug.Log("x: " + Driller.Position.x + " | y: " + Driller.Position.y);
+        Debug.Log("x: " + Driller.Position.x + " | y: " + Driller.Position.y + " | row: " + targetRow);
     }
 
 
@@ -397,7 +397,7 @@ public class DrillingGame : Minigame
                 }
                 break;
             case DrillingDirection.NONE:
-                if (targetRow < MAP_WIDTH - 1 && Driller.Position.y >= (TILE_SIZE * targetRow) + TILE_SIZE)
+                if (targetRow < MAP_HEIGHT - 1 && Driller.Position.y <= (TILE_SIZE * -targetRow) - TILE_SIZE)
                 {
                     if(JoystickJustMoved)
                     {
@@ -421,7 +421,7 @@ public class DrillingGame : Minigame
             case DrillingDirection.DOWN:
                 if (targetRow < MAP_HEIGHT - 1 && !Bumped)
                 {
-                    if (Driller.Position.y > (TILE_SIZE * targetRow) + TILE_SIZE)
+                    if (Driller.Position.y > (TILE_SIZE * -targetRow) - TILE_SIZE)
                     {
                         Driller.Body.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
                         Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
@@ -446,7 +446,7 @@ public class DrillingGame : Minigame
             case DrillingDirection.UP:
                 if (targetRow > 0 && !Bumped)
                 {
-                    if (Driller.Position.y < (TILE_SIZE * targetRow) - TILE_SIZE)
+                    if (Driller.Position.y < (TILE_SIZE * -targetRow) + TILE_SIZE)
                     {
                         Driller.Body.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
                         Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
@@ -493,7 +493,7 @@ public class DrillingGame : Minigame
             case DrillingDirection.DOWN:
                 if (targetRow < MAP_HEIGHT - 1 && !Bumped)
                 {
-                    if (Driller.Position.y > (TILE_SIZE * targetRow) + TILE_SIZE)
+                    if (Driller.Position.y > (TILE_SIZE * -targetRow) - TILE_SIZE)
                     {
                         Driller.Body.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
                         Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
@@ -520,7 +520,7 @@ public class DrillingGame : Minigame
             case DrillingDirection.UP:
                 if (targetRow > 0 && !Bumped)
                 {
-                    if (Driller.Position.y < (TILE_SIZE * targetRow) - TILE_SIZE)
+                    if (Driller.Position.y < (TILE_SIZE * -targetRow) + TILE_SIZE)
                     {
                         Driller.Body.AddRelativeForce(new Vector2(0, 1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill up
                         Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
@@ -615,7 +615,7 @@ public class DrillingGame : Minigame
                 }
                 break;
             case DrillingDirection.NONE:
-                if (targetRow > 0 && Driller.Position.y >= (TILE_SIZE * targetRow) - TILE_SIZE)
+                if (targetRow > 0 && Driller.Position.y >= (TILE_SIZE * -targetRow) + TILE_SIZE)
                 {
                     if (JoystickJustMoved)
                     {
