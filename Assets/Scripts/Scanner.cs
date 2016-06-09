@@ -8,9 +8,12 @@ public class Scanner : MonoBehaviour
     public Texture2D selectedIcon;
 
     [SerializeField] private float maxCharge = 100f;
+    [SerializeField] private float shrinkSpeed = 10f;
+    [SerializeField] private GameObject gadgetModel;
 
     private Material material;
     private Renderer renderer;
+    private Collider collider;
 
     public City SelectedCity { get; private set; }
     public float Charge { get; private set; }
@@ -19,6 +22,13 @@ public class Scanner : MonoBehaviour
     public float ChargeFraction
     {
         get { return Charge/maxCharge; }
+    }
+
+    void Awake()
+    {
+        collider = GetComponent<Collider>();
+        collider.enabled = false;
+        gadgetModel.SetActive(false);
     }
     
     void Start()
@@ -32,9 +42,16 @@ public class Scanner : MonoBehaviour
         if (!GameManager.Instance.RoundStarted)
             return;
 
-        HandleInput();
+        if (Charge > 0)
+            Charge -= Time.deltaTime * shrinkSpeed;
 
-        material.SetFloat("_Radius", maxCharge); //todo: set to actual charge left
+        CheckStartStop();
+
+//        Debug.Log(IsScanning + ", " + Charge);
+
+        HandleScanning();
+
+        material.SetFloat("_Radius", Charge);
     }
 
     void OnGUI()
@@ -47,22 +64,68 @@ public class Scanner : MonoBehaviour
         }
     }
 
-    public void HandleInput()
+    private void CheckStartStop()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (IsScanning)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            if (Charge <= 0f)
             {
-                City city = hit.transform.GetComponent<City>();
-                if (city)
+                EndScan();
+            }
+            else if (GameManager.Instance.TouchInput && Input.touchCount == 0)
+                EndScan();
+            else if (!GameManager.Instance.TouchInput && !Input.GetMouseButton(0))
+                EndScan();
+        }
+        else
+        {
+            if (GameManager.Instance.TouchInput)
+            {
+
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(0))
                 {
-                    SelectedCity = city;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        UpdateScannerPosition(hit.point);
+
+                        City city = hit.transform.GetComponent<City>();
+                        if (city)
+                        {
+                            SelectedCity = city;
+                            StartScan();
+                        }
+                    }
                 }
             }
         }
+    }
+
+    private void StartScan()
+    {
+        IsScanning = true;
+        collider.enabled = true;
+        gadgetModel.SetActive(true);
+        Charge = maxCharge;
+    }
+
+    private void EndScan()
+    {
+        IsScanning = false;
+        collider.enabled = false;
+        gadgetModel.SetActive(false);
+        Charge = 0f;
+        SelectedCity.Reset();
+    }
+
+    private void HandleScanning()
+    {
+        gadgetModel.transform.localScale = new Vector3(Charge, Charge, Charge);
 
         if (Input.GetMouseButton(0))
         {
@@ -72,7 +135,7 @@ public class Scanner : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 UpdateScannerPosition(hit.point);
-
+              
                 Pylon pylon = hit.transform.GetComponent<Pylon>();
                 if (pylon)
                 {

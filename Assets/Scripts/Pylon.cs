@@ -17,8 +17,7 @@ public class Pylon : MonoBehaviour
 
     void Awake()
     {
-        BuiltModel.SetActive(false);
-        PlacerModel.SetActive(false);
+        Reset();
     }
 
     public void ShowPreview(bool show)
@@ -50,7 +49,7 @@ public class Pylon : MonoBehaviour
     public void Reset()
     {
         State = States.Ready;
-        PlacerModel.SetActive(true);
         BuiltModel.SetActive(false);
+        PlacerModel.SetActive(false);
     }
 }
