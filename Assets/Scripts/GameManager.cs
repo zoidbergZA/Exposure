@@ -69,10 +69,10 @@ public class GameManager : MonoBehaviour
 
         Cities = FindObjectsOfType<City>();
 
-        for (int i = 0; i < Cities.Length; i++)
-        {
-            TotalChimneys += Cities[i].ChimneyCount;
-        }
+//        for (int i = 0; i < Cities.Length; i++)
+//        {
+//            TotalChimneys += Cities[i].ChimneyCount;
+//        }
 
         tutorial = FindObjectOfType<Tutorial>();
 
