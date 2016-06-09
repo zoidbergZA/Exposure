@@ -1987,14 +1987,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: touchScreenInput
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: showDebug
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
@@ -15368,18 +15360,6 @@ Prefab:
     - target: {fileID: 485824, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_RootOrder
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 11430632, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
-      propertyPath: leftButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11430632, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
-      propertyPath: rightButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11430632, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
-      propertyPath: downButton
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 11435518, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

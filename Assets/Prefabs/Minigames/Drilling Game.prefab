@@ -251,7 +251,6 @@ GameObject:
   - 4: {fileID: 437996}
   - 114: {fileID: 11439368}
   - 114: {fileID: 11438222}
-  - 114: {fileID: 11468696}
   m_Layer: 0
   m_Name: Drilling Game
   m_TagString: Untagged
@@ -490,7 +489,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 40, y: 40}
+  m_Size: {x: 38, y: 38}
 --- !u!95 &9525064
 Animator:
   serializedVersion: 3
@@ -634,6 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b7ed3efc3325840bd114c42cfdd4c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 9525064}
 --- !u!114 &11421718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -761,12 +761,10 @@ MonoBehaviour:
   panelSlidingTime: 1.5
   stuckTime: 5
   drillStuckCooldown: 2
-  flashTileTime: 1
   joystickArrowFadeSpeed: 2
   geoThermalPlantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae,
     type: 2}
   mainPanel: {fileID: 11421718}
-  drill: {fileID: 11424778}
   joystickArrow: {fileID: 11464182}
   endOkToast: {fileID: 11482542}
   brokenDrillToast: {fileID: 11459920}
@@ -774,30 +772,13 @@ MonoBehaviour:
   waterBar: {fileID: 11462990}
   steamImage: {fileID: 11410760}
   drillLife: {fileID: 11406088}
-  flashTile: {fileID: 11448906, guid: a72830818ab20e840b2c790d0994efe0, type: 2}
-  rockPrefab: {fileID: 127976, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
-  diamondPrefab: {fileID: 177398, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
-  cablePrefab: {fileID: 127976, guid: cea2cbff206580848b084e0e850d9d3f, type: 2}
-  waterTilePrefab: {fileID: 127976, guid: 3267db04b997f7d4692353b2d7721a44, type: 2}
-  groundYellow: {fileID: 127976, guid: c7d1a6ebfaf5c864d9a4439acaf2ef92, type: 2}
-  groundGreen: {fileID: 127976, guid: b27c5892d4842b94f848bb05181d0c51, type: 2}
-  groundOrange: {fileID: 127976, guid: 99c563d53e12c414384523e01c684524, type: 2}
-  groundRed: {fileID: 127976, guid: 0adbfd2e25f11304bb5b2f0378290b8e, type: 2}
-  groundAcid: {fileID: 127976, guid: efc001b50a2b2e2478eae8f2ef8176f3, type: 2}
-  pipeVertical: {fileID: 127976, guid: b929e139d5c50c14989fbf9790afb0d9, type: 2}
-  pipeHorizontal: {fileID: 127976, guid: baa1557c0b56f7741b7e677dcd35daca, type: 2}
-  pipeCurve1: {fileID: 127976, guid: 39d1ae278031aa54ebe336d9c95a662c, type: 2}
-  pipeCurve2: {fileID: 127976, guid: ccff515489906a14e9c4ee4841ce95ac, type: 2}
-  pipeCurve3: {fileID: 127976, guid: ee1561fa950831c4fb6076f750fd19f4, type: 2}
-  pipeCurve4: {fileID: 127976, guid: c3273043cb3e8f9469ad2eee5e283638, type: 2}
   AutoWin: 0
-  animator: {fileID: 9525064}
   columns: 700000009c000000c8000000f4000000200100004c01000078010000a4010000d0010000fc010000280200005402000080020000ac020000d802000004030000300300005c03000088030000
   rows: 84020000580200002c02000000020000d4010000a80100007c0100005001000024010000f8000000cc000000a00000007400000048000000
   easyLevels:
-  - {fileID: 4900000, guid: b04e35381770c4042b9c18c3a4a73e4e, type: 3}
-  - {fileID: 4900000, guid: 892f632c77e9a4e699d70cb0662a6044, type: 3}
-  - {fileID: 4900000, guid: 18cf5613cf7854737ab0348b5d010701, type: 3}
+  - {fileID: 4900000, guid: 7cdd732afd1ed204ab5626a03c13526b, type: 3}
+  - {fileID: 4900000, guid: 4299a044e8c3c4a498eafb4f9b25e250, type: 3}
+  - {fileID: 4900000, guid: 6b36c2d0e8022ab47b15d9742c4ab2fc, type: 3}
   mediumLevels:
   - {fileID: 4900000, guid: 325973f867e3a4cf1a4e292624cffcaf, type: 3}
   - {fileID: 4900000, guid: 883cdee42cca54c06a8c5c598d5e8989, type: 3}
@@ -895,6 +876,7 @@ MonoBehaviour:
   - {fileID: 11463116, guid: b4a0770129fce6e4a9d2615eb9d78132, type: 2}
   - {fileID: 11463116, guid: 9ea3865f9b7c18e479b4f3b038ad6e39, type: 2}
   - {fileID: 11463116, guid: b0aac27ce03d84843b0dfe28becbc4b8, type: 2}
+  - {fileID: 11450240, guid: a72830818ab20e840b2c790d0994efe0, type: 2}
   pipePrefabs:
   - {fileID: 11480710, guid: baa1557c0b56f7741b7e677dcd35daca, type: 2}
   - {fileID: 11477586, guid: b929e139d5c50c14989fbf9790afb0d9, type: 2}
@@ -902,6 +884,7 @@ MonoBehaviour:
   - {fileID: 11476478, guid: ccff515489906a14e9c4ee4841ce95ac, type: 2}
   - {fileID: 11410496, guid: ee1561fa950831c4fb6076f750fd19f4, type: 2}
   - {fileID: 11447836, guid: c3273043cb3e8f9469ad2eee5e283638, type: 2}
+  flashTileTime: 1
 --- !u!114 &11459920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1001,28 +984,6 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
---- !u!114 &11468696
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 163044}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a6c0048d12d95f4098b9cc82efd9dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilePrefabs:
-  - {fileID: 11419950, guid: 6c2470f8ed978dc4ab0868cd6faffe11, type: 2}
-  - {fileID: 11499880, guid: cea2cbff206580848b084e0e850d9d3f, type: 2}
-  - {fileID: 11477200, guid: efc001b50a2b2e2478eae8f2ef8176f3, type: 2}
-  - {fileID: 11481312, guid: 26f242f90de470348aaec9086c2b8bf7, type: 2}
-  - {fileID: 11449764, guid: b27c5892d4842b94f848bb05181d0c51, type: 2}
-  - {fileID: 11430186, guid: 99c563d53e12c414384523e01c684524, type: 2}
-  - {fileID: 11433280, guid: 0adbfd2e25f11304bb5b2f0378290b8e, type: 2}
-  - {fileID: 11463116, guid: 3267db04b997f7d4692353b2d7721a44, type: 2}
-  - {fileID: 11458866, guid: c7d1a6ebfaf5c864d9a4439acaf2ef92, type: 2}
-  pipePrefabs: []
 --- !u!114 &11474716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1347,7 +1308,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 19, y: 690}
+  m_AnchoredPosition: {x: 112, y: 690}
   m_SizeDelta: {x: 44, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22424550

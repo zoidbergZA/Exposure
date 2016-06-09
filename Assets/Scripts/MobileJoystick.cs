@@ -38,7 +38,7 @@ public class MobileJoystick : MonoBehaviour
                 if (Input.touches[0].phase == TouchPhase.Began)
                 {
                     dragStart = Input.touches[0].position;
-                    input = Input.touches[0].position - (Vector2)GameManager.Instance.DrillingGame.Drill.rectTransform.position;
+                    input = Input.touches[0].position - (Vector2)GameManager.Instance.DrillingGame.Driller.Drill.rectTransform.position;
                     dragPrevious = Input.touches[0].position;
                 }
                 else if (Input.touches[0].phase == TouchPhase.Moved)
@@ -70,7 +70,7 @@ public class MobileJoystick : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     dragStart = Input.mousePosition;
-                    input = Input.mousePosition - GameManager.Instance.DrillingGame.Drill.rectTransform.position;
+                    input = Input.mousePosition - GameManager.Instance.DrillingGame.Driller.Drill.rectTransform.position;
                     dragPrevious = Input.mousePosition;
                 }
 
