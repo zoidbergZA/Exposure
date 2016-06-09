@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Makecolourwater#9B9833FFfordirtyplaet : MonoBehaviour {
+public class Makecolourwaterfordirtyplaet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
