@@ -129,7 +129,7 @@ public class GridBuilder : Minigame
             {
                 if (ConnectedList[i] is Pylon)
                 {
-                    PoweredPylons.Add((Pylon)ConnectedList[i]);
+//                    PoweredPylons.Add((Pylon)ConnectedList[i]);
                 }
             }
 
@@ -147,11 +147,11 @@ public class GridBuilder : Minigame
 
             foreach (Connectable connectable in ConnectedList)
             {
-                if (connectable is Pylon)
-                {
-                    Pylon pylon = (Pylon) connectable;
-                    pylon.Reset();
-                }
+//                if (connectable is Pylon)
+//                {
+//                    Pylon pylon = (Pylon) connectable;
+//                    pylon.Reset();
+//                }
             }
             
 //            ShowUnbuiltPylons(false);
@@ -263,7 +263,7 @@ public class GridBuilder : Minigame
         for (int i = 0; i < GameManager.Instance.Cities.Length; i++)
         {
             float d = Vector3.Distance(position, GameManager.Instance.Cities[i].transform.position);
-            if (GameManager.Instance.Cities[i].HasWorkingChimney && d < distance)
+            if (GameManager.Instance.Cities[i].IsDirty && d < distance)
             {
                 closestCity = GameManager.Instance.Cities[i];
                 distance = d;

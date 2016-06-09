@@ -1003,7 +1003,7 @@ MonoBehaviour:
   atmosphereLight: {fileID: 10804764}
   dirtyColor: {r: 0.53676474, g: 0.26043433, b: 0.110510394, a: 1}
   cleanColor: {r: 0, g: 0.95686275, b: 1, a: 1}
-  normalSpin: -2
+  normalSpin: 0
 --- !u!114 &11430466
 MonoBehaviour:
   m_ObjectHideFlags: 1
