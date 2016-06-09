@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PipePrefab: {fileID: 168552, guid: ac141081240eb3d48bc7456d887754ee, type: 2}
   TutorialPrefab: {fileID: 11442478, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
+  autoStart: 1
   enableTutorial: 0
   showDebug: 0
   puzzle1: {fileID: 4900000, guid: 4299a044e8c3c4a498eafb4f9b25e250, type: 3}

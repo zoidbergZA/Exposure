@@ -29,17 +29,17 @@ public class Tutorial : MonoBehaviour
 //        SetProgress(Progression.ActivateScanner, Time.time + scannerWait);
     }
 
-    void OnEnable()
-    {
-        Scanner.ScanStarted += OnScanStarted;
-        Scanner.HotspotFound += OnHotspotFound;
-    }
-
-    void OnDisable()
-    {
-        Scanner.ScanStarted -= OnScanStarted;
-        Scanner.HotspotFound -= OnHotspotFound;
-    }
+//    void OnEnable()
+//    {
+//        Scanner.ScanStarted += OnScanStarted;
+//        Scanner.HotspotFound += OnHotspotFound;
+//    }
+//
+//    void OnDisable()
+//    {
+//        Scanner.ScanStarted -= OnScanStarted;
+//        Scanner.HotspotFound -= OnHotspotFound;
+//    }
 
     void Update()
     {

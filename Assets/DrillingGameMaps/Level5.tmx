@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="12" height="8" tilewidth="70" tileheight="71" nextobjectid="1">
+ <tileset firstgid="1" name="Big Tiles" tilewidth="71" tileheight="72" tilecount="11">
+  <tile id="0">
+   <image width="71" height="72" source="../../../../UI/Minigame/9_6_TileBlock.png"/>
+  </tile>
+  <tile id="1">
+   <image width="71" height="72" source="../../../../UI/Minigame/9_6_TileDiamond.png"/>
+  </tile>
+  <tile id="2">
+   <image width="71" height="72" source="../../../../UI/Minigame/9_6_TileElectricity.png"/>
+  </tile>
+  <tile id="3">
+   <image width="71" height="72" source="../../../../UI/Minigame/9_6_TileGreen.png"/>
+  </tile>
+  <tile id="4">
+   <image width="71" height="72" source="../../../../UI/Minigame/9_6_TileLife.png"/>
+  </tile>
+  <tile id="5">
+   <image width="71" height="72" source="../../../../UI/Minigame/9_6_TileMine.png"/>
+  </tile>
+  <tile id="6">
+   <image width="71" height="72" source="../../../../UI/Minigame/9_6_TileMineArea.png"/>
+  </tile>
+  <tile id="7">
+   <image width="71" height="72" source="../../../../UI/Minigame/9_6_TileOrange.png"/>
+  </tile>
+  <tile id="8">
+   <image width="71" height="72" source="../../../../UI/Minigame/9_6_TileRed.png"/>
+  </tile>
+  <tile id="9">
+   <image width="71" height="72" source="../../../../UI/Minigame/9_6_TileWater.png"/>
+  </tile>
+  <tile id="10">
+   <image width="71" height="72" source="../../../../UI/Minigame/9_6_TileYellow.png"/>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="12" height="8">
+  <data encoding="csv">
+4,4,4,4,4,4,4,4,4,4,4,4,
+1,10,1,11,1,11,11,1,11,1,11,1,
+11,11,11,2,11,11,11,11,2,11,11,11,
+1,11,1,11,1,11,11,1,11,1,10,1,
+8,8,8,2,8,8,8,8,8,8,8,8,
+1,8,1,8,1,8,8,1,10,1,8,1,
+8,2,8,8,8,8,8,8,8,8,2,8,
+1,9,1,9,1,9,9,1,9,1,9,1
+</data>
+ </layer>
+</map>

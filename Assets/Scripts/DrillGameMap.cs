@@ -26,7 +26,7 @@ public class DrillGameMap : MonoBehaviour
     private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
     private List<DrillingGameTile> water = new List<DrillingGameTile>();
 
-    public const int TILE_WIDTH = 44, TILE_HEIGHT = 44, MAP_WIDTH = 19, MAP_HEIGHT = 14;
+    public const int TILE_SIZE = 44, MAP_WIDTH = 19, MAP_HEIGHT = 14;
 
     void Start()
     {
@@ -51,7 +51,7 @@ public class DrillGameMap : MonoBehaviour
 
     public Vector2 GetTilePivotPosition(int x, int y)
     {
-        return new Vector2(TILE_WIDTH * x + TILE_WIDTH / 2f, TILE_HEIGHT * MAP_HEIGHT - TILE_HEIGHT * y - TILE_WIDTH / 2f);
+        return new Vector2(TILE_SIZE * x + TILE_SIZE / 2f, TILE_SIZE * MAP_HEIGHT - TILE_SIZE * y - TILE_SIZE / 2f);
     }
 
     public Vector2 GetCoordinateAt(Vector2 position)
@@ -61,7 +61,7 @@ public class DrillGameMap : MonoBehaviour
             Debug.LogException(new UnityException("GetCoordinate our of bounds!"));
         }
 
-        Vector2 coord = new Vector2(position.x / TILE_WIDTH, position.y / TILE_HEIGHT);
+        Vector2 coord = new Vector2(position.x / TILE_SIZE, position.y / TILE_SIZE);
         coord.x = Mathf.FloorToInt(coord.x);
         coord.y = Mathf.FloorToInt(coord.y);
 
@@ -71,11 +71,11 @@ public class DrillGameMap : MonoBehaviour
     public void Initialize(RectTransform parentPanel, int[] tileData)
     {
         this.tileData = tileData;
-        BoundingRect = new Rect(0, 0, MAP_WIDTH * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT);
+        BoundingRect = new Rect(0, 0, MAP_WIDTH * TILE_SIZE, MAP_HEIGHT * TILE_SIZE);
         tiles = new DrillingGameTile[MAP_WIDTH, MAP_HEIGHT];
 
         //set parent panel size
-        parentPanel.sizeDelta = new Vector2(MAP_WIDTH * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT);
+        parentPanel.sizeDelta = new Vector2(MAP_WIDTH * TILE_SIZE, MAP_HEIGHT * TILE_SIZE);
 
         //populate map
         for (int i = 0; i < MAP_HEIGHT; i++)
@@ -92,12 +92,12 @@ public class DrillGameMap : MonoBehaviour
                     if (id == 7)
                     {
                         UIwater.Add(t);
-                        relocateWaterTiles(UIwater.Count, t, j * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT - i * TILE_HEIGHT);
+                        relocateWaterTiles(UIwater.Count, t, j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     else
                     {
                         t.GetComponent<RectTransform>().localScale = Vector3.one;
-                        t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT - i * TILE_HEIGHT);
+                        t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     tilesList.Add(t);
                     if (id == 3 && i == 13) bottomRow.Add(t);
@@ -153,7 +153,7 @@ public class DrillGameMap : MonoBehaviour
     {
         DrillingGameTile pipe = Instantiate(pipePrefabs[pipeId]);
         pipe.transform.SetParent(parentPanel, false);
-        pipe.GetComponent<RectTransform>().anchoredPosition = new Vector2(x * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT - y * TILE_HEIGHT);
+        pipe.GetComponent<RectTransform>().anchoredPosition = new Vector2(x * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - y * TILE_SIZE);
         pipe.GetComponent<RectTransform>().localScale = Vector3.one;
         pipe.gameObject.SetActive(true);
         tilesList.Add(pipe);
@@ -161,7 +161,7 @@ public class DrillGameMap : MonoBehaviour
 
     private void updateWallsEnabling()
     {
-        if (GameManager.Instance.DrillingGame.Driller.Drill.rectTransform.anchoredPosition.y <= (MAP_HEIGHT * TILE_HEIGHT) - TILE_HEIGHT)
+        if (GameManager.Instance.DrillingGame.Driller.Position.y <= -TILE_SIZE)
         {
             if (!ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = true;
             if (!rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = true;
