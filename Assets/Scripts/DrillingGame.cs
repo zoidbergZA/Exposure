@@ -356,7 +356,7 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
-                        map.instantiatePipe(targetColumn, targetRow, 0, mapPanel);
+                        map.instantiatePipe(targetColumn, targetRow-1, 0, mapPanel);
                         curveId = 2;
                         targetColumn++;
                         Driller.SwitchAnimation("isDrillingRight", false);
@@ -381,7 +381,7 @@ public class DrillingGame : Minigame
                     }
                     else
                     {
-                        map.instantiatePipe(targetColumn, targetRow, 0, mapPanel);
+                        map.instantiatePipe(targetColumn, targetRow-1, 0, mapPanel);
                         curveId = 4;
                         targetColumn--;
                         Driller.SwitchAnimation("isDrillingLeft", false);
@@ -502,7 +502,7 @@ public class DrillingGame : Minigame
                     {
                         map.instantiatePipe(targetColumn, targetRow-1, 1, mapPanel);
                         curveId = 3;
-                        map.FlashCoords = new Vector2((TILE_SIZE * targetColumn) + TILE_SIZE, (TILE_SIZE * targetRow) + TILE_SIZE);
+                        map.FlashCoords = new Vector2((TILE_SIZE * targetColumn) + TILE_SIZE, -(TILE_SIZE * targetRow) + TILE_SIZE);
                         map.TriggerFlash = true;
                         targetRow++;
                         Driller.SwitchAnimation("isDrillingDown", false);
