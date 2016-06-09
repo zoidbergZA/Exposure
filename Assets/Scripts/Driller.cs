@@ -8,19 +8,7 @@ public class Driller : MonoBehaviour
     public Animator Animator { get { return animator; } }
     public const int ANCHORED_X_OFFSET = 112;
     public const int ANCHORED_Y_OFFSET = 690;
-    public Vector2 Position
-    { 
-        get
-        { 
-            return new Vector2(Drill.rectTransform.anchoredPosition.x - ANCHORED_X_OFFSET, Drill.rectTransform.anchoredPosition.y - ANCHORED_Y_OFFSET); 
-        }
-        set
-        { 
-            Drill.rectTransform.anchoredPosition = value;
-            Drill.rectTransform.anchoredPosition = 
-                new Vector2(Drill.rectTransform.anchoredPosition.x + ANCHORED_X_OFFSET, Drill.rectTransform.anchoredPosition.y + ANCHORED_Y_OFFSET);
-        }
-    }
+    public Vector2 Position { get { return Drill.rectTransform.anchoredPosition; } set { Drill.rectTransform.anchoredPosition = value; } }
     public Rigidbody2D Body { get; private set; }
 
     void Awake()
@@ -36,7 +24,7 @@ public class Driller : MonoBehaviour
 
     void Update()
     {
-        Body.inertia = 0;
+        //Body.inertia = 0;
         Body.freezeRotation = true;
     }
 
