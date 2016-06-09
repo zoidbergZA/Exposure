@@ -27,6 +27,7 @@ public class PuzzlePath : MonoBehaviour
         if (pathPylons.Contains(pylon) && pathPylons[CurrentTarget] == pylon)
         {
             pylon.Build();
+            GameManager.Instance.Director.SetMode(Director.Modes.Grid, pylon.transform);
 
             CurrentTarget++;
 

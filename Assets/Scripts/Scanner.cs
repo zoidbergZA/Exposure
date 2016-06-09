@@ -13,7 +13,7 @@ public class Scanner : MonoBehaviour
 
     private Material material;
     private Renderer renderer;
-    private Collider collider;
+    private SphereCollider sphereCollider;
 
     public City SelectedCity { get; private set; }
     public float Charge { get; private set; }
@@ -26,8 +26,8 @@ public class Scanner : MonoBehaviour
 
     void Awake()
     {
-        collider = GetComponent<Collider>();
-        collider.enabled = false;
+        sphereCollider = GetComponent<SphereCollider>();
+        sphereCollider.enabled = false;
         gadgetModel.SetActive(false);
     }
     
@@ -62,6 +62,11 @@ public class Scanner : MonoBehaviour
 
             GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(pos.x, pos.y, 80, 80)), selectedIcon);
         }
+    }
+
+    public void AddCharge(float amount)
+    {
+        Charge = Mathf.Min(Charge + amount, maxCharge);
     }
 
     private void CheckStartStop()
@@ -109,23 +114,28 @@ public class Scanner : MonoBehaviour
     private void StartScan()
     {
         IsScanning = true;
-        collider.enabled = true;
+        sphereCollider.enabled = true;
         gadgetModel.SetActive(true);
         Charge = maxCharge;
+
+        GameManager.Instance.Director.SetMode(Director.Modes.Grid, SelectedCity.transform);
     }
 
     private void EndScan()
     {
         IsScanning = false;
-        collider.enabled = false;
+        sphereCollider.enabled = false;
         gadgetModel.SetActive(false);
         Charge = 0f;
         SelectedCity.Reset();
+
+        GameManager.Instance.Director.SetMode(Director.Modes.Orbit, GameManager.Instance.PlanetTransform);
     }
 
     private void HandleScanning()
     {
         gadgetModel.transform.localScale = new Vector3(Charge, Charge, Charge);
+        sphereCollider.radius = Charge;
 
         if (Input.GetMouseButton(0))
         {
