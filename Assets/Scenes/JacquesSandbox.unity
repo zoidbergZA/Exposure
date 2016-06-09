@@ -1945,14 +1945,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
-    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: touchScreenInput
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: enableTutorial
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
@@ -14711,18 +14703,6 @@ Prefab:
       propertyPath: citiesHolder
       value: 
       objectReference: {fileID: 304417845}
-    - target: {fileID: 469206, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 23.68769
-      objectReference: {fileID: 0}
-    - target: {fileID: 469206, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 23.68769
-      objectReference: {fileID: 0}
-    - target: {fileID: 469206, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 23.68769
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
   m_IsPrefabParent: 0

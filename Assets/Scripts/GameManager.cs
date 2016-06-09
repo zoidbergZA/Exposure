@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject PipePrefab;
     public Tutorial TutorialPrefab;
 
+    public bool autoStart;
     public bool enableTutorial;
     public bool showDebug;
     public TextAsset puzzle1;
@@ -94,6 +95,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         int[] puzzle = LoadDrillingPuzzle(puzzle1);
+
+        if (autoStart)
+            Hud.OnStartRoundClicked();
     }
 
     void Update()
