@@ -4,6 +4,9 @@ using System.Collections;
 
 public class Scanner : MonoBehaviour
 {
+    //temp
+    public Texture2D selectedIcon;
+
     [SerializeField] private float maxCharge = 100f;
 
     private Material material;
@@ -31,34 +34,17 @@ public class Scanner : MonoBehaviour
 
         HandleInput();
 
-        if (IsScanning)
-            HandleScanning();
-
-        material.SetFloat("_Radius", Charge);
+        material.SetFloat("_Radius", maxCharge); //todo: set to actual charge left
     }
 
     void OnGUI()
     {
-//        if (IsScanning && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
-//        {
-//            //draw scanning debug
-//            GUI.Label(new Rect(startPoint.x - 25f, Screen.height - startPoint.y - 25f, 50f, 50f), touchIcon);
-//            GUI.Label(new Rect(endPoint.x - 25f, Screen.height - endPoint.y - 25f, 50f, 50f), touchIcon);
-//            GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, 270f, 270f)), centerIcon);
-//            
-//            string progress = "";
-//
-//            if (isOnHotspot)
-//            {
-//                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, goodIconSize, goodIconSize)), goodIcon);
-//
-////                progress = ((Progress*100f)).ToString("F0");
-//
-//                float size = (1f -Progress) * 200f;
-//                GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(center.x, center.y, size, size)), progresIcon);
-//            }
-////            GUI.Label(new Rect(center.x, Screen.height - center.y + 80f, 50f, 50f), progress + "%");
-//            }
+        if (SelectedCity)
+        {
+            Vector3 pos = Camera.main.WorldToScreenPoint(SelectedCity.transform.position);
+
+            GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(pos.x, pos.y, 80, 80)), selectedIcon);
+        }
     }
 
     public void HandleInput()
@@ -86,78 +72,18 @@ public class Scanner : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 UpdateScannerPosition(hit.point);
+
+                Pylon pylon = hit.transform.GetComponent<Pylon>();
+                if (pylon)
+                {
+                    if (SelectedCity != null)
+                    {
+                        SelectedCity.TryBuild(pylon);
+                    }
+                }
             }
         }
     }
-
-//    public void StartScan()
-//    {
-//        if (IsScanning)
-//            return;
-//
-//        IsScanning = true;
-//        lastStartScanAt = Time.time;
-//        focusTimer = focusTime;
-////        gadget.gameObject.SetActive(true);
-//
-//        if (ScanStarted != null)
-//        {
-//            ScanStarted();
-//        }
-//    }
-
-//    public void EndScan()
-//    {
-//        IsScanning = false;
-//        radius = 0;
-//        isOnHotspot = false;
-////        gadget.gameObject.SetActive(false);
-//    }
-//
-//    private void DrawTouchInfo(Touch touch)
-//    {
-//        GUI.BeginGroup(new Rect(touch.position.x, Screen.height - touch.position.y, 200, 125), "", "box");
-//
-//        GUI.Label(new Rect(5, 0, 200, 25), "finger id: " + touch.fingerId);
-//        GUI.Label(new Rect(5, 25, 200, 25), "phase: " + touch.phase);
-//        GUI.Label(new Rect(5, 50, 200, 25), "tap count: " + touch.tapCount);
-//        GUI.Label(new Rect(5, 75, 200, 25), "position: " + touch.position);
-//        GUI.Label(new Rect(5, 100, 200, 25), "delta: " + touch.deltaPosition);
-//
-//        GUI.EndGroup();
-//    }
-
-//    private void CheckStartScan()
-//    {
-//        if (GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
-//            return;
-//
-//        if (GameManager.Instance.TouchInput)
-//        {
-//            if (Input.touches.Length == 2)
-//            {
-//                startPoint = Input.touches[0].position;
-//                endPoint = Input.touches[1].position;
-//
-//                StartScan();
-//            }
-//        }
-//        else
-//        {
-//            // right click updates start point
-//            if (Input.GetMouseButtonDown(1))
-//            {
-//                startPoint = Input.mousePosition;
-//            }
-//
-//            // check if start scanning conditions are met
-//            if (!IsScanning && Input.GetMouseButtonDown(0))
-//            {
-//                endPoint = Input.mousePosition;
-//                StartScan();
-//            }
-//        }
-//    }
 
     private void UpdateScannerPosition(Vector3 position)
     {
@@ -180,103 +106,23 @@ public class Scanner : MonoBehaviour
             return false;
         }
     }
-
-    private void HandleScanning()
-    {
-//        if (CheckCancelScan())
-//        {
-//            EndScan();
-//            return;
-//        }
-        
-        //update scan points
-//        {
-//            if (GameManager.Instance.TouchInput)
-//            {
-//                if (Input.touches.Length == 2)
-//                {
-//                    startPoint = Input.touches[0].position;
-//                    endPoint = Input.touches[1].position;
-//                }
-//            }
-//            else
-//            {
-//                endPoint = Input.mousePosition;
-//            }
-//        }
-        
-//        Ray ray = Camera.main.ScreenPointToRay(center);
-//        RaycastHit hit;
-//
-//        float sample = 0f;
-//
-//        if (Physics.Raycast(ray, out hit))
-//        {
-//            float scanDelta = Vector3.Distance(hit.point, Camera.main.transform.position);
-////            radius = Mathf.Clamp(scanDelta * 0.161f, 0f, maxRadius);
-//            radius = maxRadius;
-//
-//            transform.localScale = new Vector3(maxRadius, maxRadius, maxRadius);
-//
-//            //offset
-//            Vector3 offset = (GameManager.Instance.Planet.transform.position - transform.position).normalized;
-//            transform.position = hit.point;
-//            //            gadget.LookAt((gadget.position - offset) * 10);
-//            //            gadget.LookAt(Camera.main.transform.position);
-//            transform.LookAt(hit.point);
-//            //            Debug.DrawLine(gadget.transform.position, gadget.transform.position + (gadget.position - offset) * 10);
-//
-//            sample = GameManager.Instance.SampleHeatmap(hit.textureCoord).r;
-//
-//            if (sample >= 0.2f)
-//                isOnHotspot = true;
-//            else
-//                isOnHotspot = false;
-//
-//            material.SetVector("_CenterPoint", new Vector4(hit.point.x, hit.point.y, hit.point.z, 0));
-//
-//            if (isOnHotspot && Progress >= 0.99f && Time.time >= lastStartScanAt + 2f)
-//            {
-//                if (HotspotFound != null)
-//                    HotspotFound();
-//
-//                ScanSucceeded(sample, hit.point, hit.normal);
-//            }
-//        }
-//
-//        if (sample >= 0.2f)
-//            focusTimer -= Time.deltaTime;
-//        else
-//            focusTimer = focusTime;
-//    }
-
-//    private void ScanSucceeded(float sample, Vector3 location, Vector3 normal)
-//    {
-//        EndScan();
-//        GameManager.Instance.Player.Drill(location, normal, 1f - sample);
-//
-//        //        Ray ray = Camera.main.ScreenPointToRay(center);
-//        //        RaycastHit hit;
-//        //
-//        //        if (Physics.Raycast(ray, out hit))
-//        //        {
-//        ////            Color sample = GameManager.Instance.SampleHeatmap(hit.textureCoord);
-//        //            GameManager.Instance.Player.Drill(location, normal, 1f - sample);
-//        //        }
-//        //        else
-//        //        {
-//        //            Debug.Log("oops, couldn't drill :/");   
-//        //        }
-    }
-
+    
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
+//        Debug.Log(other.name);
+        Pylon pylon = other.GetComponent<Pylon>();
+        
+        if (pylon)
+            pylon.ShowPreview(true);
     }
 
     void OnTriggerExit(Collider other)
     {
-        Debug.Log(other.name);
+//        Debug.Log(other.name);
+        Pylon pylon = other.GetComponent<Pylon>();
+
+        if (pylon)
+            pylon.ShowPreview(false);
     }
 }
 

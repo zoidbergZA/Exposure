@@ -21,6 +21,21 @@ public class Pylon : MonoBehaviour
         PlacerModel.SetActive(false);
     }
 
+    public void ShowPreview(bool show)
+    {
+        if (State != States.Ready)
+            return;
+
+        if (show)
+        {
+            PlacerModel.SetActive(true);
+        }
+        else
+        {
+            PlacerModel.SetActive(false);
+        }
+    }
+
     public void Build()
     {
         if (State != States.Ready)

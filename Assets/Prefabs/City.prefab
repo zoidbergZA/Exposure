@@ -1133,6 +1133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15391b099da671c4ba62a48b7e94f395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puzzlePath: {fileID: 0}
 --- !u!114 &11488612
 MonoBehaviour:
   m_ObjectHideFlags: 1
