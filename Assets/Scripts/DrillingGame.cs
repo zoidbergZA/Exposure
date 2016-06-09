@@ -282,7 +282,7 @@ public class DrillingGame : Minigame
     {
         if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
-            if (GameManager.Instance.Joystick.JoystickInput.x >= 0.707f && !reachedTile) // sin 45 deg
+            if (GameManager.Instance.Joystick.JoystickInput.x >= 0.707f && reachedTile) // sin 45 deg
             {
                 //right
                 if (CurrentInput != DrillingDirection.RIGHT) PrevInput = CurrentInput;
@@ -290,10 +290,9 @@ public class DrillingGame : Minigame
                 {
                     CurrentInput = DrillingDirection.RIGHT;
                     JoystickJustMoved = true;
-                    reachedTile = false;
                 }
             }
-            if (GameManager.Instance.Joystick.JoystickInput.x <= -0.707 && !reachedTile) // sin 45 deg
+            if (GameManager.Instance.Joystick.JoystickInput.x <= -0.707 && reachedTile) // sin 45 deg
             {
                 //left
                 if (CurrentInput != DrillingDirection.LEFT) PrevInput = CurrentInput;
@@ -301,10 +300,9 @@ public class DrillingGame : Minigame
                 {
                     CurrentInput = DrillingDirection.LEFT;
                     JoystickJustMoved = true;
-                    reachedTile = false;
                 }
             }
-            if (GameManager.Instance.Joystick.JoystickInput.y >= 0.707f && !reachedTile) // cos 45 deg
+            if (GameManager.Instance.Joystick.JoystickInput.y >= 0.707f && reachedTile) // cos 45 deg
             {
                 //up
                 if (CurrentInput != DrillingDirection.UP) PrevInput = CurrentInput;
@@ -312,10 +310,9 @@ public class DrillingGame : Minigame
                 {
                     CurrentInput = DrillingDirection.UP;
                     JoystickJustMoved = true;
-                    reachedTile = false;
                 }
             }
-            if (GameManager.Instance.Joystick.JoystickInput.y <= -0.707f && !reachedTile) // cos 45 deg
+            if (GameManager.Instance.Joystick.JoystickInput.y <= -0.707f && reachedTile) // cos 45 deg
             {
                 //down
                 if (CurrentInput != DrillingDirection.DOWN) PrevInput = CurrentInput;
@@ -323,7 +320,6 @@ public class DrillingGame : Minigame
                 {
                     CurrentInput = DrillingDirection.DOWN;
                     JoystickJustMoved = true;
-                    reachedTile = false;
                 }
             }
         }
