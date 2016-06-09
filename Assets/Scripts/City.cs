@@ -1,75 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class City : Connectable
+public class City : MonoBehaviour
 {
-    [SerializeField] private Chimney[] chimneys;
+    [SerializeField] private PuzzlePath puzzlePath;
 
-    public int ChimneyCount { get { return chimneys.Length; } }
-
-    public bool HasWorkingChimney
+    public bool IsDirty { get; private set; }
+    
+    void Start()
     {
-        get
-        {
-            for (int i = 0; i < chimneys.Length; i++)
-            {
-                if (chimneys[i].ChimneyState == Chimney.ChimneyStates.Working)
-                    return true;
-            }
-            return false;
-        }
+
     }
 
-    public void DisableChimney()
+    public void TryBuild(Pylon pylon)
     {
-        for (int i = 0; i < ChimneyCount; i++)
-        {
-            if (chimneys[i] != null && chimneys[i].ChimneyState == Chimney.ChimneyStates.Working)
-            {
-                chimneys[i].DisableChimney();
-                return;
-            }
-        }
-    }
-
-    public override void Start()
-    {
-        base.Start();
-
-        //test floating text
-//        GameManager.Instance.Hud.NewFloatingText("hello!", transform);
-    }
-
-    public override void CheckConnectable(Vector3 location)
-    {
-        float dist = Vector3.Distance(transform.position, location);
-
-        if (HasWorkingChimney && dist <= GameManager.Instance.GridBuilder.PylonSeparation*separationMultiplier)
-        {   
-            IsConnectable = true;
-            Highlight(true);
-        }
-        else
-        {
-            IsConnectable = false;
-            Highlight(false);
-        }
-    }
-
-    public override void Highlight(bool hightlight)
-    {
-        if (hightlight)
-        {
-//            GetComponent<MeshRenderer>().material.color = Color.green;
-        }
-        else
-        {
-//            GetComponent<MeshRenderer>().material.color = Color.white;
-        }
-    }
-
-    public override void OnConnected()
-    {
-        DisableChimney();
+        puzzlePath.TryConnectPylon(pylon);
     }
 }
