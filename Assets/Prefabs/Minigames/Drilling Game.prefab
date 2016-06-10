@@ -506,7 +506,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 38, y: 38}
+  m_Size: {x: 80, y: 80}
 --- !u!95 &9525064
 Animator:
   serializedVersion: 3
@@ -697,7 +697,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 64ba6edcb890e3340acac0d71fc5e902, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d47dc05ed375a4997ad62e17b1027e25, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -790,9 +790,9 @@ MonoBehaviour:
   drillLife: {fileID: 11406088}
   AutoWin: 0
   levels:
-  - {fileID: 4900000, guid: 7cdd732afd1ed204ab5626a03c13526b, type: 3}
-  - {fileID: 4900000, guid: 7cdd732afd1ed204ab5626a03c13526b, type: 3}
-  - {fileID: 4900000, guid: 4299a044e8c3c4a498eafb4f9b25e250, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 4900000, guid: b04e35381770c4042b9c18c3a4a73e4e, type: 3}
   - {fileID: 4900000, guid: 892f632c77e9a4e699d70cb0662a6044, type: 3}
   - {fileID: 4900000, guid: 18cf5613cf7854737ab0348b5d010701, type: 3}
@@ -1351,14 +1351,13 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 22473294}
+  m_Children: []
   m_Father: {fileID: 22480216}
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 44, y: 44}
+  m_SizeDelta: {x: 88, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22424550
 RectTransform:
@@ -1534,6 +1533,7 @@ RectTransform:
   - {fileID: 22429846}
   - {fileID: 22408228}
   - {fileID: 22480216}
+  - {fileID: 22473294}
   m_Father: {fileID: 22425266}
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1588,8 +1588,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 22417250}
-  m_RootOrder: 0
+  m_Father: {fileID: 22467228}
+  m_RootOrder: 6
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1631,7 +1631,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -371, y: 298}
-  m_SizeDelta: {x: 44, y: 44}
+  m_SizeDelta: {x: 88, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22496214
 RectTransform:
