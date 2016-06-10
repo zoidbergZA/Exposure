@@ -9,6 +9,16 @@ public class PuzzlePath : MonoBehaviour
     public int CurrentTarget { get; private set; }
     public bool IsCompleted { get; private set; }
 
+    public void Reset()
+    {
+        CurrentTarget = 0;
+
+        for (int i = 0; i < pathPylons.Length; i++)
+        {
+            pathPylons[i].Reset();
+        }
+    }
+
     public void TryConnectPylon(Pylon pylon)
     {
         if (IsCompleted)
@@ -17,6 +27,7 @@ public class PuzzlePath : MonoBehaviour
         if (pathPylons.Contains(pylon) && pathPylons[CurrentTarget] == pylon)
         {
             pylon.Build();
+            GameManager.Instance.Director.SetMode(Director.Modes.Grid, pylon.transform);
 
             CurrentTarget++;
 
