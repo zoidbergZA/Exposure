@@ -10,10 +10,14 @@ public class Scanner : MonoBehaviour
     [SerializeField] private float maxCharge = 100f;
     [SerializeField] private float shrinkSpeed = 10f;
     [SerializeField] private GameObject gadgetModel;
+    [SerializeField] private MeshRenderer gadgetMeshRenderer;
+    [SerializeField] private Color flashColor;
 
+    private Color normalColor;
     private Material material;
     private Renderer renderer;
     private SphereCollider sphereCollider;
+    private int flashTweenId;
 
     public City SelectedCity { get; private set; }
     public float Charge { get; private set; }
@@ -29,6 +33,7 @@ public class Scanner : MonoBehaviour
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.enabled = false;
         gadgetModel.SetActive(false);
+        normalColor = gadgetMeshRenderer.material.color;
     }
     
     void Start()
@@ -49,7 +54,8 @@ public class Scanner : MonoBehaviour
 
 //        Debug.Log(IsScanning + ", " + Charge);
 
-        HandleScanning();
+        if (IsScanning)
+            HandleScanning();
 
         material.SetFloat("_Radius", Charge);
     }
@@ -67,6 +73,26 @@ public class Scanner : MonoBehaviour
     public void AddCharge(float amount)
     {
         Charge = Mathf.Min(Charge + amount, maxCharge);
+    }
+
+    public void DeselectCity()
+    {
+        if (IsScanning)
+            EndScan();
+
+        SelectedCity = null;
+    }
+
+    public void Flash()
+    {
+        if (LeanTween.isTweening(flashTweenId))
+            LeanTween.cancel(flashTweenId);
+
+
+        gadgetMeshRenderer.material.color = flashColor;
+        flashTweenId = LeanTween.color(gadgetMeshRenderer.gameObject, normalColor, 0.8f).id;
+
+        gadgetMeshRenderer.material.color = flashColor;
     }
 
     private void CheckStartStop()

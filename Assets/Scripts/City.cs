@@ -16,6 +16,8 @@ public class City : MonoBehaviour
 
         dirtyModel.SetActive(true);
         cleanModel.SetActive(false);
+
+        IsDirty = true;
     }
 
     void Start()
@@ -32,6 +34,8 @@ public class City : MonoBehaviour
 
         dirtyModel.SetActive(false);
         cleanModel.SetActive(true);
+
+        GameManager.Instance.Scanner.DeselectCity();
     }
 
     public void Reset()
