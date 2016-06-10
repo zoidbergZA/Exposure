@@ -25,6 +25,8 @@ public class Director : MonoBehaviour
     private Quaternion targetRotation;
     private float rotateProgress;
     private float targetFoV;
+    private int positionTweenId;
+    private int fovTweenId;
 
     public bool OrbitPaused { get; set; }
 
@@ -97,24 +99,17 @@ public class Director : MonoBehaviour
 
     public void SwoopTo(Vector3 position, Quaternion rotation, float fov, float time, float delay = 0f)
     {
-        //todo: rotation lerp
-
-        //        Quaternion deltaQuaternion = Quaternion.Inverse(targetRotation) * transform.rotation;
-        //        float angle = 0;
-        //        Vector3 axis = Vector3.zero;
-        //
-        //        deltaQuaternion.ToAngleAxis(out angle, out axis);
-        //
-        //        Debug.Log(angle + ", " + axis);
-        //
-        //        LeanTween.rotateAround(gameObject, axis, angle, time);
-
         fromRotation = transform.rotation;
         targetRotation = rotation;
         rotateProgress = 0f;
 
-        LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time);
-        LeanTween.value(gameObject, updateFOVCallback, targetFoV, fov, time).setEase(LeanTweenType.easeInOutSine);
+        if (LeanTween.isTweening(positionTweenId))
+            LeanTween.cancel(positionTweenId);
+        if (LeanTween.isTweening(fovTweenId))
+            LeanTween.cancel(fovTweenId);
+
+        positionTweenId = LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time).id;
+        fovTweenId = LeanTween.value(gameObject, updateFOVCallback, targetFoV, fov, time).setEase(LeanTweenType.easeInOutSine).id;
     }
 
     void updatePosCallback(Vector3 val)
