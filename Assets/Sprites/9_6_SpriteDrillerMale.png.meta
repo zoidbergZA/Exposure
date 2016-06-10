@@ -1,13 +1,50 @@
 fileFormatVersion: 2
 guid: d47dc05ed375a4997ad62e17b1027e25
-timeCreated: 1465477977
+timeCreated: 1465552919
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: 9_6_SpriteDrillerMale_0
+    21300002: 9_6_SpriteDrillerMale_1
+    21300004: 9_6_SpriteDrillerMale_2
+    21300006: 9_6_SpriteDrillerMale_3
+    21300008: 9_6_SpriteDrillerMale_4
+    21300010: 9_6_SpriteDrillerMale_5
+    21300012: 9_6_SpriteDrillerMale_6
+    21300014: 9_6_SpriteDrillerMale_7
+    21300016: 9_6_SpriteDrillerMale_8
+    21300018: 9_6_SpriteDrillerMale_9
+    21300020: 9_6_SpriteDrillerMale_10
+    21300022: 9_6_SpriteDrillerMale_11
+    21300024: 9_6_SpriteDrillerMale_12
+    21300026: 9_6_SpriteDrillerMale_13
+    21300028: 9_6_SpriteDrillerMale_14
+    21300030: 9_6_SpriteDrillerMale_15
+    21300032: 9_6_SpriteDrillerMale_16
+    21300034: 9_6_SpriteDrillerMale_17
+    21300036: 9_6_SpriteDrillerMale_18
+    21300038: 9_6_SpriteDrillerMale_19
+    21300040: 9_6_SpriteDrillerMale_20
+    21300042: 9_6_SpriteDrillerMale_21
+    21300044: 9_6_SpriteDrillerMale_22
+    21300046: 9_6_SpriteDrillerMale_23
+    21300048: 9_6_SpriteDrillerMale_24
+    21300050: 9_6_SpriteDrillerMale_25
+    21300052: 9_6_SpriteDrillerMale_26
+    21300054: 9_6_SpriteDrillerMale_27
+    21300056: 9_6_SpriteDrillerMale_28
+    21300058: 9_6_SpriteDrillerMale_29
+    21300060: 9_6_SpriteDrillerMale_30
+    21300062: 9_6_SpriteDrillerMale_31
+    21300064: 9_6_SpriteDrillerMale_32
+    21300066: 9_6_SpriteDrillerMale_33
+    21300068: 9_6_SpriteDrillerMale_34
+    21300070: 9_6_SpriteDrillerMale_35
+    21300072: 9_6_SpriteDrillerMale_36
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -26,30 +63,816 @@ TextureImporter:
   cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -1
-    wrapMode: -1
-  nPOTScale: 1
+    wrapMode: 1
+  nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
-  alphaIsTransparency: 0
-  textureType: -1
+  alphaIsTransparency: 1
+  textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: 9_6_SpriteDrillerMale_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 427
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21, y: 35.5}
+        - {x: -32, y: 30.5}
+        - {x: -34, y: 8.5}
+        - {x: -34, y: -30.5}
+        - {x: -28, y: -35.5}
+        - {x: 23, y: -35.5}
+        - {x: 35, y: -32.5}
+        - {x: 35, y: -7.5}
+        - {x: 7, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_1
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 427
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12, y: 34.5}
+        - {x: -11, y: 34.5}
+        - {x: -26, y: 27.5}
+        - {x: -30, y: -3.5}
+        - {x: -30, y: -30.5}
+        - {x: -29, y: -34.5}
+        - {x: -26, y: -35.5}
+        - {x: 31, y: -35.5}
+        - {x: 31, y: -10.5}
+        - {x: 17, y: 27.5}
+    - name: 9_6_SpriteDrillerMale_2
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 427
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 28, y: -35.5}
+        - {x: 29, y: -32.5}
+        - {x: 29, y: -11.5}
+        - {x: 14, y: 28.5}
+        - {x: 11, y: 35.5}
+        - {x: -17, y: 35.5}
+        - {x: -26, y: 32.5}
+        - {x: -26, y: -35.5}
+        - {x: 2, y: -35.5}
+        - {x: 8, y: -21.5}
+        - {x: 8, y: -16.5}
+        - {x: 13, y: -35.5}
+    - name: 9_6_SpriteDrillerMale_3
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 427
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 28, y: -35.5}
+        - {x: 33, y: -32.5}
+        - {x: 33, y: -17.5}
+        - {x: 28, y: -1.5}
+        - {x: 8, y: 35.5}
+        - {x: -21, y: 35.5}
+        - {x: -25, y: 34.5}
+        - {x: -32, y: -3.5}
+        - {x: -32, y: -35.5}
+        - {x: 16, y: -35.5}
+        - {x: 16, y: -31.5}
+        - {x: 15, y: -25.5}
+        - {x: 17, y: -35.5}
+    - name: 9_6_SpriteDrillerMale_4
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 427
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 35.5}
+        - {x: -29, y: 26.5}
+        - {x: -33, y: -0.5}
+        - {x: -33, y: -30.5}
+        - {x: -29, y: -35.5}
+        - {x: 28, y: -35.5}
+        - {x: 33, y: -32.5}
+        - {x: 33, y: -12.5}
+        - {x: 4, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_5
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 427
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 31, y: -1.5}
+        - {x: 12, y: 34.5}
+        - {x: -12, y: 34.5}
+        - {x: -20, y: 29.5}
+        - {x: -30, y: -17.5}
+        - {x: -28, y: -33.5}
+        - {x: -26, y: -35.5}
+        - {x: 28, y: -35.5}
+        - {x: 31, y: -32.5}
+    - name: 9_6_SpriteDrillerMale_6
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 427
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 6, y: -13.5}
+        - {x: 10, y: -29.5}
+        - {x: 14, y: -35.5}
+        - {x: 28, y: -35.5}
+        - {x: 28, y: -20.5}
+        - {x: 13, y: 33.5}
+        - {x: 5, y: 35.5}
+        - {x: -16, y: 35.5}
+        - {x: -22, y: 27.5}
+        - {x: -28, y: -10.5}
+        - {x: -28, y: -35.5}
+        - {x: 0, y: -35.5}
+        - {x: 8, y: -21.5}
+        - {x: 7, y: -16.5}
+        - {x: 1, y: -5.5}
+    - name: 9_6_SpriteDrillerMale_7
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 427
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -25, y: 35.5}
+        - {x: -26, y: 34.5}
+        - {x: -32, y: 3.5}
+        - {x: -32, y: -35.5}
+        - {x: 31, y: -35.5}
+        - {x: 33, y: -33.5}
+        - {x: 33, y: 14.5}
+        - {x: 14, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 356
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19, y: 27.5}
+        - {x: -32, y: -14.5}
+        - {x: -32, y: -30.5}
+        - {x: -24, y: -35.5}
+        - {x: 34, y: -35.5}
+        - {x: 34, y: 20.5}
+        - {x: 18, y: 27.5}
+    - name: 9_6_SpriteDrillerMale_9
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 356
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16, y: 16.5}
+        - {x: -35, y: -1.5}
+        - {x: -35, y: -35.5}
+        - {x: 35, y: -35.5}
+        - {x: 35, y: 4.5}
+        - {x: 15, y: 16.5}
+    - name: 9_6_SpriteDrillerMale_10
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 356
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16, y: 33.5}
+        - {x: -33, y: 23.5}
+        - {x: -33, y: -8.5}
+        - {x: -31, y: -15.5}
+        - {x: -26, y: -25.5}
+        - {x: 21, y: -25.5}
+        - {x: 34, y: -24.5}
+        - {x: 34, y: 22.5}
+        - {x: 17, y: 33.5}
+    - name: 9_6_SpriteDrillerMale_11
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 356
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35, y: 35.5}
+        - {x: -35, y: -16.5}
+        - {x: 35, y: -16.5}
+        - {x: 35, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_12
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 356
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -15, y: 35.5}
+        - {x: -35, y: 18.5}
+        - {x: -35, y: -25.5}
+        - {x: -16, y: -24.5}
+        - {x: -12, y: -19.5}
+        - {x: -10, y: -29.5}
+        - {x: -7, y: -31.5}
+        - {x: 20, y: -31.5}
+        - {x: 35, y: -20.5}
+        - {x: 35, y: 18.5}
+        - {x: 17, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 285
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13, y: 35.5}
+        - {x: -33, y: -14.5}
+        - {x: -33, y: -32.5}
+        - {x: -30, y: -33.5}
+        - {x: -24, y: -34.5}
+        - {x: -19, y: -30.5}
+        - {x: -16, y: -27.5}
+        - {x: -15, y: -23.5}
+        - {x: -16, y: -33.5}
+        - {x: -15, y: -35.5}
+        - {x: 31, y: -35.5}
+        - {x: 32, y: -34.5}
+        - {x: 32, y: 3.5}
+        - {x: 21, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_14
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 285
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -3, y: -6.5}
+        - {x: 0, y: -2.5}
+        - {x: -7, y: -16.5}
+        - {x: -8, y: -22.5}
+        - {x: -1, y: -31.5}
+        - {x: 2, y: -35.5}
+        - {x: 27, y: -35.5}
+        - {x: 27, y: -29.5}
+        - {x: 22, y: 25.5}
+        - {x: 16, y: 35.5}
+        - {x: -12, y: 35.5}
+        - {x: -28, y: 30.5}
+        - {x: -28, y: -35.5}
+        - {x: -15, y: -35.5}
+        - {x: -9, y: -29.5}
+        - {x: -9, y: -17.5}
+        - {x: -5, y: -11.5}
+    - name: 9_6_SpriteDrillerMale_15
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 285
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -31, y: -15.5}
+        - {x: -31, y: -35.5}
+        - {x: 30, y: -35.5}
+        - {x: 30, y: -0.5}
+        - {x: 27, y: 28.5}
+        - {x: 18, y: 33.5}
+        - {x: -7, y: 33.5}
+        - {x: -15, y: 30.5}
+    - name: 9_6_SpriteDrillerMale_16
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 285
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 25, y: 35.5}
+        - {x: -3, y: 35.5}
+        - {x: -33, y: -3.5}
+        - {x: -33, y: -27.5}
+        - {x: -30, y: -34.5}
+        - {x: -22, y: -35.5}
+        - {x: 27, y: -35.5}
+        - {x: 33, y: -25.5}
+        - {x: 33, y: 3.5}
+    - name: 9_6_SpriteDrillerMale_17
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 285
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 35.5}
+        - {x: -32, y: -9.5}
+        - {x: -32, y: -31.5}
+        - {x: -30, y: -35.5}
+        - {x: -26, y: -35.5}
+        - {x: -22, y: -33.5}
+        - {x: -19, y: -30.5}
+        - {x: -15, y: -25.5}
+        - {x: -15, y: -22.5}
+        - {x: -15, y: -23.5}
+        - {x: -16, y: -32.5}
+        - {x: -14, y: -35.5}
+        - {x: 27, y: -35.5}
+        - {x: 32, y: -33.5}
+        - {x: 32, y: -11.5}
+        - {x: 25, y: 25.5}
+        - {x: 16, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_18
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 285
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -3, y: -7.5}
+        - {x: -7, y: -16.5}
+        - {x: -7, y: -19.5}
+        - {x: -4, y: -22.5}
+        - {x: -1, y: -33.5}
+        - {x: 3, y: -35.5}
+        - {x: 27, y: -35.5}
+        - {x: 27, y: -7.5}
+        - {x: 23, y: 25.5}
+        - {x: 21, y: 35.5}
+        - {x: -14, y: 35.5}
+        - {x: -24, y: 32.5}
+        - {x: -28, y: 1.5}
+        - {x: -28, y: -35.5}
+        - {x: -14, y: -35.5}
+        - {x: -9, y: -29.5}
+        - {x: -9, y: -17.5}
+        - {x: -5, y: -12.5}
+    - name: 9_6_SpriteDrillerMale_19
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 285
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -30, y: -35.5}
+        - {x: 30, y: -35.5}
+        - {x: 30, y: -3.5}
+        - {x: 28, y: 30.5}
+        - {x: 22, y: 33.5}
+        - {x: -18, y: 33.5}
+        - {x: -30, y: 3.5}
+    - name: 9_6_SpriteDrillerMale_20
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 285
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35, y: -28.5}
+        - {x: -30, y: -35.5}
+        - {x: 33, y: -35.5}
+        - {x: 33, y: 16.5}
+        - {x: 25, y: 35.5}
+        - {x: -6, y: 35.5}
+        - {x: -35, y: -13.5}
+    - name: 9_6_SpriteDrillerMale_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 214
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 31.5}
+        - {x: -35, y: 10.5}
+        - {x: -35, y: -23.5}
+        - {x: -20, y: -33.5}
+        - {x: -14, y: -35.5}
+        - {x: 11, y: -35.5}
+        - {x: 35, y: -25.5}
+        - {x: 35, y: 8.5}
+        - {x: 17, y: 31.5}
+    - name: 9_6_SpriteDrillerMale_22
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 214
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12, y: 33.5}
+        - {x: -35, y: 24.5}
+        - {x: -35, y: -25.5}
+        - {x: -24, y: -32.5}
+        - {x: 14, y: -32.5}
+        - {x: 35, y: -21.5}
+        - {x: 35, y: 11.5}
+        - {x: 22, y: 33.5}
+    - name: 9_6_SpriteDrillerMale_23
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 214
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12, y: 35.5}
+        - {x: -27, y: 30.5}
+        - {x: -35, y: 17.5}
+        - {x: -35, y: -7.5}
+        - {x: -26, y: -20.5}
+        - {x: -17, y: -25.5}
+        - {x: 10, y: -25.5}
+        - {x: 35, y: -13.5}
+        - {x: 35, y: 13.5}
+        - {x: 18, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_24
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 214
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 34.5}
+        - {x: -35, y: 8.5}
+        - {x: -35, y: -22.5}
+        - {x: -8, y: -33.5}
+        - {x: 14, y: -33.5}
+        - {x: 35, y: -14.5}
+        - {x: 35, y: 27.5}
+        - {x: 16, y: 34.5}
+    - name: 9_6_SpriteDrillerMale_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 143
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 35.5}
+        - {x: -34, y: 27.5}
+        - {x: -35, y: 23.5}
+        - {x: -35, y: -5.5}
+        - {x: -33, y: -7.5}
+        - {x: -27, y: -9.5}
+        - {x: -34, y: -14.5}
+        - {x: -22, y: -35.5}
+        - {x: 5, y: -35.5}
+        - {x: 32, y: -9.5}
+        - {x: 32, y: 8.5}
+        - {x: 3, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_26
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 143
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -4, y: 34.5}
+        - {x: -20, y: 29.5}
+        - {x: -33, y: 4.5}
+        - {x: -33, y: -4.5}
+        - {x: -31, y: -32.5}
+        - {x: -23, y: -35.5}
+        - {x: 13, y: -35.5}
+        - {x: 31, y: -9.5}
+        - {x: 31, y: 7.5}
+        - {x: 5, y: 34.5}
+    - name: 9_6_SpriteDrillerMale_27
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 143
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 13, y: 35.5}
+        - {x: -16, y: 35.5}
+        - {x: -26, y: 8.5}
+        - {x: -26, y: -21.5}
+        - {x: -11, y: -35.5}
+        - {x: 13, y: -35.5}
+        - {x: 35, y: -11.5}
+        - {x: 35, y: 8.5}
+        - {x: 23, y: 30.5}
+    - name: 9_6_SpriteDrillerMale_28
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 143
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -27, y: 35.5}
+        - {x: -32, y: 25.5}
+        - {x: -32, y: -14.5}
+        - {x: -22, y: -35.5}
+        - {x: 9, y: -35.5}
+        - {x: 34, y: -16.5}
+        - {x: 34, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 72
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 35, y: -25.5}
+        - {x: 35, y: 16.5}
+        - {x: 34, y: 19.5}
+        - {x: 21, y: 35.5}
+        - {x: 16, y: 33.5}
+        - {x: 16, y: 35.5}
+        - {x: -9, y: 35.5}
+        - {x: -33, y: 25.5}
+        - {x: -33, y: -10.5}
+        - {x: -5, y: -35.5}
+        - {x: 5, y: -35.5}
+        - {x: 9, y: -29.5}
+        - {x: 16, y: -35.5}
+        - {x: 29, y: -35.5}
+    - name: 9_6_SpriteDrillerMale_30
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 72
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 22, y: -9.5}
+        - {x: 20, y: -8.5}
+        - {x: 20, y: -9.5}
+        - {x: 21, y: -8.5}
+        - {x: 23, y: -10.5}
+        - {x: 34, y: -5.5}
+        - {x: 34, y: 17.5}
+        - {x: 18, y: 35.5}
+        - {x: -27, y: 35.5}
+        - {x: -32, y: 32.5}
+        - {x: -32, y: -30.5}
+        - {x: -31, y: -35.5}
+        - {x: 15, y: -35.5}
+        - {x: 18, y: -34.5}
+        - {x: 24, y: -24.5}
+        - {x: 26, y: -18.5}
+        - {x: 26, y: -14.5}
+    - name: 9_6_SpriteDrillerMale_31
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 72
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 11, y: -35.5}
+        - {x: 25, y: -13.5}
+        - {x: 25, y: 17.5}
+        - {x: 9, y: 35.5}
+        - {x: -10, y: 35.5}
+        - {x: -35, y: 25.5}
+        - {x: -35, y: -16.5}
+        - {x: -27, y: -27.5}
+        - {x: -12, y: -35.5}
+        - {x: -2, y: -35.5}
+        - {x: -2, y: -31.5}
+        - {x: 0, y: -35.5}
+    - name: 9_6_SpriteDrillerMale_32
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 72
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12, y: 35.5}
+        - {x: -35, y: 15.5}
+        - {x: -35, y: -29.5}
+        - {x: -18, y: -35.5}
+        - {x: 31, y: -35.5}
+        - {x: 32, y: -33.5}
+        - {x: 32, y: 13.5}
+        - {x: 23, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -30, y: 35.5}
+        - {x: -35, y: 31.5}
+        - {x: -35, y: -12.5}
+        - {x: -20, y: -34.5}
+        - {x: 8, y: -34.5}
+        - {x: 35, y: -7.5}
+        - {x: 35, y: 26.5}
+        - {x: 21, y: 35.5}
+    - name: 9_6_SpriteDrillerMale_34
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 1
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 32.5}
+        - {x: -35, y: 17.5}
+        - {x: -35, y: -7.5}
+        - {x: -8, y: -33.5}
+        - {x: 10, y: -33.5}
+        - {x: 35, y: -7.5}
+        - {x: 35, y: 19.5}
+        - {x: 11, y: 32.5}
+    - name: 9_6_SpriteDrillerMale_35
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 1
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16, y: 24.5}
+        - {x: -35, y: 15.5}
+        - {x: -35, y: -16.5}
+        - {x: -21, y: -35.5}
+        - {x: 12, y: -35.5}
+        - {x: 35, y: -22.5}
+        - {x: 35, y: 16.5}
+        - {x: 23, y: 24.5}
+    - name: 9_6_SpriteDrillerMale_36
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 1
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 32, y: 19.5}
+        - {x: 16, y: 31.5}
+        - {x: -9, y: 31.5}
+        - {x: -35, y: 18.5}
+        - {x: -35, y: -7.5}
+        - {x: -21, y: -21.5}
+        - {x: -9, y: -32.5}
+        - {x: -6, y: -34.5}
+        - {x: 8, y: -34.5}
+        - {x: 28, y: -18.5}
+        - {x: 35, y: -8.5}
+        - {x: 35, y: 9.5}
     outline: []
   spritePackingTag: 
   userData: 
