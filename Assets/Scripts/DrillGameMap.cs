@@ -89,7 +89,7 @@ public class DrillGameMap : MonoBehaviour
                     DrillingGameTile t = tiles[j, i] = Instantiate(tilePrefabs[id]);
                     t.transform.SetParent(parentPanel);
                     t.gameObject.SetActive(true);
-                    if (id == 7)
+                    if (id == 9)
                     {
                         UIwater.Add(t);
                         relocateWaterTiles(UIwater.Count, t, j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
@@ -100,7 +100,7 @@ public class DrillGameMap : MonoBehaviour
                         t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     tilesList.Add(t);
-                    if (id == 3 && i == 13) bottomRow.Add(t);
+                    if (id == 0 && i == 7) bottomRow.Add(t);
                 }
             }
         }
