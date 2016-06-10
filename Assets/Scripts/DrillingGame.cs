@@ -40,6 +40,7 @@ public class DrillingGame : Minigame
     private int targetRow;
     private int levelsCounter = 0;
     private int curveId = 0;
+    private int lives = 3;
     //bools
     private bool slidingLeft, makeDrill, imagesActivated, joystickShaken, reachedTile = false;
     //timers
@@ -761,16 +762,20 @@ public class DrillingGame : Minigame
             GameManager.Instance.Player.StartBuildMinigame(plant, 1f);
         }
         else GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
-        resetGameGuts();
+        resetGameGuts(false);
+    }
+
+    private void RestartGame()
+    {
+        state = DrillingGameState.SLIDING;
+        resetGameGuts(true);
     }
 
     //this function need refactoring, split to other functions or remove at all if unnecessary
     private void activateImages(bool activate)
     {
-        if(activate)
-        {
-            Driller.Drill.gameObject.SetActive(true);
-        } else
+        if(activate) Driller.Drill.gameObject.SetActive(true);
+        else
         {
             Driller.Drill.gameObject.SetActive(false);
             if (brokenDrillToast) brokenDrillToast.gameObject.SetActive(false);
@@ -779,7 +784,7 @@ public class DrillingGame : Minigame
         }
     }
 
-    private void resetGameGuts()
+    private void resetGameGuts(bool isRestarted)
     {
         makeDrill = false;
         slidingLeft = false;
@@ -795,6 +800,7 @@ public class DrillingGame : Minigame
         toastType = global::ToastType.NONE;
 
         map.Reset();
+        Driller.Reset(isRestarted);
     }
 
     private void activateToast(ToastType type)
