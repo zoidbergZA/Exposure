@@ -26,7 +26,7 @@ public class DrillGameMap : MonoBehaviour
     private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
     private List<DrillingGameTile> water = new List<DrillingGameTile>();
 
-    public const int TILE_SIZE = 44, MAP_WIDTH = 19, MAP_HEIGHT = 14;
+    public const int TILE_SIZE = 88, MAP_WIDTH = 12, MAP_HEIGHT = 8;
 
     void Start()
     {
