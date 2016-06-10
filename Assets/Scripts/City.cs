@@ -14,7 +14,7 @@ public class City : MonoBehaviour
 
     public void Reset()
     {
-        puzzlePath.Reset();
+        if(puzzlePath) puzzlePath.Reset();
     }
 
     public void TryBuild(Pylon pylon)
