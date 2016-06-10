@@ -86,7 +86,26 @@ public class Scanner : MonoBehaviour
         {
             if (GameManager.Instance.TouchInput)
             {
+                if (Input.touchCount > 0)
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
+                    RaycastHit hit;
 
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        UpdateScannerPosition(hit.point);
+
+                        City city = hit.transform.GetComponent<City>();
+                        if (city)
+                        {
+                            if (city.IsDirty)
+                            {
+                                SelectedCity = city;
+                                StartScan();
+                            }
+                        }
+                    }
+                }
             }
             else
             {
@@ -102,8 +121,11 @@ public class Scanner : MonoBehaviour
                         City city = hit.transform.GetComponent<City>();
                         if (city)
                         {
-                            SelectedCity = city;
-                            StartScan();
+                            if (city.IsDirty)
+                            {
+                                SelectedCity = city;
+                                StartScan();
+                            }
                         }
                     }
                 }
@@ -137,9 +159,18 @@ public class Scanner : MonoBehaviour
         gadgetModel.transform.localScale = new Vector3(Charge, Charge, Charge);
         sphereCollider.radius = Charge;
 
-        if (Input.GetMouseButton(0))
+        Vector2 rayPos;
+
+        if (GameManager.Instance.TouchInput)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            rayPos = Input.touches[0].position;
+        }
+        else
+            rayPos = Input.mousePosition;
+
+        if (true)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(rayPos);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
