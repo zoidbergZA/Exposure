@@ -42,7 +42,8 @@ public class PuzzlePath : MonoBehaviour
             {
                 IsCompleted = true;
                 ParentCity.CleanUp();
-                Debug.Log("puzzle completed! " + Time.time);
+
+//                Debug.Log("puzzle completed! " + Time.time);
             }
         }
     }
