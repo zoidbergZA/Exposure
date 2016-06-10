@@ -790,9 +790,9 @@ MonoBehaviour:
   drillLife: {fileID: 11406088}
   AutoWin: 0
   levels:
-  - {fileID: 4900000, guid: 7cdd732afd1ed204ab5626a03c13526b, type: 3}
-  - {fileID: 4900000, guid: 7cdd732afd1ed204ab5626a03c13526b, type: 3}
-  - {fileID: 4900000, guid: 4299a044e8c3c4a498eafb4f9b25e250, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 4900000, guid: b04e35381770c4042b9c18c3a4a73e4e, type: 3}
   - {fileID: 4900000, guid: 892f632c77e9a4e699d70cb0662a6044, type: 3}
   - {fileID: 4900000, guid: 18cf5613cf7854737ab0348b5d010701, type: 3}
