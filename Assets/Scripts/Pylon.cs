@@ -10,6 +10,7 @@ public class Pylon : MonoBehaviour
         Built
     }
 
+    [SerializeField] private float chargeBoost = 7f;
     [SerializeField] private GameObject PlacerModel;
     [SerializeField] private GameObject BuiltModel;
 
@@ -17,8 +18,7 @@ public class Pylon : MonoBehaviour
 
     void Awake()
     {
-        BuiltModel.SetActive(false);
-        PlacerModel.SetActive(false);
+        Reset();
     }
 
     public void ShowPreview(bool show)
@@ -42,6 +42,7 @@ public class Pylon : MonoBehaviour
             return;
 
         State = States.Built;
+        GameManager.Instance.Scanner.AddCharge(chargeBoost);
         
         PlacerModel.SetActive(false);
         BuiltModel.SetActive(true);
@@ -50,7 +51,7 @@ public class Pylon : MonoBehaviour
     public void Reset()
     {
         State = States.Ready;
-        PlacerModel.SetActive(true);
         BuiltModel.SetActive(false);
+        PlacerModel.SetActive(false);
     }
 }

@@ -12,6 +12,11 @@ public class City : MonoBehaviour
 
     }
 
+    public void Reset()
+    {
+        puzzlePath.Reset();
+    }
+
     public void TryBuild(Pylon pylon)
     {
         puzzlePath.TryConnectPylon(pylon);

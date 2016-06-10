@@ -36,6 +36,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &128068
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 435642}
+  m_Layer: 2
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &167850
 GameObject:
   m_ObjectHideFlags: 1
@@ -78,10 +93,10 @@ Transform:
   m_GameObject: {fileID: 167850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.11, y: 1.1, z: 1.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 486136}
-  m_Father: {fileID: 446780}
+  m_Father: {fileID: 435642}
   m_RootOrder: 0
 --- !u!4 &430320
 Transform:
@@ -96,6 +111,19 @@ Transform:
   - {fileID: 446780}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!4 &435642
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 415006}
+  m_Father: {fileID: 446780}
+  m_RootOrder: 0
 --- !u!4 &446780
 Transform:
   m_ObjectHideFlags: 1
@@ -104,9 +132,9 @@ Transform:
   m_GameObject: {fileID: 103298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 415006}
+  - {fileID: 435642}
   m_Father: {fileID: 430320}
   m_RootOrder: 0
 --- !u!4 &486136
@@ -270,6 +298,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedIcon: {fileID: 2800000, guid: 72c6f934ace19ed46825c4894a4bf1aa, type: 3}
   maxCharge: 40
+  shrinkSpeed: 7
+  gadgetModel: {fileID: 128068}
 --- !u!135 &13569246
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -280,7 +310,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
