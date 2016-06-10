@@ -790,6 +790,7 @@ MonoBehaviour:
   drillLife: {fileID: 11406088}
   AutoWin: 0
   levels:
+<<<<<<< HEAD
   - {fileID: 4900000, guid: 8ae44b68697ff244f8a1272492c267ca, type: 3}
   - {fileID: 4900000, guid: ff890c93dec41471ab50ef647e326cac, type: 3}
   - {fileID: 4900000, guid: 6b3f2c855624f436496c71b2626814b8, type: 3}
@@ -802,6 +803,20 @@ MonoBehaviour:
   - {fileID: 4900000, guid: a8f7c298215474d8aa5d836f7a1bd302, type: 3}
   - {fileID: 4900000, guid: 8ae44b68697ff244f8a1272492c267ca, type: 3}
   - {fileID: 4900000, guid: ff890c93dec41471ab50ef647e326cac, type: 3}
+=======
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 4900000, guid: b04e35381770c4042b9c18c3a4a73e4e, type: 3}
+  - {fileID: 4900000, guid: 892f632c77e9a4e699d70cb0662a6044, type: 3}
+  - {fileID: 4900000, guid: 18cf5613cf7854737ab0348b5d010701, type: 3}
+  - {fileID: 4900000, guid: 325973f867e3a4cf1a4e292624cffcaf, type: 3}
+  - {fileID: 4900000, guid: 883cdee42cca54c06a8c5c598d5e8989, type: 3}
+  - {fileID: 4900000, guid: 2a17e86e5ac634511b0123d327acf7ef, type: 3}
+  - {fileID: 4900000, guid: 1f46287965e2a43c3a00476214324774, type: 3}
+  - {fileID: 4900000, guid: 105f75df1a2f14dd9b40a01c041a2ee5, type: 3}
+  - {fileID: 4900000, guid: 1fc75e419cb8848188e23d53c8fcfb4b, type: 3}
+>>>>>>> refs/remotes/origin/master
 --- !u!114 &11446804
 MonoBehaviour:
   m_ObjectHideFlags: 1
