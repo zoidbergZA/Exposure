@@ -701,7 +701,8 @@ public class DrillingGame : Minigame
                     slidingLeft = true;
                     Driller.SwitchAnimation("isSlidingLeft", true);
                 }
-                Driller.Drill.transform.Translate(new Vector3(1 * slideSpeed * Time.deltaTime, 0, 0));
+                Driller.Body.AddRelativeForce(new Vector2(1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
             }
             else
             {
@@ -714,7 +715,8 @@ public class DrillingGame : Minigame
                     slidingLeft = false;
                     Driller.SwitchAnimation("isSlidingLeft", false);
                 }
-                Driller.Drill.transform.Translate(new Vector3(-1 * slideSpeed * Time.deltaTime, 0, 0));
+                Driller.Body.AddRelativeForce(new Vector2(-1 * drillSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
             }
         }
         else

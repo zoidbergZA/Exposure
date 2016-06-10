@@ -33,7 +33,6 @@ public class DrillGameMap : MonoBehaviour
         ceiling = GameObject.Find("Ceiling");
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
-        //if (tilePrefabs[12]) flashTile = tilePrefabs[12].GetComponent<UnityEngine.UI.Image>();
         flashTileTimer = flashTileTime;
     }
 
@@ -132,19 +131,19 @@ public class DrillGameMap : MonoBehaviour
         switch(id)
         {
             case 1:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 583);
-                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
-                LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 525);
+                //LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                //LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 2:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 497);
-                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
-                LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 436);
+                //LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                //LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 3:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 409);
-                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
-                LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 345);
+                //LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                //LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
         }
     }
@@ -172,14 +171,14 @@ public class DrillGameMap : MonoBehaviour
     private void FlashNextTile()
     {
         flashTileTimer -= Time.deltaTime;
-        flashTile.rectTransform.anchoredPosition = FlashCoords;
-        flashTile.transform.SetAsLastSibling();
-        flashTile.enabled = true;
+        //flashTile.rectTransform.anchoredPosition = FlashCoords;
+        //flashTile.transform.SetAsLastSibling();
+        //flashTile.enabled = true;
         if (flashTileTimer <= 0)
         {
             flashTileTimer = flashTileTime;
-            flashTile.transform.SetAsFirstSibling();
-            flashTile.enabled = false;
+            //flashTile.transform.SetAsFirstSibling();
+            //flashTile.enabled = false;
             TriggerFlash = false;
         }
     }

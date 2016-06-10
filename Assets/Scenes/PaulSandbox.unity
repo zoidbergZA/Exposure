@@ -15520,6 +15520,22 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 22417250, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22417250, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: slideSpeed
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 22480216, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -358.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
   m_IsPrefabParent: 0
