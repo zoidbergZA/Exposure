@@ -34,7 +34,7 @@ public class DrillingGame : Minigame
 
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, SLIDING, DRILLING, SUCCESS, STARTSTOPTOAST, PREDRILLJUMP, ACTIVATION }
-    public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 8;
+    public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 9;
     private DrillingGameState state;
     private ToastType toastType;
     private Vector2 startDrillPosition;

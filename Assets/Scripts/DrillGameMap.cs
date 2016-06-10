@@ -26,7 +26,7 @@ public class DrillGameMap : MonoBehaviour
     private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
     private List<DrillingGameTile> water = new List<DrillingGameTile>();
 
-    public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 8;
+    public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 9;
 
     void Start()
     {
@@ -99,7 +99,7 @@ public class DrillGameMap : MonoBehaviour
                         t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     tilesList.Add(t);
-                    if (id == 0 && i == 7) bottomRow.Add(t);
+                    if (id == 0 && i == 8) bottomRow.Add(t);
                 }
             }
         }
@@ -132,18 +132,18 @@ public class DrillGameMap : MonoBehaviour
         {
             case 1:
                 tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 525);
-                //LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
-                //LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
+                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 2:
                 tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 436);
-                //LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
-                //LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
+                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 3:
                 tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 345);
-                //LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
-                //LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
+                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
         }
     }
