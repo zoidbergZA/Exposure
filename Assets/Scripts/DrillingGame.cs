@@ -11,24 +11,22 @@ public class DrillingGame : Minigame
     [SerializeField] private DrillGameMap map;
     [SerializeField] private RectTransform mapPanel;
 
-    [SerializeField] private float toastMessageTime = 3.0f;
+    [SerializeField] private float toastMessageTime = 3.0f; //to be removed to mini-game hud
     [SerializeField] private float drillSpeed = 3.0f;
     [SerializeField] private float slideSpeed = 1.0f;
     [SerializeField] private float diamondValue = 1.0f;
     [SerializeField] private float jumpPhaseTime = 0.25f;
-    [SerializeField] private float panelSlidingTime = 1.5f;
-    [SerializeField] public float stuckTime = 10.0f;
-    [SerializeField] private float drillStuckCooldown = 2.0f;
-    [SerializeField] private float joystickArrowFadeSpeed = 2f;
+    [SerializeField] private float panelSlidingTime = 1.5f;  //to be removed to mini-game hud
+    [SerializeField] private float joystickArrowFadeSpeed = 2f;  //to be removed to mini-game hud
     [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
     [SerializeField] private UnityEngine.UI.Image mainPanel;
-    [SerializeField] private UnityEngine.UI.Image joystickArrow;
-    [SerializeField] private UnityEngine.UI.Image endOkToast;
-    [SerializeField] private UnityEngine.UI.Image brokenDrillToast;
-    [SerializeField] private UnityEngine.UI.Image brokenPipeToast;
-    [SerializeField] private UnityEngine.UI.Image waterBar;
-    [SerializeField] private UnityEngine.UI.Image steamImage;
-    [SerializeField] private UnityEngine.UI.Image drillLife;
+    [SerializeField] private UnityEngine.UI.Image joystickArrow;  //to be removed to mini-game hud
+    [SerializeField] private UnityEngine.UI.Image endOkToast;  //to be removed to mini-game hud
+    [SerializeField] private UnityEngine.UI.Image brokenDrillToast;  //to be removed to mini-game hud
+    [SerializeField] private UnityEngine.UI.Image brokenPipeToast;  //to be removed to mini-game hud
+    [SerializeField] private UnityEngine.UI.Image waterBar;  //to be removed to mini-game hud
+    [SerializeField] private UnityEngine.UI.Image steamImage;  //to be removed to mini-game hud
+    [SerializeField] private UnityEngine.UI.Image drillLife;  //to be removed to mini-game hud
     [SerializeField] private bool AutoWin;
     [SerializeField] private TextAsset[] levels;
 
@@ -37,7 +35,7 @@ public class DrillingGame : Minigame
     public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 9;
     private DrillingGameState state;
     private ToastType toastType;
-    private Vector2 startDrillPosition;
+    private Vector2 startDrillerPosition;
     private int targetColumn;
     private int targetRow;
     private int levelsCounter = 0;
@@ -45,11 +43,9 @@ public class DrillingGame : Minigame
     //bools
     private bool slidingLeft, makeDrill, imagesActivated, joystickShaken, reachedTile = false;
     //timers
-    private float toastTimer;
+    private float toastTimer;  //to be removed to mini-game hud
     private float jumpPhaseTimer;
-    private float panelSlidingTimer;
-    private float drillStuckChecked;
-    private float stuckTimer;
+    private float panelSlidingTimer;  //to be removed to mini-game hud
 
     public bool SucceededDrill { get; set; }
     public bool Bumped { get; set; }
@@ -61,14 +57,13 @@ public class DrillingGame : Minigame
     public DrillGameMap Map { get { return map; } }
     public Driller Driller { get; private set; }
     public DrillGameHud Hud { get; private set; }
-    public float StuckTimer { get { return stuckTimer; } set { stuckTimer = value; } }
     public UnityEngine.UI.Image WaterBar { get { return waterBar; } }
     public UnityEngine.UI.Image DrillLife { get { return drillLife; } }
     public float DiamondValue { get { return diamondValue; } }
     public UnityEngine.UI.Image MainPanel { get { return mainPanel; } }
     public bool ReachedBottom(int bottom)
     {
-        return Driller.Position.y <= startDrillPosition.y - bottom;
+        return Driller.Position.y <= startDrillerPosition.y - bottom;
     }
     public bool JoystickJustMoved { get; private set; }
 
@@ -90,9 +85,8 @@ public class DrillingGame : Minigame
         toastTimer = toastMessageTime;
         jumpPhaseTimer = jumpPhaseTime;
         panelSlidingTimer = panelSlidingTime;
-        drillStuckChecked = Time.time;
         if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -(Screen.height) - 700, 0);
-        startDrillPosition = Driller.Position;
+        startDrillerPosition = Driller.Position;
         SucceededDrill = true;
         levelsCounter = 0;
     }
@@ -128,12 +122,6 @@ public class DrillingGame : Minigame
     {
         if (Driller.Drill)
             updateState();
-
-        if (Time.time - drillStuckChecked > drillStuckCooldown)
-        {
-            checkDrillerStuck();
-            drillStuckChecked = Time.time;
-        }
         updateProgressBars();
     }
 
@@ -147,7 +135,6 @@ public class DrillingGame : Minigame
         Driller.SwitchAnimation("isSlidingLeft", false);
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0,100,0), panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
         state = DrillingGameState.ACTIVATION;
-        stuckTimer = stuckTime;
     }
 
     public void PointJoystickArrow(DrillingDirection direction)
@@ -759,21 +746,8 @@ public class DrillingGame : Minigame
     private void updateProgressBars()
     {
         if (waterBar && map.GetWaterCount <= 3) waterBar.fillAmount = map.GetWaterCount * 33.33333334f / 100f;
-        if (stuckTimer > stuckTime - (stuckTime / 3)) drillLife.fillAmount = 1.00f;
-        else if (stuckTimer <= stuckTime - (stuckTime / 3) && stuckTimer > stuckTime - (stuckTime / 3)*2) drillLife.fillAmount = 0.66f;
-        else if (stuckTimer <= stuckTime - (stuckTime / 3) * 2 && stuckTimer > 0.05f) drillLife.fillAmount = 0.33f;
-        else drillLife.fillAmount = 0.00f;
-    }
-
-    private void checkDrillerStuck()
-    {
-        if (stuckTimer <= 0)
-        {
-            SucceededDrill = false;
-            toastType = global::ToastType.BROKEN_DRILL;
-            state = DrillingGameState.STARTSTOPTOAST;
-            stuckTimer = stuckTime;
-        }
+        //to do update drill life depending on amount of life
+        drillLife.fillAmount = 1.00f;
     }
 
     public override void End(bool succeeded)
@@ -790,6 +764,7 @@ public class DrillingGame : Minigame
         resetGameGuts();
     }
 
+    //this function need refactoring, split to other functions or remove at all if unnecessary
     private void activateImages(bool activate)
     {
         if(activate)
@@ -813,12 +788,10 @@ public class DrillingGame : Minigame
         SucceededDrill = false;
         targetColumn = 0;
         targetRow = 0;
-        Driller.Position = startDrillPosition;
+        Driller.Position = startDrillerPosition;
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -(Screen.height) - 700, 0), panelSlidingTime / 2);
-        Driller.Drill.color = new Color(1, 1, 1);
-        drillLife.color = new Color(1, 1, 1);
-        waterBar.fillAmount = 0f;
-        drillLife.fillAmount = 1f;
+        waterBar.fillAmount = 0f; //to be removed to mini-game-hud
+        drillLife.fillAmount = 1f; //to be removed to mini-game-hud
         toastType = global::ToastType.NONE;
 
         map.Reset();
