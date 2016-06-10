@@ -10,10 +10,14 @@ public class Scanner : MonoBehaviour
     [SerializeField] private float maxCharge = 100f;
     [SerializeField] private float shrinkSpeed = 10f;
     [SerializeField] private GameObject gadgetModel;
+    [SerializeField] private MeshRenderer gadgetMeshRenderer;
+    [SerializeField] private Color flashColor;
 
+    private Color normalColor;
     private Material material;
     private Renderer renderer;
     private SphereCollider sphereCollider;
+    private int flashTweenId;
 
     public City SelectedCity { get; private set; }
     public float Charge { get; private set; }
@@ -29,6 +33,7 @@ public class Scanner : MonoBehaviour
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.enabled = false;
         gadgetModel.SetActive(false);
+        normalColor = gadgetMeshRenderer.material.color;
     }
     
     void Start()
@@ -49,9 +54,10 @@ public class Scanner : MonoBehaviour
 
 //        Debug.Log(IsScanning + ", " + Charge);
 
-        HandleScanning();
+        if (IsScanning)
+            HandleScanning();
 
-        material.SetFloat("_Radius", Charge);
+        material.SetFloat("_Radius", Charge * 1.2f);
     }
 
     void OnGUI()
@@ -67,6 +73,26 @@ public class Scanner : MonoBehaviour
     public void AddCharge(float amount)
     {
         Charge = Mathf.Min(Charge + amount, maxCharge);
+    }
+
+    public void DeselectCity()
+    {
+        if (IsScanning)
+            EndScan();
+
+        SelectedCity = null;
+    }
+
+    public void Flash()
+    {
+        if (LeanTween.isTweening(flashTweenId))
+            LeanTween.cancel(flashTweenId);
+
+
+        gadgetMeshRenderer.material.color = flashColor;
+        flashTweenId = LeanTween.color(gadgetMeshRenderer.gameObject, normalColor, 0.8f).id;
+
+        gadgetMeshRenderer.material.color = flashColor;
     }
 
     private void CheckStartStop()
@@ -86,7 +112,26 @@ public class Scanner : MonoBehaviour
         {
             if (GameManager.Instance.TouchInput)
             {
+                if (Input.touchCount > 0)
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
+                    RaycastHit hit;
 
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        UpdateScannerPosition(hit.point);
+
+                        City city = hit.transform.GetComponent<City>();
+                        if (city)
+                        {
+                            if (city.IsDirty)
+                            {
+                                SelectedCity = city;
+                                StartScan();
+                            }
+                        }
+                    }
+                }
             }
             else
             {
@@ -102,8 +147,11 @@ public class Scanner : MonoBehaviour
                         City city = hit.transform.GetComponent<City>();
                         if (city)
                         {
-                            SelectedCity = city;
-                            StartScan();
+                            if (city.IsDirty)
+                            {
+                                SelectedCity = city;
+                                StartScan();
+                            }
                         }
                     }
                 }
@@ -118,6 +166,7 @@ public class Scanner : MonoBehaviour
         gadgetModel.SetActive(true);
         Charge = maxCharge;
 
+//        Flash();
         GameManager.Instance.Director.SetMode(Director.Modes.Grid, SelectedCity.transform);
     }
 
@@ -135,11 +184,20 @@ public class Scanner : MonoBehaviour
     private void HandleScanning()
     {
         gadgetModel.transform.localScale = new Vector3(Charge, Charge, Charge);
-        sphereCollider.radius = Charge;
+        sphereCollider.radius = Charge*0.85f;
 
-        if (Input.GetMouseButton(0))
+        Vector2 rayPos;
+
+        if (GameManager.Instance.TouchInput)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            rayPos = Input.touches[0].position;
+        }
+        else
+            rayPos = Input.mousePosition;
+
+        if (true)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(rayPos);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
@@ -160,6 +218,8 @@ public class Scanner : MonoBehaviour
 
     private void UpdateScannerPosition(Vector3 position)
     {
+        
+        transform.LookAt(Camera.main.transform);
         transform.position = position;
         material.SetVector("_CenterPoint", new Vector4(position.x, position.y, position.z, 0));
     }

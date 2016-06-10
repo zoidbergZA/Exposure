@@ -26,14 +26,14 @@ public class DrillGameMap : MonoBehaviour
     private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
     private List<DrillingGameTile> water = new List<DrillingGameTile>();
 
-    public const int TILE_SIZE = 88, MAP_WIDTH = 12, MAP_HEIGHT = 8;
+    public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 8;
 
     void Start()
     {
         ceiling = GameObject.Find("Ceiling");
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
-        if (tilePrefabs[13]) flashTile = tilePrefabs[13].GetComponent<UnityEngine.UI.Image>();
+        //if (tilePrefabs[12]) flashTile = tilePrefabs[12].GetComponent<UnityEngine.UI.Image>();
         flashTileTimer = flashTileTime;
     }
 
@@ -89,7 +89,7 @@ public class DrillGameMap : MonoBehaviour
                     DrillingGameTile t = tiles[j, i] = Instantiate(tilePrefabs[id]);
                     t.transform.SetParent(parentPanel);
                     t.gameObject.SetActive(true);
-                    if (id == 7)
+                    if (id == 9)
                     {
                         UIwater.Add(t);
                         relocateWaterTiles(UIwater.Count, t, j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
@@ -100,7 +100,7 @@ public class DrillGameMap : MonoBehaviour
                         t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     tilesList.Add(t);
-                    if (id == 3 && i == 13) bottomRow.Add(t);
+                    if (id == 0 && i == 7) bottomRow.Add(t);
                 }
             }
         }

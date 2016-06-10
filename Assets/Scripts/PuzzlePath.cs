@@ -6,8 +6,14 @@ public class PuzzlePath : MonoBehaviour
 {
     [SerializeField] private Pylon[] pathPylons;
 
+    public City ParentCity { get; private set; }
     public int CurrentTarget { get; private set; }
     public bool IsCompleted { get; private set; }
+
+    public void SetParentCity(City parentCity)
+    {
+        ParentCity = parentCity;
+    }
 
     public void Reset()
     {
@@ -27,6 +33,7 @@ public class PuzzlePath : MonoBehaviour
         if (pathPylons.Contains(pylon) && pathPylons[CurrentTarget] == pylon)
         {
             pylon.Build();
+            GameManager.Instance.Scanner.Flash();
             GameManager.Instance.Director.SetMode(Director.Modes.Grid, pylon.transform);
 
             CurrentTarget++;
@@ -34,6 +41,7 @@ public class PuzzlePath : MonoBehaviour
             if (CurrentTarget >= pathPylons.Length)
             {
                 IsCompleted = true;
+                ParentCity.CleanUp();
                 Debug.Log("puzzle completed! " + Time.time);
             }
         }
