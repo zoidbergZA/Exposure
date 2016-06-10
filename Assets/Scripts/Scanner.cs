@@ -57,7 +57,7 @@ public class Scanner : MonoBehaviour
         if (IsScanning)
             HandleScanning();
 
-        material.SetFloat("_Radius", Charge * 1.2f);
+        material.SetFloat("_Radius", Charge * 1.05f);
     }
 
     void OnGUI()
@@ -176,7 +176,9 @@ public class Scanner : MonoBehaviour
         sphereCollider.enabled = false;
         gadgetModel.SetActive(false);
         Charge = 0f;
-        SelectedCity.Reset();
+
+        if (SelectedCity.IsDirty)
+            SelectedCity.Reset();
 
         GameManager.Instance.Director.SetMode(Director.Modes.Orbit, GameManager.Instance.PlanetTransform);
     }
@@ -203,7 +205,13 @@ public class Scanner : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 UpdateScannerPosition(hit.point);
-              
+
+                City city = hit.transform.GetComponent<City>();
+                if (city)
+                {
+                    Charge = maxCharge;
+                }
+
                 Pylon pylon = hit.transform.GetComponent<Pylon>();
                 if (pylon)
                 {
@@ -218,9 +226,12 @@ public class Scanner : MonoBehaviour
 
     private void UpdateScannerPosition(Vector3 position)
     {
-        
-        transform.LookAt(Camera.main.transform);
         transform.position = position;
+
+        Vector3 lookDir = position - GameManager.Instance.PlanetTransform.position;
+        gadgetModel.transform.LookAt(position + lookDir);
+//        gadgetModel.transform.localScale = new Vector3(50, 50, 10f);
+        
         material.SetVector("_CenterPoint", new Vector4(position.x, position.y, position.z, 0));
     }
 
