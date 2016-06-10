@@ -10,6 +10,7 @@ public class Driller : MonoBehaviour
     public const int ANCHORED_Y_OFFSET = 690;
     public Vector2 Position { get { return Drill.rectTransform.anchoredPosition; } set { Drill.rectTransform.anchoredPosition = value; } }
     public Rigidbody2D Body { get; private set; }
+    public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, WATER }
 
     void Awake()
     {
@@ -17,14 +18,9 @@ public class Driller : MonoBehaviour
         Body = GetComponent<Rigidbody2D>();
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
-        //Body.inertia = 0;
+        Body.inertia = 0;
         Body.freezeRotation = true;
     }
 
@@ -33,59 +29,32 @@ public class Driller : MonoBehaviour
         switch(coll.gameObject.tag)
         {
             case "Rock": case "Walls":
-                handleRockCollision(true);
+                handleCollision(Tile.ROCK);
                 break;
             case "Diamond":
-                GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
-                Destroy(coll.gameObject);
+                handleCollision(Tile.DIAMOND, coll.gameObject);
                 break;
             case "GroundTile":
-                Destroy(coll.gameObject);
+                handleCollision(Tile.GROUND_TILE, coll.gameObject);
                 break;
             case "Cable":
-                GameManager.Instance.Player.CollectCable(2);
-                Destroy(coll.gameObject);
+                handleCollision(Tile.ELECTRICITY, coll.gameObject);
                 break;
             case "Water":
-                GameManager.Instance.DrillingGame.Map.AddWater(coll.gameObject.GetComponent<DrillingGameTile>());
-                if(GameManager.Instance.DrillingGame.Map.GetWaterCount <= 3) 
-                    LeanTween.scale(GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>(),
-                        GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>().localScale * 1.1f, 0.8f).setEase(LeanTweenType.punch);
-                Destroy(coll.gameObject);
+                handleCollision(Tile.WATER, coll.gameObject);
                 break;
             case "Pipe":
-                handleRockCollision(true);
-                //handlePipeCollision();
+                handleCollision(Tile.PIPE);
                 break;
             case "Mine":
-                //todo the same as pipe but with different animation
-                handlePipeCollision();
+                handleCollision(Tile.BOMB);
                 break;
             case "MineArea":
-                //todo countdown
-                handlePipeCollision();
+                handleCollision(Tile.BOMB_AREA);
                 break;
             case "DrillLife":
-                //todo - complete function
-                handleDrillLifeCollision();
-                Destroy(coll.gameObject);
+                handleCollision(Tile.LIFE);
                 break;
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D coll)
-    {
-        if (coll.gameObject.tag == "Rock" || coll.gameObject.tag == "Walls")
-        {
-            handleRockCollision(false);
-        }
-    }
-
-    void OnCollisionStay2D(Collision2D coll)
-    {
-        if (coll.gameObject.tag == "Rock" || coll.gameObject.tag == "Walls")
-        {
-            GameManager.Instance.DrillingGame.StuckTimer -= Time.deltaTime;
         }
     }
 
@@ -104,49 +73,58 @@ public class Driller : MonoBehaviour
         animator.SetBool(param, turned);
     }
 
-    public void handleRockCollision(bool entered)
+    public void handleCollision(Tile collider, GameObject GO = null)
     {
-        if (entered)
+        switch(collider)
         {
-            Drill.color = new Color(1, 0, 0);
-            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
+            case Tile.BOMB:
+                //todo all lives--
+                GameManager.Instance.DrillingGame.ToastType = global::ToastType.EXPLODED_BOMB;
+                GameManager.Instance.DrillingGame.SucceededDrill = false;
+                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+                break;
+            case Tile.BOMB_AREA:
+                //todo all lives--
+                GameManager.Instance.DrillingGame.ToastType = global::ToastType.TRIGGERED_BOMB;
+                GameManager.Instance.DrillingGame.SucceededDrill = false;
+                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+                break;
+            case Tile.DIAMOND:
+                GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
+                Destroy(GO);
+                break;
+            case Tile.ELECTRICITY:
+                GameManager.Instance.Player.CollectCable(2);
+                Destroy(GO);
+                break;
+            case Tile.LIFE:
+                //todo life++
+                Destroy(GO);
+                break;
+            case Tile.PIPE:
+                //todo life--
+                GameManager.Instance.DrillingGame.ToastType = global::ToastType.BROKEN_PIPE;
+                GameManager.Instance.DrillingGame.SucceededDrill = false;
+                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+                break;
+            case Tile.ROCK:
+                //todo life--
+                GameManager.Instance.DrillingGame.ToastType = global::ToastType.BROKEN_DRILL;
+                GameManager.Instance.DrillingGame.SucceededDrill = false;
+                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+                break;
+            case Tile.GROUND_TILE:
+                Destroy(GO);
+                break;
+            case Tile.WATER:
+                GameManager.Instance.DrillingGame.Map.AddWater(GO.GetComponent<DrillingGameTile>());
+                if (GameManager.Instance.DrillingGame.Map.GetWaterCount <= 3)
+                {
+                    LeanTween.scale(GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>(),
+                        GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>().localScale * 1.1f, 0.8f).setEase(LeanTweenType.punch);
+                }
+                Destroy(GO);
+                break;
         }
-        else
-        {
-            Drill.color = new Color(1, 1, 1);
-            GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 1, 1);
-        }
-        GameManager.Instance.DrillingGame.Bumped = true;
-    }
-
-    public void handlePipeCollision()
-    {
-        GameManager.Instance.DrillingGame.SucceededDrill = false;
-        GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-        GameManager.Instance.DrillingGame.ToastType = global::ToastType.BROKEN_PIPE;
-        Drill.color = new Color(1, 0, 0);
-        GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
-    }
-
-    public void handleMineCollision()
-    {
-        GameManager.Instance.DrillingGame.SucceededDrill = false;
-        GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-        GameManager.Instance.DrillingGame.ToastType = global::ToastType.EXPLODED_BOMB;
-        Drill.color = new Color(1, 0, 0);
-        GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
-    }
-
-    public void handleMineAreaCollision()
-    {
-        GameManager.Instance.DrillingGame.SucceededDrill = false;
-        GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-        GameManager.Instance.DrillingGame.ToastType = global::ToastType.TRIGGERED_BOMB;
-        Drill.color = new Color(1, 0, 0);
-        GameManager.Instance.DrillingGame.DrillLife.color = new Color(1, 0, 0);
-    }
-    public void handleDrillLifeCollision()
-    {
-        GameManager.Instance.Player.ScorePoints(5);
     }
 }
