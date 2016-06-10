@@ -1945,10 +1945,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: touchScreenInput
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
@@ -3522,13 +3518,37 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 22480216, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 316.1
+    - target: {fileID: 22408228, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 22480216, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+    - target: {fileID: 22408228, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22408228, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22408228, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22408228, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -440.1
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 22408228, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 22408228, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22408228, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}

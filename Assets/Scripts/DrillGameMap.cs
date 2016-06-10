@@ -26,14 +26,14 @@ public class DrillGameMap : MonoBehaviour
     private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
     private List<DrillingGameTile> water = new List<DrillingGameTile>();
 
-    public const int TILE_SIZE = 88, MAP_WIDTH = 12, MAP_HEIGHT = 8;
+    public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 8;
 
     void Start()
     {
         ceiling = GameObject.Find("Ceiling");
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
-        if (tilePrefabs[13]) flashTile = tilePrefabs[13].GetComponent<UnityEngine.UI.Image>();
+        //if (tilePrefabs[12]) flashTile = tilePrefabs[12].GetComponent<UnityEngine.UI.Image>();
         flashTileTimer = flashTileTime;
     }
 

@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     public bool autoStart;
     public bool enableTutorial;
     public bool showDebug;
-    public TextAsset puzzle1;
 
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
@@ -94,8 +93,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        int[] puzzle = LoadDrillingPuzzle(puzzle1);
-
         if (autoStart)
             Hud.OnStartRoundClicked();
     }
