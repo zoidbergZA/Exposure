@@ -57,7 +57,7 @@ public class Scanner : MonoBehaviour
         if (IsScanning)
             HandleScanning();
 
-        material.SetFloat("_Radius", Charge);
+        material.SetFloat("_Radius", Charge * 1.2f);
     }
 
     void OnGUI()
@@ -166,6 +166,7 @@ public class Scanner : MonoBehaviour
         gadgetModel.SetActive(true);
         Charge = maxCharge;
 
+//        Flash();
         GameManager.Instance.Director.SetMode(Director.Modes.Grid, SelectedCity.transform);
     }
 
@@ -183,7 +184,7 @@ public class Scanner : MonoBehaviour
     private void HandleScanning()
     {
         gadgetModel.transform.localScale = new Vector3(Charge, Charge, Charge);
-        sphereCollider.radius = Charge;
+        sphereCollider.radius = Charge*0.85f;
 
         Vector2 rayPos;
 
@@ -217,6 +218,8 @@ public class Scanner : MonoBehaviour
 
     private void UpdateScannerPosition(Vector3 position)
     {
+        
+        transform.LookAt(Camera.main.transform);
         transform.position = position;
         material.SetVector("_CenterPoint", new Vector4(position.x, position.y, position.z, 0));
     }

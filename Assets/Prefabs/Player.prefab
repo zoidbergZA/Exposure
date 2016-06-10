@@ -297,8 +297,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedIcon: {fileID: 2800000, guid: 72c6f934ace19ed46825c4894a4bf1aa, type: 3}
-  maxCharge: 40
-  shrinkSpeed: 12
+  maxCharge: 50
+  shrinkSpeed: 10
   gadgetModel: {fileID: 128068}
   gadgetMeshRenderer: {fileID: 2328790}
   flashColor: {r: 0, g: 1, b: 0.13103461, a: 0.784}
