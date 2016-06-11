@@ -887,7 +887,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     curve:
-      scalar: 3.3161256
+      scalar: -4.0142574
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1853,7 +1853,7 @@ ParticleSystemRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: 30289309b0c21224ea5b6fcc73b07d59, type: 2}
+  - {fileID: 2100000, guid: 5af230f8146b90945b7a6467f61d9445, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
