@@ -9,7 +9,6 @@ public class MobileJoystick : MonoBehaviour
     [SerializeField] private float minDragDistance = 20f;
 
     public DrillingDirection CurrentInput { get; private set; }
-    public GameObject JoystickPanel { get { return joystickPanel; } }
     public Vector2 JoystickInput { get; private set; }
 
     private Vector2 dragPrevious;

@@ -4295,10 +4295,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a685ed7c57a80438974b34847ee099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  JoystickArrowFadeSpeed: 2
+  ToastMessageTime: 3
+  PanelSlidingTime: 1.5
   joystickArrow: {fileID: 1627289158}
   endOkToast: {fileID: 80515136}
   brokenDrillToast: {fileID: 47689433}
   brokenPipeToast: {fileID: 520303574}
+  explodeBombToast: {fileID: 0}
   waterBar: {fileID: 338816899}
   steamImage: {fileID: 1859994709}
   drillLife: {fileID: 28515873}
@@ -15574,6 +15578,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: levels.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 437996, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -15638,9 +15646,63 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: timeOut
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: mapPanel
+      value: 
+      objectReference: {fileID: 1359734752}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: drillSpeed
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: jumpPhaseTime
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: geoThermalPlantPrefab
+      value: 
+      objectReference: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae,
+        type: 2}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: mainPanel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: MainPanel
+      value: 
+      objectReference: {fileID: 1237915253}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: levels.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 8ae44b68697ff244f8a1272492c267ca, type: 3}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: levels.Array.data[1]
+      value: 
+      objectReference: {fileID: 4900000, guid: ff890c93dec41471ab50ef647e326cac, type: 3}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: levels.Array.data[2]
+      value: 
+      objectReference: {fileID: 4900000, guid: 6b3f2c855624f436496c71b2626814b8, type: 3}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: levels.Array.data[3]
+      value: 
+      objectReference: {fileID: 4900000, guid: 71111eca0c88c44ac8edd1ef596365b1, type: 3}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: levels.Array.data[4]
+      value: 
+      objectReference: {fileID: 4900000, guid: a8f7c298215474d8aa5d836f7a1bd302, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
   m_IsPrefabParent: 0
+--- !u!224 &1359734752 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 22408228, guid: 2149e3b741f01744dbced709d3895f64,
+    type: 2}
+  m_PrefabInternal: {fileID: 1359734751}
 --- !u!1001 &1362532659
 Prefab:
   m_ObjectHideFlags: 0
@@ -16117,6 +16179,146 @@ Prefab:
     - target: {fileID: 429246, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
       propertyPath: m_RootOrder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: bloomThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: lensFlareVignetteMask
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: lensFlareShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: screenBlendShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: blurAndFlaresShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: brightPassFilterShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunThreshold.r
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunThreshold.g
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunThreshold.b
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunShaftBlurRadius
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: maxRadius
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunShaftsShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: simpleClearShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441770, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441770, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: intensity
+      value: 0.036
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441770, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: vignetteShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441770, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: separableBlurShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441770, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: chromAberrationShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sepBlurSpread
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: useSrcAlphaAsMask
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: bloomThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: bloomBlurIterations
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: lensFlareVignetteMask
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: lensFlareShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: vignetteShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: separableBlurShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: addBrightStuffOneOneShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: screenBlendShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: hollywoodFlaresShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: brightPassFilterShader
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}

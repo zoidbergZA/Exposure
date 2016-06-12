@@ -8,13 +8,13 @@ public enum ToastType { SUCCESS, BROKEN_DRILL, BROKEN_PIPE, EXPLODED_BOMB, TRIGG
 public class DrillingGame : Minigame
 {
     [SerializeField] private RectTransform mapPanel;
+    [SerializeField] private RectTransform MainPanel;
     [SerializeField] private float drillSpeed = 3.0f;
     [SerializeField] private float slideSpeed = 1.0f;
     [SerializeField] private float diamondValue = 1.0f;
     [SerializeField] private float jumpPhaseTime = 0.25f;
     [SerializeField] private float panelSlidingTime = 1.5f;
     [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
-    [SerializeField] private UnityEngine.UI.Image mainPanel;
     [SerializeField] private bool AutoWin;
     [SerializeField] private TextAsset[] levels;
 
@@ -24,6 +24,7 @@ public class DrillingGame : Minigame
     private DrillingGameState state;
     private ToastType toastType;
     private Vector2 startDrillerPosition;
+    private Vector2 mainPanelActivePosition = new Vector2(0, 100);
     private int targetColumn;
     private int targetRow;
     private int levelsCounter = 0;
@@ -45,7 +46,6 @@ public class DrillingGame : Minigame
     public Driller Driller { get; private set; }
     public DrillGameHud Hud { get; private set; }
     public float DiamondValue { get { return diamondValue; } }
-    public UnityEngine.UI.Image MainPanel { get { return mainPanel; } }
     public bool ReachedBottom(int bottom)
     {
         return Driller.Position.y <= startDrillerPosition.y - bottom;
@@ -67,7 +67,7 @@ public class DrillingGame : Minigame
         targetColumn = 0;
         targetRow = 0;
         jumpPhaseTimer = jumpPhaseTime;
-        if (mainPanel) mainPanel.rectTransform.anchoredPosition = new Vector3(0, -(Screen.height) - 700, 0);
+        MainPanel.anchoredPosition = new Vector3(0, -(Screen.height) - 700, 0);
         startDrillerPosition = Driller.Position;
         levelsCounter = 0;
         Hud.JoystickArrow.color = new Color(1, 1, 1, 0);
@@ -86,7 +86,7 @@ public class DrillingGame : Minigame
         if (IsRunning) return;
         this.drillspot = drillspot;
         Begin(difficulty);
-        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0,100,0), panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.move(MainPanel, mainPanelActivePosition, panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
         state = DrillingGameState.ACTIVATION;
     }
 
@@ -134,6 +134,7 @@ public class DrillingGame : Minigame
 
     private void handleActivation()
     {
+        //if()
         Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
         Driller.Drill.gameObject.SetActive(true);
         Driller.Drill.transform.SetAsLastSibling();
@@ -146,13 +147,6 @@ public class DrillingGame : Minigame
 
     private void handleSlidingState()
     {
-        if (!joystickShaken)
-        {
-            LeanTween.scale(GameManager.Instance.Joystick.JoystickPanel.GetComponent<RectTransform>(),
-                GameManager.Instance.Joystick.JoystickPanel.GetComponent<RectTransform>().localScale * 1.2f, 3)
-                .setEase(LeanTweenType.punch);
-            joystickShaken = true;
-        }
         updateSlidingMovement();
     }
 
@@ -530,8 +524,7 @@ public class DrillingGame : Minigame
         {
             if (slidingLeft == false)
             {
-                if (Driller.Position.x < (TILE_SIZE * targetColumn) + TILE_SIZE)
-                    Driller.Position = new Vector2((TILE_SIZE * targetColumn) + TILE_SIZE, Driller.Position.y);
+                if (Driller.Position.x < (TILE_SIZE * targetColumn) + TILE_SIZE) Driller.Position = new Vector2((TILE_SIZE * targetColumn) + TILE_SIZE, Driller.Position.y);
                 else
                 {
                     state = DrillingGameState.PREDRILLJUMP;
@@ -540,8 +533,7 @@ public class DrillingGame : Minigame
             }
             else
             {
-                if (Driller.Position.x > (TILE_SIZE * targetColumn) - TILE_SIZE)
-                    Driller.Position = new Vector2((TILE_SIZE * targetColumn) - TILE_SIZE, Driller.Position.y);
+                if (Driller.Position.x > (TILE_SIZE * targetColumn) - TILE_SIZE) Driller.Position = new Vector2((TILE_SIZE * targetColumn) - TILE_SIZE, Driller.Position.y);
                 else
                 {
                     state = DrillingGameState.PREDRILLJUMP;
@@ -579,7 +571,7 @@ public class DrillingGame : Minigame
         targetColumn = 0;
         targetRow = 0;
         Driller.Position = startDrillerPosition;
-        LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0, -(Screen.height) - 700, 0), panelSlidingTime / 2);
+        LeanTween.move(MainPanel, new Vector3(0, -(Screen.height) - 700, 0), panelSlidingTime / 2);
         Hud.WaterBar.fillAmount = 0f; //to be removed to mini-game-hud
         Hud.DrillLife.fillAmount = 1f; //to be removed to mini-game-hud
         toastType = global::ToastType.NONE;
