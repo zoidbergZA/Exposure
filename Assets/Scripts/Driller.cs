@@ -81,9 +81,10 @@ public class Driller : MonoBehaviour
     public void Reset(Vector2 startPosition)
     {
         resetAnimation();
-        //lives = 3;
+        if (!GameManager.Instance.DrillingGame.IsRestarting) lives = 3;
         Drill.rectTransform.anchoredPosition = startPosition;
         Drill.gameObject.SetActive(false);
+        Collided = false;
     }
 
     public void SwitchAnimation(string param, bool turned)

@@ -26,10 +26,12 @@ public class DrillGameHud : MonoBehaviour
     public float ToastTimer { get; set; }
     public float PanelSlidingTimer { get; set; }
     public DrillGameMap Map { get; private set; }
+    public Driller Driller { get; private set; }
 
     void Awake()
     {
         Map = FindObjectOfType<DrillGameMap>();
+        Driller = FindObjectOfType<Driller>();
     }
 
 	void Start ()
@@ -94,15 +96,27 @@ public class DrillGameHud : MonoBehaviour
                 LeanTween.move(steamImage.gameObject.GetComponent<RectTransform>(), new Vector3(0, -475, 0), ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
                 break;
         }
-        //drillLife.fillAmount = 0f;
-        GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.INACTIVE;
     }
 
     private void updateProgressBars()
     {
         if (waterBar && Map.GetWaterCount <= 3) waterBar.fillAmount = Map.GetWaterCount * 33.33333334f / 100f;
         //to do update drill life depending on amount of life
-        drillLife.fillAmount = 1.00f;
+        switch(Driller.Lives)
+        {
+            case 3:
+                drillLife.fillAmount = 1.00f;
+                break;
+            case 2:
+                drillLife.fillAmount = 0.66666669f;
+                break;
+            case 1:
+                drillLife.fillAmount = 0.33333339f;
+                break;
+            default:
+                drillLife.fillAmount = 1.00f;
+                break;
+        }
     }
 
     public void ActivateToast(ToastType type)
@@ -131,11 +145,9 @@ public class DrillGameHud : MonoBehaviour
         }
     }
 
-    public void Reset(ToastType toastType)
+    public void Reset()
     {
         waterBar.fillAmount = 0f;
-        drillLife.fillAmount = 1f;
-        toastType = global::ToastType.NONE;
         ToastTimer = ToastMessageTime;
     }
 }

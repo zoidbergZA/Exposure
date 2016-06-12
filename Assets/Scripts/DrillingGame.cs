@@ -101,7 +101,7 @@ public class DrillingGame : Minigame
                 handleSlidingState();
                 break;
             case DrillingGameState.INACTIVE:
-                handleInactiveState();
+                //todo if necessary
                 break;
             case DrillingGameState.SUCCESS:
                 handleSuccessState();
@@ -124,17 +124,13 @@ public class DrillingGame : Minigame
     //SECTION WITH STATES HANDLING FUNCTIONS
     #region
 
-    private void handleInactiveState()
-    {
-        //todo
-    }
-
+    //tested and finalized
     private void handleActivation()
     {
-        Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
+        if (levelsCounter < levels.Length) Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
+        else Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[Random.Range(0, levels.Length)]));
         Driller.Drill.gameObject.SetActive(true);
         Driller.Drill.transform.SetAsLastSibling();
-        Driller.SwitchAnimation("isSlidingLeft", false);
 
         //cheat flag to skip mini-game
         if (!AutoWin) state = DrillingGameState.SLIDING;
@@ -170,18 +166,12 @@ public class DrillingGame : Minigame
         if(Driller.Collided)
         {
             Hud.ActivateToast(toastType);
-            state = DrillingGameState.FAIL;
+            if (Driller.Lives <= 0) state = DrillingGameState.FAIL;
+            else state = DrillingGameState.RESTART;
         }
     }
 
-    private void handleStartStopState()
-    {
-        Hud.ToastTimer -= Time.deltaTime;
-        
-        Hud.ActivateToast(toastType);
-        if (Hud.ToastTimer < 0.0f) Hud.DeactivateToast(global::ToastType.BROKEN_DRILL);
-    }
-
+    //tested and finalized
     private void handleSuccessState()
     {
         Hud.ToastTimer -= Time.deltaTime;
@@ -196,9 +186,21 @@ public class DrillingGame : Minigame
 
     private void handleRestart()
     {
+        Hud.ToastTimer -= Time.deltaTime;
 
+        if (Hud.ToastTimer <= 0)
+        {
+            Hud.DeactivateToast(toastType);
+            IsRestarting = true;
+            resetGame();
+            Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
+            Driller.Drill.gameObject.SetActive(true);
+            Driller.Drill.transform.SetAsLastSibling();
+            state = DrillingGameState.SLIDING;
+        }
     }
 
+    //tested and finalized
     private void handleFail()
     {
         Hud.ToastTimer -= Time.deltaTime;
@@ -206,6 +208,7 @@ public class DrillingGame : Minigame
         if (Hud.ToastTimer <= 0)
         {
             Hud.DeactivateToast(toastType);
+            IsRestarting = false;
             End(false);
             state = DrillingGameState.INACTIVE;
         }
@@ -577,10 +580,11 @@ public class DrillingGame : Minigame
         JoystickJustMoved = false;
         targetColumn = 0;
         targetRow = 0;
-        LeanTween.move(MainPanel, mainPanelInactivePosition, panelSlidingTime);
+        if(!IsRestarting) LeanTween.move(MainPanel, mainPanelInactivePosition, panelSlidingTime);
+        toastType = global::ToastType.NONE;
 
         Map.Reset();
         Driller.Reset(startDrillerPosition);
-        Hud.Reset(toastType);
+        Hud.Reset();
     }
 }
