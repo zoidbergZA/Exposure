@@ -148,6 +148,7 @@ public class DrillGameHud : MonoBehaviour
     public void Reset()
     {
         waterBar.fillAmount = 0f;
+        if (!GameManager.Instance.DrillingGame.IsRestarting) drillLife.fillAmount = 0.0f;
         ToastTimer = ToastMessageTime;
     }
 }

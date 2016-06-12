@@ -22,7 +22,6 @@ public class DrillingGame : Minigame
     public enum DrillingGameState { INACTIVE, ACTIVATION, SLIDING, PREDRILLJUMP, DRILLING, SUCCESS, FAIL, RESTART }
     public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 9;
     private DrillingGameState state;
-    private ToastType toastType;
     private Vector2 startDrillerPosition;
     private Vector2 mainPanelActivePosition = new Vector2(0, 100);
     private Vector2 mainPanelInactivePosition = new Vector2(0, -(Screen.height) - 700);
@@ -30,7 +29,6 @@ public class DrillingGame : Minigame
     private int targetRow;
     private int levelsCounter = 0;
     private int curveId = 0;
-    private int lives = 3;
     //bools
     private bool slidingLeft, makeDrill = false;
     //timers
@@ -38,7 +36,7 @@ public class DrillingGame : Minigame
 
     public bool IsRestarting { get; set; }
 
-    public ToastType ToastType { get { return toastType; } set { toastType = value; } }
+    public ToastType ToastType { get; set; } 
     public DrillingGameState State { get { return state; } set { state = value; } }
     public DrillingDirection CurrentInput { get; private set; }
     public DrillingDirection PrevInput { get; private set; }
@@ -64,6 +62,7 @@ public class DrillingGame : Minigame
     void Start()
     {
         state = DrillingGameState.INACTIVE;
+        ToastType = global::ToastType.NONE;
         targetColumn = 0;
         targetRow = 0;
         jumpPhaseTimer = jumpPhaseTime;
@@ -165,7 +164,7 @@ public class DrillingGame : Minigame
         }
         if(Driller.Collided)
         {
-            Hud.ActivateToast(toastType);
+            Hud.ActivateToast(ToastType);
             if (Driller.Lives <= 0) state = DrillingGameState.FAIL;
             else state = DrillingGameState.RESTART;
         }
@@ -179,6 +178,7 @@ public class DrillingGame : Minigame
         if (Hud.ToastTimer <= 0)
         {
             Hud.DeactivateToast(ToastType.SUCCESS);
+            IsRestarting = false;
             End(true);
             state = DrillingGameState.INACTIVE;
         }
@@ -190,7 +190,7 @@ public class DrillingGame : Minigame
 
         if (Hud.ToastTimer <= 0)
         {
-            Hud.DeactivateToast(toastType);
+            Hud.DeactivateToast(ToastType);
             IsRestarting = true;
             resetGame();
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
@@ -207,7 +207,7 @@ public class DrillingGame : Minigame
 
         if (Hud.ToastTimer <= 0)
         {
-            Hud.DeactivateToast(toastType);
+            Hud.DeactivateToast(ToastType);
             IsRestarting = false;
             End(false);
             state = DrillingGameState.INACTIVE;
@@ -581,7 +581,7 @@ public class DrillingGame : Minigame
         targetColumn = 0;
         targetRow = 0;
         if(!IsRestarting) LeanTween.move(MainPanel, mainPanelInactivePosition, panelSlidingTime);
-        toastType = global::ToastType.NONE;
+        ToastType = global::ToastType.NONE;
 
         Map.Reset();
         Driller.Reset(startDrillerPosition);
