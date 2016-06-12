@@ -79,7 +79,6 @@ public class DrillGameHud : MonoBehaviour
 
     public void DeactivateToast(ToastType toastType)
     {
-        ToastTimer = ToastMessageTime;
         switch (toastType)
         {
             case global::ToastType.BROKEN_DRILL:
@@ -89,13 +88,14 @@ public class DrillGameHud : MonoBehaviour
                 brokenPipeToast.gameObject.SetActive(false);
                 break;
             case global::ToastType.EXPLODED_BOMB:
-                //todo
+                brokenDrillToast.gameObject.SetActive(false);
                 break;
             case global::ToastType.SUCCESS:
                 endOkToast.gameObject.SetActive(false);
                 LeanTween.move(steamImage.gameObject.GetComponent<RectTransform>(), new Vector3(0, -475, 0), ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
                 break;
         }
+        ToastTimer = ToastMessageTime;
     }
 
     private void updateProgressBars()
@@ -114,7 +114,7 @@ public class DrillGameHud : MonoBehaviour
                 drillLife.fillAmount = 0.33333339f;
                 break;
             default:
-                drillLife.fillAmount = 1.00f;
+                drillLife.fillAmount = 0.00f;
                 break;
         }
     }
@@ -132,10 +132,16 @@ public class DrillGameHud : MonoBehaviour
                 brokenDrillToast.gameObject.transform.parent.SetAsLastSibling();
                 break;
             case global::ToastType.EXPLODED_BOMB:
-                //todo
+                //replace with appropriate image when ready
+                if (!brokenDrillToast.gameObject.activeSelf) brokenDrillToast.gameObject.SetActive(true);
+                brokenDrillToast.gameObject.transform.parent.SetAsLastSibling();
+                drillLife.fillAmount = 0.00f;
                 break;
             case global::ToastType.TRIGGERED_BOMB:
-                //todo
+                //replace with appropriate image when ready
+                if (!brokenDrillToast.gameObject.activeSelf) brokenDrillToast.gameObject.SetActive(true);
+                brokenDrillToast.gameObject.transform.parent.SetAsLastSibling();
+                drillLife.fillAmount = 0.00f;
                 break;
             case global::ToastType.SUCCESS:
                 if (!endOkToast.gameObject.activeSelf) endOkToast.gameObject.SetActive(true);
@@ -149,6 +155,5 @@ public class DrillGameHud : MonoBehaviour
     {
         waterBar.fillAmount = 0f;
         if (!GameManager.Instance.DrillingGame.IsRestarting) drillLife.fillAmount = 0.0f;
-        ToastTimer = ToastMessageTime;
     }
 }

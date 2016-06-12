@@ -170,7 +170,6 @@ public class DrillingGame : Minigame
         }
     }
 
-    //tested and finalized
     private void handleSuccessState()
     {
         Hud.ToastTimer -= Time.deltaTime;
@@ -190,8 +189,8 @@ public class DrillingGame : Minigame
 
         if (Hud.ToastTimer <= 0)
         {
-            Hud.DeactivateToast(ToastType);
             IsRestarting = true;
+            Hud.DeactivateToast(ToastType);
             resetGame();
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
             Driller.Drill.gameObject.SetActive(true);
@@ -200,7 +199,6 @@ public class DrillingGame : Minigame
         }
     }
 
-    //tested and finalized
     private void handleFail()
     {
         Hud.ToastTimer -= Time.deltaTime;
