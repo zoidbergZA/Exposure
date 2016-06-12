@@ -42,7 +42,7 @@ public abstract class Connectable : Placable
     private void ClickCallback()
     {
         OnConnected();
-        GameManager.Instance.GridBuilder.MakeConnection(this);
+//        GameManager.Instance.GridBuilder.MakeConnection(this);
     }
 
     void OnGUI()

@@ -107,8 +107,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 125730}
-  m_LocalRotation: {x: -0.32306588, y: -0.68857116, z: 0.48229122, w: 0.43461877}
-  m_LocalPosition: {x: 2.8774521, y: 28.647247, z: 5.545716}
+  m_LocalRotation: {x: -0.21853617, y: -0.6847126, z: 0.48101395, w: 0.50203204}
+  m_LocalPosition: {x: -16.143888, y: 44.415512, z: 13.818308}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 489006}
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chargeBoost: 13
-  PlacerModel: {fileID: 152464}
+  PlacerModel: {fileID: 114302}
   BuiltModel: {fileID: 113898}
 --- !u!114 &11451952
 MonoBehaviour:
