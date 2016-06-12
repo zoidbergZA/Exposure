@@ -30,10 +30,9 @@ public class DrillingGame : Minigame
     private int curveId = 0;
     private int lives = 3;
     //bools
-    private bool slidingLeft, makeDrill, imagesActivated, joystickShaken = false;
+    private bool slidingLeft, makeDrill, joystickShaken = false;
     //timers
     private float jumpPhaseTimer;
-    private float panelSlidingTimer;
 
     public bool SucceededDrill { get; set; }
     public bool IsRestarting { get; set; }
@@ -64,7 +63,7 @@ public class DrillingGame : Minigame
 
     void Start()
     {
-        IsRestarting = false;
+        state = DrillingGameState.INACTIVE;
         targetColumn = 0;
         targetRow = 0;
         jumpPhaseTimer = jumpPhaseTime;
@@ -78,13 +77,8 @@ public class DrillingGame : Minigame
     {
         base.Update();
         updateInput();
-        //Debug.Log("x: " + (int)Driller.Position.x + " | y: " + (int)Driller.Position.y + " | row: " + targetRow + " | col: " + targetColumn);
-    }
-
-
-    void FixedUpdate()
-    {
         if (Driller.Drill) updateState();
+        //Debug.Log("x: " + (int)Driller.Position.x + " | y: " + (int)Driller.Position.y + " | row: " + targetRow + " | col: " + targetColumn);
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -92,9 +86,6 @@ public class DrillingGame : Minigame
         if (IsRunning) return;
         this.drillspot = drillspot;
         Begin(difficulty);
-        imagesActivated = true;
-        Driller.Drill.transform.SetAsLastSibling();
-        Driller.SwitchAnimation("isSlidingLeft", false);
         LeanTween.move(mainPanel.gameObject.GetComponent<RectTransform>(), new Vector3(0,100,0), panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
         state = DrillingGameState.ACTIVATION;
     }
@@ -133,28 +124,36 @@ public class DrillingGame : Minigame
         }
     }
 
+    //SECTION WITH STATES HANDLING FUNCTIONS
+    #region
+
+    private void handleInactiveState()
+    {
+
+    }
+
     private void handleActivation()
     {
-        panelSlidingTimer -= Time.deltaTime;
-        if(panelSlidingTimer <= 0)
+        Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
+        Driller.Drill.gameObject.SetActive(true);
+        Driller.Drill.transform.SetAsLastSibling();
+        Driller.SwitchAnimation("isSlidingLeft", false);
+
+        //cheat flag to skip mini-game
+        if (!AutoWin) state = DrillingGameState.SLIDING;
+        else state = DrillingGameState.SUCCESS;
+    }
+
+    private void handleSlidingState()
+    {
+        if (!joystickShaken)
         {
-            Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
-            panelSlidingTimer = panelSlidingTime;
-            
-            //cheat flag to skip mini-game
-            if (!AutoWin) state = DrillingGameState.SLIDING;
-            else state = DrillingGameState.SUCCESS;
+            LeanTween.scale(GameManager.Instance.Joystick.JoystickPanel.GetComponent<RectTransform>(),
+                GameManager.Instance.Joystick.JoystickPanel.GetComponent<RectTransform>().localScale * 1.2f, 3)
+                .setEase(LeanTweenType.punch);
+            joystickShaken = true;
         }
-    }
-
-    private void handleRestart()
-    {
-
-    }
-
-    private void handleFail()
-    {
-        End(false);
+        updateSlidingMovement();
     }
 
     private void handlePreDrillJump()
@@ -166,6 +165,12 @@ public class DrillingGame : Minigame
             state = DrillingGameState.DRILLING;
             jumpPhaseTimer = jumpPhaseTime;
         }
+    }
+
+    private void handleDrillingState()
+    {
+        if (!ReachedBottom((MAP_HEIGHT * TILE_SIZE) + TILE_SIZE)) updateDrilling();
+        else state = DrillingGameState.SUCCESS;
     }
 
     private void handleStartStopState()
@@ -186,6 +191,24 @@ public class DrillingGame : Minigame
         }
     }
 
+    private void handleSuccessState()
+    {
+        SucceededDrill = true;
+        toastType = global::ToastType.SUCCESS;
+        state = DrillingGameState.STARTSTOPTOAST;
+    }
+
+    private void handleRestart()
+    {
+
+    }
+
+    private void handleFail()
+    {
+        End(false);
+    }
+
+    #endregion
 
     private void updateInput()
     {
@@ -241,12 +264,6 @@ public class DrillingGame : Minigame
                 CurrentInput = DrillingDirection.DOWN;
             }
         }
-    }
-
-    private void handleDrillingState()
-    {
-        if (!ReachedBottom((MAP_HEIGHT * TILE_SIZE) + TILE_SIZE)) updateDrilling();
-        else state = DrillingGameState.SUCCESS;
     }
 
     private void drillDown()
@@ -476,18 +493,6 @@ public class DrillingGame : Minigame
         }
     }
 
-    private void handleSlidingState()
-    {
-        if (!joystickShaken)
-        {
-            LeanTween.scale(GameManager.Instance.Joystick.JoystickPanel.GetComponent<RectTransform>(),
-                GameManager.Instance.Joystick.JoystickPanel.GetComponent<RectTransform>().localScale * 1.2f, 3)
-                .setEase(LeanTweenType.punch);
-            joystickShaken = true;
-        }
-        updateSlidingMovement();
-    }
-
     private void updateSlidingMovement()
     {
         if (!makeDrill)
@@ -546,18 +551,6 @@ public class DrillingGame : Minigame
         }
     }
 
-    private void handleInactiveState()
-    {
-        
-    }
-
-    private void handleSuccessState()
-    {
-        SucceededDrill = true;
-        toastType = global::ToastType.SUCCESS;
-        state = DrillingGameState.STARTSTOPTOAST;
-    }
-
     public override void End(bool succeeded)
     {
         base.End(succeeded);
@@ -569,13 +562,10 @@ public class DrillingGame : Minigame
             GameManager.Instance.Player.StartBuildMinigame(plant, 1f);
             levelsCounter++;
         }
-        else GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
-        resetGame();
-    }
-
-    private void RestartGame()
-    {
-        state = DrillingGameState.ACTIVATION;
+        else
+        {
+            GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
+        }
         resetGame();
     }
 

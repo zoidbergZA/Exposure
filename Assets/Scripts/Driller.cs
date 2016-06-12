@@ -9,8 +9,6 @@ public class Driller : MonoBehaviour
 
     public UnityEngine.UI.Image Drill { get; private set; }
     public Animator Animator { get { return animator; } }
-    public const int ANCHORED_X_OFFSET = 112;
-    public const int ANCHORED_Y_OFFSET = 690;
     public Vector2 Position { get { return Drill.rectTransform.anchoredPosition; } set { Drill.rectTransform.anchoredPosition = value; } }
     public Rigidbody2D Body { get; private set; }
     public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, WATER }
