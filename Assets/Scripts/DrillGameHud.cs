@@ -136,5 +136,6 @@ public class DrillGameHud : MonoBehaviour
         waterBar.fillAmount = 0f;
         drillLife.fillAmount = 1f;
         toastType = global::ToastType.NONE;
+        ToastTimer = ToastMessageTime;
     }
 }

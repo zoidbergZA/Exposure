@@ -132,17 +132,17 @@ public class DrillGameMap : MonoBehaviour
         {
             case 1:
                 tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 525);
-                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 2:
                 tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 436);
-                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 3:
                 tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 345);
-                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
         }

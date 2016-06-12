@@ -14,6 +14,7 @@ public class Driller : MonoBehaviour
     public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, WATER }
     public int Lives { get { return lives; } }
     public DrillGameHud Hud { get; private set; }
+    public bool Collided { get; private set; }
 
     void Awake()
     {
@@ -77,11 +78,12 @@ public class Driller : MonoBehaviour
         animator.SetBool("shouldJump", false);
     }
 
-    public void Reset(bool isRestarted, Vector2 startPosition)
+    public void Reset(Vector2 startPosition)
     {
         resetAnimation();
-        if (!isRestarted) lives = 3;
+        //lives = 3;
         Drill.rectTransform.anchoredPosition = startPosition;
+        Drill.gameObject.SetActive(false);
     }
 
     public void SwitchAnimation(string param, bool turned)
@@ -96,16 +98,12 @@ public class Driller : MonoBehaviour
             case Tile.BOMB:
                 updateDrillerLife(-3);
                 GameManager.Instance.DrillingGame.ToastType = global::ToastType.EXPLODED_BOMB;
-                GameManager.Instance.DrillingGame.SucceededDrill = false;
-                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-                GameManager.Instance.DrillingGame.IsRestarting = false;
+                Collided = true;
                 break;
             case Tile.BOMB_AREA:
                 updateDrillerLife(-3);
                 GameManager.Instance.DrillingGame.ToastType = global::ToastType.TRIGGERED_BOMB;
-                GameManager.Instance.DrillingGame.SucceededDrill = false;
-                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-                GameManager.Instance.DrillingGame.IsRestarting = false;
+                Collided = true;
                 break;
             case Tile.DIAMOND:
                 GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
@@ -122,16 +120,12 @@ public class Driller : MonoBehaviour
             case Tile.PIPE:
                 updateDrillerLife(-1);
                 GameManager.Instance.DrillingGame.ToastType = global::ToastType.BROKEN_PIPE;
-                GameManager.Instance.DrillingGame.SucceededDrill = false;
-                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-                GameManager.Instance.DrillingGame.IsRestarting = true;
+                Collided = true;
                 break;
             case Tile.ROCK:
                 updateDrillerLife(-1);
                 GameManager.Instance.DrillingGame.ToastType = global::ToastType.BROKEN_DRILL;
-                GameManager.Instance.DrillingGame.SucceededDrill = false;
-                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
-                GameManager.Instance.DrillingGame.IsRestarting = true;
+                Collided = true;
                 break;
             case Tile.GROUND_TILE:
                 Destroy(GO);

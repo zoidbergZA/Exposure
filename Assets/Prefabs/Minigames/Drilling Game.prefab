@@ -789,7 +789,7 @@ MonoBehaviour:
   slideSpeed: 80
   diamondValue: 1
   jumpPhaseTime: 0.85
-  panelSlidingTime: 1.5
+  panelSlidingTime: 1
   geoThermalPlantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae,
     type: 2}
   AutoWin: 0
