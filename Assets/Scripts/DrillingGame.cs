@@ -146,11 +146,13 @@ public class DrillingGame : Minigame
         else state = DrillingGameState.SUCCESS;
     }
 
+    //tested and finalized
     private void handleSlidingState()
     {
         updateSlidingMovement();
     }
 
+    //tested and finalized
     private void handlePreDrillJump()
     {
         jumpPhaseTimer -= Time.deltaTime;
@@ -164,7 +166,7 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-        if (!ReachedBottom((MAP_HEIGHT * TILE_SIZE) + TILE_SIZE)) updateDrilling();
+        if (!ReachedBottom(MAP_HEIGHT * TILE_SIZE)) updateDrilling();
         else state = DrillingGameState.SUCCESS;
     }
 
@@ -188,8 +190,8 @@ public class DrillingGame : Minigame
 
     private void handleSuccessState()
     {
-        SucceededDrill = true;
-        toastType = global::ToastType.SUCCESS;
+        if (!SucceededDrill) SucceededDrill = true;
+        if(toastType != global::ToastType.SUCCESS) toastType = global::ToastType.SUCCESS;
         state = DrillingGameState.STARTSTOPTOAST;
     }
 
@@ -528,8 +530,8 @@ public class DrillingGame : Minigame
                 if (Driller.Position.x < (TILE_SIZE * targetColumn) + TILE_SIZE) Driller.Position = new Vector2((TILE_SIZE * targetColumn) + TILE_SIZE, Driller.Position.y);
                 else
                 {
-                    state = DrillingGameState.PREDRILLJUMP;
                     if (targetColumn < MAP_WIDTH) targetColumn += 1;
+                    state = DrillingGameState.PREDRILLJUMP;
                 }
             }
             else
@@ -537,8 +539,8 @@ public class DrillingGame : Minigame
                 if (Driller.Position.x > (TILE_SIZE * targetColumn) - TILE_SIZE) Driller.Position = new Vector2((TILE_SIZE * targetColumn) - TILE_SIZE, Driller.Position.y);
                 else
                 {
-                    state = DrillingGameState.PREDRILLJUMP;
                     if (targetColumn > 0) targetColumn -= 1;
+                    state = DrillingGameState.PREDRILLJUMP;
                 }
             }
         }

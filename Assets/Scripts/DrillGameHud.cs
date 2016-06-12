@@ -110,11 +110,11 @@ public class DrillGameHud : MonoBehaviour
         switch (type)
         {
             case global::ToastType.BROKEN_PIPE:
-                brokenPipeToast.gameObject.SetActive(true);
+                if (!brokenPipeToast.gameObject.activeSelf) brokenPipeToast.gameObject.SetActive(true);
                 brokenPipeToast.gameObject.transform.parent.SetAsLastSibling();
                 break;
             case global::ToastType.BROKEN_DRILL:
-                brokenDrillToast.gameObject.SetActive(true);
+                if (!brokenDrillToast.gameObject.activeSelf) brokenDrillToast.gameObject.SetActive(true);
                 brokenDrillToast.gameObject.transform.parent.SetAsLastSibling();
                 break;
             case global::ToastType.EXPLODED_BOMB:
@@ -124,8 +124,9 @@ public class DrillGameHud : MonoBehaviour
                 //todo
                 break;
             case global::ToastType.SUCCESS:
-                endOkToast.gameObject.SetActive(true);
+                if (!endOkToast.gameObject.activeSelf) endOkToast.gameObject.SetActive(true);
                 endOkToast.gameObject.transform.parent.SetAsLastSibling();
+                LeanTween.move(steamImage.gameObject.GetComponent<RectTransform>(), new Vector3(0, 50, 0), ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
                 break;
         }
     }
