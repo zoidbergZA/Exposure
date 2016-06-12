@@ -23,6 +23,7 @@ public class PuzzlePath : MonoBehaviour
     {
 //        CurrentTarget = 0;
 
+        GeoPlant.Reset();
         for (int i = 0; i < pathPylons.Length; i++)
         {
             pathPylons[i].Reset();
