@@ -15,11 +15,18 @@ public class Driller : MonoBehaviour
     public Rigidbody2D Body { get; private set; }
     public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, WATER }
     public int Lives { get { return lives; } }
+    public DrillGameHud Hud { get; private set; }
 
     void Awake()
     {
         Drill = GetComponent<UnityEngine.UI.Image>();
         Body = GetComponent<Rigidbody2D>();
+        Hud = FindObjectOfType<DrillGameHud>();
+    }
+
+    void Start()
+    {
+        Drill.gameObject.SetActive(false);
     }
 
     void Update()
@@ -134,8 +141,7 @@ public class Driller : MonoBehaviour
                 GameManager.Instance.DrillingGame.Map.AddWater(GO.GetComponent<DrillingGameTile>());
                 if (GameManager.Instance.DrillingGame.Map.GetWaterCount <= 3)
                 {
-                    LeanTween.scale(GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>(),
-                        GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>().localScale * 1.1f, 0.8f).setEase(LeanTweenType.punch);
+                    LeanTween.scale(Hud.WaterBar.GetComponent<RectTransform>(),Hud.WaterBar.GetComponent<RectTransform>().localScale * 1.1f, 0.8f).setEase(LeanTweenType.punch);
                 }
                 Destroy(GO);
                 break;

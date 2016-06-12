@@ -112,6 +112,6 @@ public class MobileJoystick : MonoBehaviour
                 CurrentInput = DrillingDirection.UP;
         }
 
-        GameManager.Instance.DrillingGame.PointJoystickArrow(CurrentInput);
+        GameManager.Instance.DrillingGame.Hud.PointJoystickArrow(CurrentInput);
     }
 }
