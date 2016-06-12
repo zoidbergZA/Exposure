@@ -14,10 +14,7 @@ public class City : MonoBehaviour
         if (puzzlePath)
             puzzlePath.SetParentCity(this);
 
-        dirtyModel.SetActive(true);
-        cleanModel.SetActive(false);
-
-        IsDirty = true;
+        Reset();
     }
 
     void Start()
@@ -34,17 +31,16 @@ public class City : MonoBehaviour
 
         dirtyModel.SetActive(false);
         cleanModel.SetActive(true);
-
-        GameManager.Instance.Scanner.DeselectCity();
     }
 
     public void Reset()
     {
-        if(puzzlePath) puzzlePath.Reset();
-    }
+        if(puzzlePath)
+            puzzlePath.Reset();
 
-    public void TryBuild(Pylon pylon)
-    {
-        puzzlePath.TryConnectPylon(pylon);
+        dirtyModel.SetActive(true);
+        cleanModel.SetActive(false);
+
+        IsDirty = true;
     }
 }

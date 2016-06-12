@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
 
     private void HandleFlick()
     {
-        if (Input.touchCount == 1)
+        if (Input.touchCount == 1 && !GameManager.Instance.Scanner.IsScanning)
         {
             if (Input.touches[0].phase == TouchPhase.Moved)
             {

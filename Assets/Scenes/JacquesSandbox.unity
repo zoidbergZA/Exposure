@@ -22328,6 +22328,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 11464756, guid: 8028046542eec3d4abaf2b021cbaeecf, type: 2}
+      propertyPath: scannerIcon
+      value: 
+      objectReference: {fileID: 2800000, guid: 1c65d955b6b777042944ea52c70912f4, type: 3}
+    - target: {fileID: 19811280, guid: 8028046542eec3d4abaf2b021cbaeecf, type: 2}
+      propertyPath: RotationModule.curve.scalar
+      value: -5.7595863
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8028046542eec3d4abaf2b021cbaeecf, type: 2}
   m_IsPrefabParent: 0

@@ -81,7 +81,7 @@ public class Director : MonoBehaviour
         switch (Mode)
         {
             case Modes.Grid:
-                GameManager.Instance.Planet.IsSpinning = false;
+//                GameManager.Instance.Planet.IsSpinning = false;
 
                 Vector3 newPos = targetTransform.position + targetTransform.up * buildHeight;
                 Quaternion newRot = Quaternion.LookRotation(targetTransform.position - newPos, Vector3.up);
@@ -90,7 +90,7 @@ public class Director : MonoBehaviour
                 break;
 
             case Modes.Orbit:
-                GameManager.Instance.Planet.IsSpinning = true;
+//                GameManager.Instance.Planet.IsSpinning = true;
 
                 SwoopTo(orbitPosition, orbitRotation, normalZoom, 2f);
                 break;

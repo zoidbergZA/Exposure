@@ -33,7 +33,6 @@ public class PuzzlePath : MonoBehaviour
         if (pathPylons.Contains(pylon) && pathPylons[CurrentTarget] == pylon)
         {
             pylon.Build();
-            GameManager.Instance.Scanner.Flash();
             GameManager.Instance.Director.SetMode(Director.Modes.Grid, pylon.transform);
 
             CurrentTarget++;
