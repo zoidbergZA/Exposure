@@ -46,7 +46,7 @@ public class Scanner : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.RoundStarted || GameManager.Instance.Mode != GameManager.Modes.Scanning)
+        if (!GameManager.Instance.RoundStarted || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
             return;
         
         CheckStartStop();
@@ -57,7 +57,7 @@ public class Scanner : MonoBehaviour
 
     void OnGUI()
     {
-        if (IsScanning || GameManager.Instance.Mode != GameManager.Modes.Scanning)
+        if (IsScanning || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
             return;
 
         GUI.Label(new Rect(buttonRect.x, Screen.height - buttonRect.y - buttonRect.height, buttonRect.width, buttonRect.height), scannerIcon);
@@ -81,7 +81,7 @@ public class Scanner : MonoBehaviour
             }
             else
             {
-                if (Input.GetMouseButton(0) && buttonRect.Contains(Input.mousePosition) && GameManager.Instance.Mode == GameManager.Modes.Scanning)
+                if (Input.GetMouseButton(0) && buttonRect.Contains(Input.mousePosition) && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
                 {
                     StartScan();
                 }
@@ -132,12 +132,20 @@ public class Scanner : MonoBehaviour
                 GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
                 if (plant)
                 {
-                    EndScan();
-                    GameManager.Instance.Mode = GameManager.Modes.DrillingGame;
-                    plant.Build();
+                    if (plant.State == GeoThermalPlant.States.Ready)
+                        ScanSucceeded(plant);
                 }
             }
         }
+    }
+
+    private void ScanSucceeded(GeoThermalPlant geoPlant)
+    {
+        EndScan();
+
+        geoPlant.Build();
+
+        GameManager.Instance.Player.StartDrillMinigame(geoPlant, 1f);
     }
 
     private void UpdateScannerPosition(Vector3 position)

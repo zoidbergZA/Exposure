@@ -43,8 +43,7 @@ public class Player : MonoBehaviour
             CollectCable(1);
         if (Input.GetKeyDown(KeyCode.F6) && GameManager.Instance.Player.PlayerState == PlayerStates.Normal) // jump to drilling game
         {
-            Drillspot d = Instantiate(DrillspotPrefab, Vector3.zero, Quaternion.identity) as Drillspot;
-            StartDrillMinigame(d, 0f);
+            GameManager.Instance.Player.StartDrillMinigame(GameManager.Instance.Cities[0].PuzzlePath.GeoPlant, 1f);
         }
 
         switch (PlayerState)
@@ -80,18 +79,24 @@ public class Player : MonoBehaviour
         GameManager.Instance.Director.SetMode(Director.Modes.Orbit, targetTransform);
     }
 
-    public void StartDrillMinigame(Drillspot drillspot, float difficulty)
+    public void StartDrillMinigame(GeoThermalPlant geoPlant, float difficulty)
     {
         PlayerState = PlayerStates.DrillGame;
-        GameManager.Instance.DrillingGame.StartGame(drillspot, difficulty);
-        GameManager.Instance.Director.SetMode(Director.Modes.Grid, drillspot.transform);
+        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform, 2f);
+
+        //set the puzzle of this geoplant as the next gridBuilder puzzle
+        GameManager.Instance.GridBuilder.SetPuzzlePath(geoPlant.PuzzlePath);
+
+        //todo: start drilling game, for now jump to building game
+        GameManager.Instance.GridBuilder.Begin(1f);
+        //GameManager.Instance.DrillingGame.StartGame(difficulty);
     }
 
     public void StartBuildMinigame(GeoThermalPlant geoPlant, float difficulty)
     {
-        PlayerState = PlayerStates.BuildGrid;
-        GameManager.Instance.GridBuilder.StartBuild(geoPlant, difficulty);
-        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
+//        PlayerState = PlayerStates.BuildGrid;
+//        GameManager.Instance.GridBuilder.StartBuild(geoPlant, difficulty);
+//        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
     }
 
     public void ScorePoints(float amount, Transform location = null)
@@ -139,24 +144,24 @@ public class Player : MonoBehaviour
 //        }
 //    }
 
-    private Pylon GetClosestPylon(Vector3 location)
-    {
-        Pylon closest = null;
-        float dist = 100000f;
-
-        foreach (Pylon pylon in GameManager.Instance.GridBuilder.Pylons)
-        {
-            float d = Vector3.Distance(pylon.transform.position, location);
-
-            if (d < dist)
-            {
-                dist = d;
-                closest = pylon;
-            }
-        }
-
-        return closest;
-    }
+//    private Pylon GetClosestPylon(Vector3 location)
+//    {
+//        Pylon closest = null;
+//        float dist = 100000f;
+//
+//        foreach (Pylon pylon in GameManager.Instance.GridBuilder.Pylons)
+//        {
+//            float d = Vector3.Distance(pylon.transform.position, location);
+//
+//            if (d < dist)
+//            {
+//                dist = d;
+//                closest = pylon;
+//            }
+//        }
+//
+//        return closest;
+//    }
 
     public void Drill(Vector3 location, Vector3 normal, float difficulty)
     {

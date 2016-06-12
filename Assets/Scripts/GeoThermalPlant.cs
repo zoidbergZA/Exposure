@@ -13,10 +13,16 @@ public class GeoThermalPlant : MonoBehaviour
     [SerializeField] private GameObject Model;
 
     public States State { get; private set; }
+    public PuzzlePath PuzzlePath { get; private set; }
 
     void Awake()
     {
         Reset();
+    }
+
+    public void SetMyPuzzlePath(PuzzlePath puzzlePath)
+    {
+        PuzzlePath = puzzlePath;
     }
 
     public void Build()
@@ -25,9 +31,6 @@ public class GeoThermalPlant : MonoBehaviour
             return;
 
         State = States.Built;
-
-        GameManager.Instance.Director.SetMode(Director.Modes.Grid, transform, 2f);
-        //todo: start drilling game
     }
 
     public void ShowPreview(bool show)

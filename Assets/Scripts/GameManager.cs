@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public enum Modes
-    {
-        Scanning,
-        DrillingGame,
-        ConnectingGame
-    }
+//    public enum Modes
+//    {
+//        Scanning,
+//        DrillingGame,
+//        ConnectingGame
+//    }
 
     private static GameManager _instance;
 
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool touchScreenInput;
     private Tutorial tutorial;
 
-    public Modes Mode { get; set; }
+//    public Modes Mode { get; set; }
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Planet Planet { get; private set; }
     public City[] Cities { get; private set; }
@@ -76,7 +76,15 @@ public class GameManager : MonoBehaviour
         Joystick = FindObjectOfType<MobileJoystick>();
         Cities = FindObjectsOfType<City>();
 
-        Mode = Modes.Scanning;
+        //disable all placer scripts
+        Placer[] placers = FindObjectsOfType<Placer>();
+
+        for (int i = 0; i < placers.Length; i++)
+        {
+            placers[i].enabled = false;
+        }
+
+//        Mode = Modes.Scanning;
 
 //        for (int i = 0; i < Cities.Length; i++)
 //        {

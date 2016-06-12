@@ -8,6 +8,7 @@ public class City : MonoBehaviour
     [SerializeField] private PuzzlePath puzzlePath;
 
     public bool IsDirty { get; private set; }
+    public PuzzlePath PuzzlePath { get { return puzzlePath; } }
 
     void Awake()
     {
