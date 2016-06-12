@@ -1,20 +1,53 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GeoThermalPlant : Connectable
+[RequireComponent(typeof(Collider))]
+public class GeoThermalPlant : MonoBehaviour
 {
-    public override void CheckConnectable(Vector3 location)
+    public enum States
     {
-        IsConnectable = false;
+        Ready,
+        Built
     }
 
-    public override void Highlight(bool hightlight)
+    [SerializeField] private GameObject Model;
+
+    public States State { get; private set; }
+
+    void Awake()
     {
-//        throw new System.NotImplementedException();
+        Reset();
     }
 
-    public override void OnConnected()
+    public void Build()
     {
-//        throw new System.NotImplementedException();
+        if (State != States.Ready)
+            return;
+
+        State = States.Built;
+
+        GameManager.Instance.Director.SetMode(Director.Modes.Grid, transform, 2f);
+        //todo: start drilling game
+    }
+
+    public void ShowPreview(bool show)
+    {
+        if (State != States.Ready)
+            return;
+
+        if (show)
+        {
+            Model.SetActive(true);
+        }
+        else
+        {
+            Model.SetActive(false);
+        }
+    }
+
+    public void Reset()
+    {
+        State = States.Ready;
+        Model.SetActive(false);
     }
 }

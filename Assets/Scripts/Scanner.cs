@@ -46,7 +46,7 @@ public class Scanner : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.RoundStarted)
+        if (!GameManager.Instance.RoundStarted || GameManager.Instance.Mode != GameManager.Modes.Scanning)
             return;
         
         CheckStartStop();
@@ -57,7 +57,7 @@ public class Scanner : MonoBehaviour
 
     void OnGUI()
     {
-        if (IsScanning)
+        if (IsScanning || GameManager.Instance.Mode != GameManager.Modes.Scanning)
             return;
 
         GUI.Label(new Rect(buttonRect.x, Screen.height - buttonRect.y - buttonRect.height, buttonRect.width, buttonRect.height), scannerIcon);
@@ -81,7 +81,7 @@ public class Scanner : MonoBehaviour
             }
             else
             {
-                if (Input.GetMouseButton(0) && buttonRect.Contains(Input.mousePosition))
+                if (Input.GetMouseButton(0) && buttonRect.Contains(Input.mousePosition) && GameManager.Instance.Mode == GameManager.Modes.Scanning)
                 {
                     StartScan();
                 }
@@ -132,7 +132,9 @@ public class Scanner : MonoBehaviour
                 GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
                 if (plant)
                 {
-                    //todo: plant found, build and go to drilling game
+                    EndScan();
+                    GameManager.Instance.Mode = GameManager.Modes.DrillingGame;
+                    plant.Build();
                 }
             }
         }
@@ -150,20 +152,30 @@ public class Scanner : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
+        GeoThermalPlant geoPlant = other.GetComponent<GeoThermalPlant>();
+
+        if (geoPlant)
+            geoPlant.ShowPreview(true);
+
 //        Debug.Log(other.name);
-        Pylon pylon = other.GetComponent<Pylon>();
-        
-        if (pylon)
-            pylon.ShowPreview(true);
+//        Pylon pylon = other.GetComponent<Pylon>();
+//        
+//        if (pylon)
+//            pylon.ShowPreview(true);
     }
 
     void OnTriggerExit(Collider other)
     {
-//        Debug.Log(other.name);
-        Pylon pylon = other.GetComponent<Pylon>();
+        GeoThermalPlant geoPlant = other.GetComponent<GeoThermalPlant>();
 
-        if (pylon)
-            pylon.ShowPreview(false);
+        if (geoPlant)
+            geoPlant.ShowPreview(false);
+
+        //        Debug.Log(other.name);
+        //        Pylon pylon = other.GetComponent<Pylon>();
+        //
+        //        if (pylon)
+        //            pylon.ShowPreview(false);
     }
 }
 

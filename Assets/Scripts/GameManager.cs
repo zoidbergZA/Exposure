@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public enum Modes
+    {
+        Scanning,
+        DrillingGame,
+        ConnectingGame
+    }
+
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -32,11 +39,13 @@ public class GameManager : MonoBehaviour
     public bool autoStart;
     public bool enableTutorial;
     public bool showDebug;
+    public TextAsset puzzle1;
 
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
     private Tutorial tutorial;
 
+    public Modes Mode { get; set; }
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Planet Planet { get; private set; }
     public City[] Cities { get; private set; }
@@ -65,8 +74,9 @@ public class GameManager : MonoBehaviour
         Player = FindObjectOfType<Player>();
         Director = FindObjectOfType<Director>();
         Joystick = FindObjectOfType<MobileJoystick>();
-
         Cities = FindObjectsOfType<City>();
+
+        Mode = Modes.Scanning;
 
 //        for (int i = 0; i < Cities.Length; i++)
 //        {
@@ -93,6 +103,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        int[] puzzle = LoadDrillingPuzzle(puzzle1);
+
         if (autoStart)
             Hud.OnStartRoundClicked();
     }

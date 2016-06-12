@@ -4,6 +4,7 @@ using System.Linq;
 
 public class PuzzlePath : MonoBehaviour
 {
+    [SerializeField] private GeoThermalPlant geoPlant;
     [SerializeField] private Pylon[] pathPylons;
 
     public City ParentCity { get; private set; }

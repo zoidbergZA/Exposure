@@ -86,7 +86,7 @@ public class GridBuilder : Minigame
 
         if (ConnectedList.Count == 1)
         {
-            connectable.AddConnection(StartPlant);
+//            connectable.AddConnection(StartPlant);
         }
         if (ConnectedList.Count > 1)
         {

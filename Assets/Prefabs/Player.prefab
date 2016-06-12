@@ -326,12 +326,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d284a26c765cbc14b8badc49419b0522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedIcon: {fileID: 2800000, guid: 72c6f934ace19ed46825c4894a4bf1aa, type: 3}
-  maxCharge: 30
-  shrinkSpeed: 0
+  scannerIcon: {fileID: 2800000, guid: 1c65d955b6b777042944ea52c70912f4, type: 3}
+  radius: 30
+  buttonRect:
+    serializedVersion: 2
+    x: 301
+    y: 35
+    width: 200
+    height: 200
   gadgetModel: {fileID: 128068}
-  gadgetMeshRenderer: {fileID: 2328790}
-  flashColor: {r: 0, g: 1, b: 0.13103461, a: 0.784}
 --- !u!135 &13569246
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -887,7 +890,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     curve:
-      scalar: -4.0142574
+      scalar: -5.7595863
       maxCurve:
         serializedVersion: 2
         m_Curve:
