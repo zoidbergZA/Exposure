@@ -9,10 +9,10 @@ public class DrillingGame : Minigame
 {
     [SerializeField] private RectTransform mapPanel;
     [SerializeField] private RectTransform MainPanel;
-    [SerializeField] private float drillSpeed = 3.0f;
-    [SerializeField] private float slideSpeed = 1.0f;
+    [SerializeField] private float drillSpeed = 90.0f;
+    [SerializeField] private float slideSpeed = 80.0f;
     [SerializeField] private float diamondValue = 1.0f;
-    [SerializeField] private float jumpPhaseTime = 0.25f;
+    [SerializeField] private float jumpPhaseTime = 0.85f;
     [SerializeField] private float panelSlidingTime = 1.5f;
     [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
     [SerializeField] private bool AutoWin;

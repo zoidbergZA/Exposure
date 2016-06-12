@@ -792,7 +792,6 @@ MonoBehaviour:
   panelSlidingTime: 1.5
   geoThermalPlantPrefab: {fileID: 11410084, guid: 355f973b64d6df046822bcd3397cc6ae,
     type: 2}
-  mainPanel: {fileID: 0}
   AutoWin: 0
   levels:
   - {fileID: 4900000, guid: 8ae44b68697ff244f8a1272492c267ca, type: 3}
