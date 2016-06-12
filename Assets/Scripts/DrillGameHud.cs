@@ -40,10 +40,8 @@ public class DrillGameHud : MonoBehaviour
         PanelSlidingTimer = PanelSlidingTime;
 	}
 	
-	// Update is called once per frame
 	void Update ()
     {
-        //joystick arrow
         if (joystickArrow.color.a > 0)
         {
             joystickArrow.color = new Color(1, 1, 1, joystickArrow.color.a - Time.deltaTime * JoystickArrowFadeSpeed);
@@ -130,5 +128,12 @@ public class DrillGameHud : MonoBehaviour
                 endOkToast.gameObject.transform.parent.SetAsLastSibling();
                 break;
         }
+    }
+
+    public void Reset(ToastType toastType)
+    {
+        waterBar.fillAmount = 0f;
+        drillLife.fillAmount = 1f;
+        toastType = global::ToastType.NONE;
     }
 }

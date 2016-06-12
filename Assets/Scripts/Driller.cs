@@ -77,10 +77,11 @@ public class Driller : MonoBehaviour
         animator.SetBool("shouldJump", false);
     }
 
-    public void Reset(bool isRestarted)
+    public void Reset(bool isRestarted, Vector2 startPosition)
     {
         resetAnimation();
         if (!isRestarted) lives = 3;
+        Drill.rectTransform.anchoredPosition = startPosition;
     }
 
     public void SwitchAnimation(string param, bool turned)

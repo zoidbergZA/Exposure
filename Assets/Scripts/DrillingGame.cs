@@ -25,13 +25,14 @@ public class DrillingGame : Minigame
     private ToastType toastType;
     private Vector2 startDrillerPosition;
     private Vector2 mainPanelActivePosition = new Vector2(0, 100);
+    private Vector2 mainPanelInactivePosition = new Vector2(0, -(Screen.height) - 700);
     private int targetColumn;
     private int targetRow;
     private int levelsCounter = 0;
     private int curveId = 0;
     private int lives = 3;
     //bools
-    private bool slidingLeft, makeDrill, joystickShaken = false;
+    private bool slidingLeft, makeDrill = false;
     //timers
     private float jumpPhaseTimer;
 
@@ -67,7 +68,7 @@ public class DrillingGame : Minigame
         targetColumn = 0;
         targetRow = 0;
         jumpPhaseTimer = jumpPhaseTime;
-        MainPanel.anchoredPosition = new Vector3(0, -(Screen.height) - 700, 0);
+        MainPanel.anchoredPosition = mainPanelInactivePosition;
         startDrillerPosition = Driller.Position;
         levelsCounter = 0;
         Hud.JoystickArrow.color = new Color(1, 1, 1, 0);
@@ -565,18 +566,14 @@ public class DrillingGame : Minigame
     {
         makeDrill = false;
         slidingLeft = false;
-        joystickShaken = false;
         JoystickJustMoved = false;
         SucceededDrill = false;
         targetColumn = 0;
         targetRow = 0;
-        Driller.Position = startDrillerPosition;
-        LeanTween.move(MainPanel, new Vector3(0, -(Screen.height) - 700, 0), panelSlidingTime / 2);
-        Hud.WaterBar.fillAmount = 0f; //to be removed to mini-game-hud
-        Hud.DrillLife.fillAmount = 1f; //to be removed to mini-game-hud
-        toastType = global::ToastType.NONE;
+        LeanTween.move(MainPanel, mainPanelInactivePosition, panelSlidingTime);
 
         Map.Reset();
-        Driller.Reset(IsRestarting);
+        Driller.Reset(IsRestarting, startDrillerPosition);
+        Hud.Reset(toastType);
     }
 }
