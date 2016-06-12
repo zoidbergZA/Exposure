@@ -59,7 +59,7 @@ public class Director : MonoBehaviour
 //        if (delay > 0)
 //            StartCoroutine(DelayedStart(mode, targetTransform, delay));
 //        else
-            SwitchMode(mode, targetTransform);
+            SwitchMode(mode, targetTransform, delay);
     }
 
     public void Shake()
@@ -74,7 +74,7 @@ public class Director : MonoBehaviour
         SwitchMode(newMode, newTargetTransform);
     }
 
-    private void SwitchMode(Modes newMode, Transform targetTransform)
+    private void SwitchMode(Modes newMode, Transform targetTransform, float delay = 2f)
     {
         Mode = newMode;
 
@@ -86,13 +86,13 @@ public class Director : MonoBehaviour
                 Vector3 newPos = targetTransform.position + targetTransform.up * buildHeight;
                 Quaternion newRot = Quaternion.LookRotation(targetTransform.position - newPos, Vector3.up);
 
-                SwoopTo(newPos, newRot, buildzoom, 2f);
+                SwoopTo(newPos, newRot, buildzoom, delay);
                 break;
 
             case Modes.Orbit:
 //                GameManager.Instance.Planet.IsSpinning = true;
 
-                SwoopTo(orbitPosition, orbitRotation, normalZoom, 2f);
+                SwoopTo(orbitPosition, orbitRotation, normalZoom, delay);
                 break;
         }
     }

@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
         BuildGrid
     }
 
+    public delegate void FlickHandler();
+
+    public static event FlickHandler PlanetFlicked;
+
     public float flickPower = 1f;
 
     [SerializeField] private int startingCable = 3;
@@ -27,6 +31,8 @@ public class Player : MonoBehaviour
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
     public int Cable { get; private set; }
+
+    private Vector2 mouseOld;
 
     void Awake()
     {
@@ -52,6 +58,11 @@ public class Player : MonoBehaviour
                 HandleNormalState();
                 break;
         }
+    }
+
+    void LateUpdate()
+    {
+        mouseOld = Input.mousePosition;
     }
 
     public void SetPlayerInfo(string name, int age, bool isMale)
@@ -113,20 +124,40 @@ public class Player : MonoBehaviour
 
     private void HandleNormalState()
     {
-        HandleFlick();
+        CheckPlanetFlick();
     }
 
-    private void HandleFlick()
+    private void CheckPlanetFlick()
     {
-        if (Input.touchCount == 1 && !GameManager.Instance.Scanner.IsScanning)
-        {
-            if (Input.touches[0].phase == TouchPhase.Moved)
-            {
-                float deltaX = Input.touches[0].deltaPosition.x;
+        if (GameManager.Instance.Scanner.IsScanning)
+            return;
 
-                GameManager.Instance.Planet.AddSpin(-deltaX * flickPower);
+        float deltaX = 0;
+
+        if (GameManager.Instance.TouchInput)
+        {
+            if (Input.touchCount == 1)
+            {
+                if (Input.touches[0].phase == TouchPhase.Moved)
+                    deltaX = Input.touches[0].deltaPosition.x;
             }
         }
+        else
+        {
+            if (Input.GetMouseButton(0))
+                deltaX = Input.mousePosition.x - mouseOld.x;
+        }
+
+        if (Mathf.Abs(deltaX) > 2)
+            HandlePlanetFlick(deltaX);
+    }
+
+    private void HandlePlanetFlick(float deltaX)
+    {
+        GameManager.Instance.Planet.AddSpin(-deltaX * flickPower);
+
+        if (PlanetFlicked != null)
+            PlanetFlicked();
     }
 
 //    private void HandleNormalState()

@@ -8,6 +8,7 @@ public class GridBuilder : Minigame
 
     [SerializeField] private Texture2D buildPylonIcon;
     [SerializeField] private Texture2D buildCityIcon;
+    [SerializeField] private float cameraSwoopTime = 1f;
 
     private float lastPylonConnectedAt;
     private int nextPylon;
@@ -77,9 +78,13 @@ public class GridBuilder : Minigame
     private void PreviewNextPylon()
     {
         if (nextPylon >= PuzzlePath.PathPylons.Length)
-            return;
-
-        PuzzlePath.PathPylons[nextPylon].ShowPreview();
-        GameManager.Instance.Director.SetMode(Director.Modes.Grid, PuzzlePath.PathPylons[nextPylon].transform, 1f);
+        {
+            GameManager.Instance.Director.SetMode(Director.Modes.Grid, PuzzlePath.ParentCity.transform, cameraSwoopTime);
+        }
+        else
+        {
+            PuzzlePath.PathPylons[nextPylon].ShowPreview();
+            GameManager.Instance.Director.SetMode(Director.Modes.Grid, PuzzlePath.PathPylons[nextPylon].transform, cameraSwoopTime);
+        }
     }
 }

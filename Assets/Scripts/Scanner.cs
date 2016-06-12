@@ -68,16 +68,28 @@ public class Scanner : MonoBehaviour
     {
         if (IsScanning)
         {
-            if (!Input.GetMouseButton(0))
+            if (GameManager.Instance.TouchInput)
             {
-                EndScan();
+                if (Input.touchCount == 0)
+                    EndScan();
+            }
+            else
+            {
+                if (!Input.GetMouseButton(0))
+                    EndScan();
             }
         }
         else
         {
             if (GameManager.Instance.TouchInput)
             {
-                
+                if (Input.touchCount > 0 
+                    && buttonRect.Contains(Input.touches[0].position) 
+                    && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal
+                    )
+                {
+                    StartScan();
+                }
             }
             else
             {
