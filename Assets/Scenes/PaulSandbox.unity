@@ -156,12 +156,6 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 6458164, guid: 0c3d2f04fa7a3ba4c80984a69df3223d,
     type: 2}
   m_PrefabInternal: {fileID: 1313542659}
---- !u!114 &28515873 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11406088, guid: 2149e3b741f01744dbced709d3895f64,
-    type: 2}
-  m_PrefabInternal: {fileID: 1359734751}
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &29261984
 Prefab:
   m_ObjectHideFlags: 0
@@ -456,12 +450,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8f426c1c3c3cef94e822aad1be93f8d5, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &47689433 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11459920, guid: 2149e3b741f01744dbced709d3895f64,
-    type: 2}
-  m_PrefabInternal: {fileID: 1359734751}
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &48981134
 Prefab:
   m_ObjectHideFlags: 0
@@ -760,12 +748,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 455798, guid: 8f426c1c3c3cef94e822aad1be93f8d5, type: 2}
   m_PrefabInternal: {fileID: 58102942}
---- !u!114 &80515136 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11482542, guid: 2149e3b741f01744dbced709d3895f64,
-    type: 2}
-  m_PrefabInternal: {fileID: 1359734751}
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &83738067
 Prefab:
   m_ObjectHideFlags: 0
@@ -3497,12 +3479,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
   m_PrefabInternal: {fileID: 333592509}
---- !u!114 &338816899 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11462990, guid: 2149e3b741f01744dbced709d3895f64,
-    type: 2}
-  m_PrefabInternal: {fileID: 1359734751}
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &348312572
 Prefab:
   m_ObjectHideFlags: 0
@@ -4251,57 +4227,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 455798, guid: 8f426c1c3c3cef94e822aad1be93f8d5, type: 2}
   m_PrefabInternal: {fileID: 411007987}
---- !u!1 &422726774
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 224: {fileID: 422726775}
-  - 114: {fileID: 422726776}
-  m_Layer: 5
-  m_Name: MiniGame Hud
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &422726775
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 422726774}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1237915253}
-  m_RootOrder: 7
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &422726776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 422726774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1a685ed7c57a80438974b34847ee099, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joystickArrow: {fileID: 1627289158}
-  endOkToast: {fileID: 80515136}
-  brokenDrillToast: {fileID: 47689433}
-  brokenPipeToast: {fileID: 520303574}
-  waterBar: {fileID: 338816899}
-  steamImage: {fileID: 1859994709}
-  drillLife: {fileID: 28515873}
 --- !u!1001 &424615612
 Prefab:
   m_ObjectHideFlags: 0
@@ -5543,12 +5468,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2075546393}
   m_RootOrder: 1
---- !u!114 &520303574 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11413214, guid: 2149e3b741f01744dbced709d3895f64,
-    type: 2}
-  m_PrefabInternal: {fileID: 1359734751}
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &531671161
 Prefab:
   m_ObjectHideFlags: 0
@@ -13841,11 +13760,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 455798, guid: 8f426c1c3c3cef94e822aad1be93f8d5, type: 2}
   m_PrefabInternal: {fileID: 1229450386}
---- !u!224 &1237915253 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 22467228, guid: 2149e3b741f01744dbced709d3895f64,
-    type: 2}
-  m_PrefabInternal: {fileID: 1359734751}
 --- !u!1001 &1238108153
 Prefab:
   m_ObjectHideFlags: 0
@@ -15606,38 +15520,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 22417250, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22417250, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: slideSpeed
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 22480216, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -358.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6161728, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_Size.x
-      value: 56
-      objectReference: {fileID: 0}
-    - target: {fileID: 6161728, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_Size.y
-      value: 56
-      objectReference: {fileID: 0}
-    - target: {fileID: 22417250, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 22417250, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 60
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
   m_IsPrefabParent: 0
@@ -16117,6 +15999,146 @@ Prefab:
     - target: {fileID: 429246, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
       propertyPath: m_RootOrder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: bloomThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: lensFlareVignetteMask
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: lensFlareShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: screenBlendShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: blurAndFlaresShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413636, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: brightPassFilterShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunThreshold.r
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunThreshold.g
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunThreshold.b
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunShaftBlurRadius
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: maxRadius
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunShaftsShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478568, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: simpleClearShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441770, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441770, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: intensity
+      value: 0.036
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441770, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: vignetteShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441770, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: separableBlurShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441770, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: chromAberrationShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sepBlurSpread
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: useSrcAlphaAsMask
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: bloomThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: bloomBlurIterations
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: lensFlareVignetteMask
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: lensFlareShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: vignetteShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: separableBlurShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: addBrightStuffOneOneShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: screenBlendShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: hollywoodFlaresShader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447368, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: brightPassFilterShader
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
@@ -20270,12 +20292,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 455798, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
   m_PrefabInternal: {fileID: 1625549258}
---- !u!114 &1627289158 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11464182, guid: 2149e3b741f01744dbced709d3895f64,
-    type: 2}
-  m_PrefabInternal: {fileID: 1359734751}
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1640394182
 Prefab:
   m_ObjectHideFlags: 0
@@ -22992,12 +23008,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 455798, guid: 8f426c1c3c3cef94e822aad1be93f8d5, type: 2}
   m_PrefabInternal: {fileID: 1858073695}
---- !u!114 &1859994709 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11410760, guid: 2149e3b741f01744dbced709d3895f64,
-    type: 2}
-  m_PrefabInternal: {fileID: 1359734751}
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1862076403
 Prefab:
   m_ObjectHideFlags: 0

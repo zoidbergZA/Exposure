@@ -4,18 +4,28 @@ using System.Collections;
 public class Driller : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+
+    private int lives = 3;
+
     public UnityEngine.UI.Image Drill { get; private set; }
     public Animator Animator { get { return animator; } }
-    public const int ANCHORED_X_OFFSET = 112;
-    public const int ANCHORED_Y_OFFSET = 690;
     public Vector2 Position { get { return Drill.rectTransform.anchoredPosition; } set { Drill.rectTransform.anchoredPosition = value; } }
     public Rigidbody2D Body { get; private set; }
     public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, WATER }
+    public int Lives { get { return lives; } }
+    public DrillGameHud Hud { get; private set; }
+    public bool Collided { get; private set; }
 
     void Awake()
     {
         Drill = GetComponent<UnityEngine.UI.Image>();
         Body = GetComponent<Rigidbody2D>();
+        Hud = FindObjectOfType<DrillGameHud>();
+    }
+
+    void Start()
+    {
+        Drill.gameObject.SetActive(false);
     }
 
     void Update()
@@ -58,7 +68,7 @@ public class Driller : MonoBehaviour
         }
     }
 
-    public void resetAnimation()
+    private void resetAnimation()
     {
         animator.SetBool("isSlidingLeft", false);
         animator.SetBool("isDrillingDown", false);
@@ -66,6 +76,15 @@ public class Driller : MonoBehaviour
         animator.SetBool("isDrillingRight", false);
         animator.SetBool("isDrillingLeft", false);
         animator.SetBool("shouldJump", false);
+    }
+
+    public void Reset(Vector2 startPosition)
+    {
+        resetAnimation();
+        if (!GameManager.Instance.DrillingGame.IsRestarting) lives = 3;
+        Drill.rectTransform.anchoredPosition = startPosition;
+        Drill.gameObject.SetActive(false);
+        Collided = false;
     }
 
     public void SwitchAnimation(string param, bool turned)
@@ -78,16 +97,14 @@ public class Driller : MonoBehaviour
         switch(collider)
         {
             case Tile.BOMB:
-                //todo all lives--
+                updateDrillerLife(-3);
                 GameManager.Instance.DrillingGame.ToastType = global::ToastType.EXPLODED_BOMB;
-                GameManager.Instance.DrillingGame.SucceededDrill = false;
-                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+                Collided = true;
                 break;
             case Tile.BOMB_AREA:
-                //todo all lives--
+                updateDrillerLife(-3);
                 GameManager.Instance.DrillingGame.ToastType = global::ToastType.TRIGGERED_BOMB;
-                GameManager.Instance.DrillingGame.SucceededDrill = false;
-                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+                Collided = true;
                 break;
             case Tile.DIAMOND:
                 GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
@@ -98,20 +115,18 @@ public class Driller : MonoBehaviour
                 Destroy(GO);
                 break;
             case Tile.LIFE:
-                //todo life++
+                updateDrillerLife(1);
                 Destroy(GO);
                 break;
             case Tile.PIPE:
-                //todo life--
+                updateDrillerLife(-1);
                 GameManager.Instance.DrillingGame.ToastType = global::ToastType.BROKEN_PIPE;
-                GameManager.Instance.DrillingGame.SucceededDrill = false;
-                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+                Collided = true;
                 break;
             case Tile.ROCK:
-                //todo life--
+                updateDrillerLife(-1);
                 GameManager.Instance.DrillingGame.ToastType = global::ToastType.BROKEN_DRILL;
-                GameManager.Instance.DrillingGame.SucceededDrill = false;
-                GameManager.Instance.DrillingGame.State = DrillingGame.DrillingGameState.STARTSTOPTOAST;
+                Collided = true;
                 break;
             case Tile.GROUND_TILE:
                 Destroy(GO);
@@ -120,11 +135,15 @@ public class Driller : MonoBehaviour
                 GameManager.Instance.DrillingGame.Map.AddWater(GO.GetComponent<DrillingGameTile>());
                 if (GameManager.Instance.DrillingGame.Map.GetWaterCount <= 3)
                 {
-                    LeanTween.scale(GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>(),
-                        GameManager.Instance.DrillingGame.WaterBar.GetComponent<RectTransform>().localScale * 1.1f, 0.8f).setEase(LeanTweenType.punch);
+                    LeanTween.scale(Hud.WaterBar.GetComponent<RectTransform>(),Hud.WaterBar.GetComponent<RectTransform>().localScale * 1.1f, 0.8f).setEase(LeanTweenType.punch);
                 }
                 Destroy(GO);
                 break;
         }
+    }
+
+    private void updateDrillerLife(int amount)
+    {
+        lives += amount;
     }
 }
