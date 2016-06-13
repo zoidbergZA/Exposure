@@ -14,6 +14,9 @@ public class MobileJoystick : MonoBehaviour
     private Vector2 dragPrevious;
     private Vector2 dragStart;
 
+    private float lastInputAt = 0;
+    private float inputCooldown = 0.25f;
+
     void Awake()
     {
         CurrentInput = DrillingDirection.NONE;   
@@ -32,37 +35,41 @@ public class MobileJoystick : MonoBehaviour
 
         if (GameManager.Instance.TouchInput)
         {
-            if (Input.touchCount > 0)
-            {
-                if (Input.touches[0].phase == TouchPhase.Began)
-                {
-                    dragStart = Input.touches[0].position;
-                    input = Input.touches[0].position - GameManager.Instance.DrillingGame.Driller.Position;
-                    dragPrevious = Input.touches[0].position;
-                }
-                else if (Input.touches[0].phase == TouchPhase.Moved)
-                {
-                    Vector2 dragDelta = Input.touches[0].position - dragStart;
+            //if (Input.touchCount > 0)
+            //{
+            //    if (Input.touches[0].phase == TouchPhase.Began)
+            //    {
+            //        dragStart = Input.touches[0].position;
+            //        input = Input.touches[0].position - GameManager.Instance.DrillingGame.Driller.Position;
+            //        dragPrevious = Input.touches[0].position;
+            //    }
+            //    else if (Input.touches[0].phase == TouchPhase.Moved)
+            //    {
+            //        Vector2 dragDelta = Input.touches[0].position - dragStart;
 
-                    if (dragDelta.sqrMagnitude >= minDragDistance)
-                    {
-                        input = Input.touches[0].deltaPosition;
-                    }
-                }
-            }
+            //        if (dragDelta.sqrMagnitude >= minDragDistance)
+            //        {
+            //            input = Input.touches[0].deltaPosition;
+            //        }
+            //    }
+            //}
         }
         else
         {
             //try keyboard input first
-            if (Input.GetKey(KeyCode.UpArrow))
-                input.y = 1f;
-            else if (Input.GetKey(KeyCode.DownArrow))
-                input.y = -1f;
-            else if (Input.GetKey(KeyCode.LeftArrow))
-                input.x = -1f;
-            else if (Input.GetKey(KeyCode.RightArrow))
-                input.x = 1f;
-
+            if(Time.time - lastInputAt > inputCooldown)
+            {
+                if (Input.GetKey(KeyCode.UpArrow))
+                    input.y = 1f;
+                else if (Input.GetKey(KeyCode.DownArrow))
+                    input.y = -1f;
+                else if (Input.GetKey(KeyCode.LeftArrow))
+                    input.x = -1f;
+                else if (Input.GetKey(KeyCode.RightArrow))
+                    input.x = 1f;
+                lastInputAt = Time.time;
+            }
+            
             //then try mouse input
             if (input.sqrMagnitude < 0.1f)
             {
