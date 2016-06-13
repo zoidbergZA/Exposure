@@ -7,10 +7,14 @@ public class MobileJoystick : MonoBehaviour
 {
     [SerializeField] private GameObject joystickPanel;
     [SerializeField] private float minDragDistance = 20f;
+    [SerializeField] private bool tapInput;
+    [SerializeField] private bool swipeInput;
 
     public DrillingDirection CurrentInput { get; private set; }
     public Vector2 JoystickInput { get; private set; }
     public enum ScreenTriangle { LEFT, RIGHT, UP, DOWN, NONE }
+    public bool TapInput { get { return tapInput; } set { tapInput = value; } }
+    public bool SwipeInput { get { return swipeInput; } set { swipeInput = value; } }
 
     private Vector2 dragPrevious;
     private Vector2 dragStart;
@@ -29,7 +33,6 @@ public class MobileJoystick : MonoBehaviour
     void Update()
     {
         UpdateInput();
-        getCurrentTriangle();
     }
 
     private void UpdateInput()
@@ -58,7 +61,8 @@ public class MobileJoystick : MonoBehaviour
             //}
             if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
             {
-
+                tap = Input.touches[0].position;
+                inputTriangle = getCurrentTriangle(tap);
             }
         }
         else
@@ -155,14 +159,12 @@ public class MobileJoystick : MonoBehaviour
 
     private ScreenTriangle getCurrentTriangle(Vector2 tapPosition)
     {
-        if (Input.GetMouseButtonDown(0)) tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        if (IsTapInsideTriangle(tapPosition, Vector2.zero, new Vector2(1, 0), getDrillerPosition())) return ScreenTriangle.DOWN;
+        else if (IsTapInsideTriangle(tapPosition, new Vector2(1, 0), Vector2.one, getDrillerPosition())) return ScreenTriangle.RIGHT;
+        else if (IsTapInsideTriangle(tapPosition, Vector2.one, new Vector2(0, 1), getDrillerPosition())) return ScreenTriangle.UP;
+        else if (IsTapInsideTriangle(tapPosition, new Vector2(0, 1), Vector2.zero, getDrillerPosition())) return ScreenTriangle.LEFT;
 
-        if (IsTapInsideTriangle(tapPosition, Vector2.zero, new Vector2(1, 0), getDrillerPosition())) inputTriangle = ScreenTriangle.DOWN;
-        else if (IsTapInsideTriangle(tapPosition, new Vector2(1, 0), Vector2.one, getDrillerPosition())) inputTriangle = ScreenTriangle.RIGHT;
-        else if (IsTapInsideTriangle(tapPosition, Vector2.one, new Vector2(0, 1), getDrillerPosition())) inputTriangle = ScreenTriangle.UP;
-        else if (IsTapInsideTriangle(tapPosition, new Vector2(0, 1), Vector2.zero, getDrillerPosition())) inputTriangle = ScreenTriangle.LEFT;
-
-        return inputTriangle;
+        return ScreenTriangle.NONE;
     }
 
     private bool IsTapInsideTriangle(Vector2 s, Vector2 a, Vector2 b, Vector2 c)
