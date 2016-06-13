@@ -62,6 +62,9 @@ public class GridBuilder : Minigame
         }
 
         connectable.MakeConnection(PuzzlePath.ConnectablePath[previous]);
+        nextConnectable++;
+
+        PreviewNextConnectable();
     }
 
     private void MakeNextConnection()
