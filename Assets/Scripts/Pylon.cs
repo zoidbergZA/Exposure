@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Pylon : MonoBehaviour
+public class Pylon : Connectable
 {
     public enum States
     {
