@@ -47,5 +47,7 @@ public class City : Connectable
 
         dirtyModel.SetActive(false);
         cleanModel.SetActive(true);
+
+        ConnectionState = ConnectionStates.Built;
     }
 }

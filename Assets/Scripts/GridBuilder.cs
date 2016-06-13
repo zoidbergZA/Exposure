@@ -40,12 +40,15 @@ public class GridBuilder : Minigame
     {
         base.End(succeeded);
 
-        if (!succeeded)
+        if (succeeded)
+        {
+            PuzzlePath.ParentCity.CleanUp();
+        }
+        else
         {
             PuzzlePath.Reset();
         }
-
-        PuzzlePath.ParentCity.CleanUp();
+        
         GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
     }
 
@@ -64,7 +67,12 @@ public class GridBuilder : Minigame
         connectable.MakeConnection(PuzzlePath.ConnectablePath[previous]);
         nextConnectable++;
 
-        PreviewNextConnectable();
+        if (nextConnectable >= PuzzlePath.ConnectablePath.Length)
+        {
+            End(true);
+        }
+        else
+            PreviewNextConnectable();
     }
 
     private void MakeNextConnection()

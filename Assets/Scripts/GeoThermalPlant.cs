@@ -17,7 +17,7 @@ public class GeoThermalPlant : Connectable
 
     void Awake()
     {
-//        Reset();
+        Reset();
     }
 
     public override void OnConnected()
