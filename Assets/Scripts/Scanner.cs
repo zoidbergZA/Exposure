@@ -57,7 +57,12 @@ public class Scanner : MonoBehaviour
 
     void OnGUI()
     {
-        if (IsScanning || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal || GameManager.Instance.Planet.IsSpinning)
+        if (
+            IsScanning 
+            || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal 
+            || GameManager.Instance.Planet.IsSpinning 
+            || GameManager.Instance.Director.IsPositionTweening
+            )
             return;
 
         GUI.Label(new Rect(buttonRect.x, Screen.height - buttonRect.y - buttonRect.height, buttonRect.width, buttonRect.height), scannerIcon);
@@ -157,6 +162,7 @@ public class Scanner : MonoBehaviour
 
         geoPlant.Build();
 
+        GameManager.Instance.Player.ScorePoints(5, geoPlant.transform);
         GameManager.Instance.Player.StartDrillMinigame(geoPlant, 1f);
     }
 
