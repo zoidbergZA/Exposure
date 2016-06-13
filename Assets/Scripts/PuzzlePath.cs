@@ -4,51 +4,22 @@ using System.Linq;
 
 public class PuzzlePath : MonoBehaviour
 {
-    [SerializeField] private GeoThermalPlant geoPlant;
-    [SerializeField] private Pylon[] pathPylons;
+    [SerializeField] private Connectable[] connectablePath;
+    
+    public Connectable[] ConnectablePath { get { return connectablePath; } }
+    public GeoThermalPlant GeoPlant { get { return connectablePath[0] as GeoThermalPlant; } }       //GeoPlant is first element
+    public City ParentCity { get { return connectablePath[connectablePath.Length-1] as City; } }    //City is last element
 
-    public City ParentCity { get; private set; }
-    public Pylon[] PathPylons { get { return pathPylons; } }
-    public GeoThermalPlant GeoPlant { get { return geoPlant; } }
-//    public int CurrentTarget { get; private set; }
-//    public bool IsCompleted { get; private set; }
-
-    public void SetParentCity(City parentCity)
+    void Awake()
     {
-        ParentCity = parentCity;
-        geoPlant.SetMyPuzzlePath(this);
+        GeoPlant.SetMyPuzzlePath(this);
     }
 
     public void Reset()
     {
-//        CurrentTarget = 0;
-
-        GeoPlant.Reset();
-        for (int i = 0; i < pathPylons.Length; i++)
+        for (int i = 0; i < connectablePath.Length; i++)
         {
-            pathPylons[i].Reset();
+            connectablePath[i].Reset();
         }
     }
-
-//    public void ConnectPylon(Pylon pylon)
-//    {
-//        if (IsCompleted)
-//            return;
-//
-//        if (pathPylons.Contains(pylon) && pathPylons[CurrentTarget] == pylon)
-//        {
-//            pylon.Build();
-//            GameManager.Instance.Director.SetMode(Director.Modes.Grid, pylon.transform);
-//
-//            CurrentTarget++;
-//
-//            if (CurrentTarget >= pathPylons.Length)
-//            {
-//                IsCompleted = true;
-//                ParentCity.CleanUp();
-//
-////                Debug.Log("puzzle completed! " + Time.time);
-//            }
-//        }
-//    }
 }

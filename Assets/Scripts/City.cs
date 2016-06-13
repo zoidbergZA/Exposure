@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class City : MonoBehaviour
+public class City : Connectable
 {
     [SerializeField] private GameObject dirtyModel;
     [SerializeField] private GameObject cleanModel;
@@ -12,15 +12,28 @@ public class City : MonoBehaviour
 
     void Awake()
     {
-        if (puzzlePath)
-            puzzlePath.SetParentCity(this);
-
         Reset();
     }
 
     void Start()
     {
 
+    }
+
+    public override void OnConnected()
+    {
+        CleanUp();
+    }
+
+    public override void Reset()
+    {
+//        if(puzzlePath)
+//            puzzlePath.Reset();
+
+        dirtyModel.SetActive(true);
+        cleanModel.SetActive(false);
+
+        IsDirty = true;
     }
 
     public void CleanUp()
@@ -32,16 +45,5 @@ public class City : MonoBehaviour
 
         dirtyModel.SetActive(false);
         cleanModel.SetActive(true);
-    }
-
-    public void Reset()
-    {
-        if(puzzlePath)
-            puzzlePath.Reset();
-
-        dirtyModel.SetActive(true);
-        cleanModel.SetActive(false);
-
-        IsDirty = true;
     }
 }

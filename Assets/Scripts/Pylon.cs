@@ -4,46 +4,40 @@ using System.Collections.Generic;
 
 public class Pylon : Connectable
 {
-    public enum States
-    {
-        Ready,
-        Preview,
-        Built
-    }
-    
     [SerializeField] private GameObject PlacerModel;
     [SerializeField] private GameObject BuiltModel;
-
-    public States State { get; private set; }
 
     void Awake()
     {
         Reset();
     }
 
-    public void ShowPreview()
+    public override void OnConnected()
     {
-        if (State != States.Ready)
-            return;
+        Build();
+    }
 
-        State = States.Preview;
+    public override void ShowPreview()
+    {
+        base.ShowPreview();
+
         PlacerModel.SetActive(true);
     }
 
     public void Build()
     {
-        if (State == States.Built)
+        if (ConnectionState == ConnectionStates.Built)
             return;
 
-        State = States.Built;
+        ConnectionState = ConnectionStates.Built;
         
         PlacerModel.SetActive(false);
         BuiltModel.SetActive(true);
     }
 
-    public void Reset()
+    public override void Reset()
     {
-        State = States.Ready;
+        ConnectionState = ConnectionStates.Hidden;
         BuiltModel.SetActive(false);
         PlacerModel.SetActive(false);
     }

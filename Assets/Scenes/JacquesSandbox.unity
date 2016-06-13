@@ -10691,14 +10691,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 113802, guid: 5264e20edfd770e4fbfe33f48b19d1b1, type: 2}
-      propertyPath: m_Name
-      value: City 1
-      objectReference: {fileID: 0}
     - target: {fileID: 11486914, guid: 5264e20edfd770e4fbfe33f48b19d1b1, type: 2}
       propertyPath: puzzlePath
       value: 
       objectReference: {fileID: 1611907966}
+    - target: {fileID: 113802, guid: 5264e20edfd770e4fbfe33f48b19d1b1, type: 2}
+      propertyPath: m_Name
+      value: City 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5264e20edfd770e4fbfe33f48b19d1b1, type: 2}
   m_IsPrefabParent: 0
@@ -20370,11 +20370,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57793bb753c9a964ea839ee5ef40021f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  geoPlant: {fileID: 387400816}
-  pathPylons:
+  connectablePath:
+  - {fileID: 387400816}
   - {fileID: 930707352}
   - {fileID: 197127100}
   - {fileID: 961683036}
+  - {fileID: 1824326924}
 --- !u!1001 &1617337318
 Prefab:
   m_ObjectHideFlags: 0
@@ -23211,6 +23212,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 504f923e3245b274a9a29f7e59f304d7, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1824326924 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11486914, guid: 5264e20edfd770e4fbfe33f48b19d1b1,
+    type: 2}
+  m_PrefabInternal: {fileID: 917853483}
+  m_Script: {fileID: 11500000, guid: 15391b099da671c4ba62a48b7e94f395, type: 3}
 --- !u!1 &1831345404
 GameObject:
   m_ObjectHideFlags: 0
