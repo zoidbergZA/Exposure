@@ -27,6 +27,8 @@ public class City : Connectable
 
     public override void Reset()
     {
+        base.Reset();
+
 //        if(puzzlePath)
 //            puzzlePath.Reset();
 

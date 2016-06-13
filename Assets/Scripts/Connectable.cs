@@ -12,6 +12,7 @@ public abstract class Connectable : MonoBehaviour
 
     public Transform connectionRef;
 
+    [SerializeField] private GameObject pipeModel;
     [SerializeField] private Texture2D connectIcon;
 
     public ConnectionStates ConnectionState { get; protected set; }
@@ -31,7 +32,14 @@ public abstract class Connectable : MonoBehaviour
     }
 
     public abstract void OnConnected();
-    public abstract void Reset();
+
+    public virtual void Reset()
+    {
+        if (pipeModel)
+        {
+            Destroy(pipeModel.gameObject);
+        }
+    }
 
     public virtual void ShowPreview()
     {
@@ -45,7 +53,7 @@ public abstract class Connectable : MonoBehaviour
     {
         float dist = Vector3.Distance(connectionRef.position, other.connectionRef.position);
 
-        GameObject pipeModel = Instantiate(GameManager.Instance.PipePrefab);
+        pipeModel = Instantiate(GameManager.Instance.PipePrefab);
 
         pipeModel.transform.SetParent(transform);
         pipeModel.transform.localScale = new Vector3(1, 1, dist*0.5f);

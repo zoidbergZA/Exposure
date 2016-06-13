@@ -126,10 +126,10 @@ public class MobileJoystick : MonoBehaviour
     private ScreenTriangle getCurrentTriangle()
     {
         Vector3 viewPos = Camera.main.WorldToViewportPoint(GameManager.Instance.DrillingGame.Driller.Drill.gameObject.transform.position);
-        if (viewPos.x > 0.5F)
-            print("target is on the right side!");
-        else
-            print("target is on the left side!");
+//        if (viewPos.x > 0.5F)
+//            print("target is on the right side!");
+//        else
+//            print("target is on the left side!");
 
         return inputTriangle;
     }

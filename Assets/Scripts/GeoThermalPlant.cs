@@ -27,6 +27,8 @@ public class GeoThermalPlant : Connectable
 
     public override void Reset()
     {
+        base.Reset();
+
         State = States.Ready;
         Model.SetActive(false);
     }

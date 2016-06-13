@@ -30,39 +30,12 @@ public class GridBuilder : Minigame
     {
         base.Update();
 
-        if (IsRunning && Time.time >= lastConnectionAt + connectionTimeOut)
-        {
-            MakeNextConnection();
-        }
-    }
-
-    void OnGUI()
-    {
-//        if (!IsRunning)
-//            return;
-//
-//        if (nextConnectable < PuzzlePath.ConnectablePath.Length)
+//        if (IsRunning && Time.time >= lastConnectionAt + connectionTimeOut)
 //        {
-//            Vector2 screenPos = Camera.main.WorldToScreenPoint(PuzzlePath.ConnectablePath[nextConnectable].transform.position);
-//
-//            if (GUI.Button(GameManager.Instance.Hud.CenteredRect(new Rect(screenPos.x, screenPos.y, 50, 50)),
-//                buildPylonIcon))
-//            {
-//                MakeNextConnection();
-//            }
-//        }
-//        else
-//        {
-//            Vector2 screenPos = Camera.main.WorldToScreenPoint(PuzzlePath.ParentCity.transform.position);
-//
-//            if (GUI.Button(GameManager.Instance.Hud.CenteredRect(new Rect(screenPos.x, screenPos.y, 50, 50)),
-//                buildCityIcon))
-//            {
-//                End(true);
-//            }
+//            MakeNextConnection();
 //        }
     }
-
+    
     public override void End(bool succeeded)
     {
         base.End(succeeded);
@@ -78,17 +51,21 @@ public class GridBuilder : Minigame
 
     public void MakeConnection(Connectable connectable)
     {
-        Debug.Log("connect " + connectable.transform.name);
+        //find previous connectable
+        int previous = 0;
+        for (int i = 0; i < PuzzlePath.ConnectablePath.Length; i++)
+        {
+            if (PuzzlePath.ConnectablePath[i] == connectable)
+            {
+                previous = i - 1;
+            }
+        }
+
+        connectable.MakeConnection(PuzzlePath.ConnectablePath[previous]);
     }
 
     private void MakeNextConnection()
     {
-//        if (nextConnectable < PuzzlePath.ConnectablePath.Length)
-//            PuzzlePath.ConnectablePath[nextConnectable].Build();
-
-//        //pipe test
-//        PuzzlePath.PathPylons[nextConnectable].MakeConnection(PuzzlePath.PathPylons[nextConnectable+1]);
-
         lastConnectionAt = Time.time;
         nextConnectable++;
         PreviewNextConnectable();
@@ -96,21 +73,13 @@ public class GridBuilder : Minigame
 
     private void PreviewNextConnectable()
     {
-        Debug.Log(PuzzlePath.ConnectablePath.Length);
+        //todo: hide previous connectable preview
+
+
         if (nextConnectable < PuzzlePath.ConnectablePath.Length)
         {
             PuzzlePath.ConnectablePath[nextConnectable].ShowPreview();
             GameManager.Instance.Director.SetMode(Director.Modes.Grid, PuzzlePath.ConnectablePath[nextConnectable].transform, cameraSwoopTime);
         }
-
-//        if (nextConnectable >= PuzzlePath.ConnectablePath.Length)
-//        {
-//            GameManager.Instance.Director.SetMode(Director.Modes.Grid, PuzzlePath.ParentCity.transform, cameraSwoopTime);
-//        }
-//        else
-//        {
-//            PuzzlePath.ConnectablePath[nextConnectable].ShowPreview();
-//            GameManager.Instance.Director.SetMode(Director.Modes.Grid, PuzzlePath.ConnectablePath[nextConnectable].transform, cameraSwoopTime);
-//        }
     }
 }

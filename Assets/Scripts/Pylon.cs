@@ -37,6 +37,8 @@ public class Pylon : Connectable
 
     public override void Reset()
     {
+        base.Reset();
+
         ConnectionState = ConnectionStates.Hidden;
         BuiltModel.SetActive(false);
         PlacerModel.SetActive(false);
