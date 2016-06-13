@@ -97,10 +97,7 @@ public class Player : MonoBehaviour
 
         //set the puzzle of this geoplant as the next gridBuilder puzzle
         GameManager.Instance.GridBuilder.SetPuzzlePath(geoPlant.PuzzlePath);
-
-        //todo: start drilling game, for now jump to building game
-        GameManager.Instance.GridBuilder.Begin(1f);
-        //GameManager.Instance.DrillingGame.StartGame(difficulty);
+        GameManager.Instance.DrillingGame.StartGame(null, difficulty);
     }
 
     public void StartBuildMinigame(GeoThermalPlant geoPlant, float difficulty)
