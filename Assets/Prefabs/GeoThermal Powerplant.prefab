@@ -647,7 +647,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146164}
   m_LocalRotation: {x: -0.49321413, y: -0.09224558, z: 0.23603857, w: 0.83217573}
-  m_LocalPosition: {x: -32.459778, y: 39.26317, z: 15.022071}
+  m_LocalPosition: {x: -32.27688, y: 39.07364, z: 14.870039}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 497352}
@@ -927,6 +927,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516c0b6ce5d88d24bb741b665db1239e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectionRef: {fileID: 442822}
+  connectIcon: {fileID: 0}
   Model: {fileID: 179372}
 --- !u!114 &11489818
 MonoBehaviour:
