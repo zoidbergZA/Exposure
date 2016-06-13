@@ -10,23 +10,25 @@ public class MobileJoystick : MonoBehaviour
 
     public DrillingDirection CurrentInput { get; private set; }
     public Vector2 JoystickInput { get; private set; }
+    public enum ScreenTriangle { LEFT, RIGHT, UP, DOWN, NONE }
 
     private Vector2 dragPrevious;
     private Vector2 dragStart;
 
     private float lastInputAt = 0;
     private float inputCooldown = 0.25f;
+    private ScreenTriangle inputTriangle;
 
     void Awake()
     {
-        CurrentInput = DrillingDirection.NONE;   
+        CurrentInput = DrillingDirection.NONE;
+        inputTriangle = ScreenTriangle.NONE;
     }
 
     void Update()
     {
         UpdateInput();
-        //Debug.Log("x: " + joystickX + " | y: " + joystickY);
-//        Debug.Log(CurrentInput);
+        getCurrentTriangle();
     }
 
     private void UpdateInput()
@@ -57,7 +59,7 @@ public class MobileJoystick : MonoBehaviour
         else
         {
             //try keyboard input first
-            if(Time.time - lastInputAt > inputCooldown)
+            if(Time.time - lastInputAt > inputCooldown) //cooldown
             {
                 if (Input.GetKey(KeyCode.UpArrow))
                     input.y = 1f;
@@ -119,5 +121,16 @@ public class MobileJoystick : MonoBehaviour
         }
 
         GameManager.Instance.DrillingGame.Hud.PointJoystickArrow(CurrentInput);
+    }
+
+    private ScreenTriangle getCurrentTriangle()
+    {
+        Vector3 viewPos = Camera.main.WorldToViewportPoint(GameManager.Instance.DrillingGame.Driller.Drill.gameObject.transform.position);
+        if (viewPos.x > 0.5F)
+            print("target is on the right side!");
+        else
+            print("target is on the left side!");
+
+        return inputTriangle;
     }
 }
