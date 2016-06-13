@@ -2,15 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Pylon : MonoBehaviour
+public class Pylon : Connectable
 {
     public enum States
     {
         Ready,
+        Preview,
         Built
     }
-
-    [SerializeField] private float chargeBoost = 7f;
+    
     [SerializeField] private GameObject PlacerModel;
     [SerializeField] private GameObject BuiltModel;
 
@@ -21,28 +21,21 @@ public class Pylon : MonoBehaviour
         Reset();
     }
 
-    public void ShowPreview(bool show)
+    public void ShowPreview()
     {
         if (State != States.Ready)
             return;
 
-        if (show)
-        {
-            PlacerModel.SetActive(true);
-        }
-        else
-        {
-            PlacerModel.SetActive(false);
-        }
+        State = States.Preview;
+        PlacerModel.SetActive(true);
     }
 
     public void Build()
     {
-        if (State != States.Ready)
+        if (State == States.Built)
             return;
 
         State = States.Built;
-        GameManager.Instance.Scanner.AddCharge(chargeBoost);
         
         PlacerModel.SetActive(false);
         BuiltModel.SetActive(true);

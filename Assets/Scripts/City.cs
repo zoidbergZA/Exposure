@@ -8,16 +8,14 @@ public class City : MonoBehaviour
     [SerializeField] private PuzzlePath puzzlePath;
 
     public bool IsDirty { get; private set; }
+    public PuzzlePath PuzzlePath { get { return puzzlePath; } }
 
     void Awake()
     {
         if (puzzlePath)
             puzzlePath.SetParentCity(this);
 
-        dirtyModel.SetActive(true);
-        cleanModel.SetActive(false);
-
-        IsDirty = true;
+        Reset();
     }
 
     void Start()
@@ -34,17 +32,16 @@ public class City : MonoBehaviour
 
         dirtyModel.SetActive(false);
         cleanModel.SetActive(true);
-
-        GameManager.Instance.Scanner.DeselectCity();
     }
 
     public void Reset()
     {
-        if(puzzlePath) puzzlePath.Reset();
-    }
+        if(puzzlePath)
+            puzzlePath.Reset();
 
-    public void TryBuild(Pylon pylon)
-    {
-        puzzlePath.TryConnectPylon(pylon);
+        dirtyModel.SetActive(true);
+        cleanModel.SetActive(false);
+
+        IsDirty = true;
     }
 }

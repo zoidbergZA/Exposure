@@ -1,20 +1,56 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GeoThermalPlant : Connectable
+[RequireComponent(typeof(Collider))]
+public class GeoThermalPlant : MonoBehaviour
 {
-    public override void CheckConnectable(Vector3 location)
+    public enum States
     {
-        IsConnectable = false;
+        Ready,
+        Built
     }
 
-    public override void Highlight(bool hightlight)
+    [SerializeField] private GameObject Model;
+
+    public States State { get; private set; }
+    public PuzzlePath PuzzlePath { get; private set; }
+
+    void Awake()
     {
-//        throw new System.NotImplementedException();
+        Reset();
     }
 
-    public override void OnConnected()
+    public void SetMyPuzzlePath(PuzzlePath puzzlePath)
     {
-//        throw new System.NotImplementedException();
+        PuzzlePath = puzzlePath;
+    }
+
+    public void Build()
+    {
+        if (State != States.Ready)
+            return;
+
+        State = States.Built;
+    }
+
+    public void ShowPreview(bool show)
+    {
+        if (State != States.Ready)
+            return;
+
+        if (show)
+        {
+            Model.SetActive(true);
+        }
+        else
+        {
+            Model.SetActive(false);
+        }
+    }
+
+    public void Reset()
+    {
+        State = States.Ready;
+        Model.SetActive(false);
     }
 }

@@ -9,22 +9,26 @@ public class MobileJoystick : MonoBehaviour
     [SerializeField] private float minDragDistance = 20f;
 
     public DrillingDirection CurrentInput { get; private set; }
-    public GameObject JoystickPanel { get { return joystickPanel; } }
     public Vector2 JoystickInput { get; private set; }
+    public enum ScreenTriangle { LEFT, RIGHT, UP, DOWN, NONE }
 
     private Vector2 dragPrevious;
     private Vector2 dragStart;
 
+    private float lastInputAt = 0;
+    private float inputCooldown = 0.25f;
+    private ScreenTriangle inputTriangle;
+
     void Awake()
     {
-        CurrentInput = DrillingDirection.NONE;   
+        CurrentInput = DrillingDirection.NONE;
+        inputTriangle = ScreenTriangle.NONE;
     }
 
     void Update()
     {
         UpdateInput();
-        //Debug.Log("x: " + joystickX + " | y: " + joystickY);
-//        Debug.Log(CurrentInput);
+        getCurrentTriangle();
     }
 
     private void UpdateInput()
@@ -33,37 +37,41 @@ public class MobileJoystick : MonoBehaviour
 
         if (GameManager.Instance.TouchInput)
         {
-            if (Input.touchCount > 0)
-            {
-                if (Input.touches[0].phase == TouchPhase.Began)
-                {
-                    dragStart = Input.touches[0].position;
-                    input = Input.touches[0].position - GameManager.Instance.DrillingGame.Driller.Position;
-                    dragPrevious = Input.touches[0].position;
-                }
-                else if (Input.touches[0].phase == TouchPhase.Moved)
-                {
-                    Vector2 dragDelta = Input.touches[0].position - dragStart;
+            //if (Input.touchCount > 0)
+            //{
+            //    if (Input.touches[0].phase == TouchPhase.Began)
+            //    {
+            //        dragStart = Input.touches[0].position;
+            //        input = Input.touches[0].position - GameManager.Instance.DrillingGame.Driller.Position;
+            //        dragPrevious = Input.touches[0].position;
+            //    }
+            //    else if (Input.touches[0].phase == TouchPhase.Moved)
+            //    {
+            //        Vector2 dragDelta = Input.touches[0].position - dragStart;
 
-                    if (dragDelta.sqrMagnitude >= minDragDistance)
-                    {
-                        input = Input.touches[0].deltaPosition;
-                    }
-                }
-            }
+            //        if (dragDelta.sqrMagnitude >= minDragDistance)
+            //        {
+            //            input = Input.touches[0].deltaPosition;
+            //        }
+            //    }
+            //}
         }
         else
         {
             //try keyboard input first
-            if (Input.GetKey(KeyCode.UpArrow))
-                input.y = 1f;
-            else if (Input.GetKey(KeyCode.DownArrow))
-                input.y = -1f;
-            else if (Input.GetKey(KeyCode.LeftArrow))
-                input.x = -1f;
-            else if (Input.GetKey(KeyCode.RightArrow))
-                input.x = 1f;
-
+            if(Time.time - lastInputAt > inputCooldown) //cooldown
+            {
+                if (Input.GetKey(KeyCode.UpArrow))
+                    input.y = 1f;
+                else if (Input.GetKey(KeyCode.DownArrow))
+                    input.y = -1f;
+                else if (Input.GetKey(KeyCode.LeftArrow))
+                    input.x = -1f;
+                else if (Input.GetKey(KeyCode.RightArrow))
+                    input.x = 1f;
+                lastInputAt = Time.time;
+            }
+            
             //then try mouse input
             if (input.sqrMagnitude < 0.1f)
             {
@@ -112,6 +120,17 @@ public class MobileJoystick : MonoBehaviour
                 CurrentInput = DrillingDirection.UP;
         }
 
-        GameManager.Instance.DrillingGame.PointJoystickArrow(CurrentInput);
+        GameManager.Instance.DrillingGame.Hud.PointJoystickArrow(CurrentInput);
+    }
+
+    private ScreenTriangle getCurrentTriangle()
+    {
+        Vector3 viewPos = Camera.main.WorldToViewportPoint(GameManager.Instance.DrillingGame.Driller.Drill.gameObject.transform.position);
+        if (viewPos.x > 0.5F)
+            print("target is on the right side!");
+        else
+            print("target is on the left side!");
+
+        return inputTriangle;
     }
 }

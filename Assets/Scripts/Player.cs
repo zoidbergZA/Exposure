@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
         BuildGrid
     }
 
+    public delegate void FlickHandler();
+
+    public static event FlickHandler PlanetFlicked;
+
     public float flickPower = 1f;
 
     [SerializeField] private int startingCable = 3;
@@ -27,6 +31,8 @@ public class Player : MonoBehaviour
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
     public int Cable { get; private set; }
+
+    private Vector2 mouseOld;
 
     void Awake()
     {
@@ -43,8 +49,7 @@ public class Player : MonoBehaviour
             CollectCable(1);
         if (Input.GetKeyDown(KeyCode.F6) && GameManager.Instance.Player.PlayerState == PlayerStates.Normal) // jump to drilling game
         {
-            Drillspot d = Instantiate(DrillspotPrefab, Vector3.zero, Quaternion.identity) as Drillspot;
-            StartDrillMinigame(d, 0f);
+            GameManager.Instance.Player.StartDrillMinigame(GameManager.Instance.Cities[0].PuzzlePath.GeoPlant, 1f);
         }
 
         switch (PlayerState)
@@ -53,6 +58,11 @@ public class Player : MonoBehaviour
                 HandleNormalState();
                 break;
         }
+    }
+
+    void LateUpdate()
+    {
+        mouseOld = Input.mousePosition;
     }
 
     public void SetPlayerInfo(string name, int age, bool isMale)
@@ -80,18 +90,21 @@ public class Player : MonoBehaviour
         GameManager.Instance.Director.SetMode(Director.Modes.Orbit, targetTransform);
     }
 
-    public void StartDrillMinigame(Drillspot drillspot, float difficulty)
+    public void StartDrillMinigame(GeoThermalPlant geoPlant, float difficulty)
     {
         PlayerState = PlayerStates.DrillGame;
-        GameManager.Instance.DrillingGame.StartGame(drillspot, difficulty);
-        GameManager.Instance.Director.SetMode(Director.Modes.Grid, drillspot.transform);
+        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform, 2f);
+
+        //set the puzzle of this geoplant as the next gridBuilder puzzle
+        GameManager.Instance.GridBuilder.SetPuzzlePath(geoPlant.PuzzlePath);
+        GameManager.Instance.DrillingGame.StartGame(null, difficulty);
     }
 
     public void StartBuildMinigame(GeoThermalPlant geoPlant, float difficulty)
     {
-        PlayerState = PlayerStates.BuildGrid;
-        GameManager.Instance.GridBuilder.StartBuild(geoPlant, difficulty);
-        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
+//        PlayerState = PlayerStates.BuildGrid;
+//        GameManager.Instance.GridBuilder.StartBuild(geoPlant, difficulty);
+//        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
     }
 
     public void ScorePoints(float amount, Transform location = null)
@@ -108,20 +121,40 @@ public class Player : MonoBehaviour
 
     private void HandleNormalState()
     {
-        HandleFlick();
+        CheckPlanetFlick();
     }
 
-    private void HandleFlick()
+    private void CheckPlanetFlick()
     {
-        if (Input.touchCount == 1)
-        {
-            if (Input.touches[0].phase == TouchPhase.Moved)
-            {
-                float deltaX = Input.touches[0].deltaPosition.x;
+        if (GameManager.Instance.Scanner.IsScanning)
+            return;
 
-                GameManager.Instance.Planet.AddSpin(-deltaX * flickPower);
+        float deltaX = 0;
+
+        if (GameManager.Instance.TouchInput)
+        {
+            if (Input.touchCount == 1)
+            {
+                if (Input.touches[0].phase == TouchPhase.Moved)
+                    deltaX = Input.touches[0].deltaPosition.x;
             }
         }
+        else
+        {
+            if (Input.GetMouseButton(0))
+                deltaX = Input.mousePosition.x - mouseOld.x;
+        }
+
+        if (Mathf.Abs(deltaX) > 2)
+            HandlePlanetFlick(deltaX);
+    }
+
+    private void HandlePlanetFlick(float deltaX)
+    {
+        GameManager.Instance.Planet.AddSpin(-deltaX * flickPower);
+
+        if (PlanetFlicked != null)
+            PlanetFlicked();
     }
 
 //    private void HandleNormalState()
@@ -139,24 +172,24 @@ public class Player : MonoBehaviour
 //        }
 //    }
 
-    private Pylon GetClosestPylon(Vector3 location)
-    {
-        Pylon closest = null;
-        float dist = 100000f;
-
-        foreach (Pylon pylon in GameManager.Instance.GridBuilder.Pylons)
-        {
-            float d = Vector3.Distance(pylon.transform.position, location);
-
-            if (d < dist)
-            {
-                dist = d;
-                closest = pylon;
-            }
-        }
-
-        return closest;
-    }
+//    private Pylon GetClosestPylon(Vector3 location)
+//    {
+//        Pylon closest = null;
+//        float dist = 100000f;
+//
+//        foreach (Pylon pylon in GameManager.Instance.GridBuilder.Pylons)
+//        {
+//            float d = Vector3.Distance(pylon.transform.position, location);
+//
+//            if (d < dist)
+//            {
+//                dist = d;
+//                closest = pylon;
+//            }
+//        }
+//
+//        return closest;
+//    }
 
     public void Drill(Vector3 location, Vector3 normal, float difficulty)
     {

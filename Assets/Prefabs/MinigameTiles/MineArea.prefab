@@ -32,7 +32,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 66, y: 66}
+  m_Size: {x: 60, y: 60}
 --- !u!114 &11448906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,7 +85,7 @@ RectTransform:
   m_GameObject: {fileID: 127976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

@@ -24,7 +24,7 @@ public class Planet : MonoBehaviour
     int healthyTreesAtStart;
 
     public float Health { get; private set; }
-    public bool IsSpinning { get; set; }
+//    public bool IsSpinning { get; set; }
 
     void Awake()
     {
@@ -44,13 +44,13 @@ public class Planet : MonoBehaviour
         HandleSpin();
 
         //test spin input
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
-            momentum += 80;
+            momentum += 280*Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
-            momentum -= 80;
+            momentum -= 280 * Time.deltaTime;
         }
     }
 
@@ -110,9 +110,6 @@ public class Planet : MonoBehaviour
 
     private void HandleSpin()
     {
-        if (!IsSpinning)
-            return;
-
         momentum *= inertia;
 
         currentSpin = Mathf.Lerp(currentSpin, normalSpin, inertia) + momentum;

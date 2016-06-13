@@ -7,91 +7,48 @@ public class Tutorial : MonoBehaviour
 {
     public enum Progression
     {
-        Ready,
+        FlickPlanet,
         ActivateScanner,
-        FindHotspot,
-        Completed
     }
-
-    //todo: refactor to prompt class
-    [SerializeField] private Image scannerTip;
-    [SerializeField] private Image hotspotTip;
-    [SerializeField] private float scannerWait = 5f;
-    [SerializeField] private float hotspotWait = 8f;
+    
+    [SerializeField] private Image flickTip;
 
     private Progression progress;
-    private float promptAt;
 
-    void Awake()
+    void Start()
     {
-        progress = Progression.Ready;
-        DisableAllTips();
-//        SetProgress(Progression.ActivateScanner, Time.time + scannerWait);
+        SetProgress(Progression.FlickPlanet);
     }
-
-//    void OnEnable()
-//    {
-//        Scanner.ScanStarted += OnScanStarted;
-//        Scanner.HotspotFound += OnHotspotFound;
-//    }
-//
-//    void OnDisable()
-//    {
-//        Scanner.ScanStarted -= OnScanStarted;
-//        Scanner.HotspotFound -= OnHotspotFound;
-//    }
-
+    
     void Update()
     {
-        if (progress == Progression.Ready)
-            return;
-
-        if (Time.time >= promptAt)
-        {
-            ShowPrompt();
-        }
+        
     }
 
     public void SetProgress(Progression newProgess)
     {
-        DisableAllTips();
+//        DisableAllTips();
         progress = newProgess;
         
         switch (newProgess)
         {
+            case Progression.FlickPlanet:
+                flickTip.enabled = true;
+                GameManager.Instance.Scanner.gameObject.SetActive(false);
+                Player.PlanetFlicked += OnPlanetFlicked;
+                break;
+
             case Progression.ActivateScanner:
-                promptAt = Time.time + scannerWait;
-                break;
-
-            case Progression.FindHotspot:
-                promptAt = Time.time + hotspotWait;
-                break;
-
-            case Progression.Completed:
-                KillTutorial();
-                break;
-        }
-    }
-
-    private void ShowPrompt()
-    {
-        DisableAllTips();
-
-        switch (progress)
-        {
-            case Progression.ActivateScanner:
-                scannerTip.enabled = true;
-                break;
-            case Progression.FindHotspot:
-                hotspotTip.enabled = true;
+                flickTip.enabled = false;
+                GameManager.Instance.Scanner.gameObject.SetActive(true);
+                //                KillTutorial();
                 break;
         }
     }
 
     private void DisableAllTips()
     {
-        scannerTip.enabled = false;
-        hotspotTip.enabled = false;
+        flickTip.enabled = false;
     }
 
     private void KillTutorial()
@@ -99,19 +56,26 @@ public class Tutorial : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnPlanetFlicked()
+    {
+        Player.PlanetFlicked -= OnPlanetFlicked;
+
+        SetProgress(Progression.ActivateScanner);
+    }
+
     private void OnScanStarted()
     {
-        if (progress == Progression.ActivateScanner)
-        {
-            SetProgress(Progression.FindHotspot);
-        }
+//        if (progress == Progression.ActivateScanner)
+//        {
+//            SetProgress(Progression.FindHotspot);
+//        }
     }
 
     private void OnHotspotFound()
     {
-        if (progress == Progression.FindHotspot)
-        {
-            SetProgress(Progression.Completed);
-        }
+//        if (progress == Progression.FindHotspot)
+//        {
+//            SetProgress(Progression.Completed);
+//        }
     }
 }
