@@ -559,13 +559,15 @@ public class DrillingGame : Minigame
 
         if (succeeded)
         {
-            GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, drillspot.transform.position, drillspot.transform.rotation) as GeoThermalPlant;
-            plant.transform.SetParent(GameManager.Instance.PlanetTransform);
-            GameManager.Instance.Player.StartBuildMinigame(plant, 1f);
+            GameManager.Instance.GridBuilder.Begin(1f);
+            //            GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, drillspot.transform.position, drillspot.transform.rotation) as GeoThermalPlant;
+            //            plant.transform.SetParent(GameManager.Instance.PlanetTransform);
+            //            GameManager.Instance.Player.StartBuildMinigame(plant, 1f);
             levelsCounter++;
         }
         else
         {
+            GameManager.Instance.GridBuilder.PuzzlePath.Reset();
             GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
         }
         resetGame();

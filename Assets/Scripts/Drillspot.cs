@@ -49,9 +49,9 @@ public class Drillspot : Placable
 
     private void CompleteDrill()
     {
-        model.SetActive(false);
-        DrillState = DrillStates.Succeeded;
-        GameManager.Instance.Player.StartDrillMinigame(this, Difficulty);
+//        model.SetActive(false);
+//        DrillState = DrillStates.Succeeded;
+//        GameManager.Instance.Player.StartDrillMinigame(this, Difficulty);
 
         //        float rand = Random.Range(0f, 1f);
         //
