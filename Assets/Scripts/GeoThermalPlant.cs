@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Collider))]
-public class GeoThermalPlant : MonoBehaviour
+public class GeoThermalPlant : Connectable
 {
     public enum States
     {
@@ -18,6 +18,19 @@ public class GeoThermalPlant : MonoBehaviour
     void Awake()
     {
         Reset();
+    }
+
+    public override void OnConnected()
+    {
+//        throw new System.NotImplementedException();
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+
+        State = States.Ready;
+        Model.SetActive(false);
     }
 
     public void SetMyPuzzlePath(PuzzlePath puzzlePath)
@@ -46,11 +59,5 @@ public class GeoThermalPlant : MonoBehaviour
         {
             Model.SetActive(false);
         }
-    }
-
-    public void Reset()
-    {
-        State = States.Ready;
-        Model.SetActive(false);
     }
 }

@@ -169,6 +169,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &137538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 425958}
+  m_Layer: 8
+  m_Name: connection_ref
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &145008
 GameObject:
   m_ObjectHideFlags: 1
@@ -385,6 +400,7 @@ Transform:
   - {fileID: 464080}
   - {fileID: 459100}
   - {fileID: 423986}
+  - {fileID: 425958}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &404976
@@ -423,6 +439,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 404900}
   m_RootOrder: 2
+--- !u!4 &425958
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 404900}
+  m_RootOrder: 3
 --- !u!4 &426532
 Transform:
   m_ObjectHideFlags: 1
@@ -1243,6 +1271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15391b099da671c4ba62a48b7e94f395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectionRef: {fileID: 425958}
+  connectIcon: {fileID: 2800000, guid: 50c00d26683728a44bdb8442d5149a0f, type: 3}
   dirtyModel: {fileID: 176574}
   cleanModel: {fileID: 132496}
   puzzlePath: {fileID: 0}

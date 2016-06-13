@@ -5,14 +5,12 @@ using System.Collections.Generic;
 public class GridBuilder : Minigame
 {
     public PuzzlePath PuzzlePath { get; private set; }
-
-    [SerializeField] private Texture2D buildPylonIcon;
-    [SerializeField] private Texture2D buildCityIcon;
-    [SerializeField] private float pylonTimeOut = 2f;
+    
+    [SerializeField] private float connectionTimeOut = 2f;
     [SerializeField] private float cameraSwoopTime = 1f;
 
-    private float lastPylonConnectedAt;
-    private int nextPylon;
+    private float lastConnectionAt;
+    private int nextConnectable;
 
     public void SetPuzzlePath(PuzzlePath puzzlePath)
     {
@@ -23,84 +21,76 @@ public class GridBuilder : Minigame
     {
         base.Begin(difficulty);
 
-        nextPylon = 0;
-        lastPylonConnectedAt = Time.time;
-        PreviewNextPylon();
+        nextConnectable = 1; // first pylon in array
+        lastConnectionAt = Time.time;
+        PreviewNextConnectable();
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (IsRunning && Time.time >= lastPylonConnectedAt + pylonTimeOut)
-        {
-            BuildNextPylon();
-        }
+//        if (IsRunning && Time.time >= lastConnectionAt + connectionTimeOut)
+//        {
+//            MakeNextConnection();
+//        }
     }
-
-    void OnGUI()
-    {
-        if (!IsRunning)
-            return;
-
-        if (nextPylon < PuzzlePath.PathPylons.Length)
-        {
-            Vector2 screenPos = Camera.main.WorldToScreenPoint(PuzzlePath.PathPylons[nextPylon].transform.position);
-
-            if (GUI.Button(GameManager.Instance.Hud.CenteredRect(new Rect(screenPos.x, screenPos.y, 50, 50)),
-                buildPylonIcon))
-            {
-                BuildNextPylon();
-            }
-        }
-        else
-        {
-            Vector2 screenPos = Camera.main.WorldToScreenPoint(PuzzlePath.ParentCity.transform.position);
-
-            if (GUI.Button(GameManager.Instance.Hud.CenteredRect(new Rect(screenPos.x, screenPos.y, 50, 50)),
-                buildCityIcon))
-            {
-                End(true);
-            }
-        }
-    }
-
+    
     public override void End(bool succeeded)
     {
         base.End(succeeded);
 
-        if (!succeeded)
+        if (succeeded)
         {
-            PuzzlePath.Reset();
-        }
-
-        PuzzlePath.ParentCity.CleanUp();
-        GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
-    }
-
-    private void BuildNextPylon()
-    {
-        if (nextPylon < PuzzlePath.PathPylons.Length)
-            PuzzlePath.PathPylons[nextPylon].Build();
-
-//        //pipe test
-//        PuzzlePath.PathPylons[nextPylon].MakeConnection(PuzzlePath.PathPylons[nextPylon+1]);
-
-        lastPylonConnectedAt = Time.time;
-        nextPylon++;
-        PreviewNextPylon();
-    }
-
-    private void PreviewNextPylon()
-    {
-        if (nextPylon >= PuzzlePath.PathPylons.Length)
-        {
-            GameManager.Instance.Director.SetMode(Director.Modes.Grid, PuzzlePath.ParentCity.transform, cameraSwoopTime);
+            PuzzlePath.ParentCity.CleanUp();
         }
         else
         {
-            PuzzlePath.PathPylons[nextPylon].ShowPreview();
-            GameManager.Instance.Director.SetMode(Director.Modes.Grid, PuzzlePath.PathPylons[nextPylon].transform, cameraSwoopTime);
+            PuzzlePath.Reset();
+        }
+        
+        GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
+    }
+
+    public void MakeConnection(Connectable connectable)
+    {
+        //find previous connectable
+        int previous = 0;
+        for (int i = 0; i < PuzzlePath.ConnectablePath.Length; i++)
+        {
+            if (PuzzlePath.ConnectablePath[i] == connectable)
+            {
+                previous = i - 1;
+            }
+        }
+
+        connectable.MakeConnection(PuzzlePath.ConnectablePath[previous]);
+        nextConnectable++;
+
+        if (nextConnectable >= PuzzlePath.ConnectablePath.Length)
+        {
+            End(true);
+        }
+        else
+            PreviewNextConnectable();
+    }
+
+    private void MakeNextConnection()
+    {
+        lastConnectionAt = Time.time;
+        nextConnectable++;
+        PreviewNextConnectable();
+    }
+
+    private void PreviewNextConnectable()
+    {
+        //todo: hide previous connectable preview
+
+
+        if (nextConnectable < PuzzlePath.ConnectablePath.Length)
+        {
+            PuzzlePath.ConnectablePath[nextConnectable].ShowPreview();
+            GameManager.Instance.Director.SetMode(Director.Modes.Grid, PuzzlePath.ConnectablePath[nextConnectable].transform, cameraSwoopTime);
         }
     }
 }
