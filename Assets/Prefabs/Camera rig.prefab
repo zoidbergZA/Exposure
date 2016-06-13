@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54c2bc53c8e53444c83ba24ced1e6666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildHeight: 200
+  buildHeight: 100
   normalZoom: 45
   buildzoom: 35
   shaker: {fileID: 11418786}

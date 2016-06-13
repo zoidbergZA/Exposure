@@ -5,107 +5,97 @@ using System.Collections;
 public class Scanner : MonoBehaviour
 {
     //temp
-    public Texture2D selectedIcon;
-
-    [SerializeField] private float maxCharge = 100f;
-    [SerializeField] private float shrinkSpeed = 10f;
+    [SerializeField] private Texture2D scannerIcon;
+    [SerializeField] float radius = 30f;
+    [SerializeField] private Rect buttonRect;
+//    [SerializeField] private float maxCharge = 100f;
+//    [SerializeField] private float shrinkSpeed = 10f;
     [SerializeField] private GameObject gadgetModel;
+//    [SerializeField] private MeshRenderer gadgetMeshRenderer;
+//    [SerializeField] private Color flashColor;
 
+//    private Color normalColor;
     private Material material;
     private Renderer renderer;
     private SphereCollider sphereCollider;
-
-    public City SelectedCity { get; private set; }
-    public float Charge { get; private set; }
+//    private int flashTweenId;
+    
+//    public float Charge { get; private set; }
     public bool IsScanning { get; private set; }
 
-    public float ChargeFraction
-    {
-        get { return Charge/maxCharge; }
-    }
+//    public float ChargeFraction
+//    {
+//        get { return Charge/maxCharge; }
+//    }
 
     void Awake()
     {
         sphereCollider = GetComponent<SphereCollider>();
+        sphereCollider.radius = radius;
         sphereCollider.enabled = false;
         gadgetModel.SetActive(false);
+        
     }
     
     void Start()
     {
+        buttonRect = GameManager.Instance.Hud.CenteredRect(new Rect(Screen.width / 2, 200, 200, 200));
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
     }
 
     void Update()
     {
-        if (!GameManager.Instance.RoundStarted)
+        if (!GameManager.Instance.RoundStarted || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
             return;
-
-        if (Charge > 0)
-            Charge -= Time.deltaTime * shrinkSpeed;
-
+        
         CheckStartStop();
 
-//        Debug.Log(IsScanning + ", " + Charge);
-
-        HandleScanning();
-
-        material.SetFloat("_Radius", Charge);
+        if (IsScanning)
+            HandleScanning();
     }
 
     void OnGUI()
     {
-        if (SelectedCity)
-        {
-            Vector3 pos = Camera.main.WorldToScreenPoint(SelectedCity.transform.position);
+        if (IsScanning || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
+            return;
 
-            GUI.Label(GameManager.Instance.Hud.CenteredRect(new Rect(pos.x, pos.y, 80, 80)), selectedIcon);
-        }
-    }
-
-    public void AddCharge(float amount)
-    {
-        Charge = Mathf.Min(Charge + amount, maxCharge);
+        GUI.Label(new Rect(buttonRect.x, Screen.height - buttonRect.y - buttonRect.height, buttonRect.width, buttonRect.height), scannerIcon);
+        
     }
 
     private void CheckStartStop()
     {
         if (IsScanning)
         {
-            if (Charge <= 0f)
+            if (GameManager.Instance.TouchInput)
             {
-                EndScan();
+                if (Input.touchCount == 0)
+                    EndScan();
             }
-            else if (GameManager.Instance.TouchInput && Input.touchCount == 0)
-                EndScan();
-            else if (!GameManager.Instance.TouchInput && !Input.GetMouseButton(0))
-                EndScan();
+            else
+            {
+                if (!Input.GetMouseButton(0))
+                    EndScan();
+            }
         }
         else
         {
             if (GameManager.Instance.TouchInput)
             {
-
+                if (Input.touchCount > 0 
+                    && buttonRect.Contains(Input.touches[0].position) 
+                    && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal
+                    )
+                {
+                    StartScan();
+                }
             }
             else
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButton(0) && buttonRect.Contains(Input.mousePosition) && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
                 {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-
-                    if (Physics.Raycast(ray, out hit))
-                    {
-                        UpdateScannerPosition(hit.point);
-
-                        City city = hit.transform.GetComponent<City>();
-                        if (city)
-                        {
-                            SelectedCity = city;
-                            StartScan();
-                        }
-                    }
+                    StartScan();
                 }
             }
         }
@@ -116,9 +106,9 @@ public class Scanner : MonoBehaviour
         IsScanning = true;
         sphereCollider.enabled = true;
         gadgetModel.SetActive(true);
-        Charge = maxCharge;
+        material.SetFloat("_Radius", radius);
 
-        GameManager.Instance.Director.SetMode(Director.Modes.Grid, SelectedCity.transform);
+        //        GameManager.Instance.Director.SetMode(Director.Modes.Grid, SelectedCity.transform);
     }
 
     private void EndScan()
@@ -126,76 +116,86 @@ public class Scanner : MonoBehaviour
         IsScanning = false;
         sphereCollider.enabled = false;
         gadgetModel.SetActive(false);
-        Charge = 0f;
-        SelectedCity.Reset();
-
-        GameManager.Instance.Director.SetMode(Director.Modes.Orbit, GameManager.Instance.PlanetTransform);
+        material.SetFloat("_Radius", 0);
+        
+//        GameManager.Instance.Director.SetMode(Director.Modes.Orbit, GameManager.Instance.PlanetTransform);
     }
 
     private void HandleScanning()
     {
-        gadgetModel.transform.localScale = new Vector3(Charge, Charge, Charge);
-        sphereCollider.radius = Charge;
+        Vector2 rayPos;
 
-        if (Input.GetMouseButton(0))
+        if (GameManager.Instance.TouchInput)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            rayPos = Input.touches[0].position;
+        }
+        else
+            rayPos = Input.mousePosition;
+
+        if (true)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(rayPos);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
                 UpdateScannerPosition(hit.point);
-              
-                Pylon pylon = hit.transform.GetComponent<Pylon>();
-                if (pylon)
+
+                GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
+                if (plant)
                 {
-                    if (SelectedCity != null)
-                    {
-                        SelectedCity.TryBuild(pylon);
-                    }
+                    if (plant.State == GeoThermalPlant.States.Ready)
+                        ScanSucceeded(plant);
                 }
             }
         }
     }
 
+    private void ScanSucceeded(GeoThermalPlant geoPlant)
+    {
+        EndScan();
+
+        geoPlant.Build();
+
+        GameManager.Instance.Player.StartDrillMinigame(geoPlant, 1f);
+    }
+
     private void UpdateScannerPosition(Vector3 position)
     {
         transform.position = position;
-        material.SetVector("_CenterPoint", new Vector4(position.x, position.y, position.z, 0));
-    }
 
-    private bool CheckCancelScan()
-    {
-        if (GameManager.Instance.TouchInput)
-        {
-            if (Input.touches.Length != 2)
-                return true;
-            return false;
-        }
-        else
-        {
-            if (Input.GetMouseButtonUp(0))
-                return true;
-            return false;
-        }
+        Vector3 lookDir = position - GameManager.Instance.PlanetTransform.position;
+        gadgetModel.transform.LookAt(position + lookDir);
+        
+        material.SetVector("_CenterPoint", new Vector4(position.x, position.y, position.z, 0));
     }
     
     void OnTriggerEnter(Collider other)
     {
+        GeoThermalPlant geoPlant = other.GetComponent<GeoThermalPlant>();
+
+        if (geoPlant)
+            geoPlant.ShowPreview(true);
+
 //        Debug.Log(other.name);
-        Pylon pylon = other.GetComponent<Pylon>();
-        
-        if (pylon)
-            pylon.ShowPreview(true);
+//        Pylon pylon = other.GetComponent<Pylon>();
+//        
+//        if (pylon)
+//            pylon.ShowPreview(true);
     }
 
     void OnTriggerExit(Collider other)
     {
-//        Debug.Log(other.name);
-        Pylon pylon = other.GetComponent<Pylon>();
+        GeoThermalPlant geoPlant = other.GetComponent<GeoThermalPlant>();
 
-        if (pylon)
-            pylon.ShowPreview(false);
+        if (geoPlant)
+            geoPlant.ShowPreview(false);
+
+        //        Debug.Log(other.name);
+        //        Pylon pylon = other.GetComponent<Pylon>();
+        //
+        //        if (pylon)
+        //            pylon.ShowPreview(false);
     }
 }
 

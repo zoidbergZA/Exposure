@@ -25,6 +25,8 @@ public class Director : MonoBehaviour
     private Quaternion targetRotation;
     private float rotateProgress;
     private float targetFoV;
+    private int positionTweenId;
+    private int fovTweenId;
 
     public bool OrbitPaused { get; set; }
 
@@ -57,7 +59,7 @@ public class Director : MonoBehaviour
 //        if (delay > 0)
 //            StartCoroutine(DelayedStart(mode, targetTransform, delay));
 //        else
-            SwitchMode(mode, targetTransform);
+            SwitchMode(mode, targetTransform, delay);
     }
 
     public void Shake()
@@ -72,49 +74,42 @@ public class Director : MonoBehaviour
         SwitchMode(newMode, newTargetTransform);
     }
 
-    private void SwitchMode(Modes newMode, Transform targetTransform)
+    private void SwitchMode(Modes newMode, Transform targetTransform, float delay = 2f)
     {
         Mode = newMode;
 
         switch (Mode)
         {
             case Modes.Grid:
-                GameManager.Instance.Planet.IsSpinning = false;
+//                GameManager.Instance.Planet.IsSpinning = false;
 
                 Vector3 newPos = targetTransform.position + targetTransform.up * buildHeight;
                 Quaternion newRot = Quaternion.LookRotation(targetTransform.position - newPos, Vector3.up);
 
-                SwoopTo(newPos, newRot, buildzoom, 2f);
+                SwoopTo(newPos, newRot, buildzoom, delay);
                 break;
 
             case Modes.Orbit:
-                GameManager.Instance.Planet.IsSpinning = true;
+//                GameManager.Instance.Planet.IsSpinning = true;
 
-                SwoopTo(orbitPosition, orbitRotation, normalZoom, 2f);
+                SwoopTo(orbitPosition, orbitRotation, normalZoom, delay);
                 break;
         }
     }
 
     public void SwoopTo(Vector3 position, Quaternion rotation, float fov, float time, float delay = 0f)
     {
-        //todo: rotation lerp
-
-        //        Quaternion deltaQuaternion = Quaternion.Inverse(targetRotation) * transform.rotation;
-        //        float angle = 0;
-        //        Vector3 axis = Vector3.zero;
-        //
-        //        deltaQuaternion.ToAngleAxis(out angle, out axis);
-        //
-        //        Debug.Log(angle + ", " + axis);
-        //
-        //        LeanTween.rotateAround(gameObject, axis, angle, time);
-
         fromRotation = transform.rotation;
         targetRotation = rotation;
         rotateProgress = 0f;
 
-        LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time);
-        LeanTween.value(gameObject, updateFOVCallback, targetFoV, fov, time).setEase(LeanTweenType.easeInOutSine);
+        if (LeanTween.isTweening(positionTweenId))
+            LeanTween.cancel(positionTweenId);
+        if (LeanTween.isTweening(fovTweenId))
+            LeanTween.cancel(fovTweenId);
+
+        positionTweenId = LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time).id;
+        fovTweenId = LeanTween.value(gameObject, updateFOVCallback, targetFoV, fov, time).setEase(LeanTweenType.easeInOutSine).id;
     }
 
     void updatePosCallback(Vector3 val)

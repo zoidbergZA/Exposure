@@ -26,14 +26,13 @@ public class DrillGameMap : MonoBehaviour
     private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
     private List<DrillingGameTile> water = new List<DrillingGameTile>();
 
-    public const int TILE_SIZE = 88, MAP_WIDTH = 12, MAP_HEIGHT = 8;
+    public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 9;
 
     void Start()
     {
         ceiling = GameObject.Find("Ceiling");
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
-        if (tilePrefabs[13]) flashTile = tilePrefabs[13].GetComponent<UnityEngine.UI.Image>();
         flashTileTimer = flashTileTime;
     }
 
@@ -89,7 +88,7 @@ public class DrillGameMap : MonoBehaviour
                     DrillingGameTile t = tiles[j, i] = Instantiate(tilePrefabs[id]);
                     t.transform.SetParent(parentPanel);
                     t.gameObject.SetActive(true);
-                    if (id == 7)
+                    if (id == 9)
                     {
                         UIwater.Add(t);
                         relocateWaterTiles(UIwater.Count, t, j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
@@ -100,7 +99,7 @@ public class DrillGameMap : MonoBehaviour
                         t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     tilesList.Add(t);
-                    if (id == 3 && i == 13) bottomRow.Add(t);
+                    if (id == 0 && i == 8) bottomRow.Add(t);
                 }
             }
         }
@@ -132,18 +131,18 @@ public class DrillGameMap : MonoBehaviour
         switch(id)
         {
             case 1:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 583);
-                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 525);
+                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 2:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 497);
-                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 436);
+                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 3:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-38, 409);
-                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 1.5f).setEase(LeanTweenType.easeOutQuad);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 345);
+                LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
         }
@@ -172,14 +171,14 @@ public class DrillGameMap : MonoBehaviour
     private void FlashNextTile()
     {
         flashTileTimer -= Time.deltaTime;
-        flashTile.rectTransform.anchoredPosition = FlashCoords;
-        flashTile.transform.SetAsLastSibling();
-        flashTile.enabled = true;
+        //flashTile.rectTransform.anchoredPosition = FlashCoords;
+        //flashTile.transform.SetAsLastSibling();
+        //flashTile.enabled = true;
         if (flashTileTimer <= 0)
         {
             flashTileTimer = flashTileTime;
-            flashTile.transform.SetAsFirstSibling();
-            flashTile.enabled = false;
+            //flashTile.transform.SetAsFirstSibling();
+            //flashTile.enabled = false;
             TriggerFlash = false;
         }
     }

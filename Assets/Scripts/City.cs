@@ -3,22 +3,45 @@ using System.Collections;
 
 public class City : MonoBehaviour
 {
+    [SerializeField] private GameObject dirtyModel;
+    [SerializeField] private GameObject cleanModel;
     [SerializeField] private PuzzlePath puzzlePath;
 
     public bool IsDirty { get; private set; }
-    
+    public PuzzlePath PuzzlePath { get { return puzzlePath; } }
+
+    void Awake()
+    {
+        if (puzzlePath)
+            puzzlePath.SetParentCity(this);
+
+        Reset();
+    }
+
     void Start()
     {
 
     }
 
-    public void Reset()
+    public void CleanUp()
     {
-        if(puzzlePath) puzzlePath.Reset();
+        if (!IsDirty)
+            return;
+
+        IsDirty = false;
+
+        dirtyModel.SetActive(false);
+        cleanModel.SetActive(true);
     }
 
-    public void TryBuild(Pylon pylon)
+    public void Reset()
     {
-        puzzlePath.TryConnectPylon(pylon);
+        if(puzzlePath)
+            puzzlePath.Reset();
+
+        dirtyModel.SetActive(true);
+        cleanModel.SetActive(false);
+
+        IsDirty = true;
     }
 }
