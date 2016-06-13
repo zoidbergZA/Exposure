@@ -72,6 +72,7 @@ public class GridBuilder : Minigame
             PuzzlePath.Reset();
         }
 
+        PuzzlePath.ParentCity.CleanUp();
         GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
     }
 
