@@ -89,7 +89,7 @@ Material:
         first:
           name: _GroundTex
         second:
-          m_Texture: {fileID: 2800000, guid: 963d403c1a26e8c4b8334d150d06d3d7, type: 3}
+          m_Texture: {fileID: 2800000, guid: ddea6b94b798c174383744ad79776cdb, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
