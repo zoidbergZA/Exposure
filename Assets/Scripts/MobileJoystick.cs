@@ -7,20 +7,18 @@ public class MobileJoystick : MonoBehaviour
 {
     [SerializeField] private GameObject joystickPanel;
     [SerializeField] private float minDragDistance = 20f;
-    [SerializeField] private bool tapInput;
-    [SerializeField] private bool swipeInput;
+    [SerializeField] private TouchInputType inputType;
 
     public DrillingDirection CurrentInput { get; private set; }
     public Vector2 JoystickInput { get; private set; }
     public enum ScreenTriangle { LEFT, RIGHT, UP, DOWN, NONE }
-    public bool TapInput { get { return tapInput; } set { tapInput = value; } }
-    public bool SwipeInput { get { return swipeInput; } set { swipeInput = value; } }
+    public enum TouchInputType { TAP, SWIPE }
 
     private Vector2 dragPrevious;
     private Vector2 dragStart;
 
     private float lastInputAt = 0;
-    private float inputCooldown = 0.25f;
+    private float inputCooldown = 0.15f;
     private ScreenTriangle inputTriangle;
     private Vector2 tap;
 
@@ -41,28 +39,31 @@ public class MobileJoystick : MonoBehaviour
 
         if (GameManager.Instance.TouchInput)
         {
-            //if (Input.touchCount > 0)
-            //{
-            //    if (Input.touches[0].phase == TouchPhase.Began)
-            //    {
-            //        dragStart = Input.touches[0].position;
-            //        input = Input.touches[0].position - GameManager.Instance.DrillingGame.Driller.Position;
-            //        dragPrevious = Input.touches[0].position;
-            //    }
-            //    else if (Input.touches[0].phase == TouchPhase.Moved)
-            //    {
-            //        Vector2 dragDelta = Input.touches[0].position - dragStart;
-
-            //        if (dragDelta.sqrMagnitude >= minDragDistance)
-            //        {
-            //            input = Input.touches[0].deltaPosition;
-            //        }
-            //    }
-            //}
-            if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+            switch(inputType)
             {
-                tap = Input.touches[0].position;
-                inputTriangle = getCurrentTriangle(tap);
+                case TouchInputType.SWIPE:
+                    if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+                    {
+                        dragStart = Input.touches[0].position;
+                        input = Input.touches[0].position - GameManager.Instance.DrillingGame.Driller.Position;
+                        dragPrevious = Input.touches[0].position;
+                    }
+                    else if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Moved)
+                    {
+                        Vector2 dragDelta = Input.touches[0].position - dragStart;
+                        if (dragDelta.sqrMagnitude >= minDragDistance) input = Input.touches[0].deltaPosition;
+                    }
+                    break;
+                case TouchInputType.TAP:
+                    if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+                    {
+                        tap = Input.touches[0].position;
+                        inputTriangle = getCurrentTriangle(tap);
+                    }
+                    break;
+                default:
+                    Debug.LogException(new Exception("No touch input type has been selected!"));
+                    break;
             }
         }
         else
