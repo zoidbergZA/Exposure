@@ -8,6 +8,7 @@ public class GridBuilder : Minigame
 
     [SerializeField] private Texture2D buildPylonIcon;
     [SerializeField] private Texture2D buildCityIcon;
+    [SerializeField] private float pylonTimeOut = 2f;
     [SerializeField] private float cameraSwoopTime = 1f;
 
     private float lastPylonConnectedAt;
@@ -30,8 +31,11 @@ public class GridBuilder : Minigame
     public override void Update()
     {
         base.Update();
-        
-        
+
+        if (IsRunning && Time.time >= lastPylonConnectedAt + pylonTimeOut)
+        {
+            BuildNextPylon();
+        }
     }
 
     void OnGUI()
@@ -46,9 +50,7 @@ public class GridBuilder : Minigame
             if (GUI.Button(GameManager.Instance.Hud.CenteredRect(new Rect(screenPos.x, screenPos.y, 50, 50)),
                 buildPylonIcon))
             {
-                PuzzlePath.PathPylons[nextPylon].Build();
-                nextPylon++;
-                PreviewNextPylon();
+                BuildNextPylon();
             }
         }
         else
@@ -74,6 +76,19 @@ public class GridBuilder : Minigame
 
         PuzzlePath.ParentCity.CleanUp();
         GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
+    }
+
+    private void BuildNextPylon()
+    {
+        if (nextPylon < PuzzlePath.PathPylons.Length)
+            PuzzlePath.PathPylons[nextPylon].Build();
+
+//        //pipe test
+//        PuzzlePath.PathPylons[nextPylon].MakeConnection(PuzzlePath.PathPylons[nextPylon+1]);
+
+        lastPylonConnectedAt = Time.time;
+        nextPylon++;
+        PreviewNextPylon();
     }
 
     private void PreviewNextPylon()

@@ -12013,15 +12013,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 495444, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -32.291447
+      value: -32.27688
       objectReference: {fileID: 0}
     - target: {fileID: 495444, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 39.088287
+      value: 39.07364
       objectReference: {fileID: 0}
     - target: {fileID: 495444, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 14.881939
+      value: 14.870039
       objectReference: {fileID: 0}
     - target: {fileID: 495444, guid: 355f973b64d6df046822bcd3397cc6ae, type: 2}
       propertyPath: m_LocalRotation.x
@@ -14921,6 +14921,10 @@ Prefab:
     - target: {fileID: 462604, guid: 1bb5197591816c44788ac49fab88c78e, type: 2}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 11462752, guid: 1bb5197591816c44788ac49fab88c78e, type: 2}
+      propertyPath: pylonTimeOut
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1bb5197591816c44788ac49fab88c78e, type: 2}
@@ -25272,6 +25276,10 @@ Prefab:
       propertyPath: easyLevels.Array.data[2]
       value: 
       objectReference: {fileID: 4900000, guid: 7cdd732afd1ed204ab5626a03c13526b, type: 3}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: AutoWin
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
   m_IsPrefabParent: 0
