@@ -18,6 +18,7 @@ public class MobileJoystick : MonoBehaviour
     private float lastInputAt = 0;
     private float inputCooldown = 0.25f;
     private ScreenTriangle inputTriangle;
+    private Vector2 tap;
 
     void Awake()
     {
@@ -55,6 +56,10 @@ public class MobileJoystick : MonoBehaviour
             //        }
             //    }
             //}
+            if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+            {
+
+            }
         }
         else
         {
@@ -73,27 +78,27 @@ public class MobileJoystick : MonoBehaviour
             }
             
             //then try mouse input
-            if (input.sqrMagnitude < 0.1f)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    dragStart = Input.mousePosition;
-                    input = Input.mousePosition - (Vector3)GameManager.Instance.DrillingGame.Driller.Position;
-                    dragPrevious = Input.mousePosition;
-                }
+            //if (input.sqrMagnitude < 0.1f)
+            //{
+            //    if (Input.GetMouseButtonDown(0))
+            //    {
+            //        dragStart = Input.mousePosition;
+            //        input = Input.mousePosition - (Vector3)GameManager.Instance.DrillingGame.Driller.Position;
+            //        dragPrevious = Input.mousePosition;
+            //    }
 
-                else if (Input.GetMouseButton(0))
-                {
-                    Vector2 dragDelta = (Vector2)Input.mousePosition - dragStart;
+            //    else if (Input.GetMouseButton(0))
+            //    {
+            //        Vector2 dragDelta = (Vector2)Input.mousePosition - dragStart;
 
-                    if (dragDelta.sqrMagnitude >= minDragDistance)
-                    {
-                        input = (Vector2) Input.mousePosition - dragPrevious;
-                    }
+            //        if (dragDelta.sqrMagnitude >= minDragDistance)
+            //        {
+            //            input = (Vector2) Input.mousePosition - dragPrevious;
+            //        }
 
-                    dragPrevious = Input.mousePosition;
-                }
-            }
+            //        dragPrevious = Input.mousePosition;
+            //    }
+            //}
         }
 
         JoystickInput = input;
@@ -123,14 +128,59 @@ public class MobileJoystick : MonoBehaviour
         GameManager.Instance.DrillingGame.Hud.PointJoystickArrow(CurrentInput);
     }
 
-    private ScreenTriangle getCurrentTriangle()
+    private void setDirection()
     {
-        Vector3 viewPos = Camera.main.WorldToViewportPoint(GameManager.Instance.DrillingGame.Driller.Drill.gameObject.transform.position);
-        if (viewPos.x > 0.5F)
-            print("target is on the right side!");
-        else
-            print("target is on the left side!");
+        switch(inputTriangle)
+        {
+            case ScreenTriangle.DOWN:
+                CurrentInput = DrillingDirection.DOWN;
+                break;
+            case ScreenTriangle.LEFT:
+                CurrentInput = DrillingDirection.LEFT;
+                break;
+            case ScreenTriangle.RIGHT:
+                CurrentInput = DrillingDirection.RIGHT;
+                break;
+            case ScreenTriangle.UP:
+                CurrentInput = DrillingDirection.UP;
+                break;
+            case ScreenTriangle.NONE:
+                CurrentInput = DrillingDirection.NONE;
+                break;
+            default:
+                CurrentInput = DrillingDirection.NONE;
+                break;
+        }
+    }
+
+    private ScreenTriangle getCurrentTriangle(Vector2 tapPosition)
+    {
+        if (Input.GetMouseButtonDown(0)) tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
+        if (IsTapInsideTriangle(tapPosition, Vector2.zero, new Vector2(1, 0), getDrillerPosition())) inputTriangle = ScreenTriangle.DOWN;
+        else if (IsTapInsideTriangle(tapPosition, new Vector2(1, 0), Vector2.one, getDrillerPosition())) inputTriangle = ScreenTriangle.RIGHT;
+        else if (IsTapInsideTriangle(tapPosition, Vector2.one, new Vector2(0, 1), getDrillerPosition())) inputTriangle = ScreenTriangle.UP;
+        else if (IsTapInsideTriangle(tapPosition, new Vector2(0, 1), Vector2.zero, getDrillerPosition())) inputTriangle = ScreenTriangle.LEFT;
 
         return inputTriangle;
+    }
+
+    private bool IsTapInsideTriangle(Vector2 s, Vector2 a, Vector2 b, Vector2 c)
+    {
+        float as_x = s.x - a.x;
+        float as_y = s.y - a.y;
+
+        bool s_ab = (b.x - a.x) * as_y - (b.y - a.y) * as_x > 0;
+
+        if ((c.x - a.x) * as_y - (c.y - a.y) * as_x > 0 == s_ab) return false;
+
+        if ((c.x - b.x) * (s.y - b.y) - (c.y - b.y) * (s.x - b.x) > 0 != s_ab) return false;
+
+        return true;
+    }
+
+    private Vector2 getDrillerPosition()
+    {
+        return Camera.main.ScreenToViewportPoint(GameManager.Instance.DrillingGame.Driller.Drill.rectTransform.position);
     }
 }

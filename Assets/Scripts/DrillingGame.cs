@@ -126,7 +126,7 @@ public class DrillingGame : Minigame
     //tested and finalized
     private void handleActivation()
     {
-        if (levelsCounter < levels.Length) Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
+        if (levelsCounter < levels.Length) Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[2]));
         else Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[Random.Range(0, levels.Length)]));
         Driller.Drill.gameObject.SetActive(true);
         Driller.Drill.transform.SetAsLastSibling();
