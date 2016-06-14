@@ -80,6 +80,7 @@ public class MobileJoystick : MonoBehaviour
                     {
                         tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
                         inputTriangle = getCurrentTriangle(tap);
+                        GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
                     }
                     break;
                 case TouchInputType.SWIPE:
@@ -104,6 +105,7 @@ public class MobileJoystick : MonoBehaviour
                     {
                         tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
                         inputTriangle = getCurrentTriangle(tap);
+                        GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
                     }
                     break;
             }
@@ -153,6 +155,7 @@ public class MobileJoystick : MonoBehaviour
                 CurrentInput = DrillingDirection.NONE;
                 break;
         }
+        GameManager.Instance.DrillingGame.Hud.PointJoystickArrow(CurrentInput);
     }
 
     private ScreenTriangle getCurrentTriangle(Vector2 tapPosition)

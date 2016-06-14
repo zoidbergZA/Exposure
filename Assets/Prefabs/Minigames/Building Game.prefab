@@ -39,9 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd56c17a02d3c9443ae116fc651e883a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 15
-  buildPylonIcon: {fileID: 2800000, guid: 9b48bf22fc1c0364ebe5cc0511ae997a, type: 3}
-  buildCityIcon: {fileID: 2800000, guid: 50c00d26683728a44bdb8442d5149a0f, type: 3}
+  timeOut: 1
+  connectionTimeOut: 2
   cameraSwoopTime: 0.95
 --- !u!1001 &100100000
 Prefab:
