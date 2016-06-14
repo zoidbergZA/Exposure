@@ -99,7 +99,7 @@ public class DrillGameMap : MonoBehaviour
                         t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     tilesList.Add(t);
-                    if (id == 0 && i == 8) bottomRow.Add(t);
+                    if (id == 6 && i == 8) bottomRow.Add(t);
                 }
             }
         }

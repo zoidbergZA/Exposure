@@ -23,7 +23,7 @@ public class Scanner : MonoBehaviour
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.radius = radius;
         sphereCollider.enabled = false;
-        transform.position = scannerGadget.transform.position;
+        if(scannerGadget) transform.position = scannerGadget.transform.position;
 
     }
     
@@ -52,7 +52,7 @@ public class Scanner : MonoBehaviour
         if (!GameManager.Instance.RoundStarted || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
             return;
 
-        if (scannerGadget.IsGrabbed)
+        if (scannerGadget && scannerGadget.IsGrabbed)
             sphereCollider.enabled = true;
         else
             sphereCollider.enabled = false;
