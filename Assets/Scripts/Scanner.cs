@@ -32,7 +32,7 @@ public class Scanner : MonoBehaviour
 //        buttonRect = GameManager.Instance.Hud.CenteredRect(new Rect(Screen.width / 2, 200, 200, 200));
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
-        material.SetFloat("_Radius", radius);
+        ShowTerrainScanner(true);
         scannerParticleSystem.startSize = radius*2;
     }
 
@@ -49,12 +49,23 @@ public class Scanner : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!GameManager.Instance.RoundStarted || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
+            return;
+
         if (scannerGadget.IsGrabbed)
             sphereCollider.enabled = true;
         else
             sphereCollider.enabled = false;
 
         HandleScanning();
+    }
+
+    public void ShowTerrainScanner(bool show)
+    {
+        if (show)
+            material.SetFloat("_Radius", radius);
+        else
+            material.SetFloat("_Radius", 0);
     }
 
 //    void OnGUI()
@@ -163,8 +174,6 @@ public class Scanner : MonoBehaviour
 
     private void ScanSucceeded(GeoThermalPlant geoPlant)
     {
-//        UnGrab();
-
         geoPlant.Build();
 
         GameManager.Instance.Player.ScorePoints(5, geoPlant.transform);

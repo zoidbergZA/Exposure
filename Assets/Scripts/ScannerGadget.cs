@@ -21,14 +21,11 @@ public class ScannerGadget : MonoBehaviour
         transform.SetParent(GameManager.Instance.PlanetTransform);
     }
 
-//    void Update()
-//    {
-//        if (IsGrabbed)
-//            scanner.UpdateScannerPosition(transform.position);
-//    }
-
     void FixedUpdate()
     {
+        if (GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
+            return;
+
         if (!IsGrabbed)
             CheckGrab();
         else
@@ -63,14 +60,6 @@ public class ScannerGadget : MonoBehaviour
             {
                 Grab();
             }
-
-            //todo: move to checkSuccess function 
-//            GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
-//            if (plant)
-//            {
-////                    if (plant.State == GeoThermalPlant.States.Ready)
-////                        ScanSucceeded(plant);
-//            }
         }
     }
 
@@ -87,7 +76,6 @@ public class ScannerGadget : MonoBehaviour
         IsGrabbed = true;
         myCollider.enabled = false;
         model.SetActive(false);
-//        Debug.Log("gadget grabbed " + Time.time);
     }
 
     private void Release()
@@ -96,6 +84,5 @@ public class ScannerGadget : MonoBehaviour
         myCollider.enabled = true;
         transform.position = scanner.transform.position;
         model.SetActive(true);
-//        Debug.Log("gadget released " + Time.time);
     }
 }
