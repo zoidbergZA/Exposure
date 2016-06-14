@@ -23,8 +23,8 @@ public class Scanner : MonoBehaviour
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.radius = radius;
         sphereCollider.enabled = false;
-//        scannerModel.SetActive(false);
-        
+        transform.position = scannerGadget.transform.position;
+
     }
     
     void Start()
@@ -50,13 +50,11 @@ public class Scanner : MonoBehaviour
     void FixedUpdate()
     {
         if (scannerGadget.IsGrabbed)
-        {
             sphereCollider.enabled = true;
-            HandleScanning();
-        }
-
         else
             sphereCollider.enabled = false;
+
+        HandleScanning();
     }
 
 //    void OnGUI()
@@ -144,7 +142,8 @@ public class Scanner : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                UpdateScannerPosition(hit.point);
+                if (scannerGadget.IsGrabbed)
+                    UpdateScannerPosition(hit.point);
 
                 GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
                 if (plant)

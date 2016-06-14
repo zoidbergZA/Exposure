@@ -16,6 +16,11 @@ public class ScannerGadget : MonoBehaviour
         myCollider = GetComponent<Collider>();
     }
 
+    void Start()
+    {
+        transform.SetParent(GameManager.Instance.PlanetTransform);
+    }
+
 //    void Update()
 //    {
 //        if (IsGrabbed)
