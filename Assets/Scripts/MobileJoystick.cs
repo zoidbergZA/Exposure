@@ -17,8 +17,6 @@ public class MobileJoystick : MonoBehaviour
     private Vector2 dragPrevious;
     private Vector2 dragStart;
 
-    private float lastInputAt = 0;
-    private float inputCooldown = 0.15f;
     private ScreenTriangle inputTriangle;
     private Vector2 tap;
 
@@ -69,45 +67,61 @@ public class MobileJoystick : MonoBehaviour
         else
         {
             //try keyboard input first
-            if(Time.time - lastInputAt > inputCooldown) //cooldown
-            {
-                if (Input.GetKey(KeyCode.UpArrow))
-                    input.y = 1f;
-                else if (Input.GetKey(KeyCode.DownArrow))
-                    input.y = -1f;
-                else if (Input.GetKey(KeyCode.LeftArrow))
-                    input.x = -1f;
-                else if (Input.GetKey(KeyCode.RightArrow))
-                    input.x = 1f;
-                lastInputAt = Time.time;
-            }
-            
+            if (Input.GetKey(KeyCode.UpArrow))
+                input.y = 1f;
+            else if (Input.GetKey(KeyCode.DownArrow))
+                input.y = -1f;
+            else if (Input.GetKey(KeyCode.LeftArrow))
+                input.x = -1f;
+            else if (Input.GetKey(KeyCode.RightArrow))
+                input.x = 1f;
+
             //then try mouse input
-            //if (input.sqrMagnitude < 0.1f)
-            //{
-            //    if (Input.GetMouseButtonDown(0))
-            //    {
-            //        dragStart = Input.mousePosition;
-            //        input = Input.mousePosition - (Vector3)GameManager.Instance.DrillingGame.Driller.Position;
-            //        dragPrevious = Input.mousePosition;
-            //    }
+            switch(inputType)
+            {
+                case TouchInputType.TAP:
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                        inputTriangle = getCurrentTriangle(tap);
+                    }
+                    break;
+                case TouchInputType.SWIPE:
+                    if (input.sqrMagnitude < 0.1f)
+                    {
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            dragStart = Input.mousePosition;
+                            input = Input.mousePosition - (Vector3)GameManager.Instance.DrillingGame.Driller.Position;
+                            dragPrevious = Input.mousePosition;
+                        }
 
-            //    else if (Input.GetMouseButton(0))
-            //    {
-            //        Vector2 dragDelta = (Vector2)Input.mousePosition - dragStart;
+                        else if (Input.GetMouseButton(0))
+                        {
+                            Vector2 dragDelta = (Vector2)Input.mousePosition - dragStart;
 
-            //        if (dragDelta.sqrMagnitude >= minDragDistance)
-            //        {
-            //            input = (Vector2) Input.mousePosition - dragPrevious;
-            //        }
+                            if (dragDelta.sqrMagnitude >= minDragDistance)
+                            {
+                                input = (Vector2)Input.mousePosition - dragPrevious;
+                            }
 
-            //        dragPrevious = Input.mousePosition;
-            //    }
-            //}
+                            dragPrevious = Input.mousePosition;
+                        }
+                    }
+                    break;
+                default:
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                        inputTriangle = getCurrentTriangle(tap);
+                    }
+                    break;
+            }
         }
 
         JoystickInput = input;
         SetCurrentDirection();
+        setDirection();
     }
 
     private void SetCurrentDirection()
