@@ -72,7 +72,7 @@ public class DrillingGame : Minigame
         base.Update();
         processJoystickInput();
         if (Driller.Drill) updateState();
-        //Debug.Log("dir: " + DrillDirection.ToString() + " | prev: " + PrevDrillDirection.ToString());
+        Debug.Log("dir: " + DrillDirection.ToString() + " | prev: " + PrevDrillDirection.ToString());
         if (Input.GetKeyDown(KeyCode.L))
         {
             if (levelsCounter < levels.Length) levelsCounter++;
@@ -215,7 +215,8 @@ public class DrillingGame : Minigame
             switch(GameManager.Instance.Joystick.CurrentInput)
             {
                 case DrillingDirection.RIGHT:
-                    if (PrevDrillDirection != DrillingDirection.LEFT && DrillDirection != DrillingDirection.LEFT)
+                    if (PrevDrillDirection != DrillingDirection.LEFT && PrevDrillDirection != DrillingDirection.RIGHT
+                        && DrillDirection != DrillingDirection.LEFT && DrillDirection != DrillingDirection.RIGHT)
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.RIGHT;
@@ -223,7 +224,8 @@ public class DrillingGame : Minigame
                     }
                     break;
                 case DrillingDirection.LEFT:
-                    if (PrevDrillDirection != DrillingDirection.RIGHT && DrillDirection != DrillingDirection.RIGHT)
+                    if (PrevDrillDirection != DrillingDirection.RIGHT && PrevDrillDirection != DrillingDirection.LEFT
+                        && DrillDirection != DrillingDirection.RIGHT && DrillDirection != DrillingDirection.LEFT)
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.LEFT;
@@ -231,7 +233,8 @@ public class DrillingGame : Minigame
                     }
                     break;
                 case DrillingDirection.UP:
-                    if (PrevDrillDirection != DrillingDirection.DOWN && DrillDirection != DrillingDirection.DOWN)
+                    if (PrevDrillDirection != DrillingDirection.DOWN && PrevDrillDirection != DrillingDirection.UP
+                        && DrillDirection != DrillingDirection.DOWN && DrillDirection != DrillingDirection.UP)
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.UP;
@@ -239,7 +242,8 @@ public class DrillingGame : Minigame
                     }
                     break;
                 case DrillingDirection.DOWN:
-                    if (PrevDrillDirection != DrillingDirection.UP && DrillDirection != DrillingDirection.UP)
+                    if (PrevDrillDirection != DrillingDirection.UP && PrevDrillDirection != DrillingDirection.DOWN
+                        && DrillDirection != DrillingDirection.UP && DrillDirection != DrillingDirection.DOWN)
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.DOWN;
