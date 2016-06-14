@@ -15903,6 +15903,10 @@ Prefab:
       propertyPath: pylonTimeOut
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11462752, guid: 1bb5197591816c44788ac49fab88c78e, type: 2}
+      propertyPath: timeOut
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1bb5197591816c44788ac49fab88c78e, type: 2}
   m_IsPrefabParent: 0
@@ -15953,6 +15957,10 @@ Prefab:
       propertyPath: citiesHolder
       value: 
       objectReference: {fileID: 304417845}
+    - target: {fileID: 114312, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c3d2f04fa7a3ba4c80984a69df3223d, type: 2}
   m_IsPrefabParent: 0

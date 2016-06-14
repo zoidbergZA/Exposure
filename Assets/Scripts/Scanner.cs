@@ -137,7 +137,7 @@ public class Scanner : MonoBehaviour
 
     private void HandleScanning()
     {
-        if (scannerGadget.IsGrabbed)
+        if (true)
         {
             Vector2 rayPos;
 
@@ -155,20 +155,30 @@ public class Scanner : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    UpdateScannerPosition(hit.point);
-
-                    GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
-                    if (plant)
+                    if (scannerGadget.IsGrabbed)
                     {
-                        if (plant.State == GeoThermalPlant.States.Ready)
-                            ScanSucceeded(plant);
+                        UpdateScannerPosition(hit.point);
+
+                        GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
+                        if (plant && scannerGadget.IsGrabbed)
+                        {
+                            if (plant.State == GeoThermalPlant.States.Ready)
+                                ScanSucceeded(plant);
+                        }
+                    }
+                    else
+                    {
+                        City city = hit.transform.GetComponent<City>();
+                        if (city)
+                        {
+                            if (city.IsDirty && Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began))
+                                GameManager.Instance.Hud.ShowTipBubble(city.transform);
+                        }
+
+                        UpdateScannerPosition(scannerGadget.transform.position);
                     }
                 }
             }
-        }
-        else
-        {
-            UpdateScannerPosition(scannerGadget.transform.position);
         }
     }
 
