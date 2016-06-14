@@ -78,6 +78,8 @@ public class DrillingGame : Minigame
             if (levelsCounter < levels.Length-1) levelsCounter++;
             else levelsCounter = 0;
         }
+        if (Input.GetKeyDown(KeyCode.N)) Driller.Body.mass += 0.01f;
+        if (Input.GetKeyDown(KeyCode.M)) Driller.Body.mass -= 0.01f;
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
