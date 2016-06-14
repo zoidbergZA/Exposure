@@ -184,5 +184,6 @@ public class DrillGameMap : MonoBehaviour
     {
         flashTile.color = new Color(1, 1, 1, 1);
         flashTile.rectTransform.anchoredPosition = coords;
+        //flashTile.transform.SetAsLastSibling();
     }
 }

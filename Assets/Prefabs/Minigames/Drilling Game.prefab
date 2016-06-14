@@ -933,7 +933,7 @@ MonoBehaviour:
   - {fileID: 11410496, guid: ee1561fa950831c4fb6076f750fd19f4, type: 2}
   - {fileID: 11447836, guid: c3273043cb3e8f9469ad2eee5e283638, type: 2}
   flashTile: {fileID: 11480538}
-  flashTileFadeTime: 3
+  flashTileFadeTime: 1.4
 --- !u!114 &11459920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1432,7 +1432,7 @@ RectTransform:
   m_Children:
   - {fileID: 22473294}
   m_Father: {fileID: 22480216}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1465,11 +1465,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 22467228}
-  m_RootOrder: 7
+  m_Father: {fileID: 22480216}
+  m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -358.19998, y: 311.59998}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22425266
@@ -1630,7 +1630,6 @@ RectTransform:
   - {fileID: 22408228}
   - {fileID: 22480216}
   - {fileID: 22480818}
-  - {fileID: 22425118}
   m_Father: {fileID: 22425266}
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1722,6 +1721,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 22425118}
   - {fileID: 22417250}
   m_Father: {fileID: 22467228}
   m_RootOrder: 5
