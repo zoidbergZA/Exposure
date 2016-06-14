@@ -30,10 +30,10 @@ public class GridBuilder : Minigame
     {
         base.Update();
 
-//        if (IsRunning && Time.time >= lastConnectionAt + connectionTimeOut)
-//        {
-//            MakeNextConnection();
-//        }
+        if (IsRunning && Time.time >= lastConnectionAt + connectionTimeOut)
+        {
+            AutoMakeNextConnection();
+        }
     }
     
     public override void End(bool succeeded)
@@ -43,6 +43,7 @@ public class GridBuilder : Minigame
         if (succeeded)
         {
             PuzzlePath.ParentCity.CleanUp();
+//            GameManager.Instance.Player.ScorePoints(10, PuzzlePath.ParentCity.transform);
         }
         else
         {
@@ -66,6 +67,7 @@ public class GridBuilder : Minigame
 
         connectable.MakeConnection(PuzzlePath.ConnectablePath[previous]);
         nextConnectable++;
+        lastConnectionAt = Time.time;
 
         if (nextConnectable >= PuzzlePath.ConnectablePath.Length)
         {
@@ -75,18 +77,13 @@ public class GridBuilder : Minigame
             PreviewNextConnectable();
     }
 
-    private void MakeNextConnection()
+    private void AutoMakeNextConnection()
     {
-        lastConnectionAt = Time.time;
-        nextConnectable++;
-        PreviewNextConnectable();
+        MakeConnection(PuzzlePath.ConnectablePath[nextConnectable]);
     }
 
     private void PreviewNextConnectable()
     {
-        //todo: hide previous connectable preview
-
-
         if (nextConnectable < PuzzlePath.ConnectablePath.Length)
         {
             PuzzlePath.ConnectablePath[nextConnectable].ShowPreview();

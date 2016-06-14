@@ -33,14 +33,12 @@ public class Tutorial : MonoBehaviour
         switch (newProgess)
         {
             case Progression.FlickPlanet:
-                if (flickTip) flickTip.enabled = true;
-                GameManager.Instance.Scanner.gameObject.SetActive(false);
+                flickTip.enabled = true;
                 Player.PlanetFlicked += OnPlanetFlicked;
                 break;
 
             case Progression.ActivateScanner:
-                if(flickTip) flickTip.enabled = false;
-                GameManager.Instance.Scanner.gameObject.SetActive(true);
+                flickTip.enabled = false;
                 //                KillTutorial();
                 break;
         }
