@@ -339,7 +339,7 @@ public class DrillingGame : Minigame
                     Map.instantiatePipe(targetColumn, targetRow - 1, 1, mapPanel);
                     curveId = 5;
                     if (targetRow < MAP_HEIGHT - 1) targetRow++;
-                    Map.DoFlashTile(new Vector2(Driller.Position.x - TILE_SIZE, Driller.Position.y-6));
+                    Map.DoFlashTile(new Vector2(Driller.Position.x - TILE_SIZE, Driller.Position.y));
                     PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
@@ -355,7 +355,7 @@ public class DrillingGame : Minigame
                     Map.instantiatePipe(targetColumn, targetRow - 1, 1, mapPanel);
                     curveId = 2;
                     if (targetRow > 0) targetRow--;
-                    Map.DoFlashTile(new Vector2(Driller.Position.x - TILE_SIZE, Driller.Position.y-6));
+                    Map.DoFlashTile(new Vector2(Driller.Position.x - TILE_SIZE, Driller.Position.y));
                     PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
