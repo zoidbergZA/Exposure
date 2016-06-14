@@ -126,32 +126,38 @@ public class Scanner : MonoBehaviour
 
     private void HandleScanning()
     {
-        Vector2 rayPos;
-
-        if (GameManager.Instance.TouchInput)
+        if (scannerGadget.IsGrabbed)
         {
-            rayPos = Input.touches[0].position;
-        }
-        else
-            rayPos = Input.mousePosition;
+            Vector2 rayPos;
 
-        if (true)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(rayPos);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            if (GameManager.Instance.TouchInput)
             {
-                if (scannerGadget.IsGrabbed)
+                rayPos = Input.touches[0].position;
+            }
+            else
+                rayPos = Input.mousePosition;
+
+            if (true)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(rayPos);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
                     UpdateScannerPosition(hit.point);
 
-                GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
-                if (plant)
-                {
-                    if (plant.State == GeoThermalPlant.States.Ready)
-                        ScanSucceeded(plant);
+                    GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
+                    if (plant)
+                    {
+                        if (plant.State == GeoThermalPlant.States.Ready)
+                            ScanSucceeded(plant);
+                    }
                 }
             }
+        }
+        else
+        {
+            UpdateScannerPosition(scannerGadget.transform.position);
         }
     }
 
