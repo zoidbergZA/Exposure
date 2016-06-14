@@ -87,12 +87,14 @@ public class Player : MonoBehaviour
     public void GoToNormalState(Transform targetTransform)
     {
         PlayerState = PlayerStates.Normal;
+        EnableRadar(true);
         GameManager.Instance.Director.SetMode(Director.Modes.Orbit, targetTransform);
     }
 
     public void StartDrillMinigame(GeoThermalPlant geoPlant, float difficulty)
     {
         PlayerState = PlayerStates.DrillGame;
+        EnableRadar(false);
         GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform, 2f);
 
         //set the puzzle of this geoplant as the next gridBuilder puzzle
@@ -105,6 +107,14 @@ public class Player : MonoBehaviour
 //        PlayerState = PlayerStates.BuildGrid;
 //        GameManager.Instance.GridBuilder.StartBuild(geoPlant, difficulty);
 //        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
+    }
+
+    public void EnableRadar(bool enable)
+    {
+        GameManager.Instance.Scanner.ShowTerrainScanner(enable);
+        GameManager.Instance.Scanner.gameObject.SetActive(enable);
+        GameManager.Instance.ScannerGadget.gameObject.SetActive(enable);
+        
     }
 
     public void ScorePoints(float amount, Transform location = null)
@@ -126,7 +136,7 @@ public class Player : MonoBehaviour
 
     private void CheckPlanetFlick()
     {
-        if (GameManager.Instance.Scanner.IsScanning)
+        if (GameManager.Instance.ScannerGadget.IsGrabbed)
             return;
 
         float deltaX = 0;

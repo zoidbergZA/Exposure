@@ -29,8 +29,8 @@ public class Director : MonoBehaviour
     private int fovTweenId;
 
     public bool OrbitPaused { get; set; }
-
     public Modes Mode { get; private set; }
+    public bool IsPositionTweening { get { if (LeanTween.isTweening(positionTweenId)) return true; return false;} }
 
     void Awake()
     {
