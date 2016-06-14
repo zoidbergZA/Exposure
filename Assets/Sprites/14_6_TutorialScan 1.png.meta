@@ -1,0 +1,300 @@
+fileFormatVersion: 2
+guid: 6f7473235dcd3475dad4631e364abeda
+timeCreated: 1465903033
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: 14_6_TutorialScan 1_0
+    21300002: 14_6_TutorialScan 1_1
+    21300004: 14_6_TutorialScan 1_2
+    21300006: 14_6_TutorialScan 1_3
+    21300008: 14_6_TutorialScan 1_4
+    21300010: 14_6_TutorialScan 1_5
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 8192
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: 14_6_TutorialScan 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 960
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 473, y: -131}
+        - {x: 477, y: -126}
+        - {x: 477, y: -125}
+        - {x: 480, y: -122}
+        - {x: 480, y: 118}
+        - {x: 478, y: 123}
+        - {x: 469, y: 131}
+        - {x: 468, y: 131}
+        - {x: 464, y: 134}
+        - {x: 462, y: 134}
+        - {x: 458, y: 136}
+        - {x: -458, y: 136}
+        - {x: -459, y: 135}
+        - {x: -461, y: 135}
+        - {x: -462, y: 134}
+        - {x: -466, y: 133}
+        - {x: -468, y: 131}
+        - {x: -469, y: 131}
+        - {x: -478, y: 123}
+        - {x: -480, y: 118}
+        - {x: -480, y: -119}
+        - {x: -478, y: -124}
+        - {x: -469, y: -133}
+        - {x: -462, y: -136}
+        - {x: 462, y: -136}
+        - {x: 466, y: -135}
+        - {x: 469, y: -133}
+    - name: 14_6_TutorialScan 1_1
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 1
+        width: 960
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 480, y: -122}
+        - {x: 480, y: 120}
+        - {x: 478, y: 122}
+        - {x: 478, y: 123}
+        - {x: 471, y: 130}
+        - {x: 470, y: 130}
+        - {x: 469, y: 132}
+        - {x: 462, y: 135}
+        - {x: 460, y: 135}
+        - {x: 459, y: 136}
+        - {x: -458, y: 136}
+        - {x: -459, y: 135}
+        - {x: -461, y: 135}
+        - {x: -468, y: 132}
+        - {x: -476, y: 124}
+        - {x: -476, y: 123}
+        - {x: -478, y: 122}
+        - {x: -480, y: 117}
+        - {x: -480, y: -117}
+        - {x: -476, y: -126}
+        - {x: -470, y: -132}
+        - {x: -461, y: -136}
+        - {x: 464, y: -136}
+        - {x: 471, y: -133}
+        - {x: 479, y: -124}
+        - {x: 479, y: -123}
+    - name: 14_6_TutorialScan 1_2
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 1
+        width: 960
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 474, y: -131}
+        - {x: 478, y: -126}
+        - {x: 478, y: -125}
+        - {x: 480, y: -123}
+        - {x: 480, y: 120}
+        - {x: 479, y: 121}
+        - {x: 479, y: 122}
+        - {x: 470, y: 131}
+        - {x: 469, y: 131}
+        - {x: 465, y: 134}
+        - {x: 463, y: 134}
+        - {x: 459, y: 136}
+        - {x: -458, y: 136}
+        - {x: -459, y: 135}
+        - {x: -461, y: 135}
+        - {x: -462, y: 134}
+        - {x: -466, y: 133}
+        - {x: -468, y: 131}
+        - {x: -469, y: 131}
+        - {x: -478, y: 123}
+        - {x: -480, y: 118}
+        - {x: -480, y: -119}
+        - {x: -479, y: -122}
+        - {x: -477, y: -124}
+        - {x: -469, y: -133}
+        - {x: -462, y: -136}
+        - {x: 463, y: -136}
+        - {x: 467, y: -135}
+        - {x: 470, y: -133}
+    - name: 14_6_TutorialScan 1_3
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 1
+        width: 960
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 473, y: -131}
+        - {x: 477, y: -126}
+        - {x: 477, y: -125}
+        - {x: 479, y: -124}
+        - {x: 480, y: -121}
+        - {x: 480, y: 118}
+        - {x: 478, y: 123}
+        - {x: 469, y: 131}
+        - {x: 468, y: 131}
+        - {x: 464, y: 134}
+        - {x: 462, y: 134}
+        - {x: 458, y: 136}
+        - {x: -457, y: 136}
+        - {x: -458, y: 135}
+        - {x: -460, y: 135}
+        - {x: -461, y: 134}
+        - {x: -465, y: 133}
+        - {x: -467, y: 131}
+        - {x: -468, y: 131}
+        - {x: -477, y: 122}
+        - {x: -477, y: 121}
+        - {x: -479, y: 119}
+        - {x: -479, y: 117}
+        - {x: -480, y: 116}
+        - {x: -480, y: -119}
+        - {x: -478, y: -121}
+        - {x: -477, y: -124}
+        - {x: -468, y: -133}
+        - {x: -461, y: -136}
+        - {x: 462, y: -136}
+        - {x: 466, y: -135}
+        - {x: 469, y: -133}
+    - name: 14_6_TutorialScan 1_4
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 1
+        width: 960
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 472, y: -131}
+        - {x: 478, y: -125}
+        - {x: 478, y: -124}
+        - {x: 480, y: -122}
+        - {x: 480, y: 119}
+        - {x: 479, y: 122}
+        - {x: 469, y: 131}
+        - {x: 468, y: 131}
+        - {x: 464, y: 134}
+        - {x: 462, y: 134}
+        - {x: 458, y: 136}
+        - {x: -458, y: 136}
+        - {x: -459, y: 135}
+        - {x: -461, y: 135}
+        - {x: -470, y: 131}
+        - {x: -478, y: 123}
+        - {x: -480, y: 118}
+        - {x: -480, y: -118}
+        - {x: -477, y: -125}
+        - {x: -469, y: -133}
+        - {x: -462, y: -136}
+        - {x: 464, y: -136}
+        - {x: 469, y: -134}
+        - {x: 471, y: -131}
+    - name: 14_6_TutorialScan 1_5
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 1
+        width: 960
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 478, y: -125}
+        - {x: 478, y: -124}
+        - {x: 480, y: -122}
+        - {x: 480, y: 118}
+        - {x: 479, y: 121}
+        - {x: 470, y: 130}
+        - {x: 469, y: 130}
+        - {x: 468, y: 132}
+        - {x: 463, y: 134}
+        - {x: 461, y: 134}
+        - {x: 457, y: 136}
+        - {x: -456, y: 136}
+        - {x: -457, y: 135}
+        - {x: -459, y: 135}
+        - {x: -460, y: 134}
+        - {x: -462, y: 134}
+        - {x: -467, y: 132}
+        - {x: -468, y: 130}
+        - {x: -469, y: 130}
+        - {x: -477, y: 123}
+        - {x: -480, y: 116}
+        - {x: -480, y: -117}
+        - {x: -477, y: -124}
+        - {x: -475, y: -125}
+        - {x: -475, y: -126}
+        - {x: -469, y: -132}
+        - {x: -468, y: -132}
+        - {x: -467, y: -134}
+        - {x: -462, y: -136}
+        - {x: 464, y: -136}
+        - {x: 469, y: -134}
+        - {x: 470, y: -132}
+        - {x: 471, y: -132}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
