@@ -56,7 +56,6 @@ MonoBehaviour:
   autoStart: 1
   enableTutorial: 0
   showDebug: 0
-  puzzle1: {fileID: 4900000, guid: 8ae44b68697ff244f8a1272492c267ca, type: 3}
   roundTime: 300
   touchScreenInput: 0
 --- !u!1001 &100100000

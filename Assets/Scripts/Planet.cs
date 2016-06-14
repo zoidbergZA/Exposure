@@ -24,7 +24,7 @@ public class Planet : MonoBehaviour
     int healthyTreesAtStart;
 
     public float Health { get; private set; }
-//    public bool IsSpinning { get; set; }
+    public bool IsSpinning { get { if (Mathf.Abs(momentum) > 1f) return true; return false;} }
 
     void Awake()
     {
