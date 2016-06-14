@@ -286,6 +286,7 @@ public class DrillingGame : Minigame
                     if (targetColumn < MAP_WIDTH - 1) targetColumn++;
                     Driller.SwitchAnimation("isDrillingRight", false);
                     PrevDrillDirection = DrillingDirection.NONE;
+                    Map.DoFlashTile(new Vector2(TILE_SIZE, TILE_SIZE));
                 }
                 break;
             case DrillingDirection.LEFT:
@@ -301,6 +302,7 @@ public class DrillingGame : Minigame
                     if (targetColumn > 0) targetColumn--;
                     Driller.SwitchAnimation("isDrillingLeft", false);
                     PrevDrillDirection = DrillingDirection.NONE;
+                    Map.DoFlashTile(new Vector2(TILE_SIZE, TILE_SIZE));
                 }
                 break;
             case DrillingDirection.NONE:
