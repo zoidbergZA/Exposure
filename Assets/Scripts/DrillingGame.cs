@@ -335,10 +335,11 @@ public class DrillingGame : Minigame
                 }
                 else
                 {
+                    Driller.SwitchAnimation("isDrillingDown", false);
                     Map.instantiatePipe(targetColumn, targetRow - 1, 1, mapPanel);
                     curveId = 5;
                     if (targetRow < MAP_HEIGHT - 1) targetRow++;
-                    Driller.SwitchAnimation("isDrillingDown", false);
+                    Map.DoFlashTile(new Vector2(Driller.Position.x - TILE_SIZE, Driller.Position.y-6));
                     PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
@@ -350,10 +351,11 @@ public class DrillingGame : Minigame
                 }
                 else
                 {
+                    Driller.SwitchAnimation("isDrillingUp", false);
                     Map.instantiatePipe(targetColumn, targetRow - 1, 1, mapPanel);
                     curveId = 2;
                     if (targetRow > 0) targetRow--;
-                    Driller.SwitchAnimation("isDrillingUp", false);
+                    Map.DoFlashTile(new Vector2(Driller.Position.x - TILE_SIZE, Driller.Position.y-6));
                     PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
@@ -387,10 +389,11 @@ public class DrillingGame : Minigame
                 }
                 else
                 {
+                    Driller.SwitchAnimation("isDrillingDown", false);
                     Map.instantiatePipe(targetColumn, targetRow-1, 1, mapPanel);
                     curveId = 3;
                     if (targetRow < MAP_HEIGHT - 1) targetRow++;
-                    Driller.SwitchAnimation("isDrillingDown", false);
+                    Map.DoFlashTile(new Vector2(Driller.Position.x + TILE_SIZE, Driller.Position.y));
                     PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
@@ -402,10 +405,11 @@ public class DrillingGame : Minigame
                 }
                 else
                 {
+                    Driller.SwitchAnimation("isDrillingUp", false);
                     Map.instantiatePipe(targetColumn, targetRow-1, 1, mapPanel);
                     curveId = 4;
                     if (targetRow > 0) targetRow--;
-                    Driller.SwitchAnimation("isDrillingUp", false);
+                    Map.DoFlashTile(new Vector2(Driller.Position.x + TILE_SIZE, Driller.Position.y));
                     PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;

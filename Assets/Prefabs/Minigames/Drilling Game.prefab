@@ -933,7 +933,7 @@ MonoBehaviour:
   - {fileID: 11410496, guid: ee1561fa950831c4fb6076f750fd19f4, type: 2}
   - {fileID: 11447836, guid: c3273043cb3e8f9469ad2eee5e283638, type: 2}
   flashTile: {fileID: 11480538}
-  flashTileFadeTime: 1.4
+  flashTileFadeTime: 1.6
 --- !u!114 &11459920
 MonoBehaviour:
   m_ObjectHideFlags: 1
