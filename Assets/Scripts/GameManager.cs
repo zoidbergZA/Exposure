@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     public DrillingGame DrillingGame { get; private set; }
     public MobileJoystick Joystick { get; private set; }
     public Scanner Scanner { get; private set; }
+    public ScannerGadget ScannerGadget { get; private set; }
     public Hud Hud { get; private set; }
     public int TotalChimneys { get; private set; }
     public float ChimneyValue { get { return 100f/TotalChimneys; } }
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
         GridBuilder = FindObjectOfType<GridBuilder>();
         DrillingGame = FindObjectOfType<DrillingGame>();
         Scanner = FindObjectOfType<Scanner>();
+        ScannerGadget = FindObjectOfType<ScannerGadget>();
         Hud = FindObjectOfType<Hud>();
         Player = FindObjectOfType<Player>();
         Director = FindObjectOfType<Director>();

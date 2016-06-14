@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
 
     private void CheckPlanetFlick()
     {
-        if (GameManager.Instance.Scanner.IsScanning)
+        if (GameManager.Instance.ScannerGadget.IsGrabbed)
             return;
 
         float deltaX = 0;

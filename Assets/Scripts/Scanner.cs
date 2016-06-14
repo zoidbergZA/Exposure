@@ -4,127 +4,127 @@ using System.Collections;
 
 public class Scanner : MonoBehaviour
 {
-    //temp
-    [SerializeField] private Texture2D scannerIcon;
+//    [SerializeField] private Texture2D scannerIcon;
     [SerializeField] float radius = 30f;
-    [SerializeField] private Rect buttonRect;
-//    [SerializeField] private float maxCharge = 100f;
-//    [SerializeField] private float shrinkSpeed = 10f;
-    [SerializeField] private GameObject gadgetModel;
-//    [SerializeField] private MeshRenderer gadgetMeshRenderer;
-//    [SerializeField] private Color flashColor;
+//    [SerializeField] private Rect buttonRect;
+    [SerializeField] private GameObject scannerModel;
+    [SerializeField] private ParticleSystem scannerParticleSystem;
 
-//    private Color normalColor;
+    private ScannerGadget scannerGadget;
     private Material material;
     private Renderer renderer;
     private SphereCollider sphereCollider;
-//    private int flashTweenId;
-    
-//    public float Charge { get; private set; }
-    public bool IsScanning { get; private set; }
 
-//    public float ChargeFraction
-//    {
-//        get { return Charge/maxCharge; }
-//    }
+//    public bool IsGrabbed { get; private set; }
 
     void Awake()
     {
+        scannerGadget = FindObjectOfType<ScannerGadget>();
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.radius = radius;
         sphereCollider.enabled = false;
-        gadgetModel.SetActive(false);
+//        scannerModel.SetActive(false);
         
     }
     
     void Start()
     {
-        buttonRect = GameManager.Instance.Hud.CenteredRect(new Rect(Screen.width / 2, 200, 200, 200));
+//        buttonRect = GameManager.Instance.Hud.CenteredRect(new Rect(Screen.width / 2, 200, 200, 200));
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
+        material.SetFloat("_Radius", radius);
+        scannerParticleSystem.startSize = radius*2;
     }
 
     void Update()
     {
-        if (!GameManager.Instance.RoundStarted || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
-            return;
+//        if (!GameManager.Instance.RoundStarted || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
+//            return;
         
-        CheckStartStop();
+//        CheckStartStop();
 
-        if (IsScanning)
+//        if (IsGrabbed)
+//            HandleScanning();
+    }
+
+    void FixedUpdate()
+    {
+        if (scannerGadget.IsGrabbed)
+        {
+            sphereCollider.enabled = true;
             HandleScanning();
-    }
-
-    void OnGUI()
-    {
-        if (
-            IsScanning 
-            || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal 
-            || GameManager.Instance.Planet.IsSpinning 
-            || GameManager.Instance.Director.IsPositionTweening
-            )
-            return;
-
-        GUI.Label(new Rect(buttonRect.x, Screen.height - buttonRect.y - buttonRect.height, buttonRect.width, buttonRect.height), scannerIcon);
-        
-    }
-
-    private void CheckStartStop()
-    {
-        if (IsScanning)
-        {
-            if (GameManager.Instance.TouchInput)
-            {
-                if (Input.touchCount == 0)
-                    EndScan();
-            }
-            else
-            {
-                if (!Input.GetMouseButton(0))
-                    EndScan();
-            }
         }
+
         else
-        {
-            if (GameManager.Instance.TouchInput)
-            {
-                if (Input.touchCount > 0 
-                    && buttonRect.Contains(Input.touches[0].position) 
-                    && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal
-                    )
-                {
-                    StartScan();
-                }
-            }
-            else
-            {
-                if (Input.GetMouseButton(0) && buttonRect.Contains(Input.mousePosition) && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
-                {
-                    StartScan();
-                }
-            }
-        }
+            sphereCollider.enabled = false;
     }
 
-    private void StartScan()
-    {
-        IsScanning = true;
-        sphereCollider.enabled = true;
-        gadgetModel.SetActive(true);
-        material.SetFloat("_Radius", radius);
+//    void OnGUI()
+//    {
+//        if (
+//            IsGrabbed 
+//            || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal 
+//            || GameManager.Instance.Planet.IsSpinning 
+//            || GameManager.Instance.Director.IsPositionTweening
+//            )
+//            return;
+//
+//        GUI.Label(new Rect(buttonRect.x, Screen.height - buttonRect.y - buttonRect.height, buttonRect.width, buttonRect.height), scannerIcon);
+//        
+//    }
 
-        //        GameManager.Instance.Director.SetMode(Director.Modes.Grid, SelectedCity.transform);
-    }
+//    private void CheckStartStop()
+//    {
+//        if (IsGrabbed)
+//        {
+//            if (GameManager.Instance.TouchInput)
+//            {
+//                if (Input.touchCount == 0)
+//                    EndScan();
+//            }
+//            else
+//            {
+//                if (!Input.GetMouseButton(0))
+//                    EndScan();
+//            }
+//        }
+//        else
+//        {
+//            if (GameManager.Instance.TouchInput)
+//            {
+//                if (Input.touchCount > 0 
+//                    && buttonRect.Contains(Input.touches[0].position) 
+//                    && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal
+//                    )
+//                {
+//                    Grab();
+//                }
+//            }
+//            else
+//            {
+//                if (Input.GetMouseButton(0) && buttonRect.Contains(Input.mousePosition) && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
+//                {
+//                    Grab();
+//                }
+//            }
+//        }
+//    }
 
-    private void EndScan()
-    {
-        IsScanning = false;
-        sphereCollider.enabled = false;
-        gadgetModel.SetActive(false);
-        material.SetFloat("_Radius", 0);
-        
-//        GameManager.Instance.Director.SetMode(Director.Modes.Orbit, GameManager.Instance.PlanetTransform);
-    }
+//    public void Grab()
+//    {
+//        IsGrabbed = true;
+//        sphereCollider.enabled = true;
+////        scannerModel.SetActive(true);
+////        material.SetFloat("_Radius", radius);
+//    }
+//
+//    public void UnGrab()
+//    {
+//        IsGrabbed = false;
+//        sphereCollider.enabled = false;
+////        scannerModel.SetActive(false);
+////        material.SetFloat("_Radius", 0);
+//    }
 
     private void HandleScanning()
     {
@@ -158,7 +158,7 @@ public class Scanner : MonoBehaviour
 
     private void ScanSucceeded(GeoThermalPlant geoPlant)
     {
-        EndScan();
+//        UnGrab();
 
         geoPlant.Build();
 
@@ -171,7 +171,7 @@ public class Scanner : MonoBehaviour
         transform.position = position;
 
         Vector3 lookDir = position - GameManager.Instance.PlanetTransform.position;
-        gadgetModel.transform.LookAt(position + lookDir);
+        scannerModel.transform.LookAt(position + lookDir);
         
         material.SetVector("_CenterPoint", new Vector4(position.x, position.y, position.z, 0));
     }
@@ -182,12 +182,6 @@ public class Scanner : MonoBehaviour
 
         if (geoPlant)
             geoPlant.ShowPreview(true);
-
-//        Debug.Log(other.name);
-//        Pylon pylon = other.GetComponent<Pylon>();
-//        
-//        if (pylon)
-//            pylon.ShowPreview(true);
     }
 
     void OnTriggerExit(Collider other)
@@ -196,12 +190,6 @@ public class Scanner : MonoBehaviour
 
         if (geoPlant)
             geoPlant.ShowPreview(false);
-
-        //        Debug.Log(other.name);
-        //        Pylon pylon = other.GetComponent<Pylon>();
-        //
-        //        if (pylon)
-        //            pylon.ShowPreview(false);
     }
 }
 
