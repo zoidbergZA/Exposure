@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
+using UnityStandardAssets.CrossPlatformInput;
 
 public enum DrillingDirection { UP, DOWN, LEFT, RIGHT, NONE }
 public enum ToastType { SUCCESS, BROKEN_DRILL, BROKEN_PIPE, EXPLODED_BOMB, TRIGGERED_BOMB, NONE }
@@ -13,8 +15,7 @@ public class DrillingGame : Minigame
     [SerializeField] private float slideSpeed = 80.0f;
     [SerializeField] private float diamondValue = 1.0f;
     [SerializeField] private float jumpPhaseTime = 0.85f;
-    [SerializeField] private float panelSlidingTime = 1.0f;
-    [SerializeField] private GeoThermalPlant geoThermalPlantPrefab;
+    [SerializeField] private float panelSlidingTime = 1.5f;
     [SerializeField] private bool AutoWin;
     [SerializeField] private TextAsset[] levels;
 
@@ -29,31 +30,25 @@ public class DrillingGame : Minigame
     private int targetRow;
     private int levelsCounter = 0;
     private int curveId = 0;
-    //bools
     private bool slidingLeft, makeDrill = false;
-    //timers
     private float jumpPhaseTimer;
 
     public bool IsRestarting { get; set; }
-
     public ToastType ToastType { get; set; } 
     public DrillingGameState State { get { return state; } set { state = value; } }
-    public DrillingDirection CurrentInput { get; private set; }
-    public DrillingDirection PrevInput { get; private set; }
+    public DrillingDirection DrillDirection { get; private set; }
+    public DrillingDirection PrevDrillDirection { get; private set; }
     public DrillGameMap Map { get; private set; }
     public Driller Driller { get; private set; }
     public DrillGameHud Hud { get; private set; }
     public float DiamondValue { get { return diamondValue; } }
-    public bool ReachedBottom(int bottom)
-    {
-        return Driller.Position.y <= startDrillerPosition.y - bottom;
-    }
+    public bool ReachedBottom(int bottom) { return Driller.Position.y <= startDrillerPosition.y - bottom; }
     public bool JoystickJustMoved { get; private set; }
 
     void Awake()
     {
-        CurrentInput = DrillingDirection.NONE;
-        PrevInput = DrillingDirection.NONE;
+        DrillDirection = DrillingDirection.NONE;
+        PrevDrillDirection = DrillingDirection.NONE;
         Driller = FindObjectOfType<Driller>();
         Hud = FindObjectOfType<DrillGameHud>();
         Map = FindObjectOfType<DrillGameMap>();
@@ -75,9 +70,14 @@ public class DrillingGame : Minigame
     public override void Update()
     {
         base.Update();
-        updateInput();
+        processJoystickInput();
         if (Driller.Drill) updateState();
-        //Debug.Log("x: " + (int)Driller.Position.x + " | y: " + (int)Driller.Position.y + " | row: " + targetRow + " | col: " + targetColumn);
+        //Debug.Log("dir: " + DrillDirection.ToString() + " | prev: " + PrevDrillDirection.ToString());
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (levelsCounter < levels.Length) levelsCounter++;
+            else levelsCounter = 0;
+        }
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -122,12 +122,9 @@ public class DrillingGame : Minigame
 
     //SECTION WITH STATES HANDLING FUNCTIONS
     #region
-
-    //tested and finalized
     private void handleActivation()
     {
-        if (levelsCounter < levels.Length) Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
-        else Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[Random.Range(0, levels.Length)]));
+        Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
         Driller.Drill.gameObject.SetActive(true);
         Driller.Drill.transform.SetAsLastSibling();
 
@@ -136,13 +133,11 @@ public class DrillingGame : Minigame
         else state = DrillingGameState.SUCCESS;
     }
 
-    //tested and finalized
     private void handleSlidingState()
     {
         updateSlidingMovement();
     }
 
-    //tested and finalized
     private void handlePreDrillJump()
     {
         jumpPhaseTimer -= Time.deltaTime;
@@ -211,68 +206,65 @@ public class DrillingGame : Minigame
             state = DrillingGameState.INACTIVE;
         }
     }
-
     #endregion
 
-    private void updateInput()
+    private void processJoystickInput()
     {
         if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
-            if (GameManager.Instance.Joystick.JoystickInput.x >= 0.707f) // sin 45 deg
+            switch(GameManager.Instance.Joystick.CurrentInput)
             {
-                //right
-                if (CurrentInput != DrillingDirection.RIGHT) PrevInput = CurrentInput;
-                if (PrevInput != DrillingDirection.LEFT && CurrentInput != DrillingDirection.RIGHT)
-                {
-                    CurrentInput = DrillingDirection.RIGHT;
-                    JoystickJustMoved = true;
-                }
-            }
-            if (GameManager.Instance.Joystick.JoystickInput.x <= -0.707) // sin 45 deg
-            {
-                //left
-                if (CurrentInput != DrillingDirection.LEFT) PrevInput = CurrentInput;
-                if (PrevInput != DrillingDirection.RIGHT && CurrentInput != DrillingDirection.LEFT)
-                {
-                    CurrentInput = DrillingDirection.LEFT;
-                    JoystickJustMoved = true;
-                }
-            }
-            if (GameManager.Instance.Joystick.JoystickInput.y >= 0.707f) // cos 45 deg
-            {
-                //up
-                if (CurrentInput != DrillingDirection.UP) PrevInput = CurrentInput;
-                if (PrevInput != DrillingDirection.DOWN && CurrentInput != DrillingDirection.UP)
-                {
-                    CurrentInput = DrillingDirection.UP;
-                    JoystickJustMoved = true;
-                }
-            }
-            if (GameManager.Instance.Joystick.JoystickInput.y <= -0.707f) // cos 45 deg
-            {
-                //down
-                if (CurrentInput != DrillingDirection.DOWN) PrevInput = CurrentInput;
-                if (PrevInput != DrillingDirection.UP && CurrentInput != DrillingDirection.DOWN)
-                {
-                    CurrentInput = DrillingDirection.DOWN;
-                    JoystickJustMoved = true;
-                }
+                case DrillingDirection.RIGHT:
+                    if (PrevDrillDirection != DrillingDirection.LEFT && DrillDirection != DrillingDirection.LEFT)
+                    {
+                        PrevDrillDirection = DrillDirection;
+                        DrillDirection = DrillingDirection.RIGHT;
+                        JoystickJustMoved = true;
+                    }
+                    break;
+                case DrillingDirection.LEFT:
+                    if (PrevDrillDirection != DrillingDirection.RIGHT && DrillDirection != DrillingDirection.RIGHT)
+                    {
+                        PrevDrillDirection = DrillDirection;
+                        DrillDirection = DrillingDirection.LEFT;
+                        JoystickJustMoved = true;
+                    }
+                    break;
+                case DrillingDirection.UP:
+                    if (PrevDrillDirection != DrillingDirection.DOWN && DrillDirection != DrillingDirection.DOWN)
+                    {
+                        PrevDrillDirection = DrillDirection;
+                        DrillDirection = DrillingDirection.UP;
+                        JoystickJustMoved = true;
+                    }
+                    break;
+                case DrillingDirection.DOWN:
+                    if (PrevDrillDirection != DrillingDirection.UP && DrillDirection != DrillingDirection.UP)
+                    {
+                        PrevDrillDirection = DrillDirection;
+                        DrillDirection = DrillingDirection.DOWN;
+                        JoystickJustMoved = true;
+                    }
+                    break;
+                default:
+                    Debug.Log("Wrong has been passed from joystick!");
+                    break;
             }
         }
         else if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.SLIDING)
         {
-            if (GameManager.Instance.Joystick.JoystickInput.y < -0.707f)
+            if (GameManager.Instance.Joystick.CurrentInput == DrillingDirection.DOWN)
             {
                 makeDrill = true;
                 Driller.SwitchAnimation("shouldJump", true);
-                CurrentInput = DrillingDirection.DOWN;
+                DrillDirection = DrillingDirection.DOWN;
             }
         }
     }
 
     private void drillDown()
     {
-        switch(PrevInput)
+        switch(PrevDrillDirection)
         {
             case DrillingDirection.RIGHT:
                 if (Driller.Position.x < (TILE_SIZE * targetColumn) + TILE_SIZE)
@@ -286,7 +278,7 @@ public class DrillingGame : Minigame
                     curveId = 2;
                     if (targetColumn < MAP_WIDTH - 1) targetColumn++;
                     Driller.SwitchAnimation("isDrillingRight", false);
-                    PrevInput = DrillingDirection.NONE;
+                    PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.LEFT:
@@ -301,7 +293,7 @@ public class DrillingGame : Minigame
                     curveId = 4;
                     if (targetColumn > 0) targetColumn--;
                     Driller.SwitchAnimation("isDrillingLeft", false);
-                    PrevInput = DrillingDirection.NONE;
+                    PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.NONE:
@@ -324,7 +316,7 @@ public class DrillingGame : Minigame
 
     private void drillLeft()
     {
-        switch (PrevInput)
+        switch (PrevDrillDirection)
         {
             case DrillingDirection.DOWN:
                 if (Driller.Position.y > -(TILE_SIZE * targetRow) - TILE_SIZE)
@@ -338,7 +330,7 @@ public class DrillingGame : Minigame
                     curveId = 5;
                     if (targetRow < MAP_HEIGHT - 1) targetRow++;
                     Driller.SwitchAnimation("isDrillingDown", false);
-                    PrevInput = DrillingDirection.NONE;
+                    PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.UP:
@@ -353,7 +345,7 @@ public class DrillingGame : Minigame
                     curveId = 2;
                     if (targetRow > 0) targetRow--;
                     Driller.SwitchAnimation("isDrillingUp", false);
-                    PrevInput = DrillingDirection.NONE;
+                    PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.NONE:
@@ -376,7 +368,7 @@ public class DrillingGame : Minigame
 
     private void drillRight()
     {
-        switch (PrevInput)
+        switch (PrevDrillDirection)
         {
             case DrillingDirection.DOWN:
                 if (Driller.Position.y > -(TILE_SIZE * targetRow) - TILE_SIZE)
@@ -390,7 +382,7 @@ public class DrillingGame : Minigame
                     curveId = 3;
                     if (targetRow < MAP_HEIGHT - 1) targetRow++;
                     Driller.SwitchAnimation("isDrillingDown", false);
-                    PrevInput = DrillingDirection.NONE;
+                    PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.UP:
@@ -405,7 +397,7 @@ public class DrillingGame : Minigame
                     curveId = 4;
                     if (targetRow > 0) targetRow--;
                     Driller.SwitchAnimation("isDrillingUp", false);
-                    PrevInput = DrillingDirection.NONE;
+                    PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.NONE:
@@ -428,7 +420,7 @@ public class DrillingGame : Minigame
 
     private void drillUp()
     {
-        switch (PrevInput)
+        switch (PrevDrillDirection)
         {
             case DrillingDirection.RIGHT:
                 if (Driller.Position.x < (TILE_SIZE * targetColumn) + TILE_SIZE)
@@ -442,7 +434,7 @@ public class DrillingGame : Minigame
                     curveId = 5;
                     if (targetColumn < MAP_WIDTH - 1) targetColumn++;
                     Driller.SwitchAnimation("isDrillingRight", false);
-                    PrevInput = DrillingDirection.NONE;
+                    PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.LEFT:
@@ -457,7 +449,7 @@ public class DrillingGame : Minigame
                     curveId = 3;
                     if (targetColumn > 0) targetColumn--;
                     Driller.SwitchAnimation("isDrillingLeft", false);
-                    PrevInput = DrillingDirection.NONE;
+                    PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
             case DrillingDirection.NONE:
@@ -480,7 +472,7 @@ public class DrillingGame : Minigame
     
     private void updateDrilling()
     {
-        switch (CurrentInput)
+        switch (DrillDirection)
         {
             case DrillingDirection.DOWN:
                 drillDown();
@@ -560,10 +552,8 @@ public class DrillingGame : Minigame
         if (succeeded)
         {
             GameManager.Instance.GridBuilder.Begin(1f);
-            //            GeoThermalPlant plant = Instantiate(geoThermalPlantPrefab, drillspot.transform.position, drillspot.transform.rotation) as GeoThermalPlant;
-            //            plant.transform.SetParent(GameManager.Instance.PlanetTransform);
-            //            GameManager.Instance.Player.StartBuildMinigame(plant, 1f);
-            levelsCounter++;
+            if (levelsCounter < levels.Length) levelsCounter++;
+            else levelsCounter = 0;
         }
         else
         {
@@ -582,6 +572,8 @@ public class DrillingGame : Minigame
         targetRow = 0;
         if(!IsRestarting) LeanTween.move(MainPanel, mainPanelInactivePosition, panelSlidingTime);
         ToastType = global::ToastType.NONE;
+        DrillDirection = DrillingDirection.NONE;
+        PrevDrillDirection = DrillingDirection.NONE;
 
         Map.Reset();
         Driller.Reset(startDrillerPosition);
