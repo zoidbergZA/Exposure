@@ -57,6 +57,7 @@ public class MobileJoystick : MonoBehaviour
                     {
                         tap = Camera.main.ScreenToViewportPoint(Input.touches[0].position);
                         inputTriangle = getCurrentTriangle(tap);
+                        GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
                     }
                     break;
                 default:
@@ -67,10 +68,12 @@ public class MobileJoystick : MonoBehaviour
         else
         {
             //try keyboard input first
+            /*
             if (Input.GetKey(KeyCode.UpArrow)) input.y = 1f;
             else if (Input.GetKey(KeyCode.DownArrow)) input.y = -1f;
             else if (Input.GetKey(KeyCode.LeftArrow)) input.x = -1f;
             else if (Input.GetKey(KeyCode.RightArrow)) input.x = 1f;
+            */
 
             //then try mouse input
             switch(inputType)
