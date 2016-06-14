@@ -55,7 +55,7 @@ public class MobileJoystick : MonoBehaviour
                 case TouchInputType.TAP:
                     if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
                     {
-                        tap = Input.touches[0].position;
+                        tap = Camera.main.ScreenToViewportPoint(Input.touches[0].position);
                         inputTriangle = getCurrentTriangle(tap);
                     }
                     break;
