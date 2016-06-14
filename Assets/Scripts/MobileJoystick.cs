@@ -17,8 +17,6 @@ public class MobileJoystick : MonoBehaviour
     private Vector2 dragPrevious;
     private Vector2 dragStart;
 
-    private float lastInputAt = 0;
-    private float inputCooldown = 0.15f;
     private ScreenTriangle inputTriangle;
     private Vector2 tap;
 
@@ -69,67 +67,66 @@ public class MobileJoystick : MonoBehaviour
         else
         {
             //try keyboard input first
-            if(Time.time - lastInputAt > inputCooldown) //cooldown
-            {
-                if (Input.GetKey(KeyCode.UpArrow))
-                    input.y = 1f;
-                else if (Input.GetKey(KeyCode.DownArrow))
-                    input.y = -1f;
-                else if (Input.GetKey(KeyCode.LeftArrow))
-                    input.x = -1f;
-                else if (Input.GetKey(KeyCode.RightArrow))
-                    input.x = 1f;
-                lastInputAt = Time.time;
-            }
-            
+            if (Input.GetKey(KeyCode.UpArrow)) input.y = 1f;
+            else if (Input.GetKey(KeyCode.DownArrow)) input.y = -1f;
+            else if (Input.GetKey(KeyCode.LeftArrow)) input.x = -1f;
+            else if (Input.GetKey(KeyCode.RightArrow)) input.x = 1f;
+
             //then try mouse input
-            //if (input.sqrMagnitude < 0.1f)
-            //{
-            //    if (Input.GetMouseButtonDown(0))
-            //    {
-            //        dragStart = Input.mousePosition;
-            //        input = Input.mousePosition - (Vector3)GameManager.Instance.DrillingGame.Driller.Position;
-            //        dragPrevious = Input.mousePosition;
-            //    }
-
-            //    else if (Input.GetMouseButton(0))
-            //    {
-            //        Vector2 dragDelta = (Vector2)Input.mousePosition - dragStart;
-
-            //        if (dragDelta.sqrMagnitude >= minDragDistance)
-            //        {
-            //            input = (Vector2) Input.mousePosition - dragPrevious;
-            //        }
-
-            //        dragPrevious = Input.mousePosition;
-            //    }
-            //}
+            switch(inputType)
+            {
+                case TouchInputType.TAP:
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                        inputTriangle = getCurrentTriangle(tap);
+                    }
+                    break;
+                case TouchInputType.SWIPE:
+                    if (input.sqrMagnitude < 0.1f)
+                    {
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            dragStart = Input.mousePosition;
+                            input = Input.mousePosition - (Vector3)GameManager.Instance.DrillingGame.Driller.Position;
+                            dragPrevious = Input.mousePosition;
+                        }
+                        else if (Input.GetMouseButton(0))
+                        {
+                            Vector2 dragDelta = (Vector2)Input.mousePosition - dragStart;
+                            if (dragDelta.sqrMagnitude >= minDragDistance) input = (Vector2)Input.mousePosition - dragPrevious;
+                            dragPrevious = Input.mousePosition;
+                        }
+                    }
+                    break;
+                default:
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                        inputTriangle = getCurrentTriangle(tap);
+                    }
+                    break;
+            }
         }
 
         JoystickInput = input;
         SetCurrentDirection();
+        setDirection();
     }
 
     private void SetCurrentDirection()
     {
-        if (JoystickInput.sqrMagnitude < 0.1f)
-            return;
-
+        if (JoystickInput.sqrMagnitude < 0.1f) return;
         if (Mathf.Abs(JoystickInput.x) > Mathf.Abs(JoystickInput.y))
         {
-            if (JoystickInput.x < 0)
-                CurrentInput = DrillingDirection.LEFT;
-            else
-                CurrentInput = DrillingDirection.RIGHT;
+            if (JoystickInput.x < 0) CurrentInput = DrillingDirection.LEFT;
+            else CurrentInput = DrillingDirection.RIGHT;
         }
         else
         {
-            if (JoystickInput.y < 0)
-                CurrentInput = DrillingDirection.DOWN;
-            else
-                CurrentInput = DrillingDirection.UP;
+            if (JoystickInput.y < 0) CurrentInput = DrillingDirection.DOWN;
+            else CurrentInput = DrillingDirection.UP;
         }
-
         GameManager.Instance.DrillingGame.Hud.PointJoystickArrow(CurrentInput);
     }
 
@@ -172,11 +169,8 @@ public class MobileJoystick : MonoBehaviour
     {
         float as_x = s.x - a.x;
         float as_y = s.y - a.y;
-
         bool s_ab = (b.x - a.x) * as_y - (b.y - a.y) * as_x > 0;
-
         if ((c.x - a.x) * as_y - (c.y - a.y) * as_x > 0 == s_ab) return false;
-
         if ((c.x - b.x) * (s.y - b.y) - (c.y - b.y) * (s.x - b.x) > 0 != s_ab) return false;
 
         return true;
