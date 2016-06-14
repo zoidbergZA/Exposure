@@ -35,7 +35,7 @@ public class Hud : MonoBehaviour
 
     void Start()
     {
-        startPanel.SetActive(true);
+//        startPanel.SetActive(true);
     }
 
     void Update()
