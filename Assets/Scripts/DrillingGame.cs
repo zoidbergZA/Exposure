@@ -72,7 +72,8 @@ public class DrillingGame : Minigame
         base.Update();
         processJoystickInput();
         if (Driller.Drill) updateState();
-        Debug.Log("dir: " + DrillDirection.ToString() + " | prev: " + PrevDrillDirection.ToString());
+
+        //cheat buttons
         if (Input.GetKeyDown(KeyCode.L))
         {
             if (levelsCounter < levels.Length-1) levelsCounter++;
