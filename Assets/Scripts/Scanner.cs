@@ -4,9 +4,7 @@ using System.Collections;
 
 public class Scanner : MonoBehaviour
 {
-//    [SerializeField] private Texture2D scannerIcon;
     [SerializeField] float radius = 30f;
-//    [SerializeField] private Rect buttonRect;
     [SerializeField] private GameObject scannerModel;
     [SerializeField] private ParticleSystem scannerParticleSystem;
 
@@ -14,8 +12,6 @@ public class Scanner : MonoBehaviour
     private Material material;
     private Renderer renderer;
     private SphereCollider sphereCollider;
-
-//    public bool IsGrabbed { get; private set; }
 
     void Awake()
     {
@@ -29,22 +25,10 @@ public class Scanner : MonoBehaviour
     
     void Start()
     {
-//        buttonRect = GameManager.Instance.Hud.CenteredRect(new Rect(Screen.width / 2, 200, 200, 200));
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
         ShowTerrainScanner(true);
         scannerParticleSystem.startSize = radius*2;
-    }
-
-    void Update()
-    {
-//        if (!GameManager.Instance.RoundStarted || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal)
-//            return;
-        
-//        CheckStartStop();
-
-//        if (IsGrabbed)
-//            HandleScanning();
     }
 
     void FixedUpdate()
@@ -67,73 +51,6 @@ public class Scanner : MonoBehaviour
         else
             material.SetFloat("_Radius", 0);
     }
-
-//    void OnGUI()
-//    {
-//        if (
-//            IsGrabbed 
-//            || GameManager.Instance.Player.PlayerState != Player.PlayerStates.Normal 
-//            || GameManager.Instance.Planet.IsSpinning 
-//            || GameManager.Instance.Director.IsPositionTweening
-//            )
-//            return;
-//
-//        GUI.Label(new Rect(buttonRect.x, Screen.height - buttonRect.y - buttonRect.height, buttonRect.width, buttonRect.height), scannerIcon);
-//        
-//    }
-
-//    private void CheckStartStop()
-//    {
-//        if (IsGrabbed)
-//        {
-//            if (GameManager.Instance.TouchInput)
-//            {
-//                if (Input.touchCount == 0)
-//                    EndScan();
-//            }
-//            else
-//            {
-//                if (!Input.GetMouseButton(0))
-//                    EndScan();
-//            }
-//        }
-//        else
-//        {
-//            if (GameManager.Instance.TouchInput)
-//            {
-//                if (Input.touchCount > 0 
-//                    && buttonRect.Contains(Input.touches[0].position) 
-//                    && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal
-//                    )
-//                {
-//                    Grab();
-//                }
-//            }
-//            else
-//            {
-//                if (Input.GetMouseButton(0) && buttonRect.Contains(Input.mousePosition) && GameManager.Instance.Player.PlayerState == Player.PlayerStates.Normal)
-//                {
-//                    Grab();
-//                }
-//            }
-//        }
-//    }
-
-//    public void Grab()
-//    {
-//        IsGrabbed = true;
-//        sphereCollider.enabled = true;
-////        scannerModel.SetActive(true);
-////        material.SetFloat("_Radius", radius);
-//    }
-//
-//    public void UnGrab()
-//    {
-//        IsGrabbed = false;
-//        sphereCollider.enabled = false;
-////        scannerModel.SetActive(false);
-////        material.SetFloat("_Radius", 0);
-//    }
 
     private void HandleScanning()
     {
