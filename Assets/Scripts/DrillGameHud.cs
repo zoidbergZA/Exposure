@@ -49,6 +49,10 @@ public class DrillGameHud : MonoBehaviour
             joystickArrow.gameObject.SetActive(true);
             joystickArrow.color = new Color(1, 1, 1, joystickArrow.color.a - Time.deltaTime * JoystickArrowFadeSpeed);
         }
+        if (GameManager.Instance.DrillingGame.State != DrillingGame.DrillingGameState.DRILLING)
+        {
+            joystickArrow.color = new Color(1, 1, 1, 0);
+        }
         updateProgressBars();
     }
     public void PointJoystickArrow(DrillingDirection direction)
