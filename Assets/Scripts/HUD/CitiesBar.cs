@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class CitiesBar : MonoBehaviour
 {
-    [SerializeField] private Image cityIconPrefab;
+    [SerializeField] private CityIcon cityIconPrefab;
 
     private RectTransform myRectTransform;
     private int cityCount;
-    private Image[] cityIcons; //todo: replace with cityIcon class that has a reference to its city
+    private CityIcon[] cityIcons;
 
     void Start ()
     {
@@ -20,16 +20,16 @@ public class CitiesBar : MonoBehaviour
         //resize panel
         myRectTransform = GetComponent<RectTransform>();
         cityCount = GameManager.Instance.Cities.Length;
-        myRectTransform.sizeDelta = new Vector2(cityIconPrefab.rectTransform.sizeDelta.x, cityIconPrefab.rectTransform.sizeDelta.y * cityCount);
+        myRectTransform.sizeDelta = new Vector2(cityIconPrefab.RectTransform.sizeDelta.x, cityIconPrefab.RectTransform.sizeDelta.y * cityCount);
 
-        cityIcons = new Image[cityCount];
+        cityIcons = new CityIcon[cityCount];
 
         for (int i = 0; i < cityCount; i++)
         {
-            Image cityIcon = Instantiate(cityIconPrefab);
-            cityIcon.rectTransform.SetParent(myRectTransform);
-            cityIcon.rectTransform.localScale = Vector3.one;
-            cityIcon.rectTransform.anchoredPosition = new Vector2(0, -cityIconPrefab.rectTransform.sizeDelta.y * i);
+            CityIcon cityIcon = Instantiate(cityIconPrefab);
+            cityIcon.RectTransform.SetParent(myRectTransform);
+            cityIcon.RectTransform.localScale = Vector3.one;
+            cityIcon.RectTransform.anchoredPosition = new Vector2(0, -cityIconPrefab.RectTransform.sizeDelta.y * i);
             cityIcons[i] = cityIcon;
         }
 

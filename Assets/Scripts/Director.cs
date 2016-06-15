@@ -67,6 +67,11 @@ public class Director : MonoBehaviour
         shaker.Shake();
     }
 
+    public void Shake(Transform other)
+    {
+        shaker.Shake(other);
+    }
+
     private IEnumerator DelayedStart(Modes newMode, Transform newTargetTransform, float delay)
     {
         yield return new WaitForSeconds(delay);

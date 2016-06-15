@@ -2240,7 +2240,15 @@ Prefab:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+<<<<<<< HEAD
       propertyPath: enableTutorial
+=======
+      propertyPath: touchScreenInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: autoStart
+>>>>>>> master
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
