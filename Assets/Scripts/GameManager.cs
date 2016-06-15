@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
         if (tutorial)
         {
             tutorial.gameObject.SetActive(true);
-            tutorial.SetProgress(Tutorial.Progression.ActivateScanner);
+            tutorial.SetProgress(Tutorial.Progression.FlickPlanet);
         }
     }
 
