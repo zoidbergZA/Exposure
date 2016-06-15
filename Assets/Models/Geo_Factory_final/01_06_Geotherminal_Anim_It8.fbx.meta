@@ -1,0 +1,172 @@
+fileFormatVersion: 2
+guid: 8d6d5b059f107744cb91d203a5403799
+timeCreated: 1465986625
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bricks1
+    100004: Cilo3
+    100006: LargePipe8
+    100008: Pipes1
+    100010: polySurface1242
+    100012: polySurface1282
+    100014: Powerline7
+    100016: Powerpole3
+    100018: pSphere1
+    100020: pSphere11
+    100022: pSphere12
+    100024: pSphere2
+    100026: pSphere3
+    100028: pSphere4
+    100030: pSphere5
+    100032: pSphere6
+    100034: pSphere7
+    100036: PumptDown1
+    100038: RoofPipes1
+    100040: smallPipes1
+    100042: Units6
+    400000: //RootNode
+    400002: Bricks1
+    400004: Cilo3
+    400006: LargePipe8
+    400008: Pipes1
+    400010: polySurface1242
+    400012: polySurface1282
+    400014: Powerline7
+    400016: Powerpole3
+    400018: pSphere1
+    400020: pSphere11
+    400022: pSphere12
+    400024: pSphere2
+    400026: pSphere3
+    400028: pSphere4
+    400030: pSphere5
+    400032: pSphere6
+    400034: pSphere7
+    400036: PumptDown1
+    400038: RoofPipes1
+    400040: smallPipes1
+    400042: Units6
+    2300000: Cilo3
+    2300002: polySurface1242
+    2300004: polySurface1282
+    2300006: Powerpole3
+    2300008: pSphere1
+    2300010: pSphere11
+    2300012: pSphere12
+    2300014: pSphere2
+    2300016: pSphere3
+    2300018: pSphere4
+    2300020: pSphere5
+    2300022: pSphere6
+    2300024: pSphere7
+    3300000: Cilo3
+    3300002: polySurface1242
+    3300004: polySurface1282
+    3300006: Powerpole3
+    3300008: pSphere1
+    3300010: pSphere11
+    3300012: pSphere12
+    3300014: pSphere2
+    3300016: pSphere3
+    3300018: pSphere4
+    3300020: pSphere5
+    3300022: pSphere6
+    3300024: pSphere7
+    4300000: Pipes1
+    4300002: Powerpole3
+    4300004: Cilo3
+    4300006: polySurface1242
+    4300008: Powerline7
+    4300010: Bricks1
+    4300012: polySurface1282
+    4300014: RoofPipes1
+    4300016: smallPipes1
+    4300018: PumptDown1
+    4300020: Units6
+    4300022: LargePipe8
+    4300024: pSphere1
+    4300026: pSphere2
+    4300028: pSphere3
+    4300030: pSphere4
+    4300032: pSphere5
+    4300034: pSphere6
+    4300036: pSphere7
+    4300038: pSphere11
+    4300040: pSphere12
+    7400000: GeotherminalWorkingAnim.0020
+    9500000: //RootNode
+    13700000: Bricks1
+    13700002: LargePipe8
+    13700004: Pipes1
+    13700006: Powerline7
+    13700008: PumptDown1
+    13700010: RoofPipes1
+    13700012: smallPipes1
+    13700014: Units6
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 50
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
