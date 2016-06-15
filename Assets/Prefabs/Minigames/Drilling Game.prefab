@@ -790,7 +790,7 @@ MonoBehaviour:
   diamondValue: 1
   jumpPhaseTime: 0.85
   panelSlidingTime: 1
-  AutoWin: 0
+  AutoWin: 1
   levels:
   - {fileID: 4900000, guid: 8ae44b68697ff244f8a1272492c267ca, type: 3}
   - {fileID: 4900000, guid: ff890c93dec41471ab50ef647e326cac, type: 3}
