@@ -32,9 +32,11 @@ public class Hud : MonoBehaviour
     private int cablePanelTweenId;
 
     public float WobbleValue { get; private set; }
+    public CitiesBar CitiesBar { get; private set; }
 
     void Awake()
     {
+        CitiesBar = GetComponentInChildren<CitiesBar>();
         gameOverPanel.SetActive(false);
         tipBubble.enabled = false;
         wobblerTweenId = LeanTween.value(gameObject, updateWobbleCallback, 0f, 1f, 0.6f).setLoopPingPong().setEase(LeanTweenType.easeInOutSine).id;
