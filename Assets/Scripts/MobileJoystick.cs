@@ -58,7 +58,8 @@ public class MobileJoystick : MonoBehaviour
                     {
                         tap = Camera.main.ScreenToViewportPoint(Input.touches[0].position);
                         inputTriangle = getCurrentTriangle(tap);
-                        GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
+                        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+                            GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
                         setDirection();
                     }
                     break;
@@ -76,7 +77,8 @@ public class MobileJoystick : MonoBehaviour
                     {
                         tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
                         inputTriangle = getCurrentTriangle(tap);
-                        GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
+                        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+                            GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
                         setDirection();
                     }
                     break;
@@ -102,7 +104,9 @@ public class MobileJoystick : MonoBehaviour
                     {
                         tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
                         inputTriangle = getCurrentTriangle(tap);
-                        GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
+                        if(GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+                            GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
+                        setDirection();
                     }
                     break;
             }
