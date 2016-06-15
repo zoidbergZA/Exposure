@@ -61,7 +61,7 @@ public class MobileJoystick : MonoBehaviour
                         inputTriangle = getCurrentTriangle(tap);
                         GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
                         setDirection();
-                        Debug.Log("Triangle: " + inputTriangle.ToString());
+                        //Debug.Log("Triangle: " + inputTriangle.ToString());
                     }
                     break;
                 default:
@@ -89,7 +89,7 @@ public class MobileJoystick : MonoBehaviour
                         inputTriangle = getCurrentTriangle(tap);
                         GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
                         setDirection();
-                        Debug.Log("Triangle: " + inputTriangle.ToString());
+                        //Debug.Log("Triangle: " + inputTriangle.ToString());
                     }
                     break;
                 case TouchInputType.SWIPE:
