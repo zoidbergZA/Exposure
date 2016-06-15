@@ -155,7 +155,7 @@ public class Player : MonoBehaviour
                 deltaX = Input.mousePosition.x - mouseOld.x;
         }
 
-        if (Mathf.Abs(deltaX) > 2)
+        if (Mathf.Abs(deltaX) > 0.02f)
             HandlePlanetFlick(deltaX);
     }
 
