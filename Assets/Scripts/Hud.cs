@@ -10,6 +10,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private Canvas hudCanvas;
     [SerializeField] private Image tipBubble;
     [SerializeField] private Sprite[] tipSprites;
+    [SerializeField] private Sprite[] scannerTipSprites;
     [SerializeField] private Image buildArrow;
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private Text timeText;
@@ -76,14 +77,24 @@ public class Hud : MonoBehaviour
             ShowDebug();
     }
 
-    public void ShowTipBubble(Transform refTransform)
+    public void ShowTipBubble(Transform refTransform, bool scannerMessage = false, float duration = 3f)
     {
-        int rand = UnityEngine.Random.Range(0, tipSprites.Length);
-        tipBubble.sprite = tipSprites[rand];
+        Sprite tipSprite = null;
+
+        if (scannerMessage)
+        {
+            tipSprite = scannerTipSprites[UnityEngine.Random.Range(0, scannerTipSprites.Length)];
+        }
+        else
+        {
+            tipSprite = tipSprites[UnityEngine.Random.Range(0, tipSprites.Length)];
+        }
+        
+        tipBubble.sprite = tipSprite;
         tipBubble.rectTransform.position = Camera.main.WorldToScreenPoint(refTransform.position);
         tipBubble.enabled = true;
 
-        tipTimeRemaing = 3f;
+        tipTimeRemaing = duration;
         tipTargeTransform = refTransform;
     }
 

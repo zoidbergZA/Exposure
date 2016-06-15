@@ -39,7 +39,8 @@ public class Tutorial : MonoBehaviour
 
             case Progression.ActivateScanner:
                 flickTip.enabled = false;
-                //                KillTutorial();
+                GameManager.Instance.Hud.ShowTipBubble(GameManager.Instance.ScannerGadget.transform, true, 5f);
+                KillTutorial();
                 break;
         }
     }

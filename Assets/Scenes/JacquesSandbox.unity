@@ -9362,6 +9362,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11430632, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
+      propertyPath: scannerTipSprites.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 485824, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -9398,6 +9402,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1722534707}
+    - target: {fileID: 11430632, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
+      propertyPath: scannerTipSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300010, guid: e16123a7e994246bcaaf6ad55ac3da3c,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
   m_IsPrefabParent: 0

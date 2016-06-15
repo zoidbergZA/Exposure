@@ -16,7 +16,6 @@ public class DrillingGame : Minigame
     [SerializeField] private float diamondValue = 1.0f;
     [SerializeField] private float jumpPhaseTime = 0.85f;
     [SerializeField] private float panelSlidingTime = 1.5f;
-    [SerializeField] private bool AutoWin;
     [SerializeField] private TextAsset[] levels;
 
     private Drillspot drillspot;
@@ -41,6 +40,7 @@ public class DrillingGame : Minigame
     public DrillGameMap Map { get; private set; }
     public Driller Driller { get; private set; }
     public DrillGameHud Hud { get; private set; }
+    public MobileJoystick Joystick { get; private set; }
     public float DiamondValue { get { return diamondValue; } }
     public bool ReachedBottom(int bottom) { return Driller.Position.y <= startDrillerPosition.y - bottom; }
     public bool JoystickJustMoved { get; private set; }
@@ -52,6 +52,7 @@ public class DrillingGame : Minigame
         Driller = FindObjectOfType<Driller>();
         Hud = FindObjectOfType<DrillGameHud>();
         Map = FindObjectOfType<DrillGameMap>();
+        Joystick = FindObjectOfType<MobileJoystick>();
     }
 
     void Start()
@@ -90,6 +91,7 @@ public class DrillingGame : Minigame
         Begin(difficulty);
         LeanTween.move(MainPanel, mainPanelActivePosition, panelSlidingTime).setEase(LeanTweenType.easeOutQuad);
         state = DrillingGameState.ACTIVATION;
+        Joystick.Reset();
     }
 
     private void updateState()
@@ -190,6 +192,7 @@ public class DrillingGame : Minigame
             IsRestarting = true;
             Hud.DeactivateToast(ToastType);
             resetGame();
+            Joystick.Reset();
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
             Driller.Drill.gameObject.SetActive(true);
             Driller.Drill.transform.SetAsLastSibling();
@@ -200,7 +203,6 @@ public class DrillingGame : Minigame
     private void handleFail()
     {
         Hud.ToastTimer -= Time.deltaTime;
-
         if (Hud.ToastTimer <= 0)
         {
             Hud.DeactivateToast(ToastType);
@@ -593,5 +595,6 @@ public class DrillingGame : Minigame
         Map.Reset();
         Driller.Reset(startDrillerPosition);
         Hud.Reset();
+        Joystick.Reset();
     }
 }
