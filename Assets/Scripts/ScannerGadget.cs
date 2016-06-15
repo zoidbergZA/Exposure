@@ -18,6 +18,7 @@ public class ScannerGadget : MonoBehaviour
 
     void Start()
     {
+        FixRotation();
         transform.SetParent(GameManager.Instance.PlanetTransform);
     }
 
@@ -83,6 +84,12 @@ public class ScannerGadget : MonoBehaviour
         IsGrabbed = false;
         myCollider.enabled = true;
         transform.position = scanner.transform.position;
+        FixRotation();
         model.SetActive(true);
+    }
+
+    private void FixRotation()
+    {
+        transform.LookAt(transform.position + model.transform.position - GameManager.Instance.PlanetTransform.position);
     }
 }
