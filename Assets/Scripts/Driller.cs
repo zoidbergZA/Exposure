@@ -63,7 +63,7 @@ public class Driller : MonoBehaviour
                 handleCollision(Tile.BOMB_AREA);
                 break;
             case "DrillLife":
-                handleCollision(Tile.LIFE);
+                handleCollision(Tile.LIFE, coll.gameObject);
                 break;
         }
     }
@@ -115,7 +115,7 @@ public class Driller : MonoBehaviour
                 Destroy(GO);
                 break;
             case Tile.LIFE:
-                updateDrillerLife(1);
+                if(lives < 3) updateDrillerLife(1);
                 Destroy(GO);
                 break;
             case Tile.PIPE:
@@ -124,6 +124,7 @@ public class Driller : MonoBehaviour
                 Collided = true;
                 break;
             case Tile.ROCK:
+                GameManager.Instance.Director.Shake(GameManager.Instance.DrillingGame.transform);
                 updateDrillerLife(-1);
                 GameManager.Instance.DrillingGame.ToastType = global::ToastType.BROKEN_DRILL;
                 Collided = true;
