@@ -575,7 +575,9 @@ public class DrillingGame : Minigame
         else
         {
             GameManager.Instance.GridBuilder.PuzzlePath.Reset();
-            GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
+            
+            //set scanner position to geoPlant
+            GameManager.Instance.Player.GoToNormalState(GameManager.Instance.GridBuilder.PuzzlePath.ConnectablePath[0].transform.position);
         }
         resetGame();
     }
