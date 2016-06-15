@@ -589,6 +589,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6041153c17801684ea337753895d171b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dityIcon: {fileID: 21300000, guid: af6886092f687474b80a3d0bb4de7fc0, type: 3}
+  cleanIcon: {fileID: 21300000, guid: c7c1d0314c9bb43089db4b1a29c1d6e5, type: 3}
 --- !u!114 &11421618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -600,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1abd031296594c94ca66951ac041ae4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cityIconPrefab: {fileID: 11475908}
+  cityIconPrefab: {fileID: 11418738}
 --- !u!114 &11425132
 MonoBehaviour:
   m_ObjectHideFlags: 1

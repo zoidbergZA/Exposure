@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class CityIcon : MonoBehaviour {
+[RequireComponent(typeof(Image))]
+public class CityIcon : MonoBehaviour
+{
+    [SerializeField] private Sprite dityIcon;
+    [SerializeField] private Sprite cleanIcon;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public City City { get; set; }
+    public RectTransform RectTransform { get {return GetComponent<Image>().rectTransform;} }
 }
