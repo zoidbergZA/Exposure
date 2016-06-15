@@ -132,7 +132,7 @@ public class DrillingGame : Minigame
         Driller.Drill.transform.SetAsLastSibling();
 
         //cheat flag to skip mini-game
-        if (!AutoWin) state = DrillingGameState.SLIDING;
+        if (!GameManager.Instance.MiniGameAutoWin) state = DrillingGameState.SLIDING;
         else state = DrillingGameState.SUCCESS;
     }
 

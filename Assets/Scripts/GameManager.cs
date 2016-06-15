@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public bool autoStart;
     public bool enableTutorial;
     public bool showDebug;
+    public bool miniGameAutoWin;
 
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
     public Player Player { get; private set; }
     public Director Director { get; private set; }
     public Transform PlanetTransform { get { return Planet.transform; } }
+    public bool MiniGameAutoWin { get { return miniGameAutoWin; } }
 
     void Awake()
     {

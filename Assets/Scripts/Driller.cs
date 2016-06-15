@@ -102,8 +102,8 @@ public class Driller : MonoBehaviour
                 Collided = true;
                 break;
             case Tile.BOMB_AREA:
-                updateDrillerLife(-3);
-                GameManager.Instance.DrillingGame.ToastType = global::ToastType.TRIGGERED_BOMB;
+                updateDrillerLife(-1);
+                GameManager.Instance.DrillingGame.ToastType = global::ToastType.BROKEN_DRILL; //also TRIGGERED_BOMB available
                 Collided = true;
                 break;
             case Tile.DIAMOND:
