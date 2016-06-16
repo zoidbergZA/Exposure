@@ -808,13 +808,20 @@ MonoBehaviour:
   diamondValue: 1
   jumpPhaseTime: 0.85
   panelSlidingTime: 1
-  AutoWin: 0
   levels:
   - {fileID: 4900000, guid: 8ae44b68697ff244f8a1272492c267ca, type: 3}
   - {fileID: 4900000, guid: ff890c93dec41471ab50ef647e326cac, type: 3}
   - {fileID: 4900000, guid: 6b3f2c855624f436496c71b2626814b8, type: 3}
   - {fileID: 4900000, guid: 71111eca0c88c44ac8edd1ef596365b1, type: 3}
   - {fileID: 4900000, guid: a8f7c298215474d8aa5d836f7a1bd302, type: 3}
+  - {fileID: 4900000, guid: 1bd6a8e54d51741758786e4d68097725, type: 3}
+  - {fileID: 4900000, guid: 0cd53cc64d1d24bb08e437eba5a208a4, type: 3}
+  - {fileID: 4900000, guid: 72c943ec66e5f4362bef8d0292f8275e, type: 3}
+  - {fileID: 4900000, guid: 115caee910f11414f95cc57ed7f7ed37, type: 3}
+  - {fileID: 4900000, guid: 8077e22aaf95b45af9363179192bdaa4, type: 3}
+  - {fileID: 4900000, guid: 345245c2a020f4c3a9ac833d023c8d2c, type: 3}
+  - {fileID: 4900000, guid: 6da1f066a55f741ac96335fb8aaa65ca, type: 3}
+  - {fileID: 4900000, guid: 8839724c59a2442a5b563ceacf7a66d7, type: 3}
 --- !u!114 &11446804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -933,7 +940,7 @@ MonoBehaviour:
   - {fileID: 11410496, guid: ee1561fa950831c4fb6076f750fd19f4, type: 2}
   - {fileID: 11447836, guid: c3273043cb3e8f9469ad2eee5e283638, type: 2}
   flashTile: {fileID: 11480538}
-  flashTileFadeTime: 1.6
+  flashFadeSpeed: 3
 --- !u!114 &11459920
 MonoBehaviour:
   m_ObjectHideFlags: 1
