@@ -21,6 +21,12 @@ public class City : Connectable
 
     }
 
+    void Update()
+    {
+//        if (Input.GetKeyDown(KeyCode.C))
+//            CleanUp();
+    }
+
     public override void OnConnected()
     {
         CleanUp();
@@ -48,6 +54,7 @@ public class City : Connectable
 
         dirtyModel.SetActive(false);
         cleanModel.SetActive(true);
+        GetComponentInChildren<Animation>().Play("NewCityRise");
 
         ConnectionState = ConnectionStates.Built;
         CityIcon.ToggleIcon(true);
