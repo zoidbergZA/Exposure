@@ -23,8 +23,8 @@ public class City : Connectable
 
     void Update()
     {
-//        if (Input.GetKeyDown(KeyCode.C))
-//            CleanUp();
+        if (Input.GetKeyDown(KeyCode.C))
+            CleanUp();
     }
 
     public override void OnConnected()
@@ -55,9 +55,10 @@ public class City : Connectable
         dirtyModel.SetActive(false);
         cleanModel.SetActive(true);
         GetComponentInChildren<Animation>().Play("NewCityRise");
-
         ConnectionState = ConnectionStates.Built;
         CityIcon.ToggleIcon(true);
+
+        GameManager.Instance.Planet.RefreshHealth();
         GameManager.Instance.Hud.CitiesBar.SortIcons();
     }
 }

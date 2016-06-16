@@ -43,7 +43,6 @@ public class GridBuilder : Minigame
         if (succeeded)
         {
             PuzzlePath.ParentCity.CleanUp();
-//            GameManager.Instance.Player.ScorePoints(10, PuzzlePath.ParentCity.transform);
         }
         else
         {
@@ -85,7 +84,7 @@ public class GridBuilder : Minigame
     private IEnumerator GoToNormalStateAfter(float delay)
     {
         Vector3 pos = PuzzlePath.GeoPlant.transform.position + PuzzlePath.GeoPlant.transform.up * 80f;
-        Quaternion rot = Quaternion.LookRotation(PuzzlePath.ParentCity.transform.position - pos);
+        Quaternion rot = Quaternion.LookRotation(PuzzlePath.ParentCity.transform.position - pos, PuzzlePath.ParentCity.transform.up);
 
         GameManager.Instance.Director.SwoopTo(pos, rot, 35f, delay);
 
