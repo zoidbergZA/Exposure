@@ -51,6 +51,7 @@ public class DrillGameMap : MonoBehaviour
         updateWallsEnabling();
         checkWaterAndDestroyBottom();
         if (flashTile.color.a > 0) flashTile.color = new Color(1, 1, 1, flashTile.color.a - Time.deltaTime * flashFadeSpeed);
+        //Debug.Log(GetCoordinateAt(GameManager.Instance.DrillingGame.Driller.Position).ToString());
     }
 
     public DrillingGameTile GetTileAtCoordinate(int x, int y)
@@ -65,12 +66,12 @@ public class DrillGameMap : MonoBehaviour
 
     public Vector2 GetCoordinateAt(Vector2 position)
     {
-        if (!BoundingRect.Contains(position))
+        /*if (!BoundingRect.Contains(position))
         {
             Debug.LogException(new UnityException("GetCoordinate our of bounds!"));
-        }
+        }*/
 
-        Vector2 coord = new Vector2(position.x / TILE_SIZE, position.y / TILE_SIZE);
+        Vector2 coord = new Vector2(position.x / TILE_SIZE, -position.y / TILE_SIZE);
         coord.x = Mathf.FloorToInt(coord.x);
         coord.y = Mathf.FloorToInt(coord.y);
 
