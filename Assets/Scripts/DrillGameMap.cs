@@ -33,7 +33,7 @@ public class DrillGameMap : MonoBehaviour
     private string jsonString;
     private JsonData itemData;
 
-    public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 9;
+    public const int TILE_SIZE = 71, MAP_WIDTH = 12, MAP_HEIGHT = 9;
 
     void Start()
     {

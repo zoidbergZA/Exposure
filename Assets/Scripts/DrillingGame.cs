@@ -21,7 +21,7 @@ public class DrillingGame : Minigame
 
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, ACTIVATION, SLIDING, PREDRILLJUMP, DRILLING, SUCCESS, FAIL, RESTART }
-    public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 9;
+    public const int TILE_SIZE = 71, MAP_WIDTH = 12, MAP_HEIGHT = 9;
     private DrillingGameState state;
     private Vector2 startDrillerPosition;
     private Vector2 mainPanelActivePosition = new Vector2(0, 100);
