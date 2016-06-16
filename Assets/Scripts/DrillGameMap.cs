@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.IO;
+using LitJson;
 
 public class DrillGameMap : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class DrillGameMap : MonoBehaviour
     private List<DrillingGameTile> bottomRow = new List<DrillingGameTile>();
     private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
     private List<DrillingGameTile> water = new List<DrillingGameTile>();
+    private List<DrillingGameTile> blockSet_1 = new List<DrillingGameTile>();
+    private List<DrillingGameTile> blockSet_2 = new List<DrillingGameTile>();
 
     public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 9;
 
@@ -170,14 +174,12 @@ public class DrillGameMap : MonoBehaviour
 
     private void checkWaterAndDestroyBottom()
     {
-        if (water.Count == 3)
-        {
-            foreach (DrillingGameTile rock in bottomRow)
-            {
-                if (rock != null)
-                    Destroy(rock.gameObject);
-            }
-        }
+        if (water.Count == 3) triggerSet(bottomRow);
+    }
+
+    private void triggerSet(List<DrillingGameTile> set)
+    {
+        foreach (DrillingGameTile item in set) if (item != null) Destroy(item.gameObject);
     }
 
     public void DoFlashTile(Vector2 coords)

@@ -1,0 +1,95 @@
+{ "height":9,
+ "layers":[
+        {
+         "compression":"zlib",
+         "data":"eJxjYCANMI7iAcUASnAAYQ==",
+         "encoding":"base64",
+         "height":9,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":12,
+         "x":0,
+         "y":0
+        }],
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "properties":
+    {
+
+    },
+ "renderorder":"right-down",
+ "tileheight":70,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "margin":0,
+         "name":"Mini-game",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tilecount":11,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "explodable":"set1"
+                }
+            },
+         "tiles":
+            {
+             "0":
+                {
+                 "image":"..\/Textures\/Tiles Minigame\/9_6_TileBlock.png"
+                },
+             "1":
+                {
+                 "image":"..\/Textures\/Tiles Minigame\/9_6_TileDiamond.png"
+                },
+             "10":
+                {
+                 "image":"..\/Textures\/Tiles Minigame\/9_6_TileYellow.png"
+                },
+             "2":
+                {
+                 "image":"..\/Textures\/Tiles Minigame\/9_6_TileElectricity.png"
+                },
+             "3":
+                {
+                 "image":"..\/Textures\/Tiles Minigame\/9_6_TileGreen.png"
+                },
+             "4":
+                {
+                 "image":"..\/Textures\/Tiles Minigame\/9_6_TileLife.png"
+                },
+             "5":
+                {
+                 "image":"..\/Textures\/Tiles Minigame\/9_6_TileMine.png"
+                },
+             "6":
+                {
+                 "image":"..\/Textures\/Tiles Minigame\/9_6_TileMineArea.png"
+                },
+             "7":
+                {
+                 "image":"..\/Textures\/Tiles Minigame\/9_6_TileOrange.png"
+                },
+             "8":
+                {
+                 "image":"..\/Textures\/Tiles Minigame\/9_6_TileRed.png"
+                },
+             "9":
+                {
+                 "image":"..\/Textures\/Tiles Minigame\/9_6_TileWater.png"
+                }
+            },
+         "tilewidth":71
+        }],
+ "tilewidth":70,
+ "version":1,
+ "width":12
+}
