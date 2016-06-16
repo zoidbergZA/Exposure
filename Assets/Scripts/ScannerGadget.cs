@@ -22,7 +22,8 @@ public class ScannerGadget : MonoBehaviour
     void Start()
     {
         FixRotation();
-        transform.SetParent(GameManager.Instance.PlanetTransform);
+        //un-comment to move with planet
+//        transform.SetParent(GameManager.Instance.PlanetTransform);
     }
 
     void Update()
