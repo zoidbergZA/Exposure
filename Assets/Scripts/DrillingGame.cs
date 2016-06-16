@@ -157,7 +157,7 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-        if (!ReachedBottom(MAP_HEIGHT * TILE_SIZE)) updateDrilling();
+        if (!ReachedBottom((MAP_HEIGHT * TILE_SIZE) + TILE_SIZE/2)) updateDrilling();
         else
         {
             Hud.ActivateToast(ToastType.SUCCESS);
