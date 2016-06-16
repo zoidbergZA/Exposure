@@ -39,8 +39,16 @@ public class Player : MonoBehaviour
         Cable = startingCable;
     }
 
+    void Start()
+    {
+        EnableRadar(false, GameManager.Instance.ScannerGadget.transform.position);
+    }
+
     void Update()
     {
+        if (!GameManager.Instance.RoundStarted)
+            return;
+
         //temp
         if (Input.GetKeyDown(KeyCode.F1))
             GameManager.Instance.Restart();
@@ -84,17 +92,17 @@ public class Player : MonoBehaviour
         GameManager.Instance.Hud.ShakeCablePanel();
     }
 
-    public void GoToNormalState(Transform targetTransform)
+    public void GoToNormalState(Vector3 scannerPosition)
     {
         PlayerState = PlayerStates.Normal;
-        EnableRadar(true);
-        GameManager.Instance.Director.SetMode(Director.Modes.Orbit, targetTransform);
+        EnableRadar(true, scannerPosition);
+        GameManager.Instance.Director.SetMode(Director.Modes.Orbit, GameManager.Instance.PlanetTransform);
     }
 
     public void StartDrillMinigame(GeoThermalPlant geoPlant, float difficulty)
     {
         PlayerState = PlayerStates.DrillGame;
-        EnableRadar(false);
+        EnableRadar(false, geoPlant.transform.position);
         GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform, 2f);
 
         //set the puzzle of this geoplant as the next gridBuilder puzzle
@@ -109,8 +117,10 @@ public class Player : MonoBehaviour
 //        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
     }
 
-    public void EnableRadar(bool enable)
+    public void EnableRadar(bool enable, Vector3 position)
     {
+        GameManager.Instance.ScannerGadget.transform.position = position;
+
         GameManager.Instance.Scanner.ShowTerrainScanner(enable);
         GameManager.Instance.Scanner.gameObject.SetActive(enable);
         GameManager.Instance.ScannerGadget.gameObject.SetActive(enable);
@@ -139,24 +149,36 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.ScannerGadget.IsGrabbed)
             return;
 
+        if (GameManager.Instance.TouchInput && Input.touchCount == 0)
+            return;
+        if (!GameManager.Instance.TouchInput && !Input.GetMouseButton(0))
+            return;
+
+        Vector2 inputPos = Vector2.zero;
         float deltaX = 0;
 
         if (GameManager.Instance.TouchInput)
         {
-            if (Input.touchCount == 1)
-            {
-                if (Input.touches[0].phase == TouchPhase.Moved)
-                    deltaX = Input.touches[0].deltaPosition.x;
-            }
+            inputPos = Input.touches[0].position;
+            deltaX = deltaX = Input.touches[0].deltaPosition.x;
         }
         else
         {
-            if (Input.GetMouseButton(0))
-                deltaX = Input.mousePosition.x - mouseOld.x;
+            inputPos = Input.mousePosition;
+            deltaX = Input.mousePosition.x - mouseOld.x;
         }
 
-        if (Mathf.Abs(deltaX) > 2)
-            HandlePlanetFlick(deltaX);
+        Ray ray = Camera.main.ScreenPointToRay(inputPos);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.transform.tag == "Planet")
+            {
+                if (Mathf.Abs(deltaX) > 0.02f)
+                    HandlePlanetFlick(deltaX);
+            }
+        }
     }
 
     private void HandlePlanetFlick(float deltaX)

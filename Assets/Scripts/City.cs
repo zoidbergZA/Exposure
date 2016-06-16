@@ -9,6 +9,7 @@ public class City : Connectable
 
     public bool IsDirty { get; private set; }
     public PuzzlePath PuzzlePath { get { return puzzlePath; } }
+    public CityIcon CityIcon { get; set; }
 
     void Awake()
     {
@@ -49,5 +50,7 @@ public class City : Connectable
         cleanModel.SetActive(true);
 
         ConnectionState = ConnectionStates.Built;
+        CityIcon.ToggleIcon(true);
+        GameManager.Instance.Hud.CitiesBar.SortIcons();
     }
 }
