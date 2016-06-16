@@ -11,6 +11,7 @@ public class GeoThermalPlant : Connectable
     }
 
     [SerializeField] private GameObject Model;
+    [SerializeField] private GameObject previewModel;
 
     public States State { get; private set; }
     public PuzzlePath PuzzlePath { get; private set; }
@@ -31,6 +32,7 @@ public class GeoThermalPlant : Connectable
 
         State = States.Ready;
         Model.SetActive(false);
+        previewModel.SetActive(false);
     }
 
     public void SetMyPuzzlePath(PuzzlePath puzzlePath)
@@ -44,6 +46,9 @@ public class GeoThermalPlant : Connectable
             return;
 
         State = States.Built;
+
+        previewModel.SetActive(false);
+        Model.SetActive(true);
     }
 
     public void ShowPreview(bool show)
@@ -53,11 +58,11 @@ public class GeoThermalPlant : Connectable
 
         if (show)
         {
-            Model.SetActive(true);
+            previewModel.SetActive(true);
         }
         else
         {
-            Model.SetActive(false);
+            previewModel.SetActive(false);
         }
     }
 }

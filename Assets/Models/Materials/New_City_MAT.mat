@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: GeoTherminal_MAT
-  m_Shader: {fileID: 4800000, guid: 054a31a99d11e49d110086ba44295342, type: 3}
+  m_Name: New_City_MAT
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP
   m_LightmapFlags: 1
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -19,14 +19,14 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: e5f84d8c356b580468a6d07b2202005b, type: 3}
+          m_Texture: {fileID: 2800000, guid: 4f054ac45a476694691b78e03d2c13e5, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: 05a2e574df9b59147b26eef0595b1100, type: 3}
+          m_Texture: {fileID: 2800000, guid: eee51fa02bc90394b927b12743a8b87d, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -54,7 +54,7 @@ Material:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 2800000, guid: 5260588842c0b1e46a22b53df43d07b6, type: 3}
+          m_Texture: {fileID: 2800000, guid: 40bdeec992ae6e54db5fccd8061f7df7, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -75,21 +75,7 @@ Material:
         first:
           name: _MetallicGlossMap
         second:
-          m_Texture: {fileID: 2800000, guid: e62ca0bbd476e31408596819d9476887, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _ToonShade
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Ramp
-        second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: d1fdd41abe578474c95ccf3d3c358438, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -120,7 +106,7 @@ Material:
       data:
         first:
           name: _BumpScale
-        second: 0.5
+        second: 1
       data:
         first:
           name: _OcclusionStrength
@@ -141,20 +127,12 @@ Material:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _Outline
-        second: 0.0102
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 1, b: 0.048275948, a: 1}
+        second: {r: 0, g: 1, b: 0.8758621, a: 1}
       data:
         first:
           name: _Color
-        second: {r: 1, g: 0.1544118, b: 0.1544118, a: 1}
-      data:
-        first:
-          name: _OutlineColor
-        second: {r: 1, g: 0, b: 0, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
