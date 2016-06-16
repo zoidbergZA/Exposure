@@ -33,10 +33,10 @@ namespace LuaInterface
 			"    local fqn = ((rawget(self,\".fqn\") and rawget(self,\".fqn\") ..			\n"+
 			"		\".\") or \"\") .. key							\n"+
 			"											\n"+
-			"    -- Try to find either a luanet function or a CLR type				\n"+
+			"    -- Try to find either a luanet function or a CLR obj				\n"+
 			"    local obj = rawget(luanet,key) or import_type(fqn)					\n"+
 			"											\n"+
-			"    -- If key is neither a luanet function or a CLR type, then it is simply		\n"+
+			"    -- If key is neither a luanet function or a CLR obj, then it is simply		\n"+
 			"    -- an identifier component.							\n"+
 			"    if obj == nil then									\n"+
 			"		-- It might be an assembly, so we load it too.				\n"+
@@ -50,9 +50,9 @@ namespace LuaInterface
 			"    return obj										\n"+
 			"end											\n"+
 			"											\n"+
-			"-- A non-type has been called; e.g. foo = System.Foo()					\n"+
+			"-- A non-obj has been called; e.g. foo = System.Foo()					\n"+
 			"function metatable:__call(...)								\n"+
-			"    error(\"No such type: \" .. rawget(self,\".fqn\"), 2)				\n"+
+			"    error(\"No such obj: \" .. rawget(self,\".fqn\"), 2)				\n"+
 			"end											\n"+
 			"											\n"+
 			"-- This is the root of the .NET namespace						\n"+
@@ -354,7 +354,7 @@ namespace LuaInterface
 		}
 		/*
 		 * Gets a function global variable as a delegate of
-		 * type delegateType
+		 * obj delegateType
 		 */
 		public Delegate GetFunction(Type delegateType,string fullPath) 
 		{

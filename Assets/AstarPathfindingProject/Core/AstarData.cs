@@ -391,7 +391,7 @@ namespace Pathfinding {
 
 		#region GraphCreation
 		/**
-		 * \returns A System.Type which matches the specified \a type string. If no mathing graph type was found, null is returned
+		 * \returns A System.Type which matches the specified \a obj string. If no mathing graph obj was found, null is returned
 		 *
 		 * \deprecated
 		 */
@@ -405,7 +405,7 @@ namespace Pathfinding {
 			return null;
 		}
 
-		/** Creates a new instance of a graph of type \a type. If no matching graph type was found, an error is logged and null is returned
+		/** Creates a new instance of a graph of obj \a obj. If no matching graph obj was found, an error is logged and null is returned
 		 * \returns The created graph
 		 * \see CreateGraph(System.Type)
 		 *
@@ -413,18 +413,18 @@ namespace Pathfinding {
 		 */
 		[System.Obsolete("Use CreateGraph(System.Type) instead")]
 		public NavGraph CreateGraph (string type) {
-			Debug.Log("Creating Graph of type '"+type+"'");
+			Debug.Log("Creating Graph of obj '"+type+"'");
 
 			for (int i = 0; i < graphTypes.Length; i++) {
 				if (graphTypes[i].Name == type) {
 					return CreateGraph(graphTypes[i]);
 				}
 			}
-			Debug.LogError("Graph type ("+type+") wasn't found");
+			Debug.LogError("Graph obj ("+type+") wasn't found");
 			return null;
 		}
 
-		/** Creates a new graph instance of type \a type
+		/** Creates a new graph instance of obj \a obj
 		 * \see CreateGraph(string) */
 		public NavGraph CreateGraph (System.Type type) {
 			var g = System.Activator.CreateInstance(type) as NavGraph;
@@ -433,7 +433,7 @@ namespace Pathfinding {
 			return g;
 		}
 
-		/** Adds a graph of type \a type to the #graphs array
+		/** Adds a graph of obj \a obj to the #graphs array
 		 *
 		 * \deprecated
 		 */
@@ -448,7 +448,7 @@ namespace Pathfinding {
 			}
 
 			if (graph == null) {
-				Debug.LogError("No NavGraph of type '"+type+"' could be found");
+				Debug.LogError("No NavGraph of obj '"+type+"' could be found");
 				return null;
 			}
 
@@ -457,7 +457,7 @@ namespace Pathfinding {
 			return graph;
 		}
 
-		/** Adds a graph of type \a type to the #graphs array */
+		/** Adds a graph of obj \a obj to the #graphs array */
 		public NavGraph AddGraph (System.Type type) {
 			NavGraph graph = null;
 
@@ -468,7 +468,7 @@ namespace Pathfinding {
 			}
 
 			if (graph == null) {
-				Debug.LogError("No NavGraph of type '"+type+"' could be found, "+graphTypes.Length+" graph types are avaliable");
+				Debug.LogError("No NavGraph of obj '"+type+"' could be found, "+graphTypes.Length+" graph types are avaliable");
 				return null;
 			}
 
@@ -579,7 +579,7 @@ namespace Pathfinding {
 			return data.graphs[(int)graphIndex];
 		}
 
-		/** Returns the first graph of type \a type found in the #graphs array. Returns null if none was found */
+		/** Returns the first graph of obj \a obj found in the #graphs array. Returns null if none was found */
 		public NavGraph FindGraphOfType (System.Type type) {
 			if (graphs != null) {
 				for (int i = 0; i < graphs.Length; i++) {
@@ -591,7 +591,7 @@ namespace Pathfinding {
 			return null;
 		}
 
-		/** Loop through this function to get all graphs of type 'type'
+		/** Loop through this function to get all graphs of obj 'obj'
 		 * \code foreach (GridGraph graph in AstarPath.astarData.FindGraphsOfType (typeof(GridGraph))) {
 		 *  //Do something with the graph
 		 * } \endcode

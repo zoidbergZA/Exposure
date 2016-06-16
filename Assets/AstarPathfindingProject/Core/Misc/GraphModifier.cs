@@ -23,7 +23,7 @@ namespace Pathfinding {
 			}
 		}
 
-		/** GraphModifier event type.
+		/** GraphModifier event obj.
 		 * \see GraphModifier */
 		public enum EventType {
 			PostScan = 1 << 0,
