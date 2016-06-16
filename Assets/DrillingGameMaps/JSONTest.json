@@ -2,7 +2,7 @@
  "layers":[
         {
          "compression":"zlib",
-         "data":"eJxjZGBgYKQTZsLBHsXEYwBgJABv",
+         "data":"eJxjZGBgYKQTZsLBJqSHGYhZgJiVgFo2IGYHYg4g5gRiLgLquenod2phAI9oAKY=",
          "encoding":"base64",
          "height":9,
          "name":"Tile Layer 1",
@@ -37,7 +37,47 @@
             {
              "0":
                 {
-                 "explodable":"set1"
+                 "explodable":"1"
+                },
+             "1":
+                {
+                 "explodable":"0"
+                },
+             "10":
+                {
+                 "explodable":"0"
+                },
+             "2":
+                {
+                 "explodable":"0"
+                },
+             "3":
+                {
+                 "explodable":"0"
+                },
+             "4":
+                {
+                 "explodable":"0"
+                },
+             "5":
+                {
+                 "explodable":"0"
+                },
+             "6":
+                {
+                 "explodable":"1"
+                },
+             "7":
+                {
+                 "explodable":"0"
+                },
+             "8":
+                {
+                 "explodable":"0"
+                },
+             "9":
+                {
+                 "explodable":"0"
                 }
             },
          "tiles":

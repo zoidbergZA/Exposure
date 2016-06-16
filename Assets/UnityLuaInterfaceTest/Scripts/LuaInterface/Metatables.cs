@@ -148,7 +148,7 @@ namespace LuaInterface
             if (methodName != null && isMemberPresent(objType, methodName))
                 return getMember(luaState, objType, obj, methodName, BindingFlags.Instance);
 
-            // Try to access by array if the type is right and index is an int (lua numbers always come across as double)
+            // Try to access by array if the obj is right and index is an int (lua numbers always come across as double)
             if (obj is Array && index is double)
             {
                 object[] arr = (object[])obj;
@@ -273,10 +273,10 @@ namespace LuaInterface
         }
 
         /*
-         * Pushes the value of a member or a delegate to call it, depending on the type of
+         * Pushes the value of a member or a delegate to call it, depending on the obj of
          * the member. Works with static or instance members.
          * Uses reflection to find members, and stores the reflected MemberInfo object in
-         * a cache (indexed by the type of the object and the name of the member).
+         * a cache (indexed by the obj of the object and the name of the member).
          */
         private int getMember(IntPtr luaState, IReflect objType, object obj, string methodName, BindingFlags bindingType)
         {
@@ -371,7 +371,7 @@ namespace LuaInterface
                         string name = member.Name;
                         Type dectype = member.DeclaringType;
 
-                        // Build a new long name and try to find the type by name
+                        // Build a new long name and try to find the obj by name
                         string longname = dectype.FullName + "+" + name;
                         Type nestedType = translator.FindType(longname);
 
@@ -379,7 +379,7 @@ namespace LuaInterface
                     }
                     else
                     {
-                        // Member type must be 'method'
+                        // Member obj must be 'method'
                         LuaCSFunction wrapper = new LuaCSFunction((new LuaMethodWrapper(translator, objType, methodName, bindingType)).call);
                         if (cachedMember == null) setMemberCache(memberCache, objType, methodName, wrapper);
                         translator.pushFunction(luaState, wrapper);
@@ -560,7 +560,7 @@ namespace LuaInterface
             return 0;
         }
         /*
-         * __index metafunction of type references, works on static members.
+         * __index metafunction of obj references, works on static members.
          */
         private int getClassMethod(IntPtr luaState)
         {
@@ -568,7 +568,7 @@ namespace LuaInterface
             object obj = translator.getRawNetObject(luaState, 1);
             if (obj == null || !(obj is IReflect))
             {
-                translator.throwError(luaState, "trying to index an invalid type reference");
+                translator.throwError(luaState, "trying to index an invalid obj reference");
                 LuaDLL.lua_pushnil(luaState);
                 return 1;
             }
@@ -591,7 +591,7 @@ namespace LuaInterface
             }
         }
         /*
-         * __newindex function of type references, works on static members.
+         * __newindex function of obj references, works on static members.
          */
         private int setClassFieldOrProperty(IntPtr luaState)
         {
@@ -599,15 +599,15 @@ namespace LuaInterface
             object obj = translator.getRawNetObject(luaState, 1);
             if (obj == null || !(obj is IReflect))
             {
-                translator.throwError(luaState, "trying to index an invalid type reference");
+                translator.throwError(luaState, "trying to index an invalid obj reference");
                 return 0;
             }
             else target = (IReflect)obj;
             return setMember(luaState, target, null, BindingFlags.FlattenHierarchy | BindingFlags.Static);
         }
         /*
-         * __call metafunction of type references. Searches for and calls
-         * a constructor for the type. Returns nil if the constructor is not
+         * __call metafunction of obj references. Searches for and calls
+         * a constructor for the obj. Returns nil if the constructor is not
          * found or if the arguments are invalid. Throws an error if the constructor
          * generates an exception.
          */
@@ -618,7 +618,7 @@ namespace LuaInterface
             object obj = translator.getRawNetObject(luaState, 1);
             if (obj == null || !(obj is IReflect))
             {
-                translator.throwError(luaState, "trying to call constructor on an invalid type reference");
+                translator.throwError(luaState, "trying to call constructor on an invalid obj reference");
                 LuaDLL.lua_pushnil(luaState);
                 return 1;
             }

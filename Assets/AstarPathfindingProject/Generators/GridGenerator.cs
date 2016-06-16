@@ -1672,7 +1672,7 @@ namespace Pathfinding {
 					var node = nodes[z*width+x];
 
 					if (node == null) {
-						Debug.LogError("Deserialization Error : Couldn't cast the node to the appropriate type - GridGenerator");
+						Debug.LogError("Deserialization Error : Couldn't cast the node to the appropriate obj - GridGenerator");
 						return;
 					}
 

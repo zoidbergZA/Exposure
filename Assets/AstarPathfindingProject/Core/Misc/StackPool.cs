@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Pathfinding.Util {
 	/** Lightweight Stack Pool.
-	 * Handy class for pooling stacks of type T.
+	 * Handy class for pooling stacks of obj T.
 	 *
 	 * Usage:
 	 * - Claim a new stack using \code Stack<SomeClass> foo = StackPool<SomeClass>.Claim (); \endcode
@@ -65,14 +65,14 @@ namespace Pathfinding.Util {
 			pool.Add(stack);
 		}
 
-		/** Clears all pooled stacks of this type.
+		/** Clears all pooled stacks of this obj.
 		 * This is an O(n) operation, where n is the number of pooled stacks
 		 */
 		public static void Clear () {
 			pool.Clear();
 		}
 
-		/** Number of stacks of this type in the pool */
+		/** Number of stacks of this obj in the pool */
 		public static int GetSize () {
 			return pool.Count;
 		}

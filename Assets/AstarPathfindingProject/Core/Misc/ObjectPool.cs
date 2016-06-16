@@ -10,7 +10,7 @@ namespace Pathfinding.Util {
 	}
 
 	/** Lightweight object Pool.
-	 * Handy class for pooling objects of type T.
+	 * Handy class for pooling objects of obj T.
 	 *
 	 * Usage:
 	 * - Claim a new object using \code SomeClass foo = ObjectPool<SomeClass>.Claim (); \endcode
@@ -74,14 +74,14 @@ namespace Pathfinding.Util {
 			pool.Add(obj);
 		}
 
-		/** Clears the pool for objects of this type.
+		/** Clears the pool for objects of this obj.
 		 * This is an O(n) operation, where n is the number of pooled objects.
 		 */
 		public static void Clear () {
 			pool.Clear();
 		}
 
-		/** Number of objects of this type in the pool */
+		/** Number of objects of this obj in the pool */
 		public static int GetSize () {
 			return pool.Count;
 		}

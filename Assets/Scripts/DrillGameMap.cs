@@ -30,6 +30,7 @@ public class DrillGameMap : MonoBehaviour
     private List<DrillingGameTile> blockSet_1 = new List<DrillingGameTile>();
     private List<DrillingGameTile> blockSet_2 = new List<DrillingGameTile>();
     private string jsonString;
+    private JsonData itemData;
 
     public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 9;
 
@@ -40,7 +41,8 @@ public class DrillGameMap : MonoBehaviour
         leftWall = GameObject.Find("Left wall");
         flashTile.color = new Color(1, 1, 1, 0);
         jsonString = File.ReadAllText(Application.dataPath + "/DrillingGameMaps/JSONTest.json");
-        Debug.Log(jsonString);
+        itemData = JsonMapper.ToObject(jsonString);
+        Debug.Log(itemData["tilesets"][0]["tileproperties"][0]["explodable"].ToString());
     }
 
     void Update()

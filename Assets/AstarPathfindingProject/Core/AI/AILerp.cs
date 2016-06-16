@@ -10,7 +10,7 @@ using Pathfinding;
  *
  * Recommended setup:
  *
- * This depends on what type of movement you are aiming for.
+ * This depends on what obj of movement you are aiming for.
  * If you are aiming for movement where the unit follows the path exactly (you are likely using a grid or point graph)
  * the default settings on this component should work quite well, however I recommend that you adjust the StartEndModifier
  * on the Seeker component: set the 'Exact Start Point' field to 'NodeConnection' and the 'Exact End Point' field to 'SnapToNode'.

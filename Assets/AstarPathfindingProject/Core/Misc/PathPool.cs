@@ -29,7 +29,7 @@ namespace Pathfinding {
 			}
 		}
 
-		/** Total created instances of paths of the specified type */
+		/** Total created instances of paths of the specified obj */
 		public static int GetTotalCreated (Type type) {
 			int created;
 
@@ -40,7 +40,7 @@ namespace Pathfinding {
 			}
 		}
 
-		/** Number of pooled instances of a path of the specified type */
+		/** Number of pooled instances of a path of the specified obj */
 		public static int GetSize (Type type) {
 			Stack<Path> poolStack;
 			if (pool.TryGetValue(type, out poolStack)) {
@@ -56,12 +56,12 @@ namespace Pathfinding {
 				T result;
 				Stack<Path> poolStack;
 				if (pool.TryGetValue(typeof(T), out poolStack) && poolStack.Count > 0) {
-					// Guaranteed to have the correct type
+					// Guaranteed to have the correct obj
 					result = poolStack.Pop() as T;
 				} else {
 					result = new T();
 
-					// Make sure an entry for the path type exists
+					// Make sure an entry for the path obj exists
 					if (!totalCreated.ContainsKey(typeof(T))) {
 						totalCreated[typeof(T)] = 0;
 					}

@@ -33,7 +33,7 @@ namespace Pathfinding.Serialization {
 			Type type = Type.GetType(typename);
 
 			if (System.Type.Equals(type, null)) {
-				Debug.LogError("Could not find type '"+typename+"'. Cannot deserialize Unity reference");
+				Debug.LogError("Could not find obj '"+typename+"'. Cannot deserialize Unity reference");
 				return null;
 			}
 
@@ -215,7 +215,7 @@ namespace Pathfinding.Serialization {
 			} else if (System.Type.Equals(type, typeof(Vector4))) {
 				return new Vector4(CastFloat(values["x"]), CastFloat(values["y"]), CastFloat(values["z"]), CastFloat(values["w"]));
 			} else {
-				throw new NotImplementedException("Can only read Vector2,3,4. Not objects of type "+type);
+				throw new NotImplementedException("Can only read Vector2,3,4. Not objects of obj "+type);
 			}
 		}
 
@@ -242,7 +242,7 @@ namespace Pathfinding.Serialization {
 						   { "w", v.w }
 				};
 			}
-			throw new NotImplementedException("Can only write Vector2,3,4. Not objects of type "+type);
+			throw new NotImplementedException("Can only write Vector2,3,4. Not objects of obj "+type);
 		}
 	}
 
