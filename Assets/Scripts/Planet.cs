@@ -15,6 +15,11 @@ public class Planet : MonoBehaviour
     [SerializeField] private Light atmosphereLight;
     [SerializeField] private Color dirtyColor;
     [SerializeField] private Color cleanColor;
+    [SerializeField] private ParticleSystem cloudParticleSystem;
+    [SerializeField] private Color cloudsDirtyColor;
+    [SerializeField] private Color cloudsCleanColor;
+    [SerializeField] private Color backgroundDirtyColor;
+    [SerializeField] private Color backgroundCleanColor;
     [SerializeField] private float normalSpin;
 
     private float momentum;
@@ -35,7 +40,10 @@ public class Planet : MonoBehaviour
 
         propsHolder.SetParent(transform);
         citiesHolder.SetParent(transform);
+    }
 
+    void Start()
+    {
         RefreshHealth();
     }
 
@@ -61,31 +69,27 @@ public class Planet : MonoBehaviour
 
     public void RefreshHealth()
     {
-        int unusedCount = 0;
+        int cleanCount = 0;
 
-        for (int i = 0; i < chimneys.Length; i++)
+        for (int i = 0; i < GameManager.Instance.Cities.Length; i++)
         {
-            if (chimneys[i].ChimneyState != Chimney.ChimneyStates.Working)
+            if (!GameManager.Instance.Cities[i].IsDirty)
             {
-                unusedCount++;
+                cleanCount++;
             }
         }
 
-        Health = (float)unusedCount / (float)chimneys.Length;
+        Health = (float)cleanCount / (float)GameManager.Instance.Cities.Length;
         RefreshTrees();
         atmosphereLight.color = Color.Lerp(dirtyColor, cleanColor, Health);
-    }
+        Camera.main.backgroundColor = Color.Lerp(backgroundDirtyColor, backgroundCleanColor, Health);
 
-    public void DisableNextChimney()
-    {
-        foreach (Chimney chimney in chimneys)
+        if (cloudParticleSystem)
         {
-            if (chimney.ChimneyState == Chimney.ChimneyStates.Working)
-            {
-                chimney.DisableChimney();
-                chimney.Demolish();
-                return;
-            }
+            cloudParticleSystem.startColor = Color.Lerp(cloudsDirtyColor, cloudsCleanColor, Health);
+
+            cloudParticleSystem.Clear();
+            cloudParticleSystem.Emit(1);
         }
     }
 
