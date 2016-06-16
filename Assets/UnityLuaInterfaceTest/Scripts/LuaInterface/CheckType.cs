@@ -249,7 +249,7 @@ namespace LuaInterface
 
 		/*
 		 * The following functions return the value in the Lua stack
-		 * index stackPos as the desired type if it can, or null
+		 * index stackPos as the desired obj if it can, or null
 		 * otherwise.
 		 */
 		private object getAsSbyte(IntPtr luaState,int stackPos) 

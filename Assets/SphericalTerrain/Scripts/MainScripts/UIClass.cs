@@ -5,7 +5,7 @@ public class UIClass : EditorClass
 {
 	#region EDIT THESE
 
-	// Edit these to reflect the type of prop you want.
+	// Edit these to reflect the obj of prop you want.
 	// These are what your props will be called on the gui.
 	public string propOne_Str = "Trees";
 	public string propTwo_Str = "Bushes";
@@ -197,7 +197,7 @@ public class UIClass : EditorClass
         if (PlanetStatistics.propSelection == 0)
         {
             // PropType one
-			GUI.Label(new Rect(propVariation_LabelOne), "Change " + propOne_Str + " type:");
+			GUI.Label(new Rect(propVariation_LabelOne), "Change " + propOne_Str + " obj:");
 			if (GUI.Button(new Rect(propsVariation_CountUpButton), "-->"))
             {
                 if (PlanetStatistics.propOneType < oneProps.Count - 1)
@@ -218,7 +218,7 @@ public class UIClass : EditorClass
         if (PlanetStatistics.propSelection == 1)
         {
 			// PropType two
-			GUI.Label(new Rect(propVariation_LabelOne), "Change " + propTwo_Str + " type:");
+			GUI.Label(new Rect(propVariation_LabelOne), "Change " + propTwo_Str + " obj:");
 			if (GUI.Button(new Rect(propsVariation_CountUpButton), "-->"))
             {
                 if (PlanetStatistics.propTwoType < twoProps.Count - 1)
@@ -239,7 +239,7 @@ public class UIClass : EditorClass
         if (PlanetStatistics.propSelection == 2)
         {
 			// PropType three
-			GUI.Label(new Rect(propVariation_LabelOne), "Change " + propThree_Str + " type:");
+			GUI.Label(new Rect(propVariation_LabelOne), "Change " + propThree_Str + " obj:");
 			if (GUI.Button(new Rect(propsVariation_CountUpButton), "-->"))
             {
                 if (PlanetStatistics.propThreeType < threeProps.Count - 1)
@@ -260,7 +260,7 @@ public class UIClass : EditorClass
         if (PlanetStatistics.propSelection == 3)
         {
 			// PropType four
-			GUI.Label(new Rect(propVariation_LabelOne), "Change " + propFour_Str + " type:");
+			GUI.Label(new Rect(propVariation_LabelOne), "Change " + propFour_Str + " obj:");
 			if (GUI.Button(new Rect(propsVariation_CountUpButton), "-->"))
             {
                 if (PlanetStatistics.propFourType < fourProps.Count - 1)

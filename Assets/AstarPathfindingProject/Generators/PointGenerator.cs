@@ -156,11 +156,11 @@ namespace Pathfinding {
 			return AddNode(new PointNode(active), position);
 		}
 
-		/** Add a node with the specified type to the graph at the specified position.
+		/** Add a node with the specified obj to the graph at the specified position.
 		 *
 		 * \param node This must be a node created using T(AstarPath.active) right before the call to this method.
 		 * The node parameter is only there because there is no new(AstarPath) constraint on
-		 * generic type parameters.
+		 * generic obj parameters.
 		 * \param position The node will be set to this position.
 		 * \note Vector3 can be casted to Int3 using (Int3)myVector.
 		 *

@@ -337,7 +337,7 @@ namespace Pathfinding {
 			collision.collisionCheck = ToggleGroup("Collision testing", collision.collisionCheck);
 			EditorGUI.BeginDisabledGroup(!collision.collisionCheck);
 
-			collision.type = (ColliderType)EditorGUILayout.EnumPopup("Collider type", collision.type);
+			collision.type = (ColliderType)EditorGUILayout.EnumPopup("Collider obj", collision.type);
 
 			EditorGUI.BeginDisabledGroup(collision.type != ColliderType.Capsule && collision.type != ColliderType.Sphere);
 			collision.diameter = EditorGUILayout.FloatField(new GUIContent("Diameter", "Diameter of the capsule or sphere. 1 equals one node width"), collision.diameter);

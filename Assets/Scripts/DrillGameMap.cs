@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.IO;
+using LitJson;
 
 public class DrillGameMap : MonoBehaviour
 {
@@ -25,8 +27,13 @@ public class DrillGameMap : MonoBehaviour
     private List<DrillingGameTile> bottomRow = new List<DrillingGameTile>();
     private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
     private List<DrillingGameTile> water = new List<DrillingGameTile>();
+    private List<DrillingGameTile> blockSet_1 = new List<DrillingGameTile>();
+    private List<DrillingGameTile> blockSet_2 = new List<DrillingGameTile>();
+    //vars for JSON parser
+    private string jsonString;
+    private JsonData itemData;
 
-    public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 9;
+    public const int TILE_SIZE = 71, MAP_WIDTH = 12, MAP_HEIGHT = 9;
 
     void Start()
     {
@@ -34,6 +41,9 @@ public class DrillGameMap : MonoBehaviour
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
         flashTile.color = new Color(1, 1, 1, 0);
+        jsonString = File.ReadAllText(Application.dataPath + "/DrillingGameMaps/JSONTest.json");
+        itemData = JsonMapper.ToObject(jsonString);
+        //Debug.Log(itemData["tilesets"][0]["tileproperties"][0]["explodable"].ToString());
     }
 
     void Update()
@@ -67,7 +77,7 @@ public class DrillGameMap : MonoBehaviour
         return coord;
     }
 
-    public void Initialize(RectTransform parentPanel, int[] tileData)
+    public void Initialize(RectTransform parentPanel, int[] tileData, TextAsset properties)
     {
         this.tileData = tileData;
         BoundingRect = new Rect(0, 0, MAP_WIDTH * TILE_SIZE, MAP_HEIGHT * TILE_SIZE);
@@ -170,14 +180,12 @@ public class DrillGameMap : MonoBehaviour
 
     private void checkWaterAndDestroyBottom()
     {
-        if (water.Count == 3)
-        {
-            foreach (DrillingGameTile rock in bottomRow)
-            {
-                if (rock != null)
-                    Destroy(rock.gameObject);
-            }
-        }
+        if (water.Count == 3) triggerSet(bottomRow);
+    }
+
+    private void triggerSet(List<DrillingGameTile> set)
+    {
+        foreach (DrillingGameTile item in set) if (item != null) Destroy(item.gameObject);
     }
 
     public void DoFlashTile(Vector2 coords)

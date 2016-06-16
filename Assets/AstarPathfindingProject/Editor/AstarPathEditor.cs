@@ -1403,7 +1403,7 @@ public class AstarPathEditor : Editor {
 			ge.editor = this;
 			return ge;
 		}
-		Debug.LogError("Couldn't find an editor for the graph type '"+graphType+"' There are "+graphEditorTypes.Count+" available graph editors");
+		Debug.LogError("Couldn't find an editor for the graph obj '"+graphType+"' There are "+graphEditorTypes.Count+" available graph editors");
 
 		var def = new GraphEditor();
 		def.editor = this;

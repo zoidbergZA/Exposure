@@ -225,7 +225,7 @@ namespace Pathfinding {
 		}
 
 		/** Recalculates all connection costs from this node.
-		 * Depending on the node type, this may or may not be supported.
+		 * Depending on the node obj, this may or may not be supported.
 		 * Nothing will be done if the operation is not supported
 		 * \todo Use interface?
 		 */

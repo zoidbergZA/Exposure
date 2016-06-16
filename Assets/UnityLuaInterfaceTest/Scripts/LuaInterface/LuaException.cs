@@ -5,7 +5,7 @@ using System.Text;
 namespace LuaInterface
 {
     /// <summary>
-    /// Add a specific type for Lua exceptions (kevinh)
+    /// Add a specific obj for Lua exceptions (kevinh)
     /// </summary>
     public class LuaException : ApplicationException
     {

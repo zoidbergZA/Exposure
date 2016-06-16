@@ -64,7 +64,7 @@ public class MobileJoystick : MonoBehaviour
                     }
                     break;
                 default:
-                    Debug.LogException(new Exception("No touch input type has been selected!"));
+                    Debug.LogException(new Exception("No touch input obj has been selected!"));
                     break;
             }
         }
