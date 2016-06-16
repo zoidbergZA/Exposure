@@ -13,8 +13,9 @@ public abstract class Connectable : MonoBehaviour
     public Transform connectionRef;
 
     [SerializeField] private int pointValue = 1;
-    [SerializeField] private GameObject pipeModel;
     [SerializeField] private Texture2D connectIcon;
+
+    private GameObject pipeModel;
 
     public ConnectionStates ConnectionState { get; protected set; }
 

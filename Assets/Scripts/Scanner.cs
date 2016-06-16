@@ -54,47 +54,41 @@ public class Scanner : MonoBehaviour
 
     private void HandleScanning()
     {
-        if (true)
-        {
-            Vector2 rayPos;
+        Vector2 rayPos;
 
-            if (GameManager.Instance.TouchInput)
+        if (GameManager.Instance.TouchInput)
+        {
+            rayPos = Input.touches[0].position;
+        }
+        else
+            rayPos = Input.mousePosition;
+        
+        Ray ray = Camera.main.ScreenPointToRay(rayPos);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (scannerGadget.IsGrabbed)
             {
-                rayPos = Input.touches[0].position;
+                UpdateScannerPosition(hit.point);
+
+                GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
+                if (plant && scannerGadget.IsGrabbed)
+                {
+                    if (plant.State == GeoThermalPlant.States.Ready)
+                        ScanSucceeded(plant);
+                }
             }
             else
-                rayPos = Input.mousePosition;
-
-            if (true)
             {
-                Ray ray = Camera.main.ScreenPointToRay(rayPos);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
+                City city = hit.transform.GetComponent<City>();
+                if (city)
                 {
-                    if (scannerGadget.IsGrabbed)
-                    {
-                        UpdateScannerPosition(hit.point);
-
-                        GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
-                        if (plant && scannerGadget.IsGrabbed)
-                        {
-                            if (plant.State == GeoThermalPlant.States.Ready)
-                                ScanSucceeded(plant);
-                        }
-                    }
-                    else
-                    {
-                        City city = hit.transform.GetComponent<City>();
-                        if (city)
-                        {
-                            if (city.IsDirty && Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began))
-                                GameManager.Instance.Hud.ShowTipBubble(city.transform);
-                        }
-
-                        UpdateScannerPosition(scannerGadget.transform.position);
-                    }
+                    if (city.IsDirty && Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began))
+                        GameManager.Instance.Hud.ShowTipBubble(city.transform);
                 }
+
+                UpdateScannerPosition(scannerGadget.transform.position);
             }
         }
     }
