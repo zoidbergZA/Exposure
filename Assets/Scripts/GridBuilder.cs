@@ -49,8 +49,8 @@ public class GridBuilder : Minigame
         {
             PuzzlePath.Reset();
         }
-        
-        GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
+
+        StartCoroutine(GoToNormalStateAfter(2f));
     }
 
     public void MakeConnection(Connectable connectable)
@@ -80,6 +80,14 @@ public class GridBuilder : Minigame
     private void AutoMakeNextConnection()
     {
         MakeConnection(PuzzlePath.ConnectablePath[nextConnectable]);
+    }
+
+    private IEnumerator GoToNormalStateAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // set scanner position to last pylon
+        GameManager.Instance.Player.GoToNormalState(PuzzlePath.ConnectablePath[PuzzlePath.ConnectablePath.Length-2].transform.position);
     }
 
     private void PreviewNextConnectable()

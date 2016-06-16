@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -13,7 +14,20 @@ public class CitiesBar : MonoBehaviour
     void Start ()
     {
 	    Init();
+
+//        //test
+//        GameManager.Instance.Cities[3].CleanUp();
 	}
+
+    public void SortIcons()
+    {
+        Array.Sort(cityIcons);
+
+        for (int i = 0; i < cityCount; i++)
+        {
+            cityIcons[i].RectTransform.anchoredPosition = new Vector2(0, -cityIcons[i].RectTransform.sizeDelta.y * i);
+        }
+    }
 
     private void Init()
     {
@@ -31,9 +45,14 @@ public class CitiesBar : MonoBehaviour
             cityIcon.RectTransform.localScale = Vector3.one;
             cityIcon.RectTransform.anchoredPosition = new Vector2(0, -cityIconPrefab.RectTransform.sizeDelta.y * i);
             cityIcons[i] = cityIcon;
+
+            //link icon and city
+            cityIcons[i].LinkCity(GameManager.Instance.Cities[i]);
         }
 
         //destroy prefab
         Destroy(cityIconPrefab.gameObject);
+
+        SortIcons();
     }
 }

@@ -121,8 +121,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //cheat codes
-        if (Input.GetKeyDown(KeyCode.F3))
-            Instance.Planet.DisableNextChimney();
+//        if (Input.GetKeyDown(KeyCode.F3))
+//            Instance.Planet.DisableNextChimney();
         if (Input.GetKeyDown(KeyCode.F8))
             TouchInput = !TouchInput;
         if (Input.GetKeyDown(KeyCode.F9))
@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
         if (tutorial)
         {
             tutorial.gameObject.SetActive(true);
-            tutorial.SetProgress(Tutorial.Progression.ActivateScanner);
+            tutorial.SetProgress(Tutorial.Progression.FlickPlanet);
         }
     }
 
