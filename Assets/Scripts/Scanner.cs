@@ -40,7 +40,7 @@ public class Scanner : MonoBehaviour
             sphereCollider.enabled = true;
         else
             sphereCollider.enabled = false;
-
+        
         HandleScanning();
     }
 
