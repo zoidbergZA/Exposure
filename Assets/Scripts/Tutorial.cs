@@ -40,7 +40,7 @@ public class Tutorial : MonoBehaviour
             case Progression.ActivateScanner:
                 flickTip.SetActive(false);
                 GameManager.Instance.Player.EnableRadar(true, GameManager.Instance.ScannerGadget.transform.position);
-                GameManager.Instance.Hud.ShowTipBubble(GameManager.Instance.ScannerGadget.transform, true, 5f);
+                GameManager.Instance.Hud.ShowTipBubble(GameManager.Instance.Scanner.transform, true, 5f);
                 KillTutorial();
                 break;
         }
