@@ -13,6 +13,7 @@ public class MobileJoystick : MonoBehaviour
     public Vector2 JoystickInput { get; private set; }
     public enum ScreenTriangle { LEFT, RIGHT, UP, DOWN, NONE }
     public enum TouchInputType { TAP, SWIPE }
+    public DrillGameMap Map { get; private set; }
 
     private Vector2 dragPrevious;
     private Vector2 dragStart;
@@ -22,8 +23,8 @@ public class MobileJoystick : MonoBehaviour
 
     void Awake()
     {
-        CurrentInput = DrillingDirection.NONE;
-        inputTriangle = ScreenTriangle.NONE;
+        Reset();
+        Map = FindObjectOfType<DrillGameMap>();
     }
 
     void Update()
@@ -55,8 +56,11 @@ public class MobileJoystick : MonoBehaviour
                 case TouchInputType.TAP:
                     if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
                     {
-                        tap = Input.touches[0].position;
+                        tap = Camera.main.ScreenToViewportPoint(Input.touches[0].position);
                         inputTriangle = getCurrentTriangle(tap);
+                        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+                            GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
+                        setDirection();
                     }
                     break;
                 default:
@@ -66,20 +70,16 @@ public class MobileJoystick : MonoBehaviour
         }
         else
         {
-            //try keyboard input first
-            if (Input.GetKey(KeyCode.UpArrow)) input.y = 1f;
-            else if (Input.GetKey(KeyCode.DownArrow)) input.y = -1f;
-            else if (Input.GetKey(KeyCode.LeftArrow)) input.x = -1f;
-            else if (Input.GetKey(KeyCode.RightArrow)) input.x = 1f;
-
-            //then try mouse input
-            switch(inputType)
+            switch(inputType) //mouse input
             {
                 case TouchInputType.TAP:
                     if (Input.GetMouseButtonDown(0))
                     {
                         tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
                         inputTriangle = getCurrentTriangle(tap);
+                        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+                            GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
+                        setDirection();
                     }
                     break;
                 case TouchInputType.SWIPE:
@@ -104,6 +104,9 @@ public class MobileJoystick : MonoBehaviour
                     {
                         tap = Camera.main.ScreenToViewportPoint(Input.mousePosition);
                         inputTriangle = getCurrentTriangle(tap);
+                        if(GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+                            GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
+                        setDirection();
                     }
                     break;
             }
@@ -111,7 +114,6 @@ public class MobileJoystick : MonoBehaviour
 
         JoystickInput = input;
         SetCurrentDirection();
-        setDirection();
     }
 
     private void SetCurrentDirection()
@@ -153,14 +155,19 @@ public class MobileJoystick : MonoBehaviour
                 CurrentInput = DrillingDirection.NONE;
                 break;
         }
+        GameManager.Instance.DrillingGame.Hud.PointJoystickArrow(CurrentInput);
     }
 
     private ScreenTriangle getCurrentTriangle(Vector2 tapPosition)
     {
-        if (IsTapInsideTriangle(tapPosition, Vector2.zero, new Vector2(1, 0), getDrillerPosition())) return ScreenTriangle.DOWN;
-        else if (IsTapInsideTriangle(tapPosition, new Vector2(1, 0), Vector2.one, getDrillerPosition())) return ScreenTriangle.RIGHT;
-        else if (IsTapInsideTriangle(tapPosition, Vector2.one, new Vector2(0, 1), getDrillerPosition())) return ScreenTriangle.UP;
-        else if (IsTapInsideTriangle(tapPosition, new Vector2(0, 1), Vector2.zero, getDrillerPosition())) return ScreenTriangle.LEFT;
+        if (IsTapInsideTriangle(tapPosition, new Vector2(-1, -1) + getDrillerOffset(), new Vector2(2, -1) + getDrillerOffset(), getDrillerPosition()))
+            return ScreenTriangle.DOWN;
+        else if (IsTapInsideTriangle(tapPosition, new Vector2(2, -1) + getDrillerOffset(), new Vector2(2, 2) + getDrillerOffset(), getDrillerPosition()))
+            return ScreenTriangle.RIGHT;
+        else if (IsTapInsideTriangle(tapPosition, new Vector2(2, 2) + getDrillerOffset(), new Vector2(-1, 2) + getDrillerOffset(), getDrillerPosition()))
+            return ScreenTriangle.UP;
+        else if (IsTapInsideTriangle(tapPosition, new Vector2(-1, 2) + getDrillerOffset(), new Vector2(-1, -1) + getDrillerOffset(), getDrillerPosition()))
+            return ScreenTriangle.LEFT;
 
         return ScreenTriangle.NONE;
     }
@@ -179,5 +186,18 @@ public class MobileJoystick : MonoBehaviour
     private Vector2 getDrillerPosition()
     {
         return Camera.main.ScreenToViewportPoint(GameManager.Instance.DrillingGame.Driller.Drill.rectTransform.position);
+    }
+
+    private Vector2 getDrillerOffset()
+    {
+        return Camera.main.ScreenToViewportPoint((Vector2)GameManager.Instance.DrillingGame.Driller.Drill.rectTransform.position
+            - new Vector2(Screen.width/2, Screen.height/2));
+    }
+
+    public void Reset()
+    {
+
+        CurrentInput = DrillingDirection.NONE;
+        inputTriangle = ScreenTriangle.NONE;
     }
 }

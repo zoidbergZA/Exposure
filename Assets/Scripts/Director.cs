@@ -29,8 +29,8 @@ public class Director : MonoBehaviour
     private int fovTweenId;
 
     public bool OrbitPaused { get; set; }
-
     public Modes Mode { get; private set; }
+    public bool IsPositionTweening { get { if (LeanTween.isTweening(positionTweenId)) return true; return false;} }
 
     void Awake()
     {
@@ -65,6 +65,11 @@ public class Director : MonoBehaviour
     public void Shake()
     {
         shaker.Shake();
+    }
+
+    public void Shake(Transform other)
+    {
+        shaker.Shake(other);
     }
 
     private IEnumerator DelayedStart(Modes newMode, Transform newTargetTransform, float delay)

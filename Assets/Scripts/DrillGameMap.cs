@@ -7,18 +7,18 @@ public class DrillGameMap : MonoBehaviour
 
     [SerializeField] private DrillingGameTile[] tilePrefabs;
     [SerializeField] private DrillingGameTile[] pipePrefabs;
-    [SerializeField] private float flashTileTime = 1.0f;
+    [SerializeField] private UnityEngine.UI.Image flashTile;
+    [SerializeField] private float flashFadeSpeed = 3.0f;
 
     public bool TriggerFlash { get; set; }
     public Vector2 FlashCoords { get; set; }
     public int GetWaterCount { get { return water.Count; } }
+    public UnityEngine.UI.Image FlashTile { get { return flashTile; } }
 
     private GameObject ceiling;
     private GameObject rightWall;
     private GameObject leftWall;
     private RectTransform parentPanel;
-    private UnityEngine.UI.Image flashTile;
-    private float flashTileTimer;
     private int[] tileData;
     private DrillingGameTile[,] tiles;
     private List<DrillingGameTile> tilesList = new List<DrillingGameTile>();
@@ -33,14 +33,14 @@ public class DrillGameMap : MonoBehaviour
         ceiling = GameObject.Find("Ceiling");
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
-        flashTileTimer = flashTileTime;
+        flashTile.color = new Color(1, 1, 1, 0);
     }
 
     void Update()
     {
         updateWallsEnabling();
         checkWaterAndDestroyBottom();
-        if (TriggerFlash) FlashNextTile();
+        if (flashTile.color.a > 0) flashTile.color = new Color(1, 1, 1, flashTile.color.a - Time.deltaTime * flashFadeSpeed);
     }
 
     public DrillingGameTile GetTileAtCoordinate(int x, int y)
@@ -99,7 +99,7 @@ public class DrillGameMap : MonoBehaviour
                         t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     tilesList.Add(t);
-                    if (id == 0 && i == 8) bottomRow.Add(t);
+                    if (id == 6 && i == 8) bottomRow.Add(t);
                 }
             }
         }
@@ -168,21 +168,6 @@ public class DrillGameMap : MonoBehaviour
         }
     }
 
-    private void FlashNextTile()
-    {
-        flashTileTimer -= Time.deltaTime;
-        //flashTile.rectTransform.anchoredPosition = FlashCoords;
-        //flashTile.transform.SetAsLastSibling();
-        //flashTile.enabled = true;
-        if (flashTileTimer <= 0)
-        {
-            flashTileTimer = flashTileTime;
-            //flashTile.transform.SetAsFirstSibling();
-            //flashTile.enabled = false;
-            TriggerFlash = false;
-        }
-    }
-
     private void checkWaterAndDestroyBottom()
     {
         if (water.Count == 3)
@@ -193,5 +178,12 @@ public class DrillGameMap : MonoBehaviour
                     Destroy(rock.gameObject);
             }
         }
+    }
+
+    public void DoFlashTile(Vector2 coords)
+    {
+        flashTile.color = new Color(1, 1, 1, 1);
+        flashTile.rectTransform.anchoredPosition = coords;
+        //flashTile.transform.SetAsLastSibling();
     }
 }

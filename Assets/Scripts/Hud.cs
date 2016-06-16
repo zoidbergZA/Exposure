@@ -8,6 +8,9 @@ public class Hud : MonoBehaviour
 {
     [SerializeField] private FloatingText floatingTextPrefab;
     [SerializeField] private Canvas hudCanvas;
+    [SerializeField] private Image tipBubble;
+    [SerializeField] private Sprite[] tipSprites;
+    [SerializeField] private Sprite[] scannerTipSprites;
     [SerializeField] private Image buildArrow;
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private Text timeText;
@@ -20,22 +23,28 @@ public class Hud : MonoBehaviour
 
     private int buttonSize = 55;
     private int buttonIndent = 10;
+
+    private float tipTimeRemaing;
+    private Transform tipTargeTransform;
     
     private int wobblerTweenId;
     private int scorePanelTweenId;
     private int cablePanelTweenId;
 
     public float WobbleValue { get; private set; }
+    public CitiesBar CitiesBar { get; private set; }
 
     void Awake()
     {
+        CitiesBar = GetComponentInChildren<CitiesBar>();
         gameOverPanel.SetActive(false);
+        tipBubble.enabled = false;
         wobblerTweenId = LeanTween.value(gameObject, updateWobbleCallback, 0f, 1f, 0.6f).setLoopPingPong().setEase(LeanTweenType.easeInOutSine).id;
     }
 
     void Start()
     {
-        startPanel.SetActive(true);
+//        startPanel.SetActive(true);
     }
 
     void Update()
@@ -48,20 +57,45 @@ public class Hud : MonoBehaviour
         timeText.text = niceTime;
         scoreText.text = GameManager.Instance.Player.Score.ToString();
         cableText.text = GameManager.Instance.Player.Cable.ToString();
-       
 
-        //        //arrow test
-        //        City closestCity = GameManager.Instance.GridBuilder.FindClosestCity(Vector3.zero);
-        //        Vector3 cityScreenPos = Camera.main.WorldToScreenPoint(closestCity.transform.position);
-        //
-        //        Vector2 dir = (Vector2)cityScreenPos - new Vector2(Screen.width/2, Screen.height/2);
-        //        PointBuildArrow(dir);
+        //tip bubble
+        if (tipTimeRemaing > 0)
+        {
+            tipBubble.rectTransform.position = Camera.main.WorldToScreenPoint(tipTargeTransform.position);
+            tipTimeRemaing -= Time.deltaTime;
+
+            if (tipTimeRemaing <= 0)
+            {
+                tipBubble.enabled = false;
+            }
+        }
     }
 
     void OnGUI()
     {
         if (GameManager.Instance.showDebug)
             ShowDebug();
+    }
+
+    public void ShowTipBubble(Transform refTransform, bool scannerMessage = false, float duration = 3f)
+    {
+        Sprite tipSprite = null;
+
+        if (scannerMessage)
+        {
+            tipSprite = scannerTipSprites[UnityEngine.Random.Range(0, scannerTipSprites.Length)];
+        }
+        else
+        {
+            tipSprite = tipSprites[UnityEngine.Random.Range(0, tipSprites.Length)];
+        }
+        
+        tipBubble.sprite = tipSprite;
+        tipBubble.rectTransform.position = Camera.main.WorldToScreenPoint(refTransform.position);
+        tipBubble.enabled = true;
+
+        tipTimeRemaing = duration;
+        tipTargeTransform = refTransform;
     }
 
     public Rect CenteredRect(Rect rect)

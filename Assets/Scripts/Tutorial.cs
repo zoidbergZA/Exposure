@@ -11,7 +11,7 @@ public class Tutorial : MonoBehaviour
         ActivateScanner,
     }
     
-    [SerializeField] private Image flickTip;
+    [SerializeField] private GameObject flickTip;
 
     private Progression progress;
 
@@ -33,22 +33,22 @@ public class Tutorial : MonoBehaviour
         switch (newProgess)
         {
             case Progression.FlickPlanet:
-                if (flickTip) flickTip.enabled = true;
-                GameManager.Instance.Scanner.gameObject.SetActive(false);
+                flickTip.SetActive(true);
                 Player.PlanetFlicked += OnPlanetFlicked;
                 break;
 
             case Progression.ActivateScanner:
-                if(flickTip) flickTip.enabled = false;
-                GameManager.Instance.Scanner.gameObject.SetActive(true);
-                //                KillTutorial();
+                flickTip.SetActive(false);
+                GameManager.Instance.Player.EnableRadar(true, GameManager.Instance.ScannerGadget.transform.position);
+                GameManager.Instance.Hud.ShowTipBubble(GameManager.Instance.ScannerGadget.transform, true, 5f);
+                KillTutorial();
                 break;
         }
     }
 
     private void DisableAllTips()
     {
-        flickTip.enabled = false;
+        flickTip.SetActive(false);
     }
 
     private void KillTutorial()

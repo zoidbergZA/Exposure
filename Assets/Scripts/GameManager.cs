@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public bool autoStart;
     public bool enableTutorial;
     public bool showDebug;
+    public bool miniGameAutoWin;
 
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
     public DrillingGame DrillingGame { get; private set; }
     public MobileJoystick Joystick { get; private set; }
     public Scanner Scanner { get; private set; }
+    public ScannerGadget ScannerGadget { get; private set; }
     public Hud Hud { get; private set; }
     public int TotalChimneys { get; private set; }
     public float ChimneyValue { get { return 100f/TotalChimneys; } }
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
     public Player Player { get; private set; }
     public Director Director { get; private set; }
     public Transform PlanetTransform { get { return Planet.transform; } }
+    public bool MiniGameAutoWin { get { return miniGameAutoWin; } }
 
     void Awake()
     {
@@ -69,6 +72,7 @@ public class GameManager : MonoBehaviour
         GridBuilder = FindObjectOfType<GridBuilder>();
         DrillingGame = FindObjectOfType<DrillingGame>();
         Scanner = FindObjectOfType<Scanner>();
+        ScannerGadget = FindObjectOfType<ScannerGadget>();
         Hud = FindObjectOfType<Hud>();
         Player = FindObjectOfType<Player>();
         Director = FindObjectOfType<Director>();
@@ -117,8 +121,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //cheat codes
-        if (Input.GetKeyDown(KeyCode.F3))
-            Instance.Planet.DisableNextChimney();
+//        if (Input.GetKeyDown(KeyCode.F3))
+//            Instance.Planet.DisableNextChimney();
         if (Input.GetKeyDown(KeyCode.F8))
             TouchInput = !TouchInput;
         if (Input.GetKeyDown(KeyCode.F9))
@@ -184,7 +188,7 @@ public class GameManager : MonoBehaviour
         if (tutorial)
         {
             tutorial.gameObject.SetActive(true);
-            tutorial.SetProgress(Tutorial.Progression.ActivateScanner);
+            tutorial.SetProgress(Tutorial.Progression.FlickPlanet);
         }
     }
 

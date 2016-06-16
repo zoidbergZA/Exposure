@@ -393,8 +393,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113802}
-  m_LocalRotation: {x: 0.14288585, y: -0.2505275, z: 0.664099, w: 0.6897769}
-  m_LocalPosition: {x: -113.41873, y: 9.744171, z: -15.011311}
+  m_LocalRotation: {x: 0.06263089, y: -0.3392742, z: 0.42503023, w: 0.83685106}
+  m_LocalPosition: {x: -86.7, y: 71.6, z: -21.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 464080}
@@ -1254,7 +1254,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113802}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b4209806e98e8441a4864eb11d42ca0, type: 3}
   m_Name: 
@@ -1272,6 +1272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectionRef: {fileID: 425958}
+  pointValue: 10
+  pipeModel: {fileID: 0}
   connectIcon: {fileID: 2800000, guid: 50c00d26683728a44bdb8442d5149a0f, type: 3}
   dirtyModel: {fileID: 176574}
   cleanModel: {fileID: 132496}

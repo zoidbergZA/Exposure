@@ -30,10 +30,10 @@ public class GridBuilder : Minigame
     {
         base.Update();
 
-//        if (IsRunning && Time.time >= lastConnectionAt + connectionTimeOut)
-//        {
-//            MakeNextConnection();
-//        }
+        if (IsRunning && Time.time >= lastConnectionAt + connectionTimeOut)
+        {
+            AutoMakeNextConnection();
+        }
     }
     
     public override void End(bool succeeded)
@@ -43,13 +43,14 @@ public class GridBuilder : Minigame
         if (succeeded)
         {
             PuzzlePath.ParentCity.CleanUp();
+//            GameManager.Instance.Player.ScorePoints(10, PuzzlePath.ParentCity.transform);
         }
         else
         {
             PuzzlePath.Reset();
         }
-        
-        GameManager.Instance.Player.GoToNormalState(GameManager.Instance.PlanetTransform);
+
+        StartCoroutine(GoToNormalStateAfter(2f));
     }
 
     public void MakeConnection(Connectable connectable)
@@ -66,6 +67,7 @@ public class GridBuilder : Minigame
 
         connectable.MakeConnection(PuzzlePath.ConnectablePath[previous]);
         nextConnectable++;
+        lastConnectionAt = Time.time;
 
         if (nextConnectable >= PuzzlePath.ConnectablePath.Length)
         {
@@ -75,18 +77,21 @@ public class GridBuilder : Minigame
             PreviewNextConnectable();
     }
 
-    private void MakeNextConnection()
+    private void AutoMakeNextConnection()
     {
-        lastConnectionAt = Time.time;
-        nextConnectable++;
-        PreviewNextConnectable();
+        MakeConnection(PuzzlePath.ConnectablePath[nextConnectable]);
+    }
+
+    private IEnumerator GoToNormalStateAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // set scanner position to last pylon
+        GameManager.Instance.Player.GoToNormalState(PuzzlePath.ConnectablePath[PuzzlePath.ConnectablePath.Length-2].transform.position);
     }
 
     private void PreviewNextConnectable()
     {
-        //todo: hide previous connectable preview
-
-
         if (nextConnectable < PuzzlePath.ConnectablePath.Length)
         {
             PuzzlePath.ConnectablePath[nextConnectable].ShowPreview();

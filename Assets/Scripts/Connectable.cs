@@ -12,8 +12,10 @@ public abstract class Connectable : MonoBehaviour
 
     public Transform connectionRef;
 
-    [SerializeField] private GameObject pipeModel;
+    [SerializeField] private int pointValue = 1;
     [SerializeField] private Texture2D connectIcon;
+
+    private GameObject pipeModel;
 
     public ConnectionStates ConnectionState { get; protected set; }
 
@@ -26,6 +28,7 @@ public abstract class Connectable : MonoBehaviour
             if (GUI.Button(GameManager.Instance.Hud.CenteredRect(new Rect(screenPos.x, screenPos.y, 80, 80)),
                 connectIcon))
             {
+                GameManager.Instance.Player.ScorePoints(pointValue, transform);
                 GameManager.Instance.GridBuilder.MakeConnection(this);
             }
         }
