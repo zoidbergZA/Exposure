@@ -8,7 +8,7 @@ public class DrillGameMap : MonoBehaviour
     [SerializeField] private DrillingGameTile[] tilePrefabs;
     [SerializeField] private DrillingGameTile[] pipePrefabs;
     [SerializeField] private UnityEngine.UI.Image flashTile;
-    [SerializeField] private float flashTileFadeTime = 3.0f;
+    [SerializeField] private float flashFadeSpeed = 3.0f;
 
     public bool TriggerFlash { get; set; }
     public Vector2 FlashCoords { get; set; }
@@ -40,7 +40,7 @@ public class DrillGameMap : MonoBehaviour
     {
         updateWallsEnabling();
         checkWaterAndDestroyBottom();
-        if (flashTile.color.a > 0) flashTile.color = new Color(1, 1, 1, flashTile.color.a - Time.deltaTime * flashTileFadeTime);
+        if (flashTile.color.a > 0) flashTile.color = new Color(1, 1, 1, flashTile.color.a - Time.deltaTime * flashFadeSpeed);
     }
 
     public DrillingGameTile GetTileAtCoordinate(int x, int y)
