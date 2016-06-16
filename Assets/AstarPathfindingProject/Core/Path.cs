@@ -399,8 +399,8 @@ namespace Pathfinding {
 		 *
 		 * \note All inheriting path types (e.g ConstantPath, RandomPath, etc.) which declare their own variables need to
 		 * override this function, resetting ALL their variables to enable recycling of paths.
-		 * If this is not done, trying to use that path type for pooling might result in weird behaviour.
-		 * The best way is to reset to default values the variables declared in the extended path type and then
+		 * If this is not done, trying to use that path obj for pooling might result in weird behaviour.
+		 * The best way is to reset to default values the variables declared in the extended path obj and then
 		 * call this base function in inheriting types with base.Reset ().
 		 *
 		 * \warning This function should not be called manually.

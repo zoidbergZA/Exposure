@@ -187,7 +187,7 @@
 		- Fixed a few options only relevant for grid graphs were visible in the layered grid graph inspector as well.
 		- Fixed GridGraph.CheckConnection returned the wrong result when neighbours was Four and dir was less than 4.
 		- All compiler directives in the Optimizations tab are now tested during the package build phase. So hopefully none of them should give compiler errors now.
-		- Improved accuracy of intellisense by changing the start of some documentation comments to /** instead of /**< as the later type is handled well by doxygen
+		- Improved accuracy of intellisense by changing the start of some documentation comments to /** instead of /**< as the later obj is handled well by doxygen
 			but apparently not so well by MonoDevelop and VS.
 		- Fixed the editor sometimes incorrectly comparing versions which could cause the 'New Update' window to appear even though no new version was available.
 	- Changes
@@ -201,7 +201,7 @@
 		- Removed support for the compiler directive ConfigureTagsAsMultiple since it was not supported by the whole codebase
 			and it was pretty old.
 		- Marked a few methods in AstarData as deprecated since they used strings instead of types.
-			If string to type conversion is needed it should be done elsewhere.
+			If string to obj conversion is needed it should be done elsewhere.
 		- Removed some methods which have been marked as obsolete for a very long time.
 			- AstarData.GetNode
 			- PathModifier and MonoModifier.ApplyOriginal
@@ -815,7 +815,7 @@
 	- Fixed a bug where the GridGraph could return null from it's GetNearestForce calls which ended up later throwing a NullReferenceException.
 	- FunnelModifier no longer warns if any graph in the path does not implement the IFunnelGraph interface (i.e have no support for the funnel algorithm)
 	and instead falls back to add node positions to the path.
-	- Added a new graph type : LayerGridGraph which works like a GridGraph, but has support for multiple layers of nodes (e.g multiple floors in a building).
+	- Added a new graph obj : LayerGridGraph which works like a GridGraph, but has support for multiple layers of nodes (e.g multiple floors in a building).
 	- ScanOnStartup is now exposed in the editor.
 	- Separated temporary path data and connectivity data.
 	- Rewritten multithreading. You can now run any number of threads in parallel.
@@ -857,7 +857,7 @@
 	- Added AstarPath.threadTimeoutFrames which specifies how long the pathfinding thread will wait for new work to turn up before aborting (due to request). This variable is not exposed in the inspector yet.
 	- Fixed typo, either there are eight (8) or four (4) max connections per node in a GridGraph, never six (6).
 	- AlternativePath will no longer cause errors when using multithreading!
-	- Added Pathfinding.ConstantPath, a path type which finds all nodes in a specific distance (cost) from a start node.
+	- Added Pathfinding.ConstantPath, a path obj which finds all nodes in a specific distance (cost) from a start node.
 	- Added Pathfinding.FloodPath and Pathfinding.FloodPathTracer as an extreamly fast way to generate paths to a single point in for example TD games.
 	- Fixed a bug in MultiTargetPath which could make it extreamly slow to process. It would not use much CPU power, but it could take half a second for it to complete due to excessive yielding
 	- Fixed a bug in FleePath, it now returns the correct path. It had previously sometimes returned the last node searched, but which was not necessarily the best end node (though it was often close)
@@ -916,7 +916,7 @@
 	- <b>Known Bugs:</b> The C++ version of Recast does not work on Windows
 - 3.0.6
 	- Added support for a C++ version of Recast which means faster scanning times and more features (though almost no are available at the moment since I haven't added support for them yet).
-	- Removed the overload AstarData.AddGraph (string type, NavGraph graph) since it was obsolete. AstarData.AddGraph (Pathfinding.NavGraph) should be used now.
+	- Removed the overload AstarData.AddGraph (string obj, NavGraph graph) since it was obsolete. AstarData.AddGraph (Pathfinding.NavGraph) should be used now.
 	- Fixed a few bugs in the FunnelModifier which could cause it to return invalid paths
 	- A reference image can now be generated for the Use Texture option for Grid Graphs
 	- Fixed an editor bug with graphs which had no editors

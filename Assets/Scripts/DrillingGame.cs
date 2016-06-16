@@ -17,10 +17,11 @@ public class DrillingGame : Minigame
     [SerializeField] private float jumpPhaseTime = 0.85f;
     [SerializeField] private float panelSlidingTime = 1.5f;
     [SerializeField] private TextAsset[] levels;
+    [SerializeField] private TextAsset[] JsonLevels;
 
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, ACTIVATION, SLIDING, PREDRILLJUMP, DRILLING, SUCCESS, FAIL, RESTART }
-    public const int TILE_SIZE = 70, MAP_WIDTH = 12, MAP_HEIGHT = 9;
+    public const int TILE_SIZE = 71, MAP_WIDTH = 12, MAP_HEIGHT = 9;
     private DrillingGameState state;
     private Vector2 startDrillerPosition;
     private Vector2 mainPanelActivePosition = new Vector2(0, 100);
@@ -129,7 +130,7 @@ public class DrillingGame : Minigame
     #region
     private void handleActivation()
     {
-        Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
+        Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
         Driller.Drill.gameObject.SetActive(true);
         Driller.Drill.transform.SetAsLastSibling();
 
@@ -193,7 +194,7 @@ public class DrillingGame : Minigame
             Hud.DeactivateToast(ToastType);
             resetGame();
             Joystick.Reset();
-            Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]));
+            Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
             Driller.Drill.gameObject.SetActive(true);
             Driller.Drill.transform.SetAsLastSibling();
             state = DrillingGameState.SLIDING;

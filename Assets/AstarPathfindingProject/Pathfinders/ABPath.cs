@@ -6,7 +6,7 @@ namespace Pathfinding {
 	/** Basic path, finds the shortest path from A to B.
 	 * \ingroup paths
 	 * This is the most basic path object it will try to find the shortest path from A to B.\n
-	 * Many other path types inherit from this type.
+	 * Many other path types inherit from this obj.
 	 * \see Seeker.StartPath
 	 */
 	public class ABPath : Path {
@@ -189,7 +189,7 @@ namespace Pathfinding {
 			startIntPoint = (Int3)startPoint;
 			startNode = startNNInfo.node;
 
-			//If it is declared that this path type has an end point
+			//If it is declared that this path obj has an end point
 			//Some path types might want to use most of the ABPath code, but will not have an explicit end point at this stage
 			if (hasEndPoint) {
 				NNInfo endNNInfo = AstarPath.active.GetNearest(endPoint, nnConstraint, endHint);

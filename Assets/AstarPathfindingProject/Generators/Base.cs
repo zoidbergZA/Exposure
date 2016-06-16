@@ -61,7 +61,7 @@ namespace Pathfinding {
 		public bool infoScreenOpen;
 
 		/** Count nodes in the graph.
-		 * Note that this is, unless the graph type has overriden it, an O(n) operation.
+		 * Note that this is, unless the graph obj has overriden it, an O(n) operation.
 		 *
 		 * \todo GridGraph should override this
 		 */
@@ -330,7 +330,7 @@ namespace Pathfinding {
 			return c;
 		}
 
-		/** Serializes graph type specific node data.
+		/** Serializes graph obj specific node data.
 		 * This function can be overriden to serialize extra node information (or graph information for that matter)
 		 * which cannot be serialized using the standard serialization.
 		 * Serialize the data in any way you want and return a byte array.
@@ -340,7 +340,7 @@ namespace Pathfinding {
 		public virtual void SerializeExtraInfo (GraphSerializationContext ctx) {
 		}
 
-		/** Deserializes graph type specific node data.
+		/** Deserializes graph obj specific node data.
 		 * \see SerializeExtraInfo
 		 */
 		public virtual void DeserializeExtraInfo (GraphSerializationContext ctx) {
@@ -444,17 +444,17 @@ namespace Pathfinding {
 
 		/** Diameter of capsule or sphere when checking for collision.
 		 * 1 equals \link Pathfinding.GridGraph.nodeSize nodeSize \endlink.
-		 * If #type is set to Ray, this does not affect anything */
+		 * If #obj is set to Ray, this does not affect anything */
 		public float diameter = 1F;
 
 		/** Height of capsule or length of ray when checking for collision.
-		 * If #type is set to Sphere, this does not affect anything
+		 * If #obj is set to Sphere, this does not affect anything
 		 */
 		public float height = 2F;
 		public float collisionOffset;
 
 		/** Direction of the ray when checking for collision.
-		 * If #type is not Ray, this does not affect anything
+		 * If #obj is not Ray, this does not affect anything
 		 * \note This variable is not used currently, it does not affect anything
 		 */
 		public RayDirection rayDirection = RayDirection.Both;
