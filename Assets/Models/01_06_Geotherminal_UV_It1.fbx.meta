@@ -1,0 +1,178 @@
+fileFormatVersion: 2
+guid: 0b932eca391e1784bbdc48bdfc92c252
+timeCreated: 1466068786
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: BottomPipes
+    100004: Buildings
+    100006: chimney
+    100008: Cilo
+    100010: Ground
+    100012: LargePipe
+    100014: Pipes_Inbetween
+    100016: Powerline
+    100018: Powerpoles
+    100020: PumpDown
+    100022: RoofPipes
+    100024: support
+    100026: Water_1
+    100028: Water_2
+    100030: Water_3
+    100032: Water_4
+    100034: Water_5
+    100036: Water_6
+    100038: Water_7
+    100040: Water_8
+    100042: Water_9
+    400000: //RootNode
+    400002: BottomPipes
+    400004: Buildings
+    400006: chimney
+    400008: Cilo
+    400010: Ground
+    400012: LargePipe
+    400014: Pipes_Inbetween
+    400016: Powerline
+    400018: Powerpoles
+    400020: PumpDown
+    400022: RoofPipes
+    400024: support
+    400026: Water_1
+    400028: Water_2
+    400030: Water_3
+    400032: Water_4
+    400034: Water_5
+    400036: Water_6
+    400038: Water_7
+    400040: Water_8
+    400042: Water_9
+    2300000: BottomPipes
+    2300002: Buildings
+    2300004: chimney
+    2300006: Cilo
+    2300008: Ground
+    2300010: LargePipe
+    2300012: Pipes_Inbetween
+    2300014: Powerline
+    2300016: Powerpoles
+    2300018: PumpDown
+    2300020: RoofPipes
+    2300022: support
+    2300024: Water_1
+    2300026: Water_2
+    2300028: Water_3
+    2300030: Water_4
+    2300032: Water_5
+    2300034: Water_6
+    2300036: Water_7
+    2300038: Water_8
+    2300040: Water_9
+    3300000: BottomPipes
+    3300002: Buildings
+    3300004: chimney
+    3300006: Cilo
+    3300008: Ground
+    3300010: LargePipe
+    3300012: Pipes_Inbetween
+    3300014: Powerline
+    3300016: Powerpoles
+    3300018: PumpDown
+    3300020: RoofPipes
+    3300022: support
+    3300024: Water_1
+    3300026: Water_2
+    3300028: Water_3
+    3300030: Water_4
+    3300032: Water_5
+    3300034: Water_6
+    3300036: Water_7
+    3300038: Water_8
+    3300040: Water_9
+    4300000: chimney
+    4300002: Powerpoles
+    4300004: Cilo
+    4300006: Ground
+    4300008: Powerline
+    4300010: support
+    4300012: Pipes_Inbetween
+    4300014: RoofPipes
+    4300016: BottomPipes
+    4300018: PumpDown
+    4300020: Buildings
+    4300022: LargePipe
+    4300024: Water_1
+    4300026: Water_2
+    4300028: Water_3
+    4300030: Water_4
+    4300032: Water_5
+    4300034: Water_6
+    4300036: Water_7
+    4300038: Water_8
+    4300040: Water_9
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -5,6 +5,9 @@ using System.Collections;
 public class ScannerGadget : MonoBehaviour
 {
     [SerializeField] private GameObject model;
+    [SerializeField] private Transform spinningRadar;
+    [SerializeField] private float spinRate = 355f;
+
     private Scanner scanner;
     private Collider myCollider;
 
@@ -19,7 +22,16 @@ public class ScannerGadget : MonoBehaviour
     void Start()
     {
         FixRotation();
-        transform.SetParent(GameManager.Instance.PlanetTransform);
+        //un-comment to move with planet
+//        transform.SetParent(GameManager.Instance.PlanetTransform);
+    }
+
+    void Update()
+    {
+        if (!IsGrabbed)
+        {
+            spinningRadar.Rotate(0, spinRate * Time.deltaTime, 0);
+        }
     }
 
     void FixedUpdate()

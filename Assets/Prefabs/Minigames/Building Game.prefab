@@ -39,8 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd56c17a02d3c9443ae116fc651e883a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 1
-  connectionTimeOut: 2
+  timeOut: 15
+  connectionTimeOut: 4
   cameraSwoopTime: 0.95
 --- !u!1001 &100100000
 Prefab:
