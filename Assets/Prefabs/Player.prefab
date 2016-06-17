@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d284a26c765cbc14b8badc49419b0522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 20
+  radius: 25
   scannerModel: {fileID: 128068}
   scannerParticleSystem: {fileID: 19811280}
 --- !u!135 &13569246
