@@ -49,6 +49,9 @@ public class Hud : MonoBehaviour
 
     void Start()
     {
+        scorePanel.SetActive(false);
+        //todo: time panel
+        //todo: city panel
 //        startPanel.SetActive(true);
     }
 
@@ -128,6 +131,11 @@ public class Hud : MonoBehaviour
     public void OnStartRoundClicked()
     {
         ShowStartPanel(false);
+
+        scorePanel.SetActive(true);
+        //todo: time panel
+        //todo: city panel
+
         GameManager.Instance.StartRound();
     }
 
