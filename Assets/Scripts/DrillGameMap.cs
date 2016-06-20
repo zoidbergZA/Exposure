@@ -21,6 +21,7 @@ public class DrillGameMap : MonoBehaviour
     private GameObject ceiling;
     private GameObject rightWall;
     private GameObject leftWall;
+    private GameObject floor;
     private RectTransform parentPanel;
     private int[] tileData;
     private DrillingGameTile[,] tiles;
@@ -39,6 +40,7 @@ public class DrillGameMap : MonoBehaviour
         ceiling = GameObject.Find("Ceiling");
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
+        floor = GameObject.Find("Floor");
         flashTile.color = new Color(1, 1, 1, 0);
         jsonString = File.ReadAllText(Application.dataPath + "/DrillingGameMaps/JSONTest.json");
         itemData = JsonMapper.ToObject(jsonString);
@@ -127,6 +129,7 @@ public class DrillGameMap : MonoBehaviour
         if (ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = false;
         if (rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = false;
         if (leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = false;
+        if (floor.GetComponent<BoxCollider2D>().enabled) floor.GetComponent<BoxCollider2D>().enabled = false;
     }
 
     public void AddPipePart(DrillingGameTile pipePiece)
@@ -173,6 +176,7 @@ public class DrillGameMap : MonoBehaviour
             if (!ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = true;
             if (!rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = true;
             if (!leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = true;
+            if (!floor.GetComponent<BoxCollider2D>().enabled) floor.GetComponent<BoxCollider2D>().enabled = true;
         }
     }
 
