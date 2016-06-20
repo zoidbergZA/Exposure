@@ -99,7 +99,7 @@ public class DrillGameMap : MonoBehaviour
                     if (id == 9)
                     {
                         UIpipeParts.Add(t);
-                        relocateWaterTiles(UIpipeParts.Count, t, j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
+                        relocatePipeTiles(UIpipeParts.Count, t, j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     else
                     {
@@ -129,27 +129,27 @@ public class DrillGameMap : MonoBehaviour
         if (leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = false;
     }
 
-    public void AddWater(DrillingGameTile waterPiece)
+    public void AddPipePart(DrillingGameTile pipePiece)
     {
-        pipeParts.Add(waterPiece);
+        pipeParts.Add(pipePiece);
     }
 
-    private void relocateWaterTiles(int id, DrillingGameTile tile, int x, int y)
+    private void relocatePipeTiles(int id, DrillingGameTile tile, int x, int y)
     {
         switch(id)
         {
             case 1:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 525);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(355, -66);
                 LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 2:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 436);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(426, -66);
                 LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 3:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 345);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(489, -66);
                 LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;

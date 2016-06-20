@@ -141,7 +141,7 @@ public class Driller : MonoBehaviour
                 Destroy(GO);
                 break;
             case Tile.WATER:
-                GameManager.Instance.DrillingGame.Map.AddWater(GO.GetComponent<DrillingGameTile>());
+                GameManager.Instance.DrillingGame.Map.AddPipePart(GO.GetComponent<DrillingGameTile>());
                 if (GameManager.Instance.DrillingGame.Map.GetPipePartsCount <= 3)
                     LeanTween.scale(Hud.WaterBar.GetComponent<RectTransform>(),
                         Hud.WaterBar.GetComponent<RectTransform>().localScale * 1.1f, 0.8f).setEase(LeanTweenType.punch);
