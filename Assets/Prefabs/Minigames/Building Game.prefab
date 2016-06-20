@@ -42,6 +42,7 @@ MonoBehaviour:
   timeOut: 20
   connectionTimeOut: 4
   cameraSwoopTime: 0.95
+  cityCinematicDuration: 10
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
