@@ -15,7 +15,7 @@ public class DrillGameMap : MonoBehaviour
 
     public bool TriggerFlash { get; set; }
     public Vector2 FlashCoords { get; set; }
-    public int GetWaterCount { get { return water.Count; } }
+    public int GetPipePartsCount { get { return pipeParts.Count; } }
     public UnityEngine.UI.Image FlashTile { get { return flashTile; } }
 
     private GameObject ceiling;
@@ -25,12 +25,9 @@ public class DrillGameMap : MonoBehaviour
     private int[] tileData;
     private DrillingGameTile[,] tiles;
     private List<DrillingGameTile> tilesList = new List<DrillingGameTile>();
-    private List<DrillingGameTile> bottomRow = new List<DrillingGameTile>();
-    private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
-    private List<DrillingGameTile> water = new List<DrillingGameTile>();
-    private List<DrillingGameTile> blockSet_1 = new List<DrillingGameTile>();
-    private List<DrillingGameTile> blockSet_2 = new List<DrillingGameTile>();
-    private List<DrillingGameTile> toBeDestructed = new List<DrillingGameTile>();
+    private List<DrillingGameTile> toBeExploded = new List<DrillingGameTile>();
+    private List<DrillingGameTile> UIpipeParts = new List<DrillingGameTile>();
+    private List<DrillingGameTile> pipeParts = new List<DrillingGameTile>();
     //vars for JSON parser
     private string jsonString;
     private JsonData itemData;
@@ -101,8 +98,8 @@ public class DrillGameMap : MonoBehaviour
                     t.gameObject.SetActive(true);
                     if (id == 9)
                     {
-                        UIwater.Add(t);
-                        relocateWaterTiles(UIwater.Count, t, j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
+                        UIpipeParts.Add(t);
+                        relocateWaterTiles(UIpipeParts.Count, t, j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     else
                     {
@@ -110,7 +107,7 @@ public class DrillGameMap : MonoBehaviour
                         t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     tilesList.Add(t);
-                    if (id == 6) bottomRow.Add(t);
+                    if (id == 6) toBeExploded.Add(t);
                 }
             }
         }
@@ -119,13 +116,13 @@ public class DrillGameMap : MonoBehaviour
     public void Reset()
     {
         foreach (DrillingGameTile tile in tilesList) if(tile != null) Destroy(tile.gameObject);
-        foreach (DrillingGameTile tile in bottomRow) if (tile != null) Destroy(tile.gameObject);
-        foreach (DrillingGameTile tile in UIwater) if (tile != null) Destroy(tile.gameObject);
-        foreach (DrillingGameTile tile in water) if (tile != null) Destroy(tile.gameObject);
+        foreach (DrillingGameTile tile in toBeExploded) if (tile != null) Destroy(tile.gameObject);
+        foreach (DrillingGameTile tile in UIpipeParts) if (tile != null) Destroy(tile.gameObject);
+        foreach (DrillingGameTile tile in pipeParts) if (tile != null) Destroy(tile.gameObject);
         tilesList.Clear();
-        bottomRow.Clear();
-        UIwater.Clear();
-        water.Clear();
+        toBeExploded.Clear();
+        UIpipeParts.Clear();
+        pipeParts.Clear();
 
         if (ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = false;
         if (rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = false;
@@ -134,7 +131,7 @@ public class DrillGameMap : MonoBehaviour
 
     public void AddWater(DrillingGameTile waterPiece)
     {
-        water.Add(waterPiece);
+        pipeParts.Add(waterPiece);
     }
 
     private void relocateWaterTiles(int id, DrillingGameTile tile, int x, int y)
@@ -181,18 +178,18 @@ public class DrillGameMap : MonoBehaviour
 
     private void processWaterProgression()
     {
-        if (water.Count == 1)
+        if (pipeParts.Count == 1)
         {
-            foreach (DrillingGameTile tile in bottomRow)
+            foreach (DrillingGameTile tile in toBeExploded)
             {
                 tile.GetComponent<UnityEngine.UI.Image>().sprite = crackedBlock;
                 LeanTween.scale(tile.GetComponent<RectTransform>(), tile.GetComponent<RectTransform>().localScale * 1.1f, 0.8f)
                         .setEase(LeanTweenType.punch);
             }
         }
-        else if (water.Count == 2)
+        else if (pipeParts.Count == 2)
         {
-            triggerSetDestruction(bottomRow);
+            triggerSetDestruction(toBeExploded);
         }
     }
 

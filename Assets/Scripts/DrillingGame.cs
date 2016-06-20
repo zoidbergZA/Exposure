@@ -159,7 +159,7 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-        if (!ReachedBottom((MAP_HEIGHT * TILE_SIZE) + TILE_SIZE / 2))
+        if (Map.GetPipePartsCount != 3)
         {
             switch(movementType)
             {

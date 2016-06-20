@@ -26581,6 +26581,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 11458686, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: crackedBlock
+      value: 
+      objectReference: {fileID: 21300000, guid: fdb59ede0b05f4100b22daec42fba81b,
+        type: 3}
+    - target: {fileID: 11424778, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300028, guid: 64ba6edcb890e3340acac0d71fc5e902,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
   m_IsPrefabParent: 0

@@ -102,7 +102,7 @@ public class DrillGameHud : MonoBehaviour
 
     private void updateProgressBars()
     {
-        if (waterBar && Map.GetWaterCount <= 3) waterBar.fillAmount = Map.GetWaterCount * 33.33333334f / 100f;
+        if (waterBar && Map.GetPipePartsCount <= 3) waterBar.fillAmount = Map.GetPipePartsCount * 33.33333334f / 100f;
         //to do update drill life depending on amount of life
         switch(Driller.Lives)
         {
