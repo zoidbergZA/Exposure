@@ -10375,6 +10375,42 @@ Prefab:
       propertyPath: slideSpeed
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 11439368, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: levels.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 8bf3dab1686f6464fa8b85efe73ec9e6, type: 3}
+    - target: {fileID: 11480538, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22473294, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 22473294, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 6161728, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11424778, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6161728, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_Size.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6161728, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_Size.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 187864, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
   m_IsPrefabParent: 0
