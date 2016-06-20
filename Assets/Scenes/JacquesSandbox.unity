@@ -2061,7 +2061,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 482218, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: enableTutorial
@@ -19778,10 +19778,6 @@ Prefab:
       propertyPath: m_Name
       value: City 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11486914, guid: 5264e20edfd770e4fbfe33f48b19d1b1, type: 2}
-      propertyPath: puzzlePath
-      value: 
-      objectReference: {fileID: 1611907966}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5264e20edfd770e4fbfe33f48b19d1b1, type: 2}
   m_IsPrefabParent: 0
