@@ -11,47 +11,49 @@ public class DrillGameMap : MonoBehaviour
     [SerializeField] private DrillingGameTile[] pipePrefabs;
     [SerializeField] private UnityEngine.UI.Image flashTile;
     [SerializeField] private float flashFadeSpeed = 3.0f;
+    [SerializeField] private Sprite crackedBlock;
+    [SerializeField] private Sprite pipePart;
 
     public bool TriggerFlash { get; set; }
     public Vector2 FlashCoords { get; set; }
-    public int GetWaterCount { get { return water.Count; } }
+    public int GetPipePartsCount { get { return pipeParts.Count; } }
     public UnityEngine.UI.Image FlashTile { get { return flashTile; } }
 
     private GameObject ceiling;
     private GameObject rightWall;
     private GameObject leftWall;
+    private GameObject floor;
     private RectTransform parentPanel;
     private int[] tileData;
     private DrillingGameTile[,] tiles;
     private List<DrillingGameTile> tilesList = new List<DrillingGameTile>();
-    private List<DrillingGameTile> bottomRow = new List<DrillingGameTile>();
-    private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
-    private List<DrillingGameTile> water = new List<DrillingGameTile>();
-    private List<DrillingGameTile> blockSet_1 = new List<DrillingGameTile>();
-    private List<DrillingGameTile> blockSet_2 = new List<DrillingGameTile>();
+    private List<DrillingGameTile> toBeExploded = new List<DrillingGameTile>();
+    private List<DrillingGameTile> UIpipeParts = new List<DrillingGameTile>();
+    private List<DrillingGameTile> pipeParts = new List<DrillingGameTile>();
     //vars for JSON parser
     private string jsonString;
     private JsonData itemData;
+    private bool isCracked = false;
+    private bool isExploded = false;
 
-    public const int TILE_SIZE = 71, MAP_WIDTH = 12, MAP_HEIGHT = 9;
+    public const int TILE_SIZE = 71, MAP_WIDTH = 13, MAP_HEIGHT = 8;
 
     void Start()
     {
         ceiling = GameObject.Find("Ceiling");
         rightWall = GameObject.Find("Right wall");
         leftWall = GameObject.Find("Left wall");
+        floor = GameObject.Find("Floor");
         flashTile.color = new Color(1, 1, 1, 0);
         jsonString = File.ReadAllText(Application.dataPath + "/DrillingGameMaps/JSONTest.json");
         itemData = JsonMapper.ToObject(jsonString);
-        //Debug.Log(itemData["tilesets"][0]["tileproperties"][0]["explodable"].ToString());
     }
 
     void Update()
     {
         updateWallsEnabling();
-        checkWaterAndDestroyBottom();
+        processPipeProgression();
         if (flashTile.color.a > 0) flashTile.color = new Color(1, 1, 1, flashTile.color.a - Time.deltaTime * flashFadeSpeed);
-        //Debug.Log(GetCoordinateAt(GameManager.Instance.DrillingGame.Driller.Position).ToString());
     }
 
     public DrillingGameTile GetTileAtCoordinate(int x, int y)
@@ -66,10 +68,10 @@ public class DrillGameMap : MonoBehaviour
 
     public Vector2 GetCoordinateAt(Vector2 position)
     {
-        /*if (!BoundingRect.Contains(position))
+        if (!BoundingRect.Contains(position))
         {
             Debug.LogException(new UnityException("GetCoordinate our of bounds!"));
-        }*/
+        }
 
         Vector2 coord = new Vector2(position.x / TILE_SIZE, -position.y / TILE_SIZE);
         coord.x = Mathf.FloorToInt(coord.x);
@@ -101,8 +103,8 @@ public class DrillGameMap : MonoBehaviour
                     t.gameObject.SetActive(true);
                     if (id == 9)
                     {
-                        UIwater.Add(t);
-                        relocateWaterTiles(UIwater.Count, t, j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
+                        UIpipeParts.Add(t);
+                        relocatePipeTiles(UIpipeParts.Count, t, j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     else
                     {
@@ -110,7 +112,7 @@ public class DrillGameMap : MonoBehaviour
                         t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     tilesList.Add(t);
-                    if (id == 6 && i == 8) bottomRow.Add(t);
+                    if (id == 6) toBeExploded.Add(t);
                 }
             }
         }
@@ -119,40 +121,44 @@ public class DrillGameMap : MonoBehaviour
     public void Reset()
     {
         foreach (DrillingGameTile tile in tilesList) if(tile != null) Destroy(tile.gameObject);
-        foreach (DrillingGameTile tile in bottomRow) if (tile != null) Destroy(tile.gameObject);
-        foreach (DrillingGameTile tile in UIwater) if (tile != null) Destroy(tile.gameObject);
-        foreach (DrillingGameTile tile in water) if (tile != null) Destroy(tile.gameObject);
+        foreach (DrillingGameTile tile in toBeExploded) if (tile != null) Destroy(tile.gameObject);
+        foreach (DrillingGameTile tile in UIpipeParts) if (tile != null) Destroy(tile.gameObject);
+        foreach (DrillingGameTile tile in pipeParts) if (tile != null) Destroy(tile.gameObject);
         tilesList.Clear();
-        bottomRow.Clear();
-        UIwater.Clear();
-        water.Clear();
+        toBeExploded.Clear();
+        UIpipeParts.Clear();
+        pipeParts.Clear();
 
         if (ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = false;
         if (rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = false;
         if (leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = false;
+        if (floor.GetComponent<BoxCollider2D>().enabled) floor.GetComponent<BoxCollider2D>().enabled = false;
+
+        isCracked = false;
+        isExploded = false;
     }
 
-    public void AddWater(DrillingGameTile waterPiece)
+    public void AddPipePart(DrillingGameTile pipePiece)
     {
-        water.Add(waterPiece);
+        pipeParts.Add(pipePiece);
     }
 
-    private void relocateWaterTiles(int id, DrillingGameTile tile, int x, int y)
+    private void relocatePipeTiles(int id, DrillingGameTile tile, int x, int y)
     {
         switch(id)
         {
             case 1:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 525);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(355, -66);
                 LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 2:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 436);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(426, -66);
                 LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
             case 3:
-                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(-163, 345);
+                tile.GetComponent<RectTransform>().anchoredPosition = new Vector2(489, -66);
                 LeanTween.move(tile.gameObject.GetComponent<RectTransform>(), new Vector2(x, y), 2.5f).setEase(LeanTweenType.easeOutQuad);
                 LeanTween.scale(tile.GetComponent<RectTransform>(), Vector3.one, 1f);
                 break;
@@ -176,23 +182,47 @@ public class DrillGameMap : MonoBehaviour
             if (!ceiling.GetComponent<BoxCollider2D>().enabled) ceiling.GetComponent<BoxCollider2D>().enabled = true;
             if (!rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = true;
             if (!leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = true;
+            if (!floor.GetComponent<BoxCollider2D>().enabled) floor.GetComponent<BoxCollider2D>().enabled = true;
         }
     }
 
-    private void checkWaterAndDestroyBottom()
+    private void processPipeProgression()
     {
-        if (water.Count == 3) triggerSet(bottomRow);
+        if (pipeParts.Count == 1 && !isCracked && toBeExploded.Count != 0)
+        {
+            foreach (DrillingGameTile tile in toBeExploded)
+            {
+                tile.GetComponent<UnityEngine.UI.Image>().sprite = crackedBlock;
+                LeanTween.scale(tile.GetComponent<RectTransform>(), tile.GetComponent<RectTransform>().localScale * 1.1f, 0.8f)
+                        .setEase(LeanTweenType.punch);
+            }
+            isCracked = true;
+        }
+        else if (pipeParts.Count == 2 && !isExploded && toBeExploded.Count != 0)
+        {
+            triggerSetDestruction(toBeExploded);
+            GameManager.Instance.Director.Shake(GameManager.Instance.DrillingGame.gameObject.transform);
+            isExploded = true;
+        }
     }
 
-    private void triggerSet(List<DrillingGameTile> set)
+    public void SwitchPipeTileSprite()
+    {
+        foreach (DrillingGameTile tile in UIpipeParts)
+        {
+            tile.GetComponent<UnityEngine.UI.Image>().sprite = pipePart;
+        }
+    }
+
+    private void triggerSetDestruction(List<DrillingGameTile> set)
     {
         foreach (DrillingGameTile item in set) if (item != null) Destroy(item.gameObject);
+        set.Clear();
     }
 
     public void DoFlashTile(Vector2 coords)
     {
         flashTile.color = new Color(1, 1, 1, 1);
         flashTile.rectTransform.anchoredPosition = coords;
-        //flashTile.transform.SetAsLastSibling();
     }
 }
