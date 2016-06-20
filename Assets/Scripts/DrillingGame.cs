@@ -59,7 +59,7 @@ public class DrillingGame : Minigame
     {
         state = DrillingGameState.INACTIVE;
         ToastType = global::ToastType.NONE;
-        targetColumn = 0;
+        targetColumn = 6;
         targetRow = 0;
         jumpPhaseTimer = jumpPhaseTime;
         MainPanel.anchoredPosition = mainPanelInactivePosition;
@@ -82,6 +82,7 @@ public class DrillingGame : Minigame
         }
         if (Input.GetKeyDown(KeyCode.N)) Driller.Body.mass += 0.01f;
         if (Input.GetKeyDown(KeyCode.M)) Driller.Body.mass -= 0.01f;
+        Debug.Log("col: " + targetColumn + " | row: " + targetRow + " | coords: " + Map.GetCoordinateAt(Driller.Position));
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -508,7 +509,10 @@ public class DrillingGame : Minigame
         {
             if (slidingLeft == false)
             {
-                if (Driller.Position.x < (TILE_SIZE * targetColumn) + TILE_SIZE) Driller.Position = new Vector2((TILE_SIZE * targetColumn) + TILE_SIZE, Driller.Position.y);
+                if (Driller.Position.x < (TILE_SIZE * targetColumn) + TILE_SIZE)
+                {
+                    Driller.Position = new Vector2((TILE_SIZE * targetColumn) + TILE_SIZE, Driller.Position.y);
+                }
                 else
                 {
                     if (targetColumn < MAP_WIDTH) targetColumn += 1;
@@ -517,7 +521,10 @@ public class DrillingGame : Minigame
             }
             else
             {
-                if (Driller.Position.x > (TILE_SIZE * targetColumn) - TILE_SIZE) Driller.Position = new Vector2((TILE_SIZE * targetColumn) - TILE_SIZE, Driller.Position.y);
+                if (Driller.Position.x > (TILE_SIZE * targetColumn) - TILE_SIZE)
+                {
+                    Driller.Position = new Vector2((TILE_SIZE * targetColumn) - TILE_SIZE, Driller.Position.y);
+                }
                 else
                 {
                     if (targetColumn > 0) targetColumn -= 1;
@@ -551,7 +558,7 @@ public class DrillingGame : Minigame
     {
         makeDrill = false;
         slidingLeft = false;
-        targetColumn = 0;
+        targetColumn = 6;
         targetRow = 0;
         if(!IsRestarting) LeanTween.move(MainPanel, mainPanelInactivePosition, panelSlidingTime);
         ToastType = global::ToastType.NONE;

@@ -65,10 +65,10 @@ public class DrillGameMap : MonoBehaviour
 
     public Vector2 GetCoordinateAt(Vector2 position)
     {
-        if (!BoundingRect.Contains(position))
-        {
-            Debug.LogException(new UnityException("GetCoordinate our of bounds!"));
-        }
+        //if (!BoundingRect.Contains(position))
+        //{
+        //    Debug.LogException(new UnityException("GetCoordinate our of bounds!"));
+        //}
 
         Vector2 coord = new Vector2(position.x / TILE_SIZE, -position.y / TILE_SIZE);
         coord.x = Mathf.FloorToInt(coord.x);
