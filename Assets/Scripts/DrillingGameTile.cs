@@ -6,5 +6,4 @@ public class DrillingGameTile : MonoBehaviour
     public int TiledId { get;  set; }
     public int Explodable { get; set; }
     public int Collectable { get; set; }
-    public bool ToBeDestructed { get; set; }
 }

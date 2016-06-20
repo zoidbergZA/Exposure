@@ -186,9 +186,11 @@ public class DrillGameMap : MonoBehaviour
             foreach (DrillingGameTile tile in bottomRow)
             {
                 tile.GetComponent<UnityEngine.UI.Image>().sprite = crackedBlock;
+                LeanTween.scale(tile.GetComponent<RectTransform>(), tile.GetComponent<RectTransform>().localScale * 1.1f, 0.8f)
+                        .setEase(LeanTweenType.punch);
             }
         }
-        if (water.Count == 2)
+        else if (water.Count == 2)
         {
             triggerSetDestruction(bottomRow);
         }
