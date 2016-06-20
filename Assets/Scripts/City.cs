@@ -5,6 +5,8 @@ public class City : Connectable
 {
     [SerializeField] private GameObject dirtyModel;
     [SerializeField] private GameObject cleanModel;
+    [SerializeField] private GameObject nukeEffect;
+    [SerializeField] private float nukeEffectDuration = 3f;
     [SerializeField] private PuzzlePath puzzlePath;
 
     public bool IsDirty { get; private set; }
@@ -53,12 +55,21 @@ public class City : Connectable
         IsDirty = false;
 
         dirtyModel.SetActive(false);
-        cleanModel.SetActive(true);
-        GetComponentInChildren<Animation>().Play("NewCityRise");
+        nukeEffect.SetActive(true);
         ConnectionState = ConnectionStates.Built;
         CityIcon.ToggleIcon(true);
 
+        StartCoroutine(SpawnCleanCity(nukeEffectDuration));
+
         GameManager.Instance.Planet.RefreshHealth();
         GameManager.Instance.Hud.CitiesBar.SortIcons();
+    }
+
+    private IEnumerator SpawnCleanCity(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        cleanModel.SetActive(true);
+        GetComponentInChildren<Animation>().Play("NewCityRise");
     }
 }

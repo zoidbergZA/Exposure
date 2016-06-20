@@ -27,6 +27,9 @@ public class Scanner : MonoBehaviour
     {
         renderer = GameManager.Instance.Planet.scannableMesh.GetComponent<Renderer>();
         material = renderer.material;
+
+        Debug.Log(material.name);
+
         ShowTerrainScanner(true);
         scannerParticleSystem.startSize = radius*2;
     }

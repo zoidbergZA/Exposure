@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
     {
         GameManager.Instance.ScannerGadget.transform.position = position;
 
-        GameManager.Instance.Scanner.ShowTerrainScanner(enable);
+//        GameManager.Instance.Scanner.ShowTerrainScanner(enable);
         GameManager.Instance.Scanner.gameObject.SetActive(enable);
         GameManager.Instance.ScannerGadget.gameObject.SetActive(enable);
         

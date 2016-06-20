@@ -16,11 +16,13 @@ public class DrillingGame : Minigame
     [SerializeField] private float diamondValue = 1.0f;
     [SerializeField] private float jumpPhaseTime = 0.85f;
     [SerializeField] private float panelSlidingTime = 1.5f;
+    [SerializeField] private MovementType movementType;
     [SerializeField] private TextAsset[] levels;
     [SerializeField] private TextAsset[] JsonLevels;
 
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, ACTIVATION, SLIDING, PREDRILLJUMP, DRILLING, SUCCESS, FAIL, RESTART }
+    public enum MovementType { CONSTANT, TILE_BASED }
     public const int TILE_SIZE = 71, MAP_WIDTH = 12, MAP_HEIGHT = 9;
     private DrillingGameState state;
     private Vector2 startDrillerPosition;
@@ -34,7 +36,7 @@ public class DrillingGame : Minigame
     private float jumpPhaseTimer;
 
     public bool IsRestarting { get; set; }
-    public ToastType ToastType { get; set; } 
+    public ToastType ToastType { get; set; }
     public DrillingGameState State { get { return state; } set { state = value; } }
     public DrillingDirection DrillDirection { get; private set; }
     public DrillingDirection PrevDrillDirection { get; private set; }
@@ -157,7 +159,21 @@ public class DrillingGame : Minigame
 
     private void handleDrillingState()
     {
-        if (!ReachedBottom(MAP_HEIGHT * TILE_SIZE)) updateDrilling();
+        if (!ReachedBottom((MAP_HEIGHT * TILE_SIZE) + TILE_SIZE / 2))
+        {
+            switch(movementType)
+            {
+                case MovementType.CONSTANT:
+                    updateDrilling();
+                    break;
+                case MovementType.TILE_BASED:
+                    updateTileBasedDrilling();
+                    break;
+                default:
+                    updateDrilling();
+                    break;
+            }
+        }
         else
         {
             Hud.ActivateToast(ToastType.SUCCESS);
@@ -503,6 +519,25 @@ public class DrillingGame : Minigame
                 break;
             case DrillingDirection.UP:
                 drillUp();
+                break;
+        }
+    }
+
+    private void updateTileBasedDrilling()
+    {
+        switch (DrillDirection)
+        {
+            case DrillingDirection.DOWN:
+                break;
+            case DrillingDirection.LEFT:
+                break;
+            case DrillingDirection.RIGHT:
+                break;
+            case DrillingDirection.UP:
+                break;
+            case DrillingDirection.NONE:
+                break;
+            default:
                 break;
         }
     }
