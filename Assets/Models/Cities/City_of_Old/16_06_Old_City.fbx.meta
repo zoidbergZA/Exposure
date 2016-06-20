@@ -1,17 +1,16 @@
 fileFormatVersion: 2
-guid: f66fff769db2c1246b5013816c4ab90e
-timeCreated: 1466074915
+guid: d01e804d79a67d34882d9cd8cc66c1e6
+timeCreated: 1466079943
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    4300000: Step_1
-    7400000: NewCityRise
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Old_City_OBJ2
     9500000: //RootNode
-    11100000: //RootNode
-    13700000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -32,41 +31,11 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: NewCityRise
-      takeName: Take 001
-      firstFrame: 1
-      lastFrame: 60
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 30
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -85,7 +54,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     human: []
@@ -100,7 +69,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

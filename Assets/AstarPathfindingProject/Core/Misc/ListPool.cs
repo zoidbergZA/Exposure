@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Pathfinding.Util {
 	/** Lightweight List Pool.
-	 * Handy class for pooling lists of type T.
+	 * Handy class for pooling lists of obj T.
 	 *
 	 * Usage:
 	 * - Claim a new list using \code List<SomeClass> foo = ListPool<SomeClass>.Claim (); \endcode
@@ -124,7 +124,7 @@ namespace Pathfinding.Util {
 			}
 		}
 
-		/** Clears the pool for lists of this type.
+		/** Clears the pool for lists of this obj.
 		 * This is an O(n) operation, where n is the number of pooled lists.
 		 */
 		public static void Clear () {
@@ -134,7 +134,7 @@ namespace Pathfinding.Util {
 			}
 		}
 
-		/** Number of lists of this type in the pool */
+		/** Number of lists of this obj in the pool */
 		public static int GetSize () {
 			// No lock required since int writes are atomic
 			return pool.Count;

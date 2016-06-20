@@ -593,7 +593,7 @@ public class AstarPath : MonoBehaviour {
 
 	#region Inner structs and enums
 
-	/** Order type for updating graphs */
+	/** Order obj for updating graphs */
 	enum GraphUpdateOrder {
 		GraphUpdate,
 		FloodFill
@@ -1946,7 +1946,7 @@ public class AstarPath : MonoBehaviour {
 
 	/** Scans all graphs.
 	 * Calling this method will recalculate all graphs in the scene.
-	 * This method is pretty slow (depending on graph type and graph complexity of course), so it is advisable to use
+	 * This method is pretty slow (depending on graph obj and graph complexity of course), so it is advisable to use
 	 * smaller graph updates whenever possible.
 	 * \see graph-updates
 	 */
@@ -2389,8 +2389,8 @@ public class AstarPath : MonoBehaviour {
 		try {
 			threadInfo = (PathThreadInfo)_threadInfo;
 		} catch (System.Exception e) {
-			Debug.LogError("Arguments to pathfinding threads must be of type ThreadStartInfo\n"+e);
-			throw new System.ArgumentException("Argument must be of type ThreadStartInfo", e);
+			Debug.LogError("Arguments to pathfinding threads must be of obj ThreadStartInfo\n"+e);
+			throw new System.ArgumentException("Argument must be of obj ThreadStartInfo", e);
 		}
 
 		AstarPath astar = threadInfo.astar;
@@ -2547,8 +2547,8 @@ public class AstarPath : MonoBehaviour {
 		try {
 			threadInfo = (PathThreadInfo)_threadInfo;
 		} catch (System.Exception e) {
-			Debug.LogError("Arguments to pathfinding threads must be of type ThreadStartInfo\n"+e);
-			throw new System.ArgumentException("Argument must be of type ThreadStartInfo", e);
+			Debug.LogError("Arguments to pathfinding threads must be of obj ThreadStartInfo\n"+e);
+			throw new System.ArgumentException("Argument must be of obj ThreadStartInfo", e);
 		}
 
 		int numPaths = 0;

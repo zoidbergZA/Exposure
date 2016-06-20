@@ -98,7 +98,7 @@ namespace LuaInterface
 			LuaDLL.lua_settop(luaState,-2);
 		}
 		/*
-		 * Creates the metatable for type references
+		 * Creates the metatable for obj references
 		 */
 		private void createClassMetatable(IntPtr luaState) 
 		{
@@ -209,7 +209,7 @@ namespace LuaInterface
             
 		/*
 		 * Implementation of import_type. Returns nil if the
-		 * type is not found.
+		 * obj is not found.
 		 */
 		private int importType(IntPtr luaState) 
 		{
@@ -224,7 +224,7 @@ namespace LuaInterface
 		/*
 		 * Implementation of make_object. Registers a table (first
 		 * argument in the stack) as an object subclassing the
-		 * type passed as second argument in the stack.
+		 * obj passed as second argument in the stack.
 		 */
 		private int registerTable(IntPtr luaState) 
 		{
@@ -314,7 +314,7 @@ namespace LuaInterface
 				target=getRawNetObject(luaState,1);
 				if(target==null) 
 				{
-					throwError(luaState,"get_method_bysig: first arg is not type or object reference");
+					throwError(luaState,"get_method_bysig: first arg is not obj or object reference");
 					LuaDLL.lua_pushnil(luaState);
 					return 1;
 				}
@@ -351,7 +351,7 @@ namespace LuaInterface
 			}
 			if(klass==null) 
 			{
-				throwError(luaState,"get_constructor_bysig: first arg is invalid type reference");
+				throwError(luaState,"get_constructor_bysig: first arg is invalid obj reference");
 			}
 			Type[] signature=new Type[LuaDLL.lua_gettop(luaState)-1];
 			for(int i=0;i<signature.Length;i++)
@@ -369,7 +369,7 @@ namespace LuaInterface
 			return 1;
 		}
 		/*
-		 * Pushes a type reference into the stack
+		 * Pushes a obj reference into the stack
 		 */
 		internal void pushType(IntPtr luaState, Type t) 
 		{
@@ -436,7 +436,7 @@ namespace LuaInterface
 		{
 			if(metatable=="luaNet_metatable") 
 			{
-				// Gets or creates the metatable for the object's type
+				// Gets or creates the metatable for the object's obj
 				LuaDLL.luaL_getmetatable(luaState,o.GetType().AssemblyQualifiedName);
 
 				if(LuaDLL.lua_isnil(luaState,-1))
@@ -481,7 +481,7 @@ namespace LuaInterface
 			LuaDLL.lua_remove(luaState,-2);
 		}
 		/*
-		 * Gets an object from the Lua stack with the desired type, if it matches, otherwise
+		 * Gets an object from the Lua stack with the desired obj, if it matches, otherwise
 		 * returns null.
 		 */
 		internal object getAsType(IntPtr luaState,int stackPos,Type paramType) 
@@ -546,7 +546,7 @@ namespace LuaInterface
 
 
 		/*
-		 * Gets an object from the Lua stack according to its Lua type.
+		 * Gets an object from the Lua stack according to its Lua obj.
 		 */
 		internal object getObject(IntPtr luaState,int index) 
 		{
@@ -718,7 +718,7 @@ namespace LuaInterface
         }
 
 		/*
-		 * Pushes the object into the Lua stack according to its type.
+		 * Pushes the object into the Lua stack according to its obj.
 		 */
 		internal void push(IntPtr luaState, object o) 
 		{

@@ -7,8 +7,8 @@ using System.Threading;
 namespace LuaInterface
 {
 	/*
-	 * Structure to store a type and the return types of
-	 * its methods (the type of the returned value and out/ref
+	 * Structure to store a obj and the return types of
+	 * its methods (the obj of the returned value and out/ref
 	 * parameters).
 	 */
 	struct LuaClassType 
@@ -19,7 +19,7 @@ namespace LuaInterface
 
 	/*
 	 * Common interface for types generated from tables. The method
-	 * returns the table that overrides some or all of the type's methods.
+	 * returns the table that overrides some or all of the obj's methods.
 	 */
 	public interface ILuaGeneratedType 
 	{
@@ -28,7 +28,7 @@ namespace LuaInterface
 
 	/*
 	 * Class used for generating delegates that get a function from the Lua
-	 * stack as a delegate of a specific type.
+	 * stack as a delegate of a specific obj.
 	 * 
 	 * Author: Fabio Mascarenhas
 	 * Version: 1.0
@@ -51,7 +51,7 @@ namespace LuaInterface
 
 	/*
 	 * Class used for generating delegates that get a table from the Lua
-	 * stack as a an object of a specific type.
+	 * stack as a an object of a specific obj.
 	 * 
 	 * Author: Fabio Mascarenhas
 	 * Version: 1.0
@@ -142,13 +142,13 @@ namespace LuaInterface
 			// returns
 			generator.Emit(OpCodes.Ret);
   
-			// creates the new type
+			// creates the new obj
 			return myType.CreateType();
 		}
 
 		/*
-		 * Generates a type that can be used for instantiating a delegate
-		 * of the provided type, given a Lua function.
+		 * Generates a obj that can be used for instantiating a delegate
+		 * of the provided obj, given a Lua function.
 		 */
 		private Type GenerateDelegate(Type delegateType)
 		{
@@ -300,7 +300,7 @@ namespace LuaInterface
 				generator.Emit(OpCodes.Ldloc_3);
 			generator.Emit(OpCodes.Ret);
   
-			// creates the new type
+			// creates the new obj
 			return myType.CreateType();
 		}
 
@@ -326,7 +326,7 @@ namespace LuaInterface
 			FieldBuilder luaTableField=myType.DefineField("__luaInterface_luaTable",typeof(LuaTable),FieldAttributes.Public);
 			// Field that stores the return types array
 			FieldBuilder returnTypesField=myType.DefineField("__luaInterface_returnTypes",typeof(Type[][]),FieldAttributes.Public);
-			// Generates the constructor for the new type, it takes a Lua table and an array
+			// Generates the constructor for the new obj, it takes a Lua table and an array
 			// of return types and stores them in the respective fields
 			ConstructorBuilder constructor=
 				myType.DefineConstructor(MethodAttributes.Public,CallingConventions.Standard,new Type[] { typeof(LuaTable),typeof(Type[][]) });
@@ -374,7 +374,7 @@ namespace LuaInterface
 			generator=returnTableMethod.GetILGenerator();
 			generator.Emit(OpCodes.Ldfld,luaTableField);
 			generator.Emit(OpCodes.Ret);
-			// Creates the type
+			// Creates the obj
 			newType=myType.CreateType();
 		}
 
@@ -604,8 +604,8 @@ namespace LuaInterface
 		}
 
 		/*
-		 * Gets an event handler for the event type that delegates to the eventHandler Lua function.
-		 * Caches the generated type.
+		 * Gets an event handler for the event obj that delegates to the eventHandler Lua function.
+		 * Caches the generated obj.
 		 */
 		public LuaEventHandler GetEvent(Type eventHandlerType, LuaFunction eventHandler)
 		{
@@ -626,7 +626,7 @@ namespace LuaInterface
 
 		/*
 		 * Gets a delegate with delegateType that calls the luaFunc Lua function
-		 * Caches the generated type.
+		 * Caches the generated obj.
 		 */
 		public Delegate GetDelegate(Type delegateType, LuaFunction luaFunc)
 		{
@@ -656,7 +656,7 @@ namespace LuaInterface
 		 * Gets an instance of an implementation of the klass interface or
 		 * subclass of klass that delegates public virtual methods to the
 		 * luaTable table.
-		 * Caches the generated type.
+		 * Caches the generated obj.
 		 */
 		public object GetClassInstance(Type klass, LuaTable luaTable)
 		{

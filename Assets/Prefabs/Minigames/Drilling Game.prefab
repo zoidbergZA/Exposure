@@ -169,7 +169,6 @@ GameObject:
   - 224: {fileID: 22425118}
   - 222: {fileID: 22291486}
   - 114: {fileID: 11480538}
-  - 114: {fileID: 11483332}
   m_Layer: 5
   m_Name: FlashTile
   m_TagString: GroundTile
@@ -285,7 +284,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 437996}
   - 114: {fileID: 11439368}
-  - 114: {fileID: 11438222}
   m_Layer: 0
   m_Name: Drilling Game
   m_TagString: Untagged
@@ -770,7 +768,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ffdf42aad02cb491499981c040c252e1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7839eb16c92a9458eba8c3c6287f4dfd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -778,17 +776,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11438222
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 163044}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fd19d0877a81244f8b918fe57ab911e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11439368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -807,14 +794,20 @@ MonoBehaviour:
   slideSpeed: 80
   diamondValue: 1
   jumpPhaseTime: 0.85
-  panelSlidingTime: 1
-  AutoWin: 0
+  panelSlidingTime: 1.5
+  movementType: 0
   levels:
   - {fileID: 4900000, guid: 8ae44b68697ff244f8a1272492c267ca, type: 3}
   - {fileID: 4900000, guid: ff890c93dec41471ab50ef647e326cac, type: 3}
   - {fileID: 4900000, guid: 6b3f2c855624f436496c71b2626814b8, type: 3}
   - {fileID: 4900000, guid: 71111eca0c88c44ac8edd1ef596365b1, type: 3}
   - {fileID: 4900000, guid: a8f7c298215474d8aa5d836f7a1bd302, type: 3}
+  JsonLevels:
+  - {fileID: 4900000, guid: 61afa734d421f5d47af38a4da67ce2c7, type: 3}
+  - {fileID: 4900000, guid: 61afa734d421f5d47af38a4da67ce2c7, type: 3}
+  - {fileID: 4900000, guid: 61afa734d421f5d47af38a4da67ce2c7, type: 3}
+  - {fileID: 4900000, guid: 61afa734d421f5d47af38a4da67ce2c7, type: 3}
+  - {fileID: 4900000, guid: 61afa734d421f5d47af38a4da67ce2c7, type: 3}
 --- !u!114 &11446804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -933,7 +926,7 @@ MonoBehaviour:
   - {fileID: 11410496, guid: ee1561fa950831c4fb6076f750fd19f4, type: 2}
   - {fileID: 11447836, guid: c3273043cb3e8f9469ad2eee5e283638, type: 2}
   flashTile: {fileID: 11480538}
-  flashTileFadeTime: 1.6
+  flashFadeSpeed: 3
 --- !u!114 &11459920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1141,17 +1134,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11483332
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a58b589ab0b134684f60b81288944a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11489110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1400,7 +1382,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -527, y: -206}
+  m_AnchoredPosition: {x: -525.4, y: -207.9}
   m_SizeDelta: {x: 87, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22410832
@@ -1436,7 +1418,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70, y: 70}
+  m_SizeDelta: {x: 71, y: 71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22424550
 RectTransform:
@@ -1469,8 +1451,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70, y: 70}
+  m_AnchoredPosition: {x: 2, y: 0}
+  m_SizeDelta: {x: 71, y: 71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22425266
 RectTransform:
@@ -1559,8 +1541,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -62, y: -72}
-  m_SizeDelta: {x: 1098, y: 690}
+  m_AnchoredPosition: {x: -80, y: -72}
+  m_SizeDelta: {x: 1214, y: 696}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22460926
 RectTransform:
@@ -1576,8 +1558,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: 0.2}
-  m_SizeDelta: {x: 81.98, y: 284}
+  m_AnchoredPosition: {x: -3, y: 0}
+  m_SizeDelta: {x: 83, y: 284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22462298
 RectTransform:
@@ -1671,7 +1653,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -78.7, y: 5.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22473294
@@ -1727,7 +1709,7 @@ RectTransform:
   m_RootOrder: 5
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -358.2, y: 311.6}
+  m_AnchoredPosition: {x: -357.5, y: 308.2}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22480818

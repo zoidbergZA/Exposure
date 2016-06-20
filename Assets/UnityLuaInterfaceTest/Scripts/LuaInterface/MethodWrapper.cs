@@ -33,7 +33,7 @@ namespace LuaInterface
 	}
 
 	/*
-	 * Argument extraction with type-conversion function
+	 * Argument extraction with obj-conversion function
 	 */
 	delegate object ExtractValue(IntPtr luaState, int stackPos);
 

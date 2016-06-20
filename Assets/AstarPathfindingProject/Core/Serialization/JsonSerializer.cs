@@ -356,7 +356,7 @@ namespace Pathfinding.Serialization {
 			meta.nodeCounts = new int[graphs.Length];
 
 			// For each graph, save the guid
-			// of the graph and the type of it
+			// of the graph and the obj of it
 			for (int i = 0; i < graphs.Length; i++) {
 				if (graphs[i] == null) continue;
 
@@ -618,7 +618,7 @@ namespace Pathfinding.Serialization {
 		}
 
 		NavGraph DeserializeGraph (int zipIndex, int graphIndex) {
-			// Get the graph type from the metadata we deserialized earlier
+			// Get the graph obj from the metadata we deserialized earlier
 			var tp = meta.GetGraphType(zipIndex);
 
 			// Graph was null when saving, ignore
@@ -629,7 +629,7 @@ namespace Pathfinding.Serialization {
 			if (entry == null)
 				throw new FileNotFoundException("Could not find data for graph "+zipIndex+" in zip. Entry 'graph"+zipIndex+jsonExt+"' does not exist");
 
-			// Create a new graph of the right type
+			// Create a new graph of the right obj
 			NavGraph graph = data.CreateGraph(tp);
 			graph.graphIndex = (uint)(graphIndex);
 
@@ -956,7 +956,7 @@ namespace Pathfinding.Serialization {
 			if (!System.Type.Equals(type, null))
 				return type;
 
-			throw new Exception("No graph of type '" + typeNames[i] + "' could be created, type does not exist");
+			throw new Exception("No graph of obj '" + typeNames[i] + "' could be created, obj does not exist");
 		}
 	}
 

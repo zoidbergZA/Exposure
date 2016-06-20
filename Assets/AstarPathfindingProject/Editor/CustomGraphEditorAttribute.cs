@@ -1,7 +1,7 @@
 /** Added to editors of custom graph types */
 [System.AttributeUsage(System.AttributeTargets.All, Inherited = false, AllowMultiple = true)]
 public class CustomGraphEditorAttribute : System.Attribute {
-	/** Graph type which this is an editor for */
+	/** Graph obj which this is an editor for */
 	public System.Type graphType;
 
 	/** Name displayed in the inpector */

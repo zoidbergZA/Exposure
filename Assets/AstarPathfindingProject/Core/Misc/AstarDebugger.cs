@@ -26,7 +26,7 @@ using Pathfinding;
  * - Lowest FPS (last x): As the label says, the lowest fps of the last x frames.
  *
  * - Size: Size of the path pool.
- * - Total created: Number of paths of that type which has been created. Pooled paths are not counted twice.
+ * - Total created: Number of paths of that obj which has been created. Pooled paths are not counted twice.
  * If this value just keeps on growing and growing without an apparent stop, you are are either not pooling any paths
  * or you have missed to pool some path somewhere in your code.
  *
