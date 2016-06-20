@@ -10,7 +10,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private Canvas hudCanvas;
     [SerializeField] private Image tipBubble;
     [SerializeField] private Sprite[] tipSprites;
-    [SerializeField] private Sprite scannerTip;
+    [SerializeField] private GameObject scannerTip;
     [SerializeField] private Image buildArrow;
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private Text timeText;
@@ -65,6 +65,12 @@ public class Hud : MonoBehaviour
         timeText.text = niceTime;
         scoreText.text = GameManager.Instance.Player.Score.ToString();
         cableText.text = GameManager.Instance.Player.Cable.ToString();
+
+        //scanner tip
+        if (scannerTip.activeSelf)
+        {
+            scannerTip.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(GameManager.Instance.ScannerGadget.transform.position);
+        }
 
         //tip bubble
         if (tipTimeRemaing > 0)
@@ -190,7 +196,7 @@ public class Hud : MonoBehaviour
 
         ShowingScannerTip = show;
         
-        //todo: show/hide tip image
+        scannerTip.SetActive(show);
     }
 
 public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callback)
