@@ -165,4 +165,9 @@ public class Driller : MonoBehaviour
     {
         lives += amount;
     }
+
+    public void ActivateImage(Image arrow, bool activate)
+    {
+        arrow.enabled = activate;
+    }
 }

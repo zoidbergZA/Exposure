@@ -134,6 +134,7 @@ public class DrillingGame : Minigame
         Driller.Drill.gameObject.SetActive(true);
         Driller.Drill.transform.SetAsLastSibling();
         if (levelsCounter != 0 && levelsCounter != 1) Driller.SwitchAnimation("goToSliding", true);
+        if (levelsCounter == 0) Driller.ActivateImage(Driller.ArrowDown, true);
 
         //cheat flag to skip mini-game
         if (!GameManager.Instance.MiniGameAutoWin) state = DrillingGameState.SLIDING;
@@ -242,6 +243,7 @@ public class DrillingGame : Minigame
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.RIGHT;
+                        if (levelsCounter == 1) Driller.ActivateImage(Driller.ArrowRight, false);
                     }
                     break;
                 case DrillingDirection.LEFT:
@@ -250,6 +252,7 @@ public class DrillingGame : Minigame
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.LEFT;
+                        if (levelsCounter == 1) Driller.ActivateImage(Driller.ArrowLeft, false);
                     }
                     break;
                 case DrillingDirection.UP:
@@ -279,6 +282,12 @@ public class DrillingGame : Minigame
             {
                 makeDrill = true;
                 Driller.SwitchAnimation("shouldJump", true);
+                if (levelsCounter == 0) Driller.ActivateImage(Driller.ArrowDown, false);
+                else if (levelsCounter == 1)
+                {
+                    Driller.ActivateImage(Driller.ArrowLeft, true);
+                    Driller.ActivateImage(Driller.ArrowRight, true);
+                }
                 DrillDirection = DrillingDirection.DOWN;
             }
         }
