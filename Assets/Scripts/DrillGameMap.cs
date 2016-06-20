@@ -32,6 +32,7 @@ public class DrillGameMap : MonoBehaviour
     //vars for JSON parser
     private string jsonString;
     private JsonData itemData;
+    private bool isExploded = false;
 
     public const int TILE_SIZE = 71, MAP_WIDTH = 13, MAP_HEIGHT = 8;
 
@@ -130,6 +131,8 @@ public class DrillGameMap : MonoBehaviour
         if (rightWall.GetComponent<BoxCollider2D>().enabled) rightWall.GetComponent<BoxCollider2D>().enabled = false;
         if (leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = false;
         if (floor.GetComponent<BoxCollider2D>().enabled) floor.GetComponent<BoxCollider2D>().enabled = false;
+
+        isExploded = false;
     }
 
     public void AddPipePart(DrillingGameTile pipePiece)
@@ -182,7 +185,7 @@ public class DrillGameMap : MonoBehaviour
 
     private void processWaterProgression()
     {
-        if (pipeParts.Count == 1)
+        if (pipeParts.Count == 1 && !isExploded)
         {
             foreach (DrillingGameTile tile in toBeExploded)
             {
@@ -190,6 +193,7 @@ public class DrillGameMap : MonoBehaviour
                 LeanTween.scale(tile.GetComponent<RectTransform>(), tile.GetComponent<RectTransform>().localScale * 1.1f, 0.8f)
                         .setEase(LeanTweenType.punch);
             }
+            isExploded = true;
         }
         else if (pipeParts.Count == 2)
         {

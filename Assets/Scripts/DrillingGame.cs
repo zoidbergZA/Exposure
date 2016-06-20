@@ -243,7 +243,11 @@ public class DrillingGame : Minigame
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.RIGHT;
-                        if (levelsCounter == 1) Driller.ActivateImage(Driller.ArrowRight, false);
+                        if (levelsCounter == 1)
+                        {
+                            Driller.ActivateImage(Driller.ArrowRight, false);
+                            Driller.ActivateImage(Driller.ArrowLeft, false);
+                        }
                     }
                     break;
                 case DrillingDirection.LEFT:
@@ -252,7 +256,11 @@ public class DrillingGame : Minigame
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.LEFT;
-                        if (levelsCounter == 1) Driller.ActivateImage(Driller.ArrowLeft, false);
+                        if (levelsCounter == 1)
+                        {
+                            Driller.ActivateImage(Driller.ArrowLeft, false);
+                            Driller.ActivateImage(Driller.ArrowRight, false);
+                        }
                     }
                     break;
                 case DrillingDirection.UP:
