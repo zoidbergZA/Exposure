@@ -293,8 +293,10 @@ public class DrillingGame : Minigame
         switch(PrevDrillDirection)
         {
             case DrillingDirection.RIGHT:
+                processPreviousDirection(DrillingDirection.RIGHT, 2, new Vector2(0, -TILE_SIZE));
                 break;
             case DrillingDirection.LEFT:
+                processPreviousDirection(DrillingDirection.LEFT, 4, new Vector2(0, -TILE_SIZE));
                 break;
             case DrillingDirection.NONE:
                 if (!Driller.Animator.GetBool("isDrillingDown")) Driller.SwitchAnimation("isDrillingDown", true);
@@ -319,8 +321,10 @@ public class DrillingGame : Minigame
         switch (PrevDrillDirection)
         {
             case DrillingDirection.DOWN:
+                processPreviousDirection(DrillingDirection.DOWN, 5, new Vector2(-TILE_SIZE, 0));
                 break;
             case DrillingDirection.UP:
+                processPreviousDirection(DrillingDirection.UP, 2, new Vector2(-TILE_SIZE, 0));
                 break;
             case DrillingDirection.NONE:
                 if (!Driller.Animator.GetBool("isDrillingLeft")) Driller.SwitchAnimation("isDrillingLeft", true);
@@ -345,8 +349,10 @@ public class DrillingGame : Minigame
         switch (PrevDrillDirection)
         {
             case DrillingDirection.DOWN:
+                processPreviousDirection(DrillingDirection.DOWN, 3, new Vector2(TILE_SIZE, 0));
                 break;
             case DrillingDirection.UP:
+                processPreviousDirection(DrillingDirection.UP, 4, new Vector2(TILE_SIZE, 0));
                 break;
             case DrillingDirection.NONE:
                 if (!Driller.Animator.GetBool("isDrillingRight")) Driller.SwitchAnimation("isDrillingRight", true);
@@ -371,8 +377,10 @@ public class DrillingGame : Minigame
         switch (PrevDrillDirection)
         {
             case DrillingDirection.RIGHT:
+                processPreviousDirection(DrillingDirection.RIGHT, 5, new Vector2(0, TILE_SIZE));
                 break;
             case DrillingDirection.LEFT:
+                processPreviousDirection(DrillingDirection.LEFT, 3, new Vector2(0, TILE_SIZE));
                 break;
             case DrillingDirection.NONE:
                 if (!Driller.Animator.GetBool("isDrillingUp")) Driller.SwitchAnimation("isDrillingUp", true);
@@ -411,6 +419,7 @@ public class DrillingGame : Minigame
         }
     }
 
+    private void processPreviousDirection(DrillingDirection prevDir, int pCurveId, Vector2 flashTileOffset)
     {
         switch(prevDir)
         {
@@ -424,7 +433,9 @@ public class DrillingGame : Minigame
                 {
                     Driller.SwitchAnimation("isDrillingRight", false);
                     Map.instantiatePipe(targetColumn, targetRow - 1, 0, mapPanel);
+                    curveId = pCurveId;
                     if (targetColumn < MAP_WIDTH - 1) targetColumn++;
+                    Map.DoFlashTile(new Vector2(Driller.Position.x + flashTileOffset.x, Driller.Position.y + flashTileOffset.y));
                     PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
@@ -438,7 +449,9 @@ public class DrillingGame : Minigame
                 {
                     Driller.SwitchAnimation("isDrillingLeft", false);
                     Map.instantiatePipe(targetColumn, targetRow - 1, 0, mapPanel);
+                    curveId = pCurveId;
                     if (targetColumn > 0) targetColumn--;
+                    Map.DoFlashTile(new Vector2(Driller.Position.x + flashTileOffset.x, Driller.Position.y + flashTileOffset.y));
                     PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
@@ -452,7 +465,9 @@ public class DrillingGame : Minigame
                 {
                     Driller.SwitchAnimation("isDrillingDown", false);
                     Map.instantiatePipe(targetColumn, targetRow - 1, 1, mapPanel);
+                    curveId = pCurveId;
                     if (targetRow < MAP_HEIGHT - 1) targetRow++;
+                    Map.DoFlashTile(new Vector2(Driller.Position.x + flashTileOffset.x, Driller.Position.y + flashTileOffset.y));
                     PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
@@ -466,7 +481,9 @@ public class DrillingGame : Minigame
                 {
                     Driller.SwitchAnimation("isDrillingUp", false);
                     Map.instantiatePipe(targetColumn, targetRow - 1, 1, mapPanel);
+                    curveId = pCurveId;
                     if (targetRow > 0) targetRow--;
+                    Map.DoFlashTile(new Vector2(Driller.Position.x + flashTileOffset.x, Driller.Position.y + flashTileOffset.y));
                     PrevDrillDirection = DrillingDirection.NONE;
                 }
                 break;
