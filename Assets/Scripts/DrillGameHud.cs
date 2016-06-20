@@ -11,7 +11,7 @@ public class DrillGameHud : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Image brokenDrillToast;
     [SerializeField] private UnityEngine.UI.Image brokenPipeToast;
     [SerializeField] private UnityEngine.UI.Image explodeBombToast;
-    [SerializeField] private UnityEngine.UI.Image waterBar;
+    [SerializeField] private UnityEngine.UI.Image pipeProgressBar;
     [SerializeField] private UnityEngine.UI.Image steamImage;
     [SerializeField] private UnityEngine.UI.Image drillLife;
 
@@ -19,7 +19,7 @@ public class DrillGameHud : MonoBehaviour
     public UnityEngine.UI.Image EndOkToast { get { return endOkToast; } }
     public UnityEngine.UI.Image BrokenDrillToast { get { return brokenDrillToast; } }
     public UnityEngine.UI.Image BrokenPipeToast { get { return brokenPipeToast; } }
-    public UnityEngine.UI.Image WaterBar { get { return waterBar; } }
+    public UnityEngine.UI.Image WaterBar { get { return pipeProgressBar; } }
     public UnityEngine.UI.Image SteamImage { get { return steamImage; } }
     public UnityEngine.UI.Image DrillLife { get { return drillLife; } }
     public UnityEngine.UI.Image ExplodeBombToast { get { return explodeBombToast; } }
@@ -102,7 +102,7 @@ public class DrillGameHud : MonoBehaviour
 
     private void updateProgressBars()
     {
-        if (waterBar && Map.GetPipePartsCount <= 3) waterBar.fillAmount = Map.GetPipePartsCount * 33.33333334f / 100f;
+        if (pipeProgressBar && Map.GetPipePartsCount <= 3) pipeProgressBar.fillAmount = Map.GetPipePartsCount * 33.33333334f / 100f;
         //to do update drill life depending on amount of life
         switch(Driller.Lives)
         {
@@ -155,7 +155,7 @@ public class DrillGameHud : MonoBehaviour
 
     public void Reset()
     {
-        waterBar.fillAmount = 0f;
+        pipeProgressBar.fillAmount = 0f;
         if (!GameManager.Instance.DrillingGame.IsRestarting) drillLife.fillAmount = 0.0f;
     }
 }

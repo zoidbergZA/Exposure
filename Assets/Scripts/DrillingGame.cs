@@ -26,8 +26,8 @@ public class DrillingGame : Minigame
     public const int TILE_SIZE = 71, MAP_WIDTH = 13, MAP_HEIGHT = 8;
     private DrillingGameState state;
     private Vector2 startDrillerPosition;
-    private Vector2 mainPanelActivePosition = new Vector2(0, 100);
-    private Vector2 mainPanelInactivePosition = new Vector2(0, -(Screen.height) - 700);
+    private Vector2 mainPanelActivePosition = new Vector2(0, -50);
+    private Vector2 mainPanelInactivePosition = new Vector2(0, -(Screen.height) - 800);
     private int targetColumn;
     private int targetRow;
     private int levelsCounter = 0;
@@ -45,7 +45,6 @@ public class DrillingGame : Minigame
     public DrillGameHud Hud { get; private set; }
     public MobileJoystick Joystick { get; private set; }
     public float DiamondValue { get { return diamondValue; } }
-    public bool ReachedBottom(int bottom) { return Driller.Position.y <= startDrillerPosition.y - bottom; }
     public bool JoystickJustMoved { get; private set; }
 
     void Awake()
