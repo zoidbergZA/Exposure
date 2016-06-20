@@ -662,7 +662,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4b395d6444d4d8246afa0a161cc74caf, type: 2}
+  - {fileID: 2100000, guid: 4bd89396e3edbe24cbf0257ee38a4f0f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -2858,7 +2858,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4286479998
+        rgba: 4279186791
       minMaxState: 0
     startSize:
       scalar: 255.6
