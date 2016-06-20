@@ -8,6 +8,7 @@ public class GridBuilder : Minigame
     
     [SerializeField] private float connectionTimeOut = 2f;
     [SerializeField] private float cameraSwoopTime = 1f;
+    [SerializeField] private float cityCinematicDuration = 8f;
 
     private float lastConnectionAt;
     private int nextConnectable;
@@ -49,7 +50,7 @@ public class GridBuilder : Minigame
             PuzzlePath.Reset();
         }
 
-        StartCoroutine(GoToNormalStateAfter(4f));
+        StartCoroutine(GoToNormalStateAfter(cityCinematicDuration));
     }
 
     public void MakeConnection(Connectable connectable)
