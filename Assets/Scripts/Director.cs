@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Director : MonoBehaviour
 {
@@ -67,9 +68,9 @@ public class Director : MonoBehaviour
         shaker.Shake();
     }
 
-    public void Shake(Transform other)
+    public void Shake(Transform other, List<Transform> others = null)
     {
-        shaker.Shake(other);
+        shaker.Shake(other, others);
     }
 
     private IEnumerator DelayedStart(Modes newMode, Transform newTargetTransform, float delay)

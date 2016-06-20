@@ -927,6 +927,8 @@ MonoBehaviour:
   - {fileID: 11447836, guid: c3273043cb3e8f9469ad2eee5e283638, type: 2}
   flashTile: {fileID: 11480538}
   flashFadeSpeed: 3
+  crackedBlock1: {fileID: 21300000, guid: 7ddd04cafa5c54ec89d0d39b39f97b32, type: 3}
+  crackedBlock2: {fileID: 21300000, guid: fdb59ede0b05f4100b22daec42fba81b, type: 3}
 --- !u!114 &11459920
 MonoBehaviour:
   m_ObjectHideFlags: 1

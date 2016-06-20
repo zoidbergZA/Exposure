@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Shaker : MonoBehaviour 
 {
@@ -11,6 +12,7 @@ public class Shaker : MonoBehaviour
     public bool IsShaking { get; private set; }
 
     private Transform other = null;
+    private List<Transform> others = null;
 
     void Start()
     {
@@ -40,8 +42,26 @@ public class Shaker : MonoBehaviour
         //        pos.y = displacement.x;
         //        pos.x = displacement.y;
         //        pos.z = displacement.z;
-        if (!other) transform.localPosition = displacement;
-        else other.transform.localPosition = displacement;
+        if (!other && others == null)
+        {
+            transform.localPosition = displacement;
+        }
+        else
+        {
+            if (others != null)
+            {
+                foreach (Transform item in others)
+                {
+                    //not working properly
+                    //if (item) item.gameObject.GetComponent<RectTransform>().anchoredPosition = 
+                    //    item.gameObject.GetComponent<RectTransform>().anchoredPosition + (Vector2)displacement;
+                }
+            }
+            else
+            {
+                if (other) other.transform.localPosition = displacement;
+            }
+        }
 
         shakeMagnitude *= decay;
 
@@ -58,9 +78,10 @@ public class Shaker : MonoBehaviour
         shakeMagnitude = strength;
     }
 
-    public void Shake(Transform other)
+    public void Shake(Transform other, List<Transform> others)
     {
-        this.other = other;
+        if (others == null) this.other = other;
+        else this.others = others;
         IsShaking = true;
         shakeMagnitude = strength;
     }

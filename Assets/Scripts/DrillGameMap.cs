@@ -11,8 +11,8 @@ public class DrillGameMap : MonoBehaviour
     [SerializeField] private DrillingGameTile[] pipePrefabs;
     [SerializeField] private UnityEngine.UI.Image flashTile;
     [SerializeField] private float flashFadeSpeed = 3.0f;
-    [SerializeField] private UnityEngine.UI.Image crackedBlock1;
-    [SerializeField] private UnityEngine.UI.Image crackedBlock2;
+    [SerializeField] private Sprite crackedBlock1;
+    [SerializeField] private Sprite crackedBlock2;
 
     public bool TriggerFlash { get; set; }
     public Vector2 FlashCoords { get; set; }
@@ -27,6 +27,7 @@ public class DrillGameMap : MonoBehaviour
     private DrillingGameTile[,] tiles;
     private List<DrillingGameTile> tilesList = new List<DrillingGameTile>();
     private List<DrillingGameTile> bottomRow = new List<DrillingGameTile>();
+    private List<Transform> bottomRowTransforms = new List<Transform>();
     private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
     private List<DrillingGameTile> water = new List<DrillingGameTile>();
     private List<DrillingGameTile> blockSet_1 = new List<DrillingGameTile>();
@@ -51,7 +52,7 @@ public class DrillGameMap : MonoBehaviour
     void Update()
     {
         updateWallsEnabling();
-        checkWaterAndDestroyBottom();
+        processWaterProgression();
         if (flashTile.color.a > 0) flashTile.color = new Color(1, 1, 1, flashTile.color.a - Time.deltaTime * flashFadeSpeed);
         //Debug.Log(GetCoordinateAt(GameManager.Instance.DrillingGame.Driller.Position).ToString());
     }
@@ -112,7 +113,11 @@ public class DrillGameMap : MonoBehaviour
                         t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     tilesList.Add(t);
-                    if (id == 6 && i == 8) bottomRow.Add(t);
+                    if (id == 6 && i == 8)
+                    {
+                        bottomRow.Add(t);
+                        bottomRowTransforms.Add(t.gameObject.transform);
+                    }
                 }
             }
         }
@@ -181,12 +186,31 @@ public class DrillGameMap : MonoBehaviour
         }
     }
 
-    private void checkWaterAndDestroyBottom()
+    private void processWaterProgression()
     {
-        if (water.Count == 3) triggerSet(bottomRow);
+        if (water.Count == 1)
+        {
+            GameManager.Instance.Director.Shake(null, bottomRowTransforms);
+            foreach (DrillingGameTile tile in bottomRow)
+            {
+                tile.GetComponent<UnityEngine.UI.Image>().sprite = crackedBlock1;
+            }
+        }
+        else if (water.Count == 2)
+        {
+            GameManager.Instance.Director.Shake(null, bottomRowTransforms);
+            foreach (DrillingGameTile tile in bottomRow)
+            {
+                tile.GetComponent<UnityEngine.UI.Image>().sprite = crackedBlock2;
+            }
+        }
+        else if (water.Count == 3)
+        {
+            triggerSetDestruction(bottomRow);
+        }
     }
 
-    private void triggerSet(List<DrillingGameTile> set)
+    private void triggerSetDestruction(List<DrillingGameTile> set)
     {
         foreach (DrillingGameTile item in set) if (item != null) Destroy(item.gameObject);
     }
