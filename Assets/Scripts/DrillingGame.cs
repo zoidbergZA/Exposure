@@ -85,7 +85,7 @@ public class DrillingGame : Minigame
         if (Input.GetKeyDown(KeyCode.N)) Driller.Body.mass += 0.01f;
         if (Input.GetKeyDown(KeyCode.M)) Driller.Body.mass -= 0.01f;
 
-        Debug.Log(state.ToString());
+        Debug.Log(Driller.Animator.GetBool("shouldJump"));
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
