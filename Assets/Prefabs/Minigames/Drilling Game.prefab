@@ -901,7 +901,7 @@ MonoBehaviour:
   mapPanel: {fileID: 22408228}
   MainPanel: {fileID: 22467228}
   drillSpeed: 90
-  slideSpeed: 80
+  slideSpeed: 120
   diamondValue: 1
   jumpPhaseTime: 0.85
   panelSlidingTime: 1.5
@@ -1119,6 +1119,7 @@ MonoBehaviour:
   flashTile: {fileID: 11480538}
   flashFadeSpeed: 3
   crackedBlock: {fileID: 21300000, guid: fdb59ede0b05f4100b22daec42fba81b, type: 3}
+  pipePart: {fileID: 21300000, guid: 374fe63bc4e3ed34fb3950d76a651b8a, type: 3}
 --- !u!114 &11459920
 MonoBehaviour:
   m_ObjectHideFlags: 1

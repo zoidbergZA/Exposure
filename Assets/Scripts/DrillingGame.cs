@@ -130,15 +130,20 @@ public class DrillingGame : Minigame
     #region
     private void handleActivation()
     {
-        Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
         Driller.Drill.gameObject.SetActive(true);
         Driller.Drill.transform.SetAsLastSibling();
         if (levelsCounter != 0 && levelsCounter != 1) Driller.SwitchAnimation("goToSliding", true);
-        if (levelsCounter == 0) Driller.ActivateImage(Driller.ArrowDown, true);
 
-        //cheat flag to skip mini-game
-        if (!GameManager.Instance.MiniGameAutoWin) state = DrillingGameState.SLIDING;
-        else state = DrillingGameState.SUCCESS;
+        if (MainPanel.anchoredPosition == mainPanelActivePosition)
+        {
+            Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
+            Map.SwitchPipeTileSprite();
+            if (levelsCounter == 0) Driller.ActivateImage(Driller.ArrowDown, true);
+
+            //cheat flag to skip mini-game
+            if (!GameManager.Instance.MiniGameAutoWin) state = DrillingGameState.SLIDING;
+            else state = DrillingGameState.SUCCESS;
+        }
     }
 
     private void handleSlidingState()

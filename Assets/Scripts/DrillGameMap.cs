@@ -12,6 +12,7 @@ public class DrillGameMap : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Image flashTile;
     [SerializeField] private float flashFadeSpeed = 3.0f;
     [SerializeField] private Sprite crackedBlock;
+    [SerializeField] private Sprite pipePart;
 
     public bool TriggerFlash { get; set; }
     public Vector2 FlashCoords { get; set; }
@@ -32,6 +33,7 @@ public class DrillGameMap : MonoBehaviour
     //vars for JSON parser
     private string jsonString;
     private JsonData itemData;
+    private bool isCracked = false;
     private bool isExploded = false;
 
     public const int TILE_SIZE = 71, MAP_WIDTH = 13, MAP_HEIGHT = 8;
@@ -50,7 +52,7 @@ public class DrillGameMap : MonoBehaviour
     void Update()
     {
         updateWallsEnabling();
-        processWaterProgression();
+        processPipeProgression();
         if (flashTile.color.a > 0) flashTile.color = new Color(1, 1, 1, flashTile.color.a - Time.deltaTime * flashFadeSpeed);
     }
 
@@ -132,6 +134,7 @@ public class DrillGameMap : MonoBehaviour
         if (leftWall.GetComponent<BoxCollider2D>().enabled) leftWall.GetComponent<BoxCollider2D>().enabled = false;
         if (floor.GetComponent<BoxCollider2D>().enabled) floor.GetComponent<BoxCollider2D>().enabled = false;
 
+        isCracked = false;
         isExploded = false;
     }
 
@@ -183,9 +186,9 @@ public class DrillGameMap : MonoBehaviour
         }
     }
 
-    private void processWaterProgression()
+    private void processPipeProgression()
     {
-        if (pipeParts.Count == 1 && !isExploded)
+        if (pipeParts.Count == 1 && !isCracked && toBeExploded.Count != 0)
         {
             foreach (DrillingGameTile tile in toBeExploded)
             {
@@ -193,11 +196,21 @@ public class DrillGameMap : MonoBehaviour
                 LeanTween.scale(tile.GetComponent<RectTransform>(), tile.GetComponent<RectTransform>().localScale * 1.1f, 0.8f)
                         .setEase(LeanTweenType.punch);
             }
-            isExploded = true;
+            isCracked = true;
         }
-        else if (pipeParts.Count == 2)
+        else if (pipeParts.Count == 2 && !isExploded && toBeExploded.Count != 0)
         {
             triggerSetDestruction(toBeExploded);
+            GameManager.Instance.Director.Shake(GameManager.Instance.DrillingGame.gameObject.transform);
+            isExploded = true;
+        }
+    }
+
+    public void SwitchPipeTileSprite()
+    {
+        foreach (DrillingGameTile tile in UIpipeParts)
+        {
+            tile.GetComponent<UnityEngine.UI.Image>().sprite = pipePart;
         }
     }
 
