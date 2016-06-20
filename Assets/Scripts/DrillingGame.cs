@@ -31,7 +31,6 @@ public class DrillingGame : Minigame
     private int targetColumn;
     private int targetRow;
     private int levelsCounter = 0;
-    private int curveId = 0;
     private bool slidingLeft, makeDrill = false;
     private float jumpPhaseTimer;
 
@@ -45,7 +44,6 @@ public class DrillingGame : Minigame
     public DrillGameHud Hud { get; private set; }
     public MobileJoystick Joystick { get; private set; }
     public float DiamondValue { get { return diamondValue; } }
-    public bool JoystickJustMoved { get; private set; }
 
     void Awake()
     {
@@ -134,6 +132,7 @@ public class DrillingGame : Minigame
         Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
         Driller.Drill.gameObject.SetActive(true);
         Driller.Drill.transform.SetAsLastSibling();
+        if (levelsCounter != 0 && levelsCounter != 1) Driller.SwitchAnimation("goToSliding", true);
 
         //cheat flag to skip mini-game
         if (!GameManager.Instance.MiniGameAutoWin) state = DrillingGameState.SLIDING;
@@ -552,7 +551,6 @@ public class DrillingGame : Minigame
     {
         makeDrill = false;
         slidingLeft = false;
-        JoystickJustMoved = false;
         targetColumn = 0;
         targetRow = 0;
         if(!IsRestarting) LeanTween.move(MainPanel, mainPanelInactivePosition, panelSlidingTime);

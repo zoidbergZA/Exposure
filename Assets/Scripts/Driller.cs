@@ -76,6 +76,7 @@ public class Driller : MonoBehaviour
         animator.SetBool("isDrillingRight", false);
         animator.SetBool("isDrillingLeft", false);
         animator.SetBool("shouldJump", false);
+        animator.SetBool("goToSliding", false);
     }
 
     public void Reset(Vector2 startPosition)
