@@ -11,6 +11,8 @@ public class DrillGameMap : MonoBehaviour
     [SerializeField] private DrillingGameTile[] pipePrefabs;
     [SerializeField] private UnityEngine.UI.Image flashTile;
     [SerializeField] private float flashFadeSpeed = 3.0f;
+    [SerializeField] private UnityEngine.UI.Image crackedBlock1;
+    [SerializeField] private UnityEngine.UI.Image crackedBlock2;
 
     public bool TriggerFlash { get; set; }
     public Vector2 FlashCoords { get; set; }
