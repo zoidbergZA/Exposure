@@ -68,9 +68,9 @@ public class Director : MonoBehaviour
         shaker.Shake();
     }
 
-    public void Shake(Transform other, List<Transform> others = null)
+    public void Shake(Transform other)
     {
-        shaker.Shake(other, others);
+        shaker.Shake(other);
     }
 
     private IEnumerator DelayedStart(Modes newMode, Transform newTargetTransform, float delay)

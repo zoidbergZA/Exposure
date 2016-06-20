@@ -1,49 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="12" height="9" tilewidth="71" tileheight="71" nextobjectid="1">
- <tileset firstgid="1" name="New Tile Set" tilewidth="71" tileheight="72" tilecount="13">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="13" height="8" tilewidth="70" tileheight="70" nextobjectid="1">
+ <tileset firstgid="1" name="Mini-game" tilewidth="71" tileheight="72" tilecount="11">
   <tile id="0">
+   <properties>
+    <property name="explodable" value="1"/>
+   </properties>
    <image width="71" height="72" source="../Textures/Tiles Minigame/9_6_TileBlock.png"/>
   </tile>
   <tile id="1">
+   <properties>
+    <property name="explodable" value="0"/>
+   </properties>
    <image width="71" height="72" source="../Textures/Tiles Minigame/9_6_TileDiamond.png"/>
   </tile>
   <tile id="2">
+   <properties>
+    <property name="explodable" value="0"/>
+   </properties>
    <image width="71" height="72" source="../Textures/Tiles Minigame/9_6_TileElectricity.png"/>
   </tile>
   <tile id="3">
+   <properties>
+    <property name="explodable" value="0"/>
+   </properties>
    <image width="71" height="72" source="../Textures/Tiles Minigame/9_6_TileGreen.png"/>
   </tile>
   <tile id="4">
+   <properties>
+    <property name="explodable" value="0"/>
+   </properties>
    <image width="71" height="72" source="../Textures/Tiles Minigame/9_6_TileLife.png"/>
   </tile>
   <tile id="5">
+   <properties>
+    <property name="explodable" value="0"/>
+   </properties>
    <image width="71" height="72" source="../Textures/Tiles Minigame/9_6_TileMine.png"/>
   </tile>
   <tile id="6">
+   <properties>
+    <property name="explodable" value="1"/>
+   </properties>
    <image width="71" height="72" source="../Textures/Tiles Minigame/9_6_TileMineArea.png"/>
   </tile>
   <tile id="7">
+   <properties>
+    <property name="explodable" value="0"/>
+   </properties>
    <image width="70" height="72" source="../Textures/Tiles Minigame/9_6_TileOrange.png"/>
   </tile>
   <tile id="8">
+   <properties>
+    <property name="explodable" value="0"/>
+   </properties>
    <image width="71" height="72" source="../Textures/Tiles Minigame/9_6_TileRed.png"/>
   </tile>
   <tile id="9">
+   <properties>
+    <property name="explodable" value="0"/>
+   </properties>
    <image width="71" height="72" source="../Textures/Tiles Minigame/9_6_TileWater.png"/>
   </tile>
   <tile id="10">
+   <properties>
+    <property name="explodable" value="0"/>
+   </properties>
    <image width="71" height="72" source="../Textures/Tiles Minigame/9_6_TileYellow.png"/>
   </tile>
-  <tile id="11">
-   <image width="71" height="72" source="../Textures/Tiles Minigame/16_6_TileMineArea2.png"/>
-  </tile>
-  <tile id="12">
-   <image width="71" height="72" source="../Textures/Tiles Minigame/16_6_TileMineArea3.png"/>
-  </tile>
  </tileset>
- <layer name="Tile Layer 1" width="12" height="9">
+ <layer name="Tile Layer 1" width="13" height="8">
   <data encoding="base64" compression="zlib">
-   eJxjYWBgYCEBc5OIGZHYXFjkudDUMuIwA584CHMQwIxYMEyOCeoOfGpx2YNPLQxzQjE2OXYSMQBulgKN
+   eJyNjsEKACAIQy08mP7//3ZRGCOrw2Nsc6CKiAIj1ckjkTkSAPtbPj833nSMgRp4vmEqn01/27zw1NX8XKwDGxsyApY=
   </data>
  </layer>
 </map>

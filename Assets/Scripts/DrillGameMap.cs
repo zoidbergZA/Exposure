@@ -11,8 +11,7 @@ public class DrillGameMap : MonoBehaviour
     [SerializeField] private DrillingGameTile[] pipePrefabs;
     [SerializeField] private UnityEngine.UI.Image flashTile;
     [SerializeField] private float flashFadeSpeed = 3.0f;
-    [SerializeField] private Sprite crackedBlock1;
-    [SerializeField] private Sprite crackedBlock2;
+    [SerializeField] private Sprite crackedBlock;
 
     public bool TriggerFlash { get; set; }
     public Vector2 FlashCoords { get; set; }
@@ -27,16 +26,16 @@ public class DrillGameMap : MonoBehaviour
     private DrillingGameTile[,] tiles;
     private List<DrillingGameTile> tilesList = new List<DrillingGameTile>();
     private List<DrillingGameTile> bottomRow = new List<DrillingGameTile>();
-    private List<Transform> bottomRowTransforms = new List<Transform>();
     private List<DrillingGameTile> UIwater = new List<DrillingGameTile>();
     private List<DrillingGameTile> water = new List<DrillingGameTile>();
     private List<DrillingGameTile> blockSet_1 = new List<DrillingGameTile>();
     private List<DrillingGameTile> blockSet_2 = new List<DrillingGameTile>();
+    private List<DrillingGameTile> toBeDestructed = new List<DrillingGameTile>();
     //vars for JSON parser
     private string jsonString;
     private JsonData itemData;
 
-    public const int TILE_SIZE = 71, MAP_WIDTH = 12, MAP_HEIGHT = 9;
+    public const int TILE_SIZE = 71, MAP_WIDTH = 13, MAP_HEIGHT = 8;
 
     void Start()
     {
@@ -46,7 +45,6 @@ public class DrillGameMap : MonoBehaviour
         flashTile.color = new Color(1, 1, 1, 0);
         jsonString = File.ReadAllText(Application.dataPath + "/DrillingGameMaps/JSONTest.json");
         itemData = JsonMapper.ToObject(jsonString);
-        //Debug.Log(itemData["tilesets"][0]["tileproperties"][0]["explodable"].ToString());
     }
 
     void Update()
@@ -54,7 +52,6 @@ public class DrillGameMap : MonoBehaviour
         updateWallsEnabling();
         processWaterProgression();
         if (flashTile.color.a > 0) flashTile.color = new Color(1, 1, 1, flashTile.color.a - Time.deltaTime * flashFadeSpeed);
-        //Debug.Log(GetCoordinateAt(GameManager.Instance.DrillingGame.Driller.Position).ToString());
     }
 
     public DrillingGameTile GetTileAtCoordinate(int x, int y)
@@ -69,10 +66,10 @@ public class DrillGameMap : MonoBehaviour
 
     public Vector2 GetCoordinateAt(Vector2 position)
     {
-        /*if (!BoundingRect.Contains(position))
+        if (!BoundingRect.Contains(position))
         {
             Debug.LogException(new UnityException("GetCoordinate our of bounds!"));
-        }*/
+        }
 
         Vector2 coord = new Vector2(position.x / TILE_SIZE, -position.y / TILE_SIZE);
         coord.x = Mathf.FloorToInt(coord.x);
@@ -113,11 +110,7 @@ public class DrillGameMap : MonoBehaviour
                         t.GetComponent<RectTransform>().anchoredPosition = new Vector2(j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
                     }
                     tilesList.Add(t);
-                    if (id == 6 && i == 8)
-                    {
-                        bottomRow.Add(t);
-                        bottomRowTransforms.Add(t.gameObject.transform);
-                    }
+                    if (id == 6) bottomRow.Add(t);
                 }
             }
         }
@@ -190,21 +183,12 @@ public class DrillGameMap : MonoBehaviour
     {
         if (water.Count == 1)
         {
-            GameManager.Instance.Director.Shake(null, bottomRowTransforms);
             foreach (DrillingGameTile tile in bottomRow)
             {
-                tile.GetComponent<UnityEngine.UI.Image>().sprite = crackedBlock1;
+                tile.GetComponent<UnityEngine.UI.Image>().sprite = crackedBlock;
             }
         }
-        else if (water.Count == 2)
-        {
-            GameManager.Instance.Director.Shake(null, bottomRowTransforms);
-            foreach (DrillingGameTile tile in bottomRow)
-            {
-                tile.GetComponent<UnityEngine.UI.Image>().sprite = crackedBlock2;
-            }
-        }
-        else if (water.Count == 3)
+        if (water.Count == 2)
         {
             triggerSetDestruction(bottomRow);
         }
@@ -213,12 +197,12 @@ public class DrillGameMap : MonoBehaviour
     private void triggerSetDestruction(List<DrillingGameTile> set)
     {
         foreach (DrillingGameTile item in set) if (item != null) Destroy(item.gameObject);
+        set.Clear();
     }
 
     public void DoFlashTile(Vector2 coords)
     {
         flashTile.color = new Color(1, 1, 1, 1);
         flashTile.rectTransform.anchoredPosition = coords;
-        //flashTile.transform.SetAsLastSibling();
     }
 }
