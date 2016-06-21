@@ -20,5 +20,7 @@ public class Volcano : MonoBehaviour
         {
             particleSystems[i].Play();
         }
+
+        StartCoroutine(InitErruption());
     }
 }
