@@ -826,7 +826,9 @@ MonoBehaviour:
   - {fileID: 21300010, guid: 6f7473235dcd3475dad4631e364abeda, type: 3}
   scannerTip: {fileID: 119194}
   buildArrow: {fileID: 11477068}
+  cityPanel: {fileID: 103568}
   scorePanel: {fileID: 180392}
+  timePanel: {fileID: 120786}
   timeText: {fileID: 11464062}
   gameOverText: {fileID: 11484868}
   scoreText: {fileID: 11430002}
