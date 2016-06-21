@@ -1,0 +1,110 @@
+fileFormatVersion: 2
+guid: 2e2cf5babdf564a65ad03f8d2f81d695
+timeCreated: 1466439324
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: tutorial-24_0
+    21300002: 20_6_Taptip_0
+    21300004: 20_6_Taptip_1
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 8192
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: 20_6_Taptip_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 173
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37.5, y: 99.5}
+        - {x: -27.5, y: 91.5}
+        - {x: -35.5, y: 98.5}
+        - {x: -55.5, y: 103.5}
+        - {x: -68.5, y: 92.5}
+        - {x: -69.5, y: 86.5}
+        - {x: -69.5, y: 74.5}
+        - {x: -72.5, y: 102.5}
+        - {x: -86.5, y: 103.5}
+        - {x: -86.5, y: -34.5}
+        - {x: -69.5, y: -50.5}
+        - {x: -6.5, y: -107.5}
+        - {x: 15.5, y: -107.5}
+        - {x: 86.5, y: -93.5}
+        - {x: 86.5, y: -20.5}
+        - {x: 73.5, y: 56.5}
+        - {x: -17.5, y: 107.5}
+        - {x: -39.5, y: 107.5}
+    - name: 20_6_Taptip_1
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 0
+        width: 173
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -1.5, y: 75.5}
+        - {x: -31.5, y: 100.5}
+        - {x: -56.5, y: 100.5}
+        - {x: -72.5, y: 92.5}
+        - {x: -72.5, y: -45.5}
+        - {x: -22.5, y: -107.5}
+        - {x: 36.5, y: -107.5}
+        - {x: 86.5, y: -86.5}
+        - {x: 86.5, y: -12.5}
+        - {x: 74.5, y: 58.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
