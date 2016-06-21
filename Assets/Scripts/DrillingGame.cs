@@ -31,7 +31,8 @@ public class DrillingGame : Minigame
     private int targetColumn;
     private int targetRow;
     private int levelsCounter = 0;
-    private bool slidingLeft, makeDrill = false;
+    private bool makeDrill = false;
+    private bool slidingLeft = true;
     private float jumpPhaseTimer;
 
     public bool IsRestarting { get; set; }
@@ -216,6 +217,9 @@ public class DrillingGame : Minigame
             resetGame();
             Joystick.Reset();
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
+            Map.SwitchPipeTileSprite();
+            if (levelsCounter == 0) Driller.ActivateImage(Driller.ArrowDown, true);
+
             Driller.Drill.gameObject.SetActive(true);
             Driller.Drill.transform.SetAsLastSibling();
             if (levelsCounter != 0 && levelsCounter != 1) Driller.SwitchAnimation("goToSliding", true);
@@ -614,7 +618,7 @@ public class DrillingGame : Minigame
     private void resetGame()
     {
         makeDrill = false;
-        slidingLeft = false;
+        slidingLeft = true;
         targetColumn = 6;
         targetRow = 0;
         if(!IsRestarting) LeanTween.move(MainPanel, mainPanelInactivePosition, panelSlidingTime);
