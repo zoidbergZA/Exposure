@@ -142,7 +142,7 @@ public class DrillingGame : Minigame
             if (levelsCounter == 0)
             {
                 Driller.ActivateImage(Driller.ArrowDown, true);
-                Driller.ActivateImage(Driller.ArrowDown, true);
+                Driller.ActivateImage(Driller.TapTip, true);
             }
 
             //cheat flag to skip mini-game
@@ -222,7 +222,11 @@ public class DrillingGame : Minigame
             Joystick.Reset();
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
             Map.SwitchPipeTileSprite();
-            if (levelsCounter == 0) Driller.ActivateImage(Driller.ArrowDown, true);
+            if (levelsCounter == 0)
+            {
+                Driller.ActivateImage(Driller.ArrowDown, true);
+                Driller.ActivateImage(Driller.TapTip, true);
+            }
 
             Driller.Drill.gameObject.SetActive(true);
             Driller.Drill.transform.SetAsLastSibling();
@@ -290,7 +294,11 @@ public class DrillingGame : Minigame
             {
                 makeDrill = true;
                 Driller.SwitchAnimation("shouldJump", true);
-                if (levelsCounter == 0) Driller.ActivateImage(Driller.ArrowDown, false);
+                if (levelsCounter == 0)
+                {
+                    Driller.ActivateImage(Driller.ArrowDown, false);
+                    Driller.ActivateImage(Driller.TapTip, false);
+                }
                 DrillDirection = DrillingDirection.DOWN;
             }
         }
