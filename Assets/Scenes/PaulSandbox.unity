@@ -2065,7 +2065,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: enableTutorial
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: autoStart
@@ -2073,7 +2073,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: touchScreenInput
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: miniGameAutoWin
@@ -31214,22 +31214,6 @@ Prefab:
     - target: {fileID: 437996, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
       propertyPath: m_RootOrder
       value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 22464012, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 687
-      objectReference: {fileID: 0}
-    - target: {fileID: 22410242, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -1074
-      objectReference: {fileID: 0}
-    - target: {fileID: 22473300, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -683
-      objectReference: {fileID: 0}
-    - target: {fileID: 22402474, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -46
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
