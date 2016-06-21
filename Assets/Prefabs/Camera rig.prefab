@@ -321,6 +321,7 @@ MonoBehaviour:
   buildHeight: 100
   normalZoom: 45
   buildzoom: 35
+  sunLight: {fileID: 0}
   shaker: {fileID: 11418786}
 --- !u!114 &11478568
 MonoBehaviour:

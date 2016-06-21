@@ -1096,6 +1096,9 @@ MonoBehaviour:
   cloudParticleSystem: {fileID: 19871962}
   cloudsDirtyColor: {r: 0.5372549, g: 0.25882354, b: 0.10980393, a: 0.784}
   cloudsCleanColor: {r: 1, g: 1, b: 1, a: 0.278}
+  waterMeshRenderer: {fileID: 2388276}
+  waterDirtyColor: {r: 0.85156906, g: 0.88235295, b: 0.32439446, a: 1}
+  waterCleanColor: {r: 0, g: 0.7103448, b: 1, a: 1}
   backgroundDirtyColor: {r: 0.4044118, g: 0.2455825, b: 0.16057529, a: 0.284}
   backgroundCleanColor: {r: 0.3913819, g: 0.5073522, b: 0.9338235, a: 0.303}
   normalSpin: 0

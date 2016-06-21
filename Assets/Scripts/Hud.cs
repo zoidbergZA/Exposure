@@ -12,7 +12,9 @@ public class Hud : MonoBehaviour
     [SerializeField] private Sprite[] tipSprites;
     [SerializeField] private GameObject scannerTip;
     [SerializeField] private Image buildArrow;
+    [SerializeField] private GameObject cityPanel;
     [SerializeField] private GameObject scorePanel;
+    [SerializeField] private GameObject timePanel;
     [SerializeField] private Text timeText;
     [SerializeField] private Text gameOverText;
     [SerializeField] private Text scoreText;
@@ -50,9 +52,9 @@ public class Hud : MonoBehaviour
     void Start()
     {
         scorePanel.SetActive(false);
-        //todo: time panel
-        //todo: city panel
-//        startPanel.SetActive(true);
+        timePanel.SetActive(false);
+        cityPanel.SetActive(false);
+        startPanel.SetActive(true);
     }
 
     void Update()
@@ -139,9 +141,10 @@ public class Hud : MonoBehaviour
         ShowStartPanel(false);
 
         scorePanel.SetActive(true);
-        //todo: time panel
-        //todo: city panel
+        timePanel.SetActive(true);
+        cityPanel.SetActive(true);
 
+        GameManager.Instance.Director.SetSunlightBrightness(1f);
         GameManager.Instance.StartRound();
     }
 
