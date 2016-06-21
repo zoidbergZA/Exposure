@@ -27392,6 +27392,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 38d9cb52d01feb84186bd341fb63f58e, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1823057987 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11408836, guid: 2149e3b741f01744dbced709d3895f64,
+    type: 2}
+  m_PrefabInternal: {fileID: 2065773979}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1823194907
 Prefab:
   m_ObjectHideFlags: 0
@@ -31215,14 +31221,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 129448, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11482542, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 11421548, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
+      propertyPath: tapTip
+      value: 
+      objectReference: {fileID: 1823057987}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2149e3b741f01744dbced709d3895f64, type: 2}
   m_IsPrefabParent: 0

@@ -10,6 +10,7 @@ public class Driller : MonoBehaviour
     [SerializeField] private Image arrowUp;
     [SerializeField] private Image arrowRight;
     [SerializeField] private Image arrowLeft;
+    [SerializeField] private Image tapTip;
 
     private int lives = 3;
 
@@ -25,6 +26,7 @@ public class Driller : MonoBehaviour
     public Image ArrowUp { get { return arrowUp; } }
     public Image ArrowRight { get { return arrowRight; } }
     public Image ArrowLeft { get { return arrowLeft; } }
+    public Image TapTip { get { return tapTip; } }
 
     void Awake()
     {

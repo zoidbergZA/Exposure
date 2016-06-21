@@ -139,7 +139,11 @@ public class DrillingGame : Minigame
         {
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
             Map.SwitchPipeTileSprite();
-            if (levelsCounter == 0) Driller.ActivateImage(Driller.ArrowDown, true);
+            if (levelsCounter == 0)
+            {
+                Driller.ActivateImage(Driller.ArrowDown, true);
+                Driller.ActivateImage(Driller.ArrowDown, true);
+            }
 
             //cheat flag to skip mini-game
             if (!GameManager.Instance.MiniGameAutoWin) state = DrillingGameState.SLIDING;
