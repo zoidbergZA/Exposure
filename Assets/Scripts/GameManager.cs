@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            QuitGame();
         }
 
         if (RoundStarted)
@@ -148,6 +148,11 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(Application.loadedLevelName);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     public Color SampleHeatmap(Vector2 textureCoordinate)
