@@ -37,6 +37,9 @@ public class Player : MonoBehaviour
     void Awake()
     {
         Cable = startingCable;
+
+        //todo: temp
+        PlayerName = "Juanito";
     }
 
     void Start()
