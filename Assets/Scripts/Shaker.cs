@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Shaker : MonoBehaviour 
 {
@@ -40,8 +41,14 @@ public class Shaker : MonoBehaviour
         //        pos.y = displacement.x;
         //        pos.x = displacement.y;
         //        pos.z = displacement.z;
-        if (!other) transform.localPosition = displacement;
-        else other.transform.localPosition = displacement;
+        if (!other)
+        {
+            transform.localPosition = displacement;
+        }
+        else
+        {
+            other.transform.localPosition = displacement;
+        }
 
         shakeMagnitude *= decay;
 
