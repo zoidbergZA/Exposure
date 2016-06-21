@@ -112,7 +112,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &111112
 GameObject:
   m_ObjectHideFlags: 1
@@ -362,7 +362,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &136746
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -814,7 +814,7 @@ Transform:
   - {fileID: 484614}
   - {fileID: 426414}
   m_Father: {fileID: 497352}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &404366
 Transform:
   m_ObjectHideFlags: 1
@@ -1153,7 +1153,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 497352}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &464872
 Transform:
   m_ObjectHideFlags: 1
@@ -1201,7 +1201,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 497352}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &472442
 Transform:
   m_ObjectHideFlags: 1
@@ -1257,12 +1257,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 136746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.14, y: 10.13, z: -3.62}
+  m_LocalPosition: {x: 3.1400025, y: 10.12999, z: -3.619986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 432536}
-  m_Father: {fileID: 495444}
-  m_RootOrder: 3
+  m_Father: {fileID: 497352}
+  m_RootOrder: 0
 --- !u!4 &484614
 Transform:
   m_ObjectHideFlags: 1
@@ -1390,14 +1390,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146164}
-  m_LocalRotation: {x: 0.20474121, y: -0.47836393, z: -0.48375303, w: -0.7037272}
-  m_LocalPosition: {x: 11.353445, y: 38.599056, z: -49.97262}
+  m_LocalRotation: {x: -0.59515977, y: -0.48935187, z: -0.004293859, w: 0.6374176}
+  m_LocalPosition: {x: 70.41068, y: 26.279694, z: 27.643227}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 497352}
   - {fileID: 442822}
   - {fileID: 493398}
-  - {fileID: 483432}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &497352
@@ -1410,6 +1409,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 483432}
   - {fileID: 459444}
   - {fileID: 472374}
   - {fileID: 403472}
