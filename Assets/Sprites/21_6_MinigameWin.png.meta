@@ -1,0 +1,261 @@
+fileFormatVersion: 2
+guid: 154d54de0e5384e3a808564586170672
+timeCreated: 1466502421
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: 21_6_MinigameWin_0
+    21300002: 21_6_MinigameWin_1
+    21300004: 21_6_MinigameWin_2
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 8192
+  textureSettings:
+    filterMode: 1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: 21_6_MinigameWin_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 540
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 231, y: -166}
+        - {x: 232, y: -166}
+        - {x: 239, y: -159}
+        - {x: 239, y: -158}
+        - {x: 241, y: -157}
+        - {x: 243, y: -152}
+        - {x: 243, y: -150}
+        - {x: 244, y: -149}
+        - {x: 244, y: -145}
+        - {x: 245, y: -144}
+        - {x: 245, y: 144}
+        - {x: 244, y: 145}
+        - {x: 244, y: 148}
+        - {x: 243, y: 149}
+        - {x: 243, y: 151}
+        - {x: 241, y: 156}
+        - {x: 231, y: 166}
+        - {x: 230, y: 166}
+        - {x: 226, y: 169}
+        - {x: 224, y: 169}
+        - {x: 220, y: 171}
+        - {x: -218, y: 171}
+        - {x: -219, y: 170}
+        - {x: -221, y: 170}
+        - {x: -228, y: 167}
+        - {x: -229, y: 165}
+        - {x: -230, y: 165}
+        - {x: -236, y: 160}
+        - {x: -242, y: 147}
+        - {x: -242, y: -147}
+        - {x: -241, y: -148}
+        - {x: -241, y: -151}
+        - {x: -238, y: -158}
+        - {x: -234, y: -162}
+        - {x: -233, y: -164}
+        - {x: -231, y: -164}
+        - {x: -225, y: -169}
+        - {x: -221, y: -170}
+        - {x: -220, y: -171}
+        - {x: -218, y: -171}
+        - {x: -217, y: -172}
+        - {x: 219, y: -172}
+        - {x: 220, y: -171}
+        - {x: 223, y: -171}
+        - {x: 230, y: -168}
+    - name: 21_6_MinigameWin_1
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 2
+        width: 540
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 224, y: -172}
+        - {x: 229, y: -170}
+        - {x: 237, y: -162}
+        - {x: 237, y: -161}
+        - {x: 240, y: -159}
+        - {x: 242, y: -154}
+        - {x: 242, y: -152}
+        - {x: 243, y: -151}
+        - {x: 243, y: -147}
+        - {x: 244, y: -146}
+        - {x: 244, y: -62}
+        - {x: 245, y: -61}
+        - {x: 245, y: 58}
+        - {x: 246, y: 59}
+        - {x: 246, y: 144}
+        - {x: 245, y: 145}
+        - {x: 245, y: 148}
+        - {x: 242, y: 155}
+        - {x: 234, y: 163}
+        - {x: 233, y: 163}
+        - {x: 228, y: 167}
+        - {x: 226, y: 167}
+        - {x: 222, y: 169}
+        - {x: 218, y: 169}
+        - {x: 217, y: 170}
+        - {x: 111, y: 170}
+        - {x: 110, y: 171}
+        - {x: -8, y: 171}
+        - {x: -9, y: 172}
+        - {x: -128, y: 172}
+        - {x: -129, y: 173}
+        - {x: -215, y: 173}
+        - {x: -216, y: 172}
+        - {x: -219, y: 172}
+        - {x: -228, y: 168}
+        - {x: -236, y: 160}
+        - {x: -240, y: 151}
+        - {x: -240, y: 147}
+        - {x: -241, y: 146}
+        - {x: -241, y: 76}
+        - {x: -242, y: 75}
+        - {x: -242, y: -44}
+        - {x: -243, y: -45}
+        - {x: -243, y: -145}
+        - {x: -242, y: -146}
+        - {x: -242, y: -149}
+        - {x: -239, y: -156}
+        - {x: -232, y: -163}
+        - {x: -231, y: -163}
+        - {x: -229, y: -166}
+        - {x: -222, y: -169}
+        - {x: -220, y: -169}
+        - {x: -219, y: -170}
+        - {x: -196, y: -170}
+        - {x: -195, y: -171}
+        - {x: 43, y: -172}
+        - {x: 44, y: -173}
+        - {x: 162, y: -173}
+        - {x: 163, y: -174}
+        - {x: 217, y: -174}
+        - {x: 218, y: -173}
+        - {x: 221, y: -173}
+        - {x: 222, y: -172}
+    - name: 21_6_MinigameWin_2
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 2
+        width: 540
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -111, y: -184}
+        - {x: -69, y: -180}
+        - {x: -36, y: -177}
+        - {x: 6, y: -173}
+        - {x: 39, y: -170}
+        - {x: 49, y: -169}
+        - {x: 82, y: -166}
+        - {x: 210, y: -154}
+        - {x: 231, y: -152}
+        - {x: 241, y: -149}
+        - {x: 254, y: -138}
+        - {x: 258, y: -129}
+        - {x: 258, y: -115}
+        - {x: 254, y: -74}
+        - {x: 252, y: -52}
+        - {x: 250, y: -31}
+        - {x: 246, y: 12}
+        - {x: 243, y: 44}
+        - {x: 238, y: 98}
+        - {x: 237, y: 108}
+        - {x: 234, y: 141}
+        - {x: 233, y: 151}
+        - {x: 232, y: 162}
+        - {x: 231, y: 170}
+        - {x: 226, y: 178}
+        - {x: 219, y: 186}
+        - {x: 209, y: 190}
+        - {x: 188, y: 190}
+        - {x: 177, y: 189}
+        - {x: 145, y: 186}
+        - {x: 123, y: 184}
+        - {x: 102, y: 182}
+        - {x: 27, y: 175}
+        - {x: -27, y: 170}
+        - {x: -91, y: 164}
+        - {x: -145, y: 159}
+        - {x: -166, y: 157}
+        - {x: -198, y: 154}
+        - {x: -220, y: 152}
+        - {x: -232, y: 150}
+        - {x: -239, y: 147}
+        - {x: -247, y: 140}
+        - {x: -251, y: 133}
+        - {x: -253, y: 127}
+        - {x: -254, y: 122}
+        - {x: -254, y: 110}
+        - {x: -251, y: 84}
+        - {x: -249, y: 62}
+        - {x: -247, y: 41}
+        - {x: -243, y: -2}
+        - {x: -237, y: -66}
+        - {x: -233, y: -109}
+        - {x: -228, y: -163}
+        - {x: -227, y: -171}
+        - {x: -222, y: -179}
+        - {x: -213, y: -188}
+        - {x: -207, y: -190}
+        - {x: -176, y: -190}
+        - {x: -154, y: -188}
+        - {x: -144, y: -187}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
