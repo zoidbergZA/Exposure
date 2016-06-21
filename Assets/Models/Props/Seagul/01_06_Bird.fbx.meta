@@ -65,7 +65,71 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Seagull2
+      takeName: Seagull2
+      firstFrame: 1
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: CTRL_Main
+        weight: 1
+      - path: CTRL_Main/CTRL_Head
+        weight: 1
+      - path: CTRL_Main/CTRL_Head1
+        weight: 1
+      - path: CTRL_Main/CTRL_L_Wing
+        weight: 1
+      - path: CTRL_Main/CTRL_L_Wing/CTRL_L_WingTip
+        weight: 1
+      - path: CTRL_Main/CTRL_R_Wing
+        weight: 1
+      - path: CTRL_Main/CTRL_R_Wing/CTRL_R_WingTip
+        weight: 1
+      - path: Seagull_OBJ
+        weight: 1
+      - path: Spine_1
+        weight: 1
+      - path: Spine_1/Head
+        weight: 1
+      - path: Spine_1/Head/Beak
+        weight: 1
+      - path: Spine_1/L_Wing_1
+        weight: 1
+      - path: Spine_1/L_Wing_1/L_Wing_2
+        weight: 1
+      - path: Spine_1/R_Wing_1
+        weight: 1
+      - path: Spine_1/R_Wing_1/R_Wing_2
+        weight: 1
+      - path: Spine_1/Tail
+        weight: 1
+      - path: Spine_1/Tail/TailNub
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
