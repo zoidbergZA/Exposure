@@ -83,7 +83,7 @@ public class DrillingGame : Minigame
         }
         if (Input.GetKeyDown(KeyCode.N)) Driller.Body.mass += 0.01f;
         if (Input.GetKeyDown(KeyCode.M)) Driller.Body.mass -= 0.01f;
-        //Debug.Log("col : " + targetColumn + " | row:" + targetRow);
+        Debug.Log("prev : " + PrevDrillDirection.ToString() + " | cur:" + DrillDirection.ToString());
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -247,42 +247,29 @@ public class DrillingGame : Minigame
             switch(GameManager.Instance.Joystick.CurrentInput)
             {
                 case DrillingDirection.RIGHT:
-                    if (PrevDrillDirection != DrillingDirection.LEFT && PrevDrillDirection != DrillingDirection.RIGHT
-                        && DrillDirection != DrillingDirection.LEFT && DrillDirection != DrillingDirection.RIGHT)
+                    if (PrevDrillDirection != DrillingDirection.RIGHT && DrillDirection != DrillingDirection.RIGHT)
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.RIGHT;
-                        if (levelsCounter == 1)
-                        {
-                            Driller.ActivateImage(Driller.ArrowRight, false);
-                            Driller.ActivateImage(Driller.ArrowLeft, false);
-                        }
+                        if (levelsCounter == 1) Driller.ActivateImage(Driller.ArrowRight, false);
                     }
                     break;
                 case DrillingDirection.LEFT:
-                    if (PrevDrillDirection != DrillingDirection.RIGHT && PrevDrillDirection != DrillingDirection.LEFT
-                        && DrillDirection != DrillingDirection.RIGHT && DrillDirection != DrillingDirection.LEFT)
+                    if (PrevDrillDirection != DrillingDirection.LEFT && DrillDirection != DrillingDirection.LEFT)
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.LEFT;
-                        if (levelsCounter == 1)
-                        {
-                            Driller.ActivateImage(Driller.ArrowLeft, false);
-                            Driller.ActivateImage(Driller.ArrowRight, false);
-                        }
                     }
                     break;
                 case DrillingDirection.UP:
-                    if (PrevDrillDirection != DrillingDirection.DOWN && PrevDrillDirection != DrillingDirection.UP
-                        && DrillDirection != DrillingDirection.DOWN && DrillDirection != DrillingDirection.UP)
+                    if (PrevDrillDirection != DrillingDirection.UP && DrillDirection != DrillingDirection.UP)
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.UP;
                     }
                     break;
                 case DrillingDirection.DOWN:
-                    if (PrevDrillDirection != DrillingDirection.UP && PrevDrillDirection != DrillingDirection.DOWN
-                        && DrillDirection != DrillingDirection.UP && DrillDirection != DrillingDirection.DOWN)
+                    if (PrevDrillDirection != DrillingDirection.DOWN && DrillDirection != DrillingDirection.DOWN)
                     {
                         PrevDrillDirection = DrillDirection;
                         DrillDirection = DrillingDirection.DOWN;
@@ -315,6 +302,10 @@ public class DrillingGame : Minigame
             case DrillingDirection.LEFT:
                 processPreviousDirection(DrillingDirection.LEFT, new Vector2(0, -TILE_SIZE));
                 break;
+            case DrillingDirection.UP:
+                if (Driller.Animator.GetBool("isDrillingUp")) Driller.SwitchAnimation("isDrillingUp", false);
+                PrevDrillDirection = DrillingDirection.NONE;
+                break;
             case DrillingDirection.NONE:
                 if (!Driller.Animator.GetBool("isDrillingDown")) Driller.SwitchAnimation("isDrillingDown", true);
                 if (Driller.Position.y <= -(TILE_SIZE * targetRow) - TILE_SIZE && targetRow < MAP_HEIGHT - 1) targetRow++;
@@ -335,6 +326,10 @@ public class DrillingGame : Minigame
             case DrillingDirection.UP:
                 processPreviousDirection(DrillingDirection.UP, new Vector2(-TILE_SIZE, 0));
                 break;
+            case DrillingDirection.RIGHT:
+                if (Driller.Animator.GetBool("isDrillingRight")) Driller.SwitchAnimation("isDrillingRight", false);
+                PrevDrillDirection = DrillingDirection.NONE;
+                break;
             case DrillingDirection.NONE:
                 if (!Driller.Animator.GetBool("isDrillingLeft")) Driller.SwitchAnimation("isDrillingLeft", true);
                 if (Driller.Position.x <= (TILE_SIZE * targetColumn) - TILE_SIZE && targetColumn > 0) targetColumn--;
@@ -354,6 +349,10 @@ public class DrillingGame : Minigame
             case DrillingDirection.UP:
                 processPreviousDirection(DrillingDirection.UP, new Vector2(TILE_SIZE, 0));
                 break;
+            case DrillingDirection.LEFT:
+                if (Driller.Animator.GetBool("isDrillingLeft")) Driller.SwitchAnimation("isDrillingLeft", false);
+                PrevDrillDirection = DrillingDirection.NONE;
+                break;
             case DrillingDirection.NONE:
                 if (!Driller.Animator.GetBool("isDrillingRight")) Driller.SwitchAnimation("isDrillingRight", true);
                 if (Driller.Position.x >= (TILE_SIZE * targetColumn) + TILE_SIZE && targetColumn < MAP_WIDTH - 1) targetColumn++;
@@ -372,6 +371,10 @@ public class DrillingGame : Minigame
                 break;
             case DrillingDirection.LEFT:
                 processPreviousDirection(DrillingDirection.LEFT, new Vector2(0, TILE_SIZE));
+                break;
+            case DrillingDirection.DOWN:
+                if (Driller.Animator.GetBool("isDrillingDown")) Driller.SwitchAnimation("isDrillingDown", false);
+                PrevDrillDirection = DrillingDirection.NONE;
                 break;
             case DrillingDirection.NONE:
                 if (!Driller.Animator.GetBool("isDrillingUp")) Driller.SwitchAnimation("isDrillingUp", true);
