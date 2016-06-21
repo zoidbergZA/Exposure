@@ -24,13 +24,15 @@ public abstract class Connectable : MonoBehaviour
         if (ConnectionState == ConnectionStates.Preview)
         {
             Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-            
-            if (GUI.Button(GameManager.Instance.Hud.CenteredRect(new Rect(screenPos.x, screenPos.y, 80, 80)),
-                connectIcon))
-            {
-                GameManager.Instance.Player.ScorePoints(pointValue, transform);
-                GameManager.Instance.GridBuilder.MakeConnection(this);
-            }
+        
+            GameManager.Instance.Hud.ShowWorldSpaceButton(connectIcon, screenPos, OnClick);
+                
+//            if (GUI.Button(GameManager.Instance.Hud.CenteredRect(new Rect(screenPos.x, screenPos.y, 80, 80)),
+//                connectIcon, ""))
+//            {
+//                GameManager.Instance.Player.ScorePoints(pointValue, transform);
+//                GameManager.Instance.GridBuilder.MakeConnection(this);
+//            }
         }
     }
 
@@ -64,5 +66,11 @@ public abstract class Connectable : MonoBehaviour
         pipeModel.transform.LookAt(other.connectionRef);
 
         OnConnected();
+    }
+
+    private void OnClick()
+    {
+        GameManager.Instance.Player.ScorePoints(pointValue, transform);
+        GameManager.Instance.GridBuilder.MakeConnection(this);
     }
 }

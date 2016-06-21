@@ -32,7 +32,7 @@ public class MobileJoystick : MonoBehaviour
         UpdateInput();
         if (Input.GetKeyDown(KeyCode.S) && inputType == TouchInputType.TAP) inputType = TouchInputType.SWIPE;
         else if (Input.GetKeyDown(KeyCode.S) && inputType == TouchInputType.SWIPE) inputType = TouchInputType.TAP;
-        //Debug.Log(inputType.ToString());
+//        Debug.Log(inputType.ToString());
     }
 
     private void UpdateInput()

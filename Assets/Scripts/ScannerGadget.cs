@@ -7,11 +7,13 @@ public class ScannerGadget : MonoBehaviour
     [SerializeField] private GameObject model;
     [SerializeField] private Transform spinningRadar;
     [SerializeField] private float spinRate = 355f;
+    [SerializeField] private float tipDelay = 3f;
 
     private Scanner scanner;
     private Collider myCollider;
 
     public bool IsGrabbed { get; private set; }
+    public float LastInteractionAt { get; private set; }
 
     void Awake()
     {
@@ -21,6 +23,7 @@ public class ScannerGadget : MonoBehaviour
 
     void Start()
     {
+        LastInteractionAt = Time.time;
         FixRotation();
         //un-comment to move with planet
 //        transform.SetParent(GameManager.Instance.PlanetTransform);
@@ -31,6 +34,12 @@ public class ScannerGadget : MonoBehaviour
         if (!IsGrabbed)
         {
             spinningRadar.Rotate(0, spinRate * Time.deltaTime, 0);
+
+//            Debug.Log(Time.time - LastInteractionAt - tipDelay);
+            if (Time.time >= LastInteractionAt + tipDelay)
+                GameManager.Instance.Hud.ShowScannerTip(true);
+            else
+                GameManager.Instance.Hud.ShowScannerTip(false);
         }
     }
 
@@ -87,6 +96,8 @@ public class ScannerGadget : MonoBehaviour
     private void Grab()
     {
         IsGrabbed = true;
+        LastInteractionAt = Time.time;
+        GameManager.Instance.Hud.ShowScannerTip(false);
         myCollider.enabled = false;
         model.SetActive(false);
     }
@@ -94,6 +105,7 @@ public class ScannerGadget : MonoBehaviour
     private void Release()
     {
         IsGrabbed = false;
+        LastInteractionAt = Time.time;
         myCollider.enabled = true;
         transform.position = scanner.transform.position;
         FixRotation();

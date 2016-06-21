@@ -54,7 +54,6 @@ public class City : Connectable
 
         IsDirty = false;
 
-        dirtyModel.SetActive(false);
         nukeEffect.SetActive(true);
         ConnectionState = ConnectionStates.Built;
         CityIcon.ToggleIcon(true);
@@ -69,6 +68,7 @@ public class City : Connectable
     {
         yield return new WaitForSeconds(delay);
 
+        dirtyModel.SetActive(false);
         cleanModel.SetActive(true);
         GetComponentInChildren<Animation>().Play("NewCityRise");
     }
