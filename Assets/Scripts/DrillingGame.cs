@@ -83,7 +83,6 @@ public class DrillingGame : Minigame
         }
         if (Input.GetKeyDown(KeyCode.N)) Driller.Body.mass += 0.01f;
         if (Input.GetKeyDown(KeyCode.M)) Driller.Body.mass -= 0.01f;
-        Debug.Log("prev : " + PrevDrillDirection.ToString() + " | cur:" + DrillDirection.ToString());
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -187,6 +186,7 @@ public class DrillingGame : Minigame
         else
         {
             Hud.ActivateToast(ToastType.SUCCESS);
+            Hud.ActivateGeothermal();
             state = DrillingGameState.SUCCESS;
         }
         if(Driller.Collided)
