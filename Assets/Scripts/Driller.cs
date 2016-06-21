@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Driller : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private Image arrowDown;
+    [SerializeField] private Image arrowUp;
+    [SerializeField] private Image arrowRight;
+    [SerializeField] private Image arrowLeft;
 
     private int lives = 3;
 
-    public UnityEngine.UI.Image Drill { get; private set; }
+    public Image Drill { get; private set; }
     public Animator Animator { get { return animator; } }
     public Vector2 Position { get { return Drill.rectTransform.anchoredPosition; } set { Drill.rectTransform.anchoredPosition = value; } }
     public Rigidbody2D Body { get; private set; }
@@ -15,6 +21,10 @@ public class Driller : MonoBehaviour
     public int Lives { get { return lives; } }
     public DrillGameHud Hud { get; private set; }
     public bool Collided { get; private set; }
+    public Image ArrowDown { get { return arrowDown; } }
+    public Image ArrowUp { get { return arrowUp; } }
+    public Image ArrowRight { get { return arrowRight; } }
+    public Image ArrowLeft { get { return arrowLeft; } }
 
     void Awake()
     {
@@ -76,6 +86,7 @@ public class Driller : MonoBehaviour
         animator.SetBool("isDrillingRight", false);
         animator.SetBool("isDrillingLeft", false);
         animator.SetBool("shouldJump", false);
+        animator.SetBool("goToSliding", false);
     }
 
     public void Reset(Vector2 startPosition)
@@ -141,11 +152,10 @@ public class Driller : MonoBehaviour
                 Destroy(GO);
                 break;
             case Tile.WATER:
-                GameManager.Instance.DrillingGame.Map.AddWater(GO.GetComponent<DrillingGameTile>());
-                if (GameManager.Instance.DrillingGame.Map.GetWaterCount <= 3)
-                {
-                    LeanTween.scale(Hud.WaterBar.GetComponent<RectTransform>(),Hud.WaterBar.GetComponent<RectTransform>().localScale * 1.1f, 0.8f).setEase(LeanTweenType.punch);
-                }
+                GameManager.Instance.DrillingGame.Map.AddPipePart(GO.GetComponent<DrillingGameTile>());
+                if (GameManager.Instance.DrillingGame.Map.GetPipePartsCount <= 3)
+                    LeanTween.scale(Hud.WaterBar.GetComponent<RectTransform>(),
+                        Hud.WaterBar.GetComponent<RectTransform>().localScale * 1.1f, 0.8f).setEase(LeanTweenType.punch);
                 Destroy(GO);
                 break;
         }
@@ -154,5 +164,10 @@ public class Driller : MonoBehaviour
     private void updateDrillerLife(int amount)
     {
         lives += amount;
+    }
+
+    public void ActivateImage(Image arrow, bool activate)
+    {
+        arrow.enabled = activate;
     }
 }
