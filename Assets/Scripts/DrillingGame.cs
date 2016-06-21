@@ -296,11 +296,6 @@ public class DrillingGame : Minigame
                 makeDrill = true;
                 Driller.SwitchAnimation("shouldJump", true);
                 if (levelsCounter == 0) Driller.ActivateImage(Driller.ArrowDown, false);
-                else if (levelsCounter == 1)
-                {
-                    Driller.ActivateImage(Driller.ArrowLeft, true);
-                    Driller.ActivateImage(Driller.ArrowRight, true);
-                }
                 DrillDirection = DrillingDirection.DOWN;
             }
         }
@@ -321,6 +316,7 @@ public class DrillingGame : Minigame
                 if (Driller.Position.y <= -(TILE_SIZE * targetRow) - TILE_SIZE && targetRow < MAP_HEIGHT - 1) targetRow++;
                 Driller.Body.AddRelativeForce(new Vector2(0, -1 * drillSpeed * Time.deltaTime), ForceMode2D.Impulse); //drill down
                 Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionX;
+                if (levelsCounter == 1 && targetRow == 2 && !Driller.ArrowRight.enabled) Driller.ActivateImage(Driller.ArrowRight, true);
                 break;
         }
     }
