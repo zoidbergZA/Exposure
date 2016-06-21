@@ -105,6 +105,7 @@ public class DrillGameMap : MonoBehaviour
                     {
                         UIpipeParts.Add(t);
                         relocatePipeTiles(UIpipeParts.Count, t, j * TILE_SIZE, MAP_HEIGHT * TILE_SIZE - i * TILE_SIZE);
+                        t.transform.SetAsLastSibling();
                     }
                     else
                     {
