@@ -1,28 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class DrillGameHud : MonoBehaviour
 {
     public float JoystickArrowFadeSpeed = 2f;
     public float ToastMessageTime = 3.0f;
     public float PanelSlidingTime = 1.5f;
-    [SerializeField] private UnityEngine.UI.Image joystickArrow;
-    [SerializeField] private UnityEngine.UI.Image endOkToast;
-    [SerializeField] private UnityEngine.UI.Image brokenDrillToast;
-    [SerializeField] private UnityEngine.UI.Image brokenPipeToast;
-    [SerializeField] private UnityEngine.UI.Image explodeBombToast;
-    [SerializeField] private UnityEngine.UI.Image pipeProgressBar;
-    [SerializeField] private UnityEngine.UI.Image steamImage;
-    [SerializeField] private UnityEngine.UI.Image drillLife;
+    [SerializeField] private Image joystickArrow;
+    [SerializeField] private Image endOkToast;
+    [SerializeField] private Image brokenDrillToast;
+    [SerializeField] private Image brokenPipeToast;
+    [SerializeField] private Image explodeBombToast;
+    [SerializeField] private Image pipeProgressBar;
+    [SerializeField] private Image steamImage;
+    [SerializeField] private Image drillLife;
+    [SerializeField] private Image waterLeft;
+    [SerializeField] private Image waterRight;
+    [SerializeField] private Image waterBottom;
+    [SerializeField] private Image waterHot;
 
-    public UnityEngine.UI.Image JoystickArrow { get { return joystickArrow; } }
-    public UnityEngine.UI.Image EndOkToast { get { return endOkToast; } }
-    public UnityEngine.UI.Image BrokenDrillToast { get { return brokenDrillToast; } }
-    public UnityEngine.UI.Image BrokenPipeToast { get { return brokenPipeToast; } }
-    public UnityEngine.UI.Image WaterBar { get { return pipeProgressBar; } }
-    public UnityEngine.UI.Image SteamImage { get { return steamImage; } }
-    public UnityEngine.UI.Image DrillLife { get { return drillLife; } }
-    public UnityEngine.UI.Image ExplodeBombToast { get { return explodeBombToast; } }
+    public Image JoystickArrow { get { return joystickArrow; } }
+    public Image EndOkToast { get { return endOkToast; } }
+    public Image BrokenDrillToast { get { return brokenDrillToast; } }
+    public Image BrokenPipeToast { get { return brokenPipeToast; } }
+    public Image WaterBar { get { return pipeProgressBar; } }
+    public Image SteamImage { get { return steamImage; } }
+    public Image DrillLife { get { return drillLife; } }
+    public Image ExplodeBombToast { get { return explodeBombToast; } }
     public float ToastTimer { get; set; }
     public float PanelSlidingTimer { get; set; }
     public DrillGameMap Map { get; private set; }
@@ -157,5 +163,14 @@ public class DrillGameHud : MonoBehaviour
     {
         pipeProgressBar.fillAmount = 0f;
         if (!GameManager.Instance.DrillingGame.IsRestarting) drillLife.fillAmount = 0.0f;
+    }
+
+    public void ActivateGeothermal()
+    {
+        Debug.Log("its started!");
+        LeanTween.move(waterLeft.gameObject.GetComponent<RectTransform>(), Vector3.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.move(waterRight.gameObject.GetComponent<RectTransform>(), Vector3.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.move(waterBottom.gameObject.GetComponent<RectTransform>(), Vector3.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.move(waterHot.gameObject.GetComponent<RectTransform>(), Vector3.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
     }
 }
