@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Director.SetSunlightBrightness(0.2f);
+
         if (autoStart)
             Hud.OnStartRoundClicked();
     }

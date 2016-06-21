@@ -47925,6 +47925,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 11472144, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
+      propertyPath: sunLight
+      value: 
+      objectReference: {fileID: 1746932678}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b73847eba05b78e40a843a0786b5c9e8, type: 2}
   m_IsPrefabParent: 0
