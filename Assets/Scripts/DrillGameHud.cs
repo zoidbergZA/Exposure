@@ -168,5 +168,9 @@ public class DrillGameHud : MonoBehaviour
     public void ActivateGeothermal()
     {
         Debug.Log("its started!");
+        LeanTween.move(waterLeft.gameObject.GetComponent<RectTransform>(), Vector3.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.move(waterRight.gameObject.GetComponent<RectTransform>(), Vector3.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.move(waterBottom.gameObject.GetComponent<RectTransform>(), Vector3.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.move(waterHot.gameObject.GetComponent<RectTransform>(), Vector3.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
     }
 }
