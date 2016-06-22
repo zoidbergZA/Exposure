@@ -38,8 +38,8 @@ public class Player : MonoBehaviour
     {
         Cable = startingCable;
 
-        //todo: temp
-        PlayerName = "Juanito";
+//        //todo: temp
+//        PlayerName = "Juanito";
     }
 
     void Start()
