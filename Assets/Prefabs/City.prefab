@@ -268,7 +268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &145008
 GameObject:
   m_ObjectHideFlags: 1
@@ -3343,7 +3343,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 10
+      scalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6256,7 +6256,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 10
+      scalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6887,7 +6887,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 1
     y:
-      scalar: 7
+      scalar: 14
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -7700,7 +7700,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 10
+      scalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -8331,7 +8331,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 1
     y:
-      scalar: 7
+      scalar: 15
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -13631,7 +13631,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 10
+      scalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14262,7 +14262,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 1
     y:
-      scalar: 15
+      scalar: 30
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -15075,7 +15075,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 10
+      scalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -15565,8 +15565,8 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 22552
-        atime1: 39514
+        atime0: 27563
+        atime1: 65535
         atime2: 65535
         atime3: 65535
         atime4: 0
@@ -18003,7 +18003,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 2
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -18389,11 +18389,6 @@ ParticleSystem:
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - time: 0.22904325
-          value: 0.3333333
-          inSlope: 0.13342881
-          outSlope: 0.13342881
-          tangentMode: 0
         - time: 0.2783885
           value: 1
           inSlope: 0
@@ -18406,11 +18401,6 @@ ParticleSystem:
           tangentMode: 0
         - time: 0.3535287
           value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-        - time: 0.38188934
-          value: 0.3333333
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -18429,11 +18419,6 @@ ParticleSystem:
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - time: 0.5334851
-          value: 0.3333333
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
         - time: 0.56648934
           value: 1
           inSlope: 0
@@ -18446,11 +18431,6 @@ ParticleSystem:
           tangentMode: 0
         - time: 0.6515957
           value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-        - time: 0.6850808
-          value: 0.3333333
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -18784,7 +18764,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 1
     z:
-      scalar: 50
+      scalar: 100
       maxCurve:
         serializedVersion: 2
         m_Curve:
