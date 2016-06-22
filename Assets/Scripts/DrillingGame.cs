@@ -186,7 +186,7 @@ public class DrillingGame : Minigame
         else
         {
             Hud.ActivateToast(ToastType.SUCCESS);
-            Hud.ActivateGeothermal();
+            Hud.ActivateGeothermal(true);
             state = DrillingGameState.SUCCESS;
         }
         if(Driller.Collided)
@@ -229,7 +229,7 @@ public class DrillingGame : Minigame
             }
 
             Driller.Drill.gameObject.SetActive(true);
-            Driller.Drill.transform.SetAsLastSibling();
+            //Driller.Drill.transform.SetAsLastSibling();
             if (levelsCounter != 0 && levelsCounter != 1) Driller.SwitchAnimation("goToSliding", true);
             state = DrillingGameState.SLIDING;
         }
