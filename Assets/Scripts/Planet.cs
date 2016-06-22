@@ -25,6 +25,7 @@ public class Planet : MonoBehaviour
     [SerializeField] private Color backgroundCleanColor;
     [SerializeField] private float normalSpin;
 
+    private Material landMaterial;
     private float momentum;
     private float currentSpin;
     private Chimney[] chimneys;
@@ -47,12 +48,14 @@ public class Planet : MonoBehaviour
 
     void Start()
     {
+        landMaterial = scannableMesh.GetComponent<Renderer>().material;
         RefreshHealth();
     }
 
     void Update()
     {
-        HandleSpin();
+        if (GameManager.Instance.RoundStarted)
+            HandleSpin();
 
         //test spin input
         if (Input.GetKey(KeyCode.A))
@@ -83,6 +86,7 @@ public class Planet : MonoBehaviour
         }
 
         Health = (float)cleanCount / (float)GameManager.Instance.Cities.Length;
+        landMaterial.SetFloat("_Health", Health);
         RefreshTrees();
         atmosphereLight.color = Color.Lerp(dirtyColor, cleanColor, Health);
         waterMeshRenderer.material.color = Color.Lerp(waterDirtyColor, waterCleanColor, Health);

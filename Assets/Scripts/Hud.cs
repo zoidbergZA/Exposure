@@ -6,6 +6,9 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Hud : MonoBehaviour
 {
+    public string[] PositiveMessages;
+    public string[] NegativeMessages;
+
     [SerializeField] private Sprite fullStar;
     [SerializeField] private FloatingText floatingTextPrefab;
     [SerializeField] private Image starImagePrefab;
@@ -28,7 +31,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
 
-    private int buttonSize = 55;
+    private int buttonSize = 85;
     private int buttonIndent = 10;
 
     private float tipTimeRemaing;
@@ -77,7 +80,7 @@ public class Hud : MonoBehaviour
         string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
 
         timeText.text = niceTime;
-        scoreText.text = GameManager.Instance.Player.Score.ToString();
+        scoreText.text = GameManager.Instance.Player.Score + " points";
         cableText.text = GameManager.Instance.Player.Cable.ToString();
 
         //scanner tip
@@ -160,8 +163,21 @@ public class Hud : MonoBehaviour
         GameManager.Instance.StartRound();
     }
 
+    public void OnRestartClicked()
+    {
+        GameManager.Instance.Restart();
+    }
+
+    public void OnQuitClicked()
+    {
+        GameManager.Instance.QuitGame();
+    }
+
     public void GoToGameOver(int score)
     {
+        scorePanel.SetActive(false);
+        timePanel.SetActive(false);
+        cityPanel.SetActive(false);
         gameOverPanel.SetActive(true);
 
         Image[] scoreStarImages = new Image[GameManager.Instance.Cities.Length];
@@ -219,12 +235,12 @@ public class Hud : MonoBehaviour
                 .setEase(LeanTweenType.punch).id;
     }
 
-    public void NewFloatingText(string text, Transform target)
+    public void NewFloatingText(string text, Transform target, bool positive = true)
     {
         FloatingText ft = (FloatingText) Instantiate(floatingTextPrefab, Vector3.zero, Quaternion.identity);
         ft.RectTransform.SetParent(hudCanvas.GetComponent<RectTransform>());
 
-        ft.Init(text, target);
+        ft.Init(text, target, positive);
 
     }
 

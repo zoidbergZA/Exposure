@@ -11,6 +11,7 @@ public class DrillGameHud : MonoBehaviour
     [SerializeField] private Image joystickArrow;
     [SerializeField] private Image brokenDrillToast;
     [SerializeField] private Image succeededToast;
+    [SerializeField] private Image timeoutToast;
     [SerializeField] private Image pipeProgressBar;
     [SerializeField] private Image drillLife;
     [SerializeField] private Image waterLeft;
@@ -18,6 +19,7 @@ public class DrillGameHud : MonoBehaviour
     [SerializeField] private Image waterBottom;
     [SerializeField] private Image waterHot;
     [SerializeField] private Image waterSteam;
+    [SerializeField] private Text debugSpeed;
 
     public Image JoystickArrow { get { return joystickArrow; } }
     public Image BrokenDrillToast { get { return brokenDrillToast; } }
@@ -27,6 +29,8 @@ public class DrillGameHud : MonoBehaviour
     public float PanelSlidingTimer { get; set; }
     public DrillGameMap Map { get; private set; }
     public Driller Driller { get; private set; }
+    public bool ActivateGeothermalUI { get; set; }
+    public bool DeactivateGeoThermalUI { get; set; }
 
     private Vector2 waterLeftStartPosition = new Vector2(0, 688);
     private Vector2 waterRightStartPosition = new Vector2(0, -683);
@@ -60,6 +64,11 @@ public class DrillGameHud : MonoBehaviour
             joystickArrow.color = new Color(1, 1, 1, 0);
         }
         updateProgressBars();
+        if (ActivateGeothermalUI) ActivateGeothermal(true);
+        if (DeactivateGeoThermalUI) ActivateGeothermal(false);
+
+        //debug speed update here
+        debugSpeed.text = "Speed\n" + GameManager.Instance.DrillingGame.DrillSpeed / 10;
     }
     public void PointJoystickArrow(DrillingDirection direction)
     {
@@ -92,14 +101,15 @@ public class DrillGameHud : MonoBehaviour
             case global::ToastType.BROKEN_DRILL:
                 brokenDrillToast.gameObject.SetActive(false);
                 break;
-            case global::ToastType.BROKEN_PIPE:
+            case global::ToastType.TIME_OUT:
+                timeoutToast.gameObject.SetActive(false);
                 break;
             case global::ToastType.EXPLODED_BOMB:
                 brokenDrillToast.gameObject.SetActive(false);
                 break;
             case global::ToastType.SUCCESS:
                 succeededToast.gameObject.SetActive(false);
-                ActivateGeothermal(false);
+                DeactivateGeoThermalUI = true;
                 break;
         }
         ToastTimer = ToastMessageTime;
@@ -108,7 +118,6 @@ public class DrillGameHud : MonoBehaviour
     private void updateProgressBars()
     {
         if (pipeProgressBar && Map.GetPipePartsCount <= 3) pipeProgressBar.fillAmount = Map.GetPipePartsCount * 33.33333334f / 100f;
-        //to do update drill life depending on amount of life
         switch(Driller.Lives)
         {
             case 3:
@@ -130,7 +139,9 @@ public class DrillGameHud : MonoBehaviour
     {
         switch (type)
         {
-            case global::ToastType.BROKEN_PIPE:
+            case global::ToastType.TIME_OUT:
+                if (!timeoutToast.gameObject.activeSelf) timeoutToast.gameObject.SetActive(true);
+                timeoutToast.gameObject.transform.parent.SetAsLastSibling();
                 break;
             case global::ToastType.BROKEN_DRILL:
                 if (!brokenDrillToast.gameObject.activeSelf) brokenDrillToast.gameObject.SetActive(true);
@@ -159,15 +170,29 @@ public class DrillGameHud : MonoBehaviour
 
     public void ActivateGeothermal(bool activate)
     {
-        //to do sequential water flow
-
         if(activate)
         {
-            LeanTween.move(waterLeft.gameObject.GetComponent<RectTransform>(), Vector2.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
-            LeanTween.move(waterRight.gameObject.GetComponent<RectTransform>(), Vector2.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
-            LeanTween.move(waterBottom.gameObject.GetComponent<RectTransform>(), Vector2.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
-            LeanTween.move(waterHot.gameObject.GetComponent<RectTransform>(), Vector2.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
-            LeanTween.move(waterSteam.gameObject.GetComponent<RectTransform>(), Vector2.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
+            LeanTween.move(waterLeft.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEase(LeanTweenType.easeOutQuart);
+            if (waterLeft.gameObject.GetComponent<RectTransform>().anchoredPosition.y <= 5.0f)
+            {
+                LeanTween.move(waterBottom.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEase(LeanTweenType.easeOutQuart);
+                if (waterBottom.gameObject.GetComponent<RectTransform>().anchoredPosition.x >= -5.0f)
+                {
+                    LeanTween.move(waterRight.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEase(LeanTweenType.easeOutQuart);
+                    if (waterRight.gameObject.GetComponent<RectTransform>().anchoredPosition.y >= -5.0f)
+                    {
+                        LeanTween.move(waterHot.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEase(LeanTweenType.easeOutQuart);
+                        if (waterHot.gameObject.GetComponent<RectTransform>().anchoredPosition.y >= -5.0f)
+                        {
+                            LeanTween.move(waterSteam.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEase(LeanTweenType.easeOutQuart);
+                            if (waterSteam.gameObject.GetComponent<RectTransform>().anchoredPosition.y >= -5.0f)
+                            {
+                                ActivateGeothermalUI = false;
+                            }
+                        }
+                    }
+                }
+            }
         }
         else
         {
@@ -176,6 +201,7 @@ public class DrillGameHud : MonoBehaviour
             LeanTween.move(waterBottom.gameObject.GetComponent<RectTransform>(), waterBottomStartPosition, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
             LeanTween.move(waterHot.gameObject.GetComponent<RectTransform>(), waterHotStartPosition, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
             LeanTween.move(waterSteam.gameObject.GetComponent<RectTransform>(), waterSteamStartPosition, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
+            DeactivateGeoThermalUI = false;
         }
     }
 }

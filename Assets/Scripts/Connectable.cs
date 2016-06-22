@@ -70,7 +70,10 @@ public abstract class Connectable : MonoBehaviour
 
     private void OnClick()
     {
-        GameManager.Instance.Player.ScorePoints(pointValue, transform);
+//        GameManager.Instance.Player.ScorePoints(pointValue, transform);
+
+        string message = GameManager.Instance.Hud.PositiveMessages[Random.Range(0, GameManager.Instance.Hud.PositiveMessages.Length)];
+        GameManager.Instance.Hud.NewFloatingText(message, transform);
         GameManager.Instance.GridBuilder.MakeConnection(this);
     }
 }

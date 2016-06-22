@@ -107,8 +107,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 125730}
-  m_LocalRotation: {x: -0.21853617, y: -0.6847126, z: 0.48101395, w: 0.50203204}
-  m_LocalPosition: {x: -16.143888, y: 44.415512, z: 13.818308}
+  m_LocalRotation: {x: -0.47394952, y: -0.7320138, z: 0.37148172, w: 0.31863627}
+  m_LocalPosition: {x: 54.587147, y: 24.978119, z: 17.479836}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 489006}
@@ -211,7 +211,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 114302}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
@@ -325,6 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectionRef: {fileID: 464250}
+  pointValue: 1
   connectIcon: {fileID: 2800000, guid: 9b48bf22fc1c0364ebe5cc0511ae997a, type: 3}
   PlacerModel: {fileID: 114302}
   BuiltModel: {fileID: 113898}
@@ -334,7 +335,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 125730}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b4209806e98e8441a4864eb11d42ca0, type: 3}
   m_Name: 
