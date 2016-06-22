@@ -1068,7 +1068,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a6cbbf2babfd7a34c8e7add35c0e02a1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ccbea96e3254f54ea2e52da30914edd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1182,7 +1182,7 @@ MonoBehaviour:
   tapTip: {fileID: 11408836}
   pipeFeedback: {fileID: 11409046}
   diamondFeedback: {fileID: 11486562}
-  feedbackFadeSpeed: 1.1
+  feedbackFadeSpeed: 0.5
 --- !u!114 &11421718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1898,7 +1898,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a6cbbf2babfd7a34c8e7add35c0e02a1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e9811f4c44aac94cb2c326988ee5b4c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2257,7 +2257,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -92, y: 92}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 166, y: 106}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22408228
 RectTransform:
@@ -2415,7 +2415,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -92.000015, y: 92}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 164, y: 106}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22426418
 RectTransform:

@@ -135,7 +135,7 @@ public class Driller : MonoBehaviour
                 Collided = true;
                 break;
             case Tile.DIAMOND:
-                pipeFeedback.color = new Color(1, 1, 1, 1);
+                diamondFeedback.color = new Color(1, 1, 1, 1);
                 GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
                 Destroy(GO);
                 break;
