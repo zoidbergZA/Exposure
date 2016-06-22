@@ -18,6 +18,9 @@ public class Planet : MonoBehaviour
     [SerializeField] private ParticleSystem cloudParticleSystem;
     [SerializeField] private Color cloudsDirtyColor;
     [SerializeField] private Color cloudsCleanColor;
+    [SerializeField] private MeshRenderer waterMeshRenderer;
+    [SerializeField] private Color waterDirtyColor;
+    [SerializeField] private Color waterCleanColor;
     [SerializeField] private Color backgroundDirtyColor;
     [SerializeField] private Color backgroundCleanColor;
     [SerializeField] private float normalSpin;
@@ -82,6 +85,7 @@ public class Planet : MonoBehaviour
         Health = (float)cleanCount / (float)GameManager.Instance.Cities.Length;
         RefreshTrees();
         atmosphereLight.color = Color.Lerp(dirtyColor, cleanColor, Health);
+        waterMeshRenderer.material.color = Color.Lerp(waterDirtyColor, waterCleanColor, Health);
         Camera.main.backgroundColor = Color.Lerp(backgroundDirtyColor, backgroundCleanColor, Health);
 
         if (cloudParticleSystem)

@@ -1,0 +1,292 @@
+fileFormatVersion: 2
+guid: 6ebe092a399a1af4e8823e635a2fd51f
+timeCreated: 1466434483
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: GeoTherminal
+    100004: GeoTherminal_OBJ
+    100006: Step_cfgdcg
+    100008: Water_19
+    100010: Water_20
+    100012: Water_21
+    100014: Water_22
+    100016: Water_23
+    100018: Water_24
+    100020: Water_25
+    100022: Water_26
+    100024: Water_27
+    400000: //RootNode
+    400002: GeoTherminal
+    400004: GeoTherminal_OBJ
+    400006: Step_cfgdcg
+    400008: Water_19
+    400010: Water_20
+    400012: Water_21
+    400014: Water_22
+    400016: Water_23
+    400018: Water_24
+    400020: Water_25
+    400022: Water_26
+    400024: Water_27
+    2300000: Water_19
+    2300002: Water_20
+    2300004: Water_21
+    2300006: Water_22
+    2300008: Water_23
+    2300010: Water_24
+    2300012: Water_25
+    2300014: Water_26
+    2300016: Water_27
+    3300000: Water_19
+    3300002: Water_20
+    3300004: Water_21
+    3300006: Water_22
+    3300008: Water_23
+    3300010: Water_24
+    3300012: Water_25
+    3300014: Water_26
+    3300016: Water_27
+    4300000: Water_19
+    4300002: Water_20
+    4300004: Water_21
+    4300006: Water_22
+    4300008: Water_23
+    4300010: Water_24
+    4300012: Water_25
+    4300014: Water_26
+    4300016: Water_27
+    4300018: GeoTherminal_OBJ
+    7400000: Construction
+    7400002: Transition
+    7400004: In-Use
+    9500000: //RootNode
+    13700000: GeoTherminal_OBJ
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Construction
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: GeoTherminal
+        weight: 1
+      - path: GeoTherminal/GeoTherminal_OBJ
+        weight: 1
+      - path: GeoTherminal/Water_19
+        weight: 1
+      - path: GeoTherminal/Water_20
+        weight: 1
+      - path: GeoTherminal/Water_21
+        weight: 1
+      - path: GeoTherminal/Water_22
+        weight: 1
+      - path: GeoTherminal/Water_23
+        weight: 1
+      - path: GeoTherminal/Water_24
+        weight: 1
+      - path: GeoTherminal/Water_25
+        weight: 1
+      - path: GeoTherminal/Water_26
+        weight: 1
+      - path: GeoTherminal/Water_27
+        weight: 1
+      - path: Step_cfgdcg
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Transition
+      takeName: Take 001
+      firstFrame: 61
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: GeoTherminal
+        weight: 1
+      - path: GeoTherminal/GeoTherminal_OBJ
+        weight: 1
+      - path: GeoTherminal/Water_19
+        weight: 1
+      - path: GeoTherminal/Water_20
+        weight: 1
+      - path: GeoTherminal/Water_21
+        weight: 1
+      - path: GeoTherminal/Water_22
+        weight: 1
+      - path: GeoTherminal/Water_23
+        weight: 1
+      - path: GeoTherminal/Water_24
+        weight: 1
+      - path: GeoTherminal/Water_25
+        weight: 1
+      - path: GeoTherminal/Water_26
+        weight: 1
+      - path: GeoTherminal/Water_27
+        weight: 1
+      - path: Step_cfgdcg
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: In-Use
+      takeName: Take 001
+      firstFrame: 90
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: GeoTherminal
+        weight: 1
+      - path: GeoTherminal/GeoTherminal_OBJ
+        weight: 1
+      - path: GeoTherminal/Water_19
+        weight: 1
+      - path: GeoTherminal/Water_20
+        weight: 1
+      - path: GeoTherminal/Water_21
+        weight: 1
+      - path: GeoTherminal/Water_22
+        weight: 1
+      - path: GeoTherminal/Water_23
+        weight: 1
+      - path: GeoTherminal/Water_24
+        weight: 1
+      - path: GeoTherminal/Water_25
+        weight: 1
+      - path: GeoTherminal/Water_26
+        weight: 1
+      - path: GeoTherminal/Water_27
+        weight: 1
+      - path: Step_cfgdcg
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

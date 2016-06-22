@@ -6,16 +6,23 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Hud : MonoBehaviour
 {
+    [SerializeField] private Sprite fullStar;
     [SerializeField] private FloatingText floatingTextPrefab;
+    [SerializeField] private Image starImagePrefab;
     [SerializeField] private Canvas hudCanvas;
+    [SerializeField] private RectTransform scoreStarPanel;
     [SerializeField] private Image tipBubble;
     [SerializeField] private Sprite[] tipSprites;
     [SerializeField] private GameObject scannerTip;
     [SerializeField] private Image buildArrow;
+    [SerializeField] private GameObject cityPanel;
     [SerializeField] private GameObject scorePanel;
+    [SerializeField] private GameObject timePanel;
     [SerializeField] private Text timeText;
-    [SerializeField] private Text gameOverText;
+//    [SerializeField] private Text gameOverText;
     [SerializeField] private Text scoreText;
+    [SerializeField] private Text endScoreText;
+    [SerializeField] private Text endPlayerText;
     [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject cablePanel;
     [SerializeField] private Text cableText;
@@ -50,13 +57,20 @@ public class Hud : MonoBehaviour
     void Start()
     {
         scorePanel.SetActive(false);
-        //todo: time panel
-        //todo: city panel
-//        startPanel.SetActive(true);
+        timePanel.SetActive(false);
+        cityPanel.SetActive(false);
+        startPanel.SetActive(true);
     }
 
     void Update()
     {
+        //test
+
+        if (Input.GetKeyDown(KeyCode.T))
+            GoToGameOver(42);
+
+        //test
+
         //timeleft
         int minutes = Mathf.FloorToInt(GameManager.Instance.TimeLeft/60F);
         int seconds = Mathf.FloorToInt(GameManager.Instance.TimeLeft - minutes*60);
@@ -139,9 +153,10 @@ public class Hud : MonoBehaviour
         ShowStartPanel(false);
 
         scorePanel.SetActive(true);
-        //todo: time panel
-        //todo: city panel
+        timePanel.SetActive(true);
+        cityPanel.SetActive(true);
 
+        GameManager.Instance.Director.SetSunlightBrightness(1f);
         GameManager.Instance.StartRound();
     }
 
@@ -149,7 +164,31 @@ public class Hud : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
 
-        gameOverText.text = "score: " + score;
+        Image[] scoreStarImages = new Image[GameManager.Instance.Cities.Length];
+
+        for (int i = 0; i < GameManager.Instance.Cities.Length; i++)
+        {
+            scoreStarImages[i] = Instantiate(starImagePrefab);
+            scoreStarImages[i].rectTransform.SetParent(scoreStarPanel);
+            scoreStarImages[i].rectTransform.localScale = Vector3.one;
+
+            if (!GameManager.Instance.Cities[i].IsDirty)
+            {
+                scoreStarImages[i].sprite = fullStar;
+            }
+        }
+
+        for (int i = 0; i < scoreStarImages.Length; i++)
+        {
+            if (scoreStarImages[i].sprite == fullStar)
+                scoreStarImages[i].rectTransform.SetAsFirstSibling();
+        }
+
+        Destroy(starImagePrefab.gameObject);
+        
+        //set score and player name text
+        endPlayerText.text = "Goed Gedaan " + GameManager.Instance.Player.PlayerName + "!!!";
+        endScoreText.text = score.ToString();
     }
 
     public void ShakeScorePanel()
