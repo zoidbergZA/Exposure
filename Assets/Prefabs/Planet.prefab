@@ -979,7 +979,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0, g: 0.95686275, b: 1, a: 1}
   m_Intensity: 8
-  m_Range: 300
+  m_Range: 260
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -1035,12 +1035,12 @@ MonoBehaviour:
   cleanColor: {r: 0, g: 0.95686275, b: 1, a: 1}
   cloudParticleSystem: {fileID: 19871962}
   cloudsDirtyColor: {r: 0.5372549, g: 0.25882354, b: 0.10980393, a: 0.784}
-  cloudsCleanColor: {r: 1, g: 1, b: 1, a: 0.278}
+  cloudsCleanColor: {r: 1, g: 1, b: 1, a: 0.391}
   waterMeshRenderer: {fileID: 2388276}
-  waterDirtyColor: {r: 0.85156906, g: 0.88235295, b: 0.32439446, a: 1}
-  waterCleanColor: {r: 0, g: 0.7103448, b: 1, a: 1}
-  backgroundDirtyColor: {r: 0.4044118, g: 0.2455825, b: 0.16057529, a: 0.284}
-  backgroundCleanColor: {r: 0.3913819, g: 0.5073522, b: 0.9338235, a: 0.303}
+  waterDirtyColor: {r: 0.75, g: 0.6452586, b: 0.30330884, a: 1}
+  waterCleanColor: {r: 0.25400084, g: 0.49664566, b: 0.5955882, a: 1}
+  backgroundDirtyColor: {r: 0.4044118, g: 0.2920691, b: 0.23194206, a: 0.284}
+  backgroundCleanColor: {r: 0.26757136, g: 0.36913922, b: 0.74264705, a: 0.303}
   normalSpin: 0
 --- !u!114 &11430466
 MonoBehaviour:
