@@ -28,7 +28,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
 
-    private int buttonSize = 55;
+    private int buttonSize = 85;
     private int buttonIndent = 10;
 
     private float tipTimeRemaing;
