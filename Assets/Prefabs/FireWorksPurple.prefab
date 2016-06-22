@@ -192,7 +192,7 @@ ParticleSystem:
           rgba: 4294902015
         key2:
           serializedVersion: 2
-          rgba: 16711680
+          rgba: 16776960
         key3:
           serializedVersion: 2
           rgba: 16711935
@@ -229,7 +229,7 @@ ParticleSystem:
       minGradient:
         key0:
           serializedVersion: 2
-          rgba: 4294901760
+          rgba: 4294967040
         key1:
           serializedVersion: 2
           rgba: 4294902015
@@ -1573,7 +1573,7 @@ ParticleSystem:
     minMaxState: 0
   speed: 1
   randomSeed: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 1
@@ -1645,7 +1645,7 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 4294901760
+          rgba: 4294967040
         key1:
           serializedVersion: 2
           rgba: 4294902015
@@ -1694,7 +1694,7 @@ ParticleSystem:
           rgba: 4294902015
         key2:
           serializedVersion: 2
-          rgba: 16711680
+          rgba: 16776960
         key3:
           serializedVersion: 2
           rgba: 16711935
@@ -1857,12 +1857,12 @@ ParticleSystem:
       minMaxState: 3
     randomizeRotationDirection: 0
     gravityModifier: 0
-    maxNumParticles: 7
+    maxNumParticles: 20
     rotation3D: 0
   ShapeModule:
     serializedVersion: 2
     enabled: 1
-    type: 4
+    type: 6
     radius: 93.4
     angle: 32.1
     length: 100
@@ -1871,7 +1871,7 @@ ParticleSystem:
     boxZ: 1
     arc: 360
     placementMode: 1
-    m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+    m_Mesh: {fileID: 4300000, guid: bb3b3d19841343a4da29669d25c6eb12, type: 3}
     m_MeshRenderer: {fileID: 0}
     m_SkinnedMeshRenderer: {fileID: 0}
     m_MeshMaterialIndex: 0
