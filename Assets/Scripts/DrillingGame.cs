@@ -74,6 +74,11 @@ public class DrillingGame : Minigame
         base.Update();
         processJoystickInput();
         if (Driller.Drill) updateState();
+        if (IsRunning && Timeleft <= 0.05f)
+        {
+            state = DrillingGameState.FAIL;
+            ToastType = global::ToastType.BROKEN_DRILL;
+        }
 
         //cheat buttons
         if (Input.GetKeyDown(KeyCode.L))
@@ -220,6 +225,9 @@ public class DrillingGame : Minigame
             Hud.DeactivateToast(ToastType);
             resetGame();
             Joystick.Reset();
+
+            Driller.Drill.gameObject.SetActive(true);
+            Driller.Drill.transform.SetAsLastSibling();
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
             Map.SwitchPipeTileSprite();
             if (levelsCounter == 0)
@@ -227,9 +235,6 @@ public class DrillingGame : Minigame
                 Driller.ActivateImage(Driller.ArrowDown, true);
                 Driller.ActivateImage(Driller.TapTip, true);
             }
-
-            Driller.Drill.gameObject.SetActive(true);
-            //Driller.Drill.transform.SetAsLastSibling();
             if (levelsCounter != 0 && levelsCounter != 1) Driller.SwitchAnimation("goToSliding", true);
             state = DrillingGameState.SLIDING;
         }
@@ -244,6 +249,7 @@ public class DrillingGame : Minigame
             IsRestarting = false;
             End(false);
             state = DrillingGameState.INACTIVE;
+            GameManager.Instance.Planet.AddSpin(85.0f);
         }
     }
     #endregion

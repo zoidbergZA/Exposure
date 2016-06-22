@@ -1212,7 +1212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6082c5f55ad3da4692acda9f464d3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 1000
+  timeOut: 90
   mapPanel: {fileID: 22408228}
   MainPanel: {fileID: 22467228}
   drillSpeed: 90

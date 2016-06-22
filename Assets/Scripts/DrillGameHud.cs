@@ -163,11 +163,23 @@ public class DrillGameHud : MonoBehaviour
 
         if(activate)
         {
-            LeanTween.move(waterLeft.gameObject.GetComponent<RectTransform>(), Vector2.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
-            LeanTween.move(waterRight.gameObject.GetComponent<RectTransform>(), Vector2.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
-            LeanTween.move(waterBottom.gameObject.GetComponent<RectTransform>(), Vector2.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
-            LeanTween.move(waterHot.gameObject.GetComponent<RectTransform>(), Vector2.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
-            LeanTween.move(waterSteam.gameObject.GetComponent<RectTransform>(), Vector2.zero, ToastMessageTime).setEase(LeanTweenType.easeOutQuad);
+            LeanTween.move(waterLeft.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEase(LeanTweenType.easeOutQuad);
+            if (waterLeft.gameObject.GetComponent<RectTransform>().anchoredPosition == Vector2.zero)
+            {
+                LeanTween.move(waterBottom.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEase(LeanTweenType.easeOutQuad);
+                if (waterBottom.gameObject.GetComponent<RectTransform>().anchoredPosition == Vector2.zero)
+                {
+                    LeanTween.move(waterRight.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEase(LeanTweenType.easeOutQuad);
+                    if (waterRight.gameObject.GetComponent<RectTransform>().anchoredPosition == Vector2.zero)
+                    {
+                        LeanTween.move(waterHot.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEase(LeanTweenType.easeOutQuad);
+                        if (waterHot.gameObject.GetComponent<RectTransform>().anchoredPosition == Vector2.zero)
+                        {
+                            LeanTween.move(waterSteam.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEase(LeanTweenType.easeOutQuad);
+                        }
+                    }
+                }
+            }
         }
         else
         {
