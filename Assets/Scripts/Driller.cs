@@ -11,6 +11,9 @@ public class Driller : MonoBehaviour
     [SerializeField] private Image arrowRight;
     [SerializeField] private Image arrowLeft;
     [SerializeField] private Image tapTip;
+    [SerializeField] private Image pipeFeedback;
+    [SerializeField] private Image diamondFeedback;
+    [SerializeField] private float feedbackFadeSpeed = 1.1f;
 
     private int lives = 3;
 
@@ -18,7 +21,7 @@ public class Driller : MonoBehaviour
     public Animator Animator { get { return animator; } }
     public Vector2 Position { get { return Drill.rectTransform.anchoredPosition; } set { Drill.rectTransform.anchoredPosition = value; } }
     public Rigidbody2D Body { get; private set; }
-    public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, WATER }
+    public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, PIPE_PART }
     public int Lives { get { return lives; } }
     public DrillGameHud Hud { get; private set; }
     public bool Collided { get; private set; }
@@ -44,6 +47,12 @@ public class Driller : MonoBehaviour
     {
         Body.inertia = 0;
         Body.freezeRotation = true;
+
+        float displacement = Mathf.Sin(Time.time);
+        arrowDown.rectTransform.localPosition = new Vector2(arrowDown.rectTransform.localPosition.x, arrowDown.rectTransform.localPosition.y + displacement/2);
+        arrowRight.rectTransform.localPosition = new Vector2(arrowRight.rectTransform.localPosition.x + displacement, arrowRight.rectTransform.localPosition.y);
+
+        updateFeedbackImages();
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -63,7 +72,7 @@ public class Driller : MonoBehaviour
                 handleCollision(Tile.ELECTRICITY, coll.gameObject);
                 break;
             case "Water":
-                handleCollision(Tile.WATER, coll.gameObject);
+                handleCollision(Tile.PIPE_PART, coll.gameObject);
                 break;
             case "Pipe":
                 handleCollision(Tile.PIPE);
@@ -98,6 +107,9 @@ public class Driller : MonoBehaviour
         Drill.rectTransform.anchoredPosition = startPosition;
         Drill.gameObject.SetActive(false);
         Collided = false;
+        pipeFeedback.color = new Color(1, 1, 1, 0);
+        diamondFeedback.color = new Color(1, 1, 1, 0);
+        ActivateImage(arrowRight, false);
     }
 
     public void SwitchAnimation(string param, bool turned)
@@ -123,6 +135,7 @@ public class Driller : MonoBehaviour
                 Collided = true;
                 break;
             case Tile.DIAMOND:
+                diamondFeedback.color = new Color(1, 1, 1, 1);
                 GameManager.Instance.Player.ScorePoints(GameManager.Instance.DrillingGame.DiamondValue);
                 Destroy(GO);
                 break;
@@ -153,7 +166,8 @@ public class Driller : MonoBehaviour
             case Tile.GROUND_TILE:
                 Destroy(GO);
                 break;
-            case Tile.WATER:
+            case Tile.PIPE_PART:
+                pipeFeedback.color = new Color(1, 1, 1, 1);
                 GameManager.Instance.DrillingGame.Map.AddPipePart(GO.GetComponent<DrillingGameTile>());
                 if (GameManager.Instance.DrillingGame.Map.GetPipePartsCount <= 3)
                     LeanTween.scale(Hud.WaterBar.GetComponent<RectTransform>(),
@@ -171,5 +185,19 @@ public class Driller : MonoBehaviour
     public void ActivateImage(Image arrow, bool activate)
     {
         arrow.enabled = activate;
+    }
+
+    private void updateFeedbackImages()
+    {
+        if (pipeFeedback.color.a > 0 && GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+        {
+            pipeFeedback.gameObject.SetActive(true);
+            pipeFeedback.color = new Color(1, 1, 1, pipeFeedback.color.a - Time.deltaTime * feedbackFadeSpeed);
+        }
+        if (diamondFeedback.color.a > 0 && GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+        {
+            diamondFeedback.gameObject.SetActive(true);
+            diamondFeedback.color = new Color(1, 1, 1, diamondFeedback.color.a - Time.deltaTime * feedbackFadeSpeed);
+        }
     }
 }

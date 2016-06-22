@@ -45,6 +45,7 @@ public class DrillingGame : Minigame
     public DrillGameHud Hud { get; private set; }
     public MobileJoystick Joystick { get; private set; }
     public float DiamondValue { get { return diamondValue; } }
+    public float DrillSpeed { get { return drillSpeed; } }
 
     void Awake()
     {
@@ -74,15 +75,25 @@ public class DrillingGame : Minigame
         base.Update();
         processJoystickInput();
         if (Driller.Drill) updateState();
+        if (IsRunning && Timeleft <= 0.05f)
+        {
+            state = DrillingGameState.FAIL;
+            ToastType = global::ToastType.BROKEN_DRILL;
+        }
 
-        //cheat buttons
+        //--------------------------------
+        //------- cheat buttons BEGIN ----
+        //--------------------------------
         if (Input.GetKeyDown(KeyCode.L))
         {
             if (levelsCounter < levels.Length-1) levelsCounter++;
             else levelsCounter = 0;
         }
-        if (Input.GetKeyDown(KeyCode.N)) Driller.Body.mass += 0.01f;
-        if (Input.GetKeyDown(KeyCode.M)) Driller.Body.mass -= 0.01f;
+        if (Input.GetKeyDown(KeyCode.N)) drillSpeed -= 10.0f;
+        if (Input.GetKeyDown(KeyCode.M)) drillSpeed += 10.0f;
+        //--------------------------------
+        //------- cheat buttons END ----
+        //--------------------------------
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
@@ -132,7 +143,7 @@ public class DrillingGame : Minigame
     {
         Driller.Drill.gameObject.SetActive(true);
         Driller.Drill.transform.SetAsLastSibling();
-        if (levelsCounter != 0 && levelsCounter != 1) Driller.SwitchAnimation("goToSliding", true);
+        if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2) Driller.SwitchAnimation("goToSliding", true);
 
         if (MainPanel.anchoredPosition == mainPanelActivePosition)
         {
@@ -186,7 +197,7 @@ public class DrillingGame : Minigame
         else
         {
             Hud.ActivateToast(ToastType.SUCCESS);
-            Hud.ActivateGeothermal(true);
+            Hud.ActivateGeothermalUI = true;
             state = DrillingGameState.SUCCESS;
         }
         if(Driller.Collided)
@@ -220,6 +231,9 @@ public class DrillingGame : Minigame
             Hud.DeactivateToast(ToastType);
             resetGame();
             Joystick.Reset();
+
+            Driller.Drill.gameObject.SetActive(true);
+            Driller.Drill.transform.SetAsLastSibling();
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
             Map.SwitchPipeTileSprite();
             if (levelsCounter == 0)
@@ -227,10 +241,7 @@ public class DrillingGame : Minigame
                 Driller.ActivateImage(Driller.ArrowDown, true);
                 Driller.ActivateImage(Driller.TapTip, true);
             }
-
-            Driller.Drill.gameObject.SetActive(true);
-            //Driller.Drill.transform.SetAsLastSibling();
-            if (levelsCounter != 0 && levelsCounter != 1) Driller.SwitchAnimation("goToSliding", true);
+            if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2) Driller.SwitchAnimation("goToSliding", true);
             state = DrillingGameState.SLIDING;
         }
     }
@@ -244,6 +255,7 @@ public class DrillingGame : Minigame
             IsRestarting = false;
             End(false);
             state = DrillingGameState.INACTIVE;
+            GameManager.Instance.Planet.AddSpin(85.0f);
         }
     }
     #endregion
@@ -547,11 +559,6 @@ public class DrillingGame : Minigame
                     slidingLeft = true;
                     Driller.SwitchAnimation("isSlidingLeft", true);
                 }
-                if (levelsCounter != 0 && levelsCounter != 1)
-                {
-                    Driller.Body.AddRelativeForce(new Vector2(1 * slideSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
-                    Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
-                }
             }
             else
             {
@@ -564,11 +571,11 @@ public class DrillingGame : Minigame
                     slidingLeft = false;
                     Driller.SwitchAnimation("isSlidingLeft", false);
                 }
-                if (levelsCounter != 0 && levelsCounter != 1)
-                {
-                    Driller.Body.AddRelativeForce(new Vector2(-1 * slideSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
-                    Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
-                }
+            }
+            if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2)
+            {
+                Driller.Body.AddRelativeForce(new Vector2((!slidingLeft) ? 1 : -1 * slideSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
             }
         }
         else
