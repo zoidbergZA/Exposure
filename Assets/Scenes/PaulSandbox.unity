@@ -6793,6 +6793,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 11448036, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
+      propertyPath: touchScreenInput
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
@@ -67861,27 +67865,27 @@ Prefab:
       objectReference: {fileID: 1722534707}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 355
       objectReference: {fileID: 0}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -52.5
       objectReference: {fileID: 0}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 104
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 67e3c6e8e27655d42882781789198faf, type: 2}

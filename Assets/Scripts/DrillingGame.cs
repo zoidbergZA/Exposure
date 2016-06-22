@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityStandardAssets.CrossPlatformInput;
 
 public enum DrillingDirection { UP, DOWN, LEFT, RIGHT, NONE }
-public enum ToastType { SUCCESS, BROKEN_DRILL, BROKEN_PIPE, EXPLODED_BOMB, TRIGGERED_BOMB, NONE }
+public enum ToastType { SUCCESS, BROKEN_DRILL, TIME_OUT, EXPLODED_BOMB, TRIGGERED_BOMB, NONE }
 
 public class DrillingGame : Minigame
 {
@@ -77,8 +77,8 @@ public class DrillingGame : Minigame
         if (Driller.Drill) updateState();
         if (IsRunning && Timeleft <= 0.05f)
         {
-            state = DrillingGameState.FAIL;
-            ToastType = global::ToastType.BROKEN_DRILL;
+            //Hud.ActivateToast(ToastType.TIME_OUT);
+            //state = DrillingGameState.FAIL;
         }
 
         //--------------------------------
@@ -143,7 +143,7 @@ public class DrillingGame : Minigame
     {
         Driller.Drill.gameObject.SetActive(true);
         Driller.Drill.transform.SetAsLastSibling();
-        if (levelsCounter != 0 && levelsCounter != 1) Driller.SwitchAnimation("goToSliding", true);
+        if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2) Driller.SwitchAnimation("goToSliding", true);
 
         if (MainPanel.anchoredPosition == mainPanelActivePosition)
         {
@@ -241,7 +241,7 @@ public class DrillingGame : Minigame
                 Driller.ActivateImage(Driller.ArrowDown, true);
                 Driller.ActivateImage(Driller.TapTip, true);
             }
-            if (levelsCounter != 0 && levelsCounter != 1) Driller.SwitchAnimation("goToSliding", true);
+            if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2) Driller.SwitchAnimation("goToSliding", true);
             state = DrillingGameState.SLIDING;
         }
     }
@@ -559,11 +559,6 @@ public class DrillingGame : Minigame
                     slidingLeft = true;
                     Driller.SwitchAnimation("isSlidingLeft", true);
                 }
-                if (levelsCounter != 0 && levelsCounter != 1)
-                {
-                    Driller.Body.AddRelativeForce(new Vector2(1 * slideSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
-                    Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
-                }
             }
             else
             {
@@ -576,11 +571,11 @@ public class DrillingGame : Minigame
                     slidingLeft = false;
                     Driller.SwitchAnimation("isSlidingLeft", false);
                 }
-                if (levelsCounter != 0 && levelsCounter != 1)
-                {
-                    Driller.Body.AddRelativeForce(new Vector2(-1 * slideSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill left
-                    Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
-                }
+            }
+            if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2)
+            {
+                Driller.Body.AddRelativeForce(new Vector2((!slidingLeft) ? 1 : -1 * slideSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
             }
         }
         else
