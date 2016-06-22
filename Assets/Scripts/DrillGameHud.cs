@@ -112,7 +112,6 @@ public class DrillGameHud : MonoBehaviour
     private void updateProgressBars()
     {
         if (pipeProgressBar && Map.GetPipePartsCount <= 3) pipeProgressBar.fillAmount = Map.GetPipePartsCount * 33.33333334f / 100f;
-        //to do update drill life depending on amount of life
         switch(Driller.Lives)
         {
             case 3:
@@ -163,8 +162,6 @@ public class DrillGameHud : MonoBehaviour
 
     public void ActivateGeothermal(bool activate)
     {
-        //to do sequential water flow
-
         if(activate)
         {
             LeanTween.move(waterLeft.gameObject.GetComponent<RectTransform>(), Vector2.zero, 0.5f).setEase(LeanTweenType.easeOutQuart);
