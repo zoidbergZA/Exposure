@@ -18,6 +18,7 @@ public class DrillGameHud : MonoBehaviour
     [SerializeField] private Image waterBottom;
     [SerializeField] private Image waterHot;
     [SerializeField] private Image waterSteam;
+    [SerializeField] private Text debugSpeed;
 
     public Image JoystickArrow { get { return joystickArrow; } }
     public Image BrokenDrillToast { get { return brokenDrillToast; } }
@@ -64,6 +65,9 @@ public class DrillGameHud : MonoBehaviour
         updateProgressBars();
         if (ActivateGeothermalUI) ActivateGeothermal(true);
         if (DeactivateGeoThermalUI) ActivateGeothermal(false);
+
+        //debug speed update here
+        debugSpeed.text = "Speed\n" + GameManager.Instance.DrillingGame.DrillSpeed / 10;
     }
     public void PointJoystickArrow(DrillingDirection direction)
     {

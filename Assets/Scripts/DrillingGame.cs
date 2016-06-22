@@ -45,6 +45,7 @@ public class DrillingGame : Minigame
     public DrillGameHud Hud { get; private set; }
     public MobileJoystick Joystick { get; private set; }
     public float DiamondValue { get { return diamondValue; } }
+    public float DrillSpeed { get { return drillSpeed; } }
 
     void Awake()
     {
@@ -80,14 +81,19 @@ public class DrillingGame : Minigame
             ToastType = global::ToastType.BROKEN_DRILL;
         }
 
-        //cheat buttons
+        //--------------------------------
+        //------- cheat buttons BEGIN ----
+        //--------------------------------
         if (Input.GetKeyDown(KeyCode.L))
         {
             if (levelsCounter < levels.Length-1) levelsCounter++;
             else levelsCounter = 0;
         }
-        if (Input.GetKeyDown(KeyCode.N)) Driller.Body.mass += 0.01f;
-        if (Input.GetKeyDown(KeyCode.M)) Driller.Body.mass -= 0.01f;
+        if (Input.GetKeyDown(KeyCode.N)) drillSpeed -= 10.0f;
+        if (Input.GetKeyDown(KeyCode.M)) drillSpeed += 10.0f;
+        //--------------------------------
+        //------- cheat buttons END ----
+        //--------------------------------
     }
 
     public void StartGame(Drillspot drillspot, float difficulty)
