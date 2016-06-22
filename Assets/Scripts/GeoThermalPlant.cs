@@ -49,6 +49,7 @@ public class GeoThermalPlant : Connectable
 
         previewModel.SetActive(false);
         Model.SetActive(true);
+        Model.GetComponentInChildren<Animator>().SetBool("StartConstruction", true);
     }
 
     public void ShowPreview(bool show)

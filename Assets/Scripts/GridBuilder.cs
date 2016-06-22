@@ -80,6 +80,9 @@ public class GridBuilder : Minigame
     private void AutoMakeNextConnection()
     {
         MakeConnection(PuzzlePath.ConnectablePath[nextConnectable]);
+
+        string message = GameManager.Instance.Hud.NegativeMessages[Random.Range(0, GameManager.Instance.Hud.NegativeMessages.Length)];
+        GameManager.Instance.Hud.NewFloatingText(message, PuzzlePath.ConnectablePath[nextConnectable-1].transform, false);
     }
 
     private IEnumerator GoToNormalStateAfter(float delay)
