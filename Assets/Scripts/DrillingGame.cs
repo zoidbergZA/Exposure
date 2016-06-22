@@ -72,14 +72,20 @@ public class DrillingGame : Minigame
 
     public override void Update()
     {
-        base.Update();
-        processJoystickInput();
+        //base.Update();
         if (Driller.Drill) updateState();
-        if (IsRunning && Timeleft <= 0.05f)
+        processJoystickInput();
+
+        if (IsRunning)
         {
-            ToastType = global::ToastType.TIME_OUT;
-            Hud.ActivateToast(ToastType);
-            state = DrillingGameState.FAIL;
+            Timeleft -= Time.deltaTime;
+
+            if (Timeleft <= 0.05f)
+            {
+                ToastType = global::ToastType.TIME_OUT;
+                Hud.ActivateToast(ToastType);
+                state = DrillingGameState.FAIL;
+            }
         }
 
         //--------------------------------
@@ -250,6 +256,7 @@ public class DrillingGame : Minigame
     private void handleFail()
     {
         Hud.ToastTimer -= Time.deltaTime;
+
         if (Hud.ToastTimer <= 0)
         {
             Hud.DeactivateToast(ToastType);
