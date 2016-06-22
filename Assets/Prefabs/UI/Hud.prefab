@@ -960,6 +960,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215abf0dd25a7c34ca6fdcd519d9717a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PositiveMessages:
+  - GOED GEDAAN!!
+  - MOOI ZO!!
+  - FAG!!
   fullStar: {fileID: 21300000, guid: e9106b468d5b4494a80ac223ede65f12, type: 3}
   floatingTextPrefab: {fileID: 11495112, guid: 52228e85de909a543bb005a19b7b4419, type: 2}
   starImagePrefab: {fileID: 11440918}

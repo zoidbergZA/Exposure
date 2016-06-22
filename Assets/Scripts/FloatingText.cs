@@ -18,7 +18,7 @@ public class FloatingText : MonoBehaviour
     {
         if (IsInitialized && TargetTransform)
         {
-            RectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(TargetTransform.position) + new Vector3(0, yOffset, 0);
+            RectTransform.position = Camera.main.WorldToScreenPoint(TargetTransform.position) + new Vector3(0, yOffset, 0);
         }
     }
 
@@ -31,7 +31,7 @@ public class FloatingText : MonoBehaviour
         TargetTransform = target;
         textFieldBack.text = text;
         textField.text = text;
-        RectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(target.position);
+        RectTransform.position = Camera.main.WorldToScreenPoint(target.position);
 
         LeanTween.value(gameObject, updateTweenCallback, 0, 40f, destroyTime).setOnComplete(OnRiseComplete).setEase(LeanTweenType.easeOutSine);
         //        LeanTween.move(RectTransform, (Vector3)position + new Vector3(0f, 50f, 0f), 5f).setOnComplete(OnRiseComplete).setEase(LeanTweenType.easeOutSine);
