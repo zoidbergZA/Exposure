@@ -4952,7 +4952,7 @@ Transform:
   - {fileID: 329986754}
   - {fileID: 1149399360}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 4
 --- !u!1001 &305625151
 Prefab:
   m_ObjectHideFlags: 0
@@ -8823,7 +8823,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 5
 --- !u!1001 &483167220
 Prefab:
   m_ObjectHideFlags: 0
@@ -11841,27 +11841,27 @@ Prefab:
       objectReference: {fileID: 1722534707}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 355
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -52.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 110
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22414136, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 104
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
@@ -14317,7 +14317,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
 --- !u!1001 &835185322
 Prefab:
   m_ObjectHideFlags: 0
@@ -22223,7 +22223,7 @@ Transform:
   - {fileID: 331707631}
   - {fileID: 1362658544}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 3
 --- !u!1001 &1318352047
 Prefab:
   m_ObjectHideFlags: 0
