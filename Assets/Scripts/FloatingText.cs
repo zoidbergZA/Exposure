@@ -22,7 +22,7 @@ public class FloatingText : MonoBehaviour
         }
     }
 
-    public void Init(string text, Transform target)
+    public void Init(string text, Transform target, bool positive)
     {
         if (IsInitialized)
             return;
@@ -31,6 +31,10 @@ public class FloatingText : MonoBehaviour
         TargetTransform = target;
         textFieldBack.text = text;
         textField.text = text;
+        
+        if (!positive)
+            textField.color = Color.red;
+
         RectTransform.position = Camera.main.WorldToScreenPoint(target.position);
 
         LeanTween.value(gameObject, updateTweenCallback, 0, 40f, destroyTime).setOnComplete(OnRiseComplete).setEase(LeanTweenType.easeOutSine);

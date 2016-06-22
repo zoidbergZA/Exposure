@@ -7,6 +7,7 @@ using UnityStandardAssets.CrossPlatformInput;
 public class Hud : MonoBehaviour
 {
     public string[] PositiveMessages;
+    public string[] NegativeMessages;
 
     [SerializeField] private Sprite fullStar;
     [SerializeField] private FloatingText floatingTextPrefab;
@@ -221,12 +222,12 @@ public class Hud : MonoBehaviour
                 .setEase(LeanTweenType.punch).id;
     }
 
-    public void NewFloatingText(string text, Transform target)
+    public void NewFloatingText(string text, Transform target, bool positive = true)
     {
         FloatingText ft = (FloatingText) Instantiate(floatingTextPrefab, Vector3.zero, Quaternion.identity);
         ft.RectTransform.SetParent(hudCanvas.GetComponent<RectTransform>());
 
-        ft.Init(text, target);
+        ft.Init(text, target, positive);
 
     }
 
