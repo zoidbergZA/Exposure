@@ -575,7 +575,7 @@ public class DrillingGame : Minigame
             }
             if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2)
             {
-                Driller.Body.AddRelativeForce(new Vector2((!slidingLeft) ? 1 : -1 * slideSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                Driller.Body.AddRelativeForce(new Vector2(((!slidingLeft) ? 1 : -1) * slideSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
                 Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
             }
         }
