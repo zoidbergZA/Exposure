@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityStandardAssets.CrossPlatformInput;
 
 public enum DrillingDirection { UP, DOWN, LEFT, RIGHT, NONE }
-public enum ToastType { SUCCESS, BROKEN_DRILL, BROKEN_PIPE, EXPLODED_BOMB, TRIGGERED_BOMB, NONE }
+public enum ToastType { SUCCESS, BROKEN_DRILL, TIME_OUT, EXPLODED_BOMB, TRIGGERED_BOMB, NONE }
 
 public class DrillingGame : Minigame
 {
@@ -77,8 +77,8 @@ public class DrillingGame : Minigame
         if (Driller.Drill) updateState();
         if (IsRunning && Timeleft <= 0.05f)
         {
-            state = DrillingGameState.FAIL;
-            ToastType = global::ToastType.BROKEN_DRILL;
+            //Hud.ActivateToast(ToastType.TIME_OUT);
+            //state = DrillingGameState.FAIL;
         }
 
         //--------------------------------
