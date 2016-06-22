@@ -11,6 +11,8 @@ public class Driller : MonoBehaviour
     [SerializeField] private Image arrowRight;
     [SerializeField] private Image arrowLeft;
     [SerializeField] private Image tapTip;
+    [SerializeField] private Image goodFeedback;
+    [SerializeField] private float feedbackFadeSpeed = 1.1f;
 
     private int lives = 3;
 
@@ -18,7 +20,7 @@ public class Driller : MonoBehaviour
     public Animator Animator { get { return animator; } }
     public Vector2 Position { get { return Drill.rectTransform.anchoredPosition; } set { Drill.rectTransform.anchoredPosition = value; } }
     public Rigidbody2D Body { get; private set; }
-    public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, WATER }
+    public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, PIPE_PART }
     public int Lives { get { return lives; } }
     public DrillGameHud Hud { get; private set; }
     public bool Collided { get; private set; }
@@ -44,6 +46,12 @@ public class Driller : MonoBehaviour
     {
         Body.inertia = 0;
         Body.freezeRotation = true;
+
+        float displacement = Mathf.Sin(Time.time);
+        arrowDown.rectTransform.localPosition = new Vector2(arrowDown.rectTransform.localPosition.x, arrowDown.rectTransform.localPosition.y + displacement);
+        arrowRight.rectTransform.localPosition = new Vector2(arrowRight.rectTransform.localPosition.x + displacement, arrowRight.rectTransform.localPosition.y);
+
+        updateFeedbackImage();
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -63,7 +71,7 @@ public class Driller : MonoBehaviour
                 handleCollision(Tile.ELECTRICITY, coll.gameObject);
                 break;
             case "Water":
-                handleCollision(Tile.WATER, coll.gameObject);
+                handleCollision(Tile.PIPE_PART, coll.gameObject);
                 break;
             case "Pipe":
                 handleCollision(Tile.PIPE);
@@ -153,7 +161,8 @@ public class Driller : MonoBehaviour
             case Tile.GROUND_TILE:
                 Destroy(GO);
                 break;
-            case Tile.WATER:
+            case Tile.PIPE_PART:
+                goodFeedback.color = new Color(1, 1, 1, 1);
                 GameManager.Instance.DrillingGame.Map.AddPipePart(GO.GetComponent<DrillingGameTile>());
                 if (GameManager.Instance.DrillingGame.Map.GetPipePartsCount <= 3)
                     LeanTween.scale(Hud.WaterBar.GetComponent<RectTransform>(),
@@ -171,5 +180,14 @@ public class Driller : MonoBehaviour
     public void ActivateImage(Image arrow, bool activate)
     {
         arrow.enabled = activate;
+    }
+
+    private void updateFeedbackImage()
+    {
+        if (goodFeedback.color.a > 0 && GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+        {
+            goodFeedback.gameObject.SetActive(true);
+            goodFeedback.color = new Color(1, 1, 1, goodFeedback.color.a - Time.deltaTime * feedbackFadeSpeed);
+        }
     }
 }
