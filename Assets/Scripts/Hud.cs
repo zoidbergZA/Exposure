@@ -163,8 +163,21 @@ public class Hud : MonoBehaviour
         GameManager.Instance.StartRound();
     }
 
+    public void OnRestartClicked()
+    {
+        GameManager.Instance.Restart();
+    }
+
+    public void OnQuitClicked()
+    {
+        GameManager.Instance.QuitGame();
+    }
+
     public void GoToGameOver(int score)
     {
+        scorePanel.SetActive(false);
+        timePanel.SetActive(false);
+        cityPanel.SetActive(false);
         gameOverPanel.SetActive(true);
 
         Image[] scoreStarImages = new Image[GameManager.Instance.Cities.Length];
