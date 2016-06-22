@@ -11,6 +11,7 @@ public class DrillGameHud : MonoBehaviour
     [SerializeField] private Image joystickArrow;
     [SerializeField] private Image brokenDrillToast;
     [SerializeField] private Image succeededToast;
+    [SerializeField] private Image timeoutToast;
     [SerializeField] private Image pipeProgressBar;
     [SerializeField] private Image drillLife;
     [SerializeField] private Image waterLeft;
@@ -100,7 +101,8 @@ public class DrillGameHud : MonoBehaviour
             case global::ToastType.BROKEN_DRILL:
                 brokenDrillToast.gameObject.SetActive(false);
                 break;
-            case global::ToastType.BROKEN_PIPE:
+            case global::ToastType.TIME_OUT:
+                timeoutToast.gameObject.SetActive(false);
                 break;
             case global::ToastType.EXPLODED_BOMB:
                 brokenDrillToast.gameObject.SetActive(false);
@@ -137,7 +139,9 @@ public class DrillGameHud : MonoBehaviour
     {
         switch (type)
         {
-            case global::ToastType.BROKEN_PIPE:
+            case global::ToastType.TIME_OUT:
+                if (!timeoutToast.gameObject.activeSelf) timeoutToast.gameObject.SetActive(true);
+                timeoutToast.gameObject.transform.parent.SetAsLastSibling();
                 break;
             case global::ToastType.BROKEN_DRILL:
                 if (!brokenDrillToast.gameObject.activeSelf) brokenDrillToast.gameObject.SetActive(true);

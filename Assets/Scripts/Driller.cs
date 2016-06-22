@@ -154,7 +154,7 @@ public class Driller : MonoBehaviour
                 break;
             case Tile.PIPE:
                 updateDrillerLife(-1);
-                GameManager.Instance.DrillingGame.ToastType = global::ToastType.BROKEN_PIPE;
+                GameManager.Instance.DrillingGame.ToastType = global::ToastType.TIME_OUT;
                 Collided = true;
                 break;
             case Tile.ROCK:
