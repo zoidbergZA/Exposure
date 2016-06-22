@@ -52,7 +52,8 @@ public class Planet : MonoBehaviour
 
     void Update()
     {
-        HandleSpin();
+        if (GameManager.Instance.RoundStarted)
+            HandleSpin();
 
         //test spin input
         if (Input.GetKey(KeyCode.A))

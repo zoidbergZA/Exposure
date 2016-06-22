@@ -6,13 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-//    public enum Modes
-//    {
-//        Scanning,
-//        DrillingGame,
-//        ConnectingGame
-//    }
-
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -87,13 +80,6 @@ public class GameManager : MonoBehaviour
             placers[i].enabled = false;
         }
 
-//        Mode = Modes.Scanning;
-
-//        for (int i = 0; i < Cities.Length; i++)
-//        {
-//            TotalChimneys += Cities[i].ChimneyCount;
-//        }
-
         tutorial = FindObjectOfType<Tutorial>();
 
         if (enableTutorial)
@@ -123,9 +109,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //cheat codes
-//        if (Input.GetKeyDown(KeyCode.F3))
-//            Instance.Planet.DisableNextChimney();
-        if (Input.GetKeyDown(KeyCode.F8))
+       if (Input.GetKeyDown(KeyCode.F8))
             TouchInput = !TouchInput;
         if (Input.GetKeyDown(KeyCode.F9))
             showDebug = !showDebug;
@@ -202,6 +186,13 @@ public class GameManager : MonoBehaviour
     private void EndRound()
     {
         Debug.Log("round ended! score " + Player.Score + "/100");
+        
+        if (DrillingGame.IsRunning)
+            DrillingGame.End(false);
+        if (GridBuilder.IsRunning)
+            GridBuilder.End(false);
+
+        Player.EnableRadar(false, Vector3.zero);
 
         Hud.GoToGameOver((int)Player.Score);
         RoundStarted = false;
