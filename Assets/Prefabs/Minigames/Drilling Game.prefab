@@ -1215,7 +1215,7 @@ MonoBehaviour:
   timeOut: 90
   mapPanel: {fileID: 22408228}
   MainPanel: {fileID: 22467228}
-  drillSpeed: 90
+  drillSpeed: 120
   slideSpeed: 120
   diamondValue: 1
   jumpPhaseTime: 0.85
