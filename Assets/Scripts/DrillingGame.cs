@@ -191,7 +191,7 @@ public class DrillingGame : Minigame
         else
         {
             Hud.ActivateToast(ToastType.SUCCESS);
-            Hud.ActivateGeothermal(true);
+            Hud.ActivateGeothermalUI = true;
             state = DrillingGameState.SUCCESS;
         }
         if(Driller.Collided)
