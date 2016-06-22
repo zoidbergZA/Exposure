@@ -80,7 +80,7 @@ public class Hud : MonoBehaviour
         string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
 
         timeText.text = niceTime;
-        scoreText.text = GameManager.Instance.Player.Score.ToString();
+        scoreText.text = GameManager.Instance.Player.Score + " points";
         cableText.text = GameManager.Instance.Player.Cable.ToString();
 
         //scanner tip
