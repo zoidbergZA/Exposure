@@ -32,7 +32,7 @@ public class MobileJoystick : MonoBehaviour
         UpdateInput();
         if (Input.GetKeyDown(KeyCode.S) && inputType == TouchInputType.TAP) inputType = TouchInputType.SWIPE;
         else if (Input.GetKeyDown(KeyCode.S) && inputType == TouchInputType.SWIPE) inputType = TouchInputType.TAP;
-        //Debug.Log(inputType.ToString());
+//        Debug.Log(inputType.ToString());
     }
 
     private void UpdateInput()
@@ -132,7 +132,7 @@ public class MobileJoystick : MonoBehaviour
             if (JoystickInput.y < 0) CurrentInput = DrillingDirection.DOWN;
             else CurrentInput = DrillingDirection.UP;
         }
-        GameManager.Instance.DrillingGame.Hud.PointJoystickArrow(CurrentInput);
+        //GameManager.Instance.DrillingGame.Hud.PointJoystickArrow(CurrentInput);
     }
 
     private void setDirection()

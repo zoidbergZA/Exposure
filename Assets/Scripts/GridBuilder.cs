@@ -84,8 +84,22 @@ public class GridBuilder : Minigame
 
     private IEnumerator GoToNormalStateAfter(float delay)
     {
-        Vector3 pos = PuzzlePath.GeoPlant.transform.position + PuzzlePath.GeoPlant.transform.up * 80f;
+        Vector3 target = PuzzlePath.GeoPlant.transform.position;
+
+        if (PuzzlePath.GeoPlant.transform.position.y - PuzzlePath.ParentCity.transform.position.y > 0)
+        {
+            target.y -= 250f;
+        }
+        
+        Vector3 pos = target + PuzzlePath.GeoPlant.transform.up * 80f;
         Quaternion rot = Quaternion.LookRotation(PuzzlePath.ParentCity.transform.position - pos, PuzzlePath.ParentCity.transform.up);
+
+        //flip pos if its 'y' is lower
+        float yDelta = pos.y - PuzzlePath.GeoPlant.transform.position.y;
+        if (yDelta > 0)
+        {
+            pos.y += yDelta*2f;
+        }
 
         GameManager.Instance.Director.SwoopTo(pos, rot, 35f, delay);
 

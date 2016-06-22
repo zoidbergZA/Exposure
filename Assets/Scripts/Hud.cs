@@ -6,16 +6,23 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Hud : MonoBehaviour
 {
+    [SerializeField] private Sprite fullStar;
     [SerializeField] private FloatingText floatingTextPrefab;
+    [SerializeField] private Image starImagePrefab;
     [SerializeField] private Canvas hudCanvas;
+    [SerializeField] private RectTransform scoreStarPanel;
     [SerializeField] private Image tipBubble;
     [SerializeField] private Sprite[] tipSprites;
-    [SerializeField] private Sprite[] scannerTipSprites;
+    [SerializeField] private GameObject scannerTip;
     [SerializeField] private Image buildArrow;
+    [SerializeField] private GameObject cityPanel;
     [SerializeField] private GameObject scorePanel;
+    [SerializeField] private GameObject timePanel;
     [SerializeField] private Text timeText;
-    [SerializeField] private Text gameOverText;
+//    [SerializeField] private Text gameOverText;
     [SerializeField] private Text scoreText;
+    [SerializeField] private Text endScoreText;
+    [SerializeField] private Text endPlayerText;
     [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject cablePanel;
     [SerializeField] private Text cableText;
@@ -26,37 +33,58 @@ public class Hud : MonoBehaviour
 
     private float tipTimeRemaing;
     private Transform tipTargeTransform;
-    
+
     private int wobblerTweenId;
     private int scorePanelTweenId;
     private int cablePanelTweenId;
 
     public float WobbleValue { get; private set; }
     public CitiesBar CitiesBar { get; private set; }
+    public bool ShowingScannerTip { get; private set; }
 
     void Awake()
     {
         CitiesBar = GetComponentInChildren<CitiesBar>();
         gameOverPanel.SetActive(false);
         tipBubble.enabled = false;
-        wobblerTweenId = LeanTween.value(gameObject, updateWobbleCallback, 0f, 1f, 0.6f).setLoopPingPong().setEase(LeanTweenType.easeInOutSine).id;
+        wobblerTweenId =
+            LeanTween.value(gameObject, updateWobbleCallback, 0f, 1f, 0.6f)
+                .setLoopPingPong()
+                .setEase(LeanTweenType.easeInOutSine)
+                .id;
     }
 
     void Start()
     {
-//        startPanel.SetActive(true);
+        scorePanel.SetActive(false);
+        timePanel.SetActive(false);
+        cityPanel.SetActive(false);
+        startPanel.SetActive(true);
     }
 
     void Update()
     {
+        //test
+
+        if (Input.GetKeyDown(KeyCode.T))
+            GoToGameOver(42);
+
+        //test
+
         //timeleft
-        int minutes = Mathf.FloorToInt(GameManager.Instance.TimeLeft / 60F);
-        int seconds = Mathf.FloorToInt(GameManager.Instance.TimeLeft - minutes * 60);
+        int minutes = Mathf.FloorToInt(GameManager.Instance.TimeLeft/60F);
+        int seconds = Mathf.FloorToInt(GameManager.Instance.TimeLeft - minutes*60);
         string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
 
         timeText.text = niceTime;
         scoreText.text = GameManager.Instance.Player.Score.ToString();
         cableText.text = GameManager.Instance.Player.Cable.ToString();
+
+        //scanner tip
+        if (scannerTip.activeSelf)
+        {
+            scannerTip.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(GameManager.Instance.ScannerGadget.transform.position);
+        }
 
         //tip bubble
         if (tipTimeRemaing > 0)
@@ -77,19 +105,14 @@ public class Hud : MonoBehaviour
             ShowDebug();
     }
 
-    public void ShowTipBubble(Transform refTransform, bool scannerMessage = false, float duration = 3f)
+    public void ShowTipBubble(Transform refTransform, float duration = 3f)
     {
         Sprite tipSprite = null;
-
-        if (scannerMessage)
-        {
-            tipSprite = scannerTipSprites[UnityEngine.Random.Range(0, scannerTipSprites.Length)];
-        }
-        else
-        {
-            tipSprite = tipSprites[UnityEngine.Random.Range(0, tipSprites.Length)];
-        }
         
+        
+        tipSprite = tipSprites[UnityEngine.Random.Range(0, tipSprites.Length)];
+        
+
         tipBubble.sprite = tipSprite;
         tipBubble.rectTransform.position = Camera.main.WorldToScreenPoint(refTransform.position);
         tipBubble.enabled = true;
@@ -101,10 +124,10 @@ public class Hud : MonoBehaviour
     public Rect CenteredRect(Rect rect)
     {
         Rect output = new Rect(
-                rect.x - rect.width / 2f,
-                Screen.height - rect.y - rect.height / 2f,
-                rect.width,
-                rect.height
+            rect.x - rect.width/2f,
+            Screen.height - rect.y - rect.height/2f,
+            rect.width,
+            rect.height
             );
 
         return output;
@@ -119,7 +142,7 @@ public class Hud : MonoBehaviour
     {
         //        Debug.Log(Direction);
 
-        float angle = Utils.AngleSigned(Vector3.up, (Vector3)direction, Vector3.forward);
+        float angle = Utils.AngleSigned(Vector3.up, (Vector3) direction, Vector3.forward);
         buildArrow.rectTransform.eulerAngles = new Vector3(0, 0, angle);
 
         //        Debug.Log(angle);
@@ -128,6 +151,12 @@ public class Hud : MonoBehaviour
     public void OnStartRoundClicked()
     {
         ShowStartPanel(false);
+
+        scorePanel.SetActive(true);
+        timePanel.SetActive(true);
+        cityPanel.SetActive(true);
+
+        GameManager.Instance.Director.SetSunlightBrightness(1f);
         GameManager.Instance.StartRound();
     }
 
@@ -135,7 +164,31 @@ public class Hud : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
 
-        gameOverText.text = "score: " + score;
+        Image[] scoreStarImages = new Image[GameManager.Instance.Cities.Length];
+
+        for (int i = 0; i < GameManager.Instance.Cities.Length; i++)
+        {
+            scoreStarImages[i] = Instantiate(starImagePrefab);
+            scoreStarImages[i].rectTransform.SetParent(scoreStarPanel);
+            scoreStarImages[i].rectTransform.localScale = Vector3.one;
+
+            if (!GameManager.Instance.Cities[i].IsDirty)
+            {
+                scoreStarImages[i].sprite = fullStar;
+            }
+        }
+
+        for (int i = 0; i < scoreStarImages.Length; i++)
+        {
+            if (scoreStarImages[i].sprite == fullStar)
+                scoreStarImages[i].rectTransform.SetAsFirstSibling();
+        }
+
+        Destroy(starImagePrefab.gameObject);
+        
+        //set score and player name text
+        endPlayerText.text = "Goed Gedaan " + GameManager.Instance.Player.PlayerName + "!!!";
+        endScoreText.text = score.ToString();
     }
 
     public void ShakeScorePanel()
@@ -146,8 +199,10 @@ public class Hud : MonoBehaviour
             scorePanel.GetComponent<RectTransform>().localScale = Vector3.one;
         }
 
-        scorePanelTweenId = LeanTween.scale(scorePanel.GetComponent<RectTransform>(), scorePanel.GetComponent<RectTransform>().localScale * 1.4f, 1f)
-            .setEase(LeanTweenType.punch).id;
+        scorePanelTweenId =
+            LeanTween.scale(scorePanel.GetComponent<RectTransform>(),
+                scorePanel.GetComponent<RectTransform>().localScale*1.4f, 1f)
+                .setEase(LeanTweenType.punch).id;
     }
 
     public void ShakeCablePanel()
@@ -158,20 +213,32 @@ public class Hud : MonoBehaviour
             cablePanel.GetComponent<RectTransform>().localScale = Vector3.one;
         }
 
-        cablePanelTweenId = LeanTween.scale(cablePanel.GetComponent<RectTransform>(), cablePanel.GetComponent<RectTransform>().localScale * 1.4f, 1f)
-            .setEase(LeanTweenType.punch).id;
+        cablePanelTweenId =
+            LeanTween.scale(cablePanel.GetComponent<RectTransform>(),
+                cablePanel.GetComponent<RectTransform>().localScale*1.4f, 1f)
+                .setEase(LeanTweenType.punch).id;
     }
 
     public void NewFloatingText(string text, Transform target)
     {
-        FloatingText ft = (FloatingText)Instantiate(floatingTextPrefab, Vector3.zero, Quaternion.identity);
+        FloatingText ft = (FloatingText) Instantiate(floatingTextPrefab, Vector3.zero, Quaternion.identity);
         ft.RectTransform.SetParent(hudCanvas.GetComponent<RectTransform>());
 
         ft.Init(text, target);
 
     }
 
-    public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callback)
+    public void ShowScannerTip(bool show)
+    {
+        if (ShowingScannerTip == show)
+            return;
+
+        ShowingScannerTip = show;
+        
+        scannerTip.SetActive(show);
+    }
+
+public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callback)
     {
         float wobbleValue = WobbleValue * 13f;
 

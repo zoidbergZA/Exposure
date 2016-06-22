@@ -14,6 +14,7 @@ public class Director : MonoBehaviour
     public float normalZoom = 45f;
     public float buildzoom = 45f;
 
+    [SerializeField] private Light sunLight;
     [SerializeField] private Shaker shaker;
 
     private Vector3 orbitPosition;
@@ -71,6 +72,11 @@ public class Director : MonoBehaviour
     public void Shake(Transform other)
     {
         shaker.Shake(other);
+    }
+
+    public void SetSunlightBrightness(float intensity)
+    {
+        sunLight.intensity = intensity;
     }
 
     private IEnumerator DelayedStart(Modes newMode, Transform newTargetTransform, float delay)
