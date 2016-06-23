@@ -43,6 +43,13 @@ Material:
           m_Texture: {fileID: 2800000, guid: 2c5b1d01404bf2d43b16c24ae98ca14a, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DirtyTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 5a4131dd9f2f50f49856d19ed499cf2e, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -51,7 +58,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: 0.5
+        second: 0.24
       data:
         first:
           name: _Metallic
@@ -64,6 +71,10 @@ Material:
         first:
           name: _Fade
         second: 10
+      data:
+        first:
+          name: _Health
+        second: 1
     m_Colors:
       data:
         first:

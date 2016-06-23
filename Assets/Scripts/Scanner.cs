@@ -88,7 +88,7 @@ public class Scanner : MonoBehaviour
                 if (city)
                 {
                     if (city.IsDirty && Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began))
-                        GameManager.Instance.Hud.ShowTipBubble(city.transform, 7f);
+                        GameManager.Instance.TapTips.ShowRandomTip(city.transform);
                 }
 
                 UpdateScannerPosition(scannerGadget.transform.position);

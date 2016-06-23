@@ -6,13 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-//    public enum Modes
-//    {
-//        Scanning,
-//        DrillingGame,
-//        ConnectingGame
-//    }
-
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -33,6 +26,7 @@ public class GameManager : MonoBehaviour
     }
 
     //global prefabs
+    public TapTips TapTipsPrefab;
     public GameObject PipePrefab;
     public Tutorial TutorialPrefab;
 
@@ -49,6 +43,7 @@ public class GameManager : MonoBehaviour
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Planet Planet { get; private set; }
     public City[] Cities { get; private set; }
+    public TapTips TapTips { get; private set; }
     public EffectsManager EffectsManager {get; private set; }
     public GridBuilder GridBuilder { get; private set; }
     public DrillingGame DrillingGame { get; private set; }
@@ -69,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         EffectsManager = FindObjectOfType<EffectsManager>();
         Planet = FindObjectOfType<Planet>();
+        TapTips = Instantiate(TapTipsPrefab);
         GridBuilder = FindObjectOfType<GridBuilder>();
         DrillingGame = FindObjectOfType<DrillingGame>();
         Scanner = FindObjectOfType<Scanner>();
@@ -86,13 +82,6 @@ public class GameManager : MonoBehaviour
         {
             placers[i].enabled = false;
         }
-
-//        Mode = Modes.Scanning;
-
-//        for (int i = 0; i < Cities.Length; i++)
-//        {
-//            TotalChimneys += Cities[i].ChimneyCount;
-//        }
 
         tutorial = FindObjectOfType<Tutorial>();
 
@@ -123,9 +112,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //cheat codes
-//        if (Input.GetKeyDown(KeyCode.F3))
-//            Instance.Planet.DisableNextChimney();
-        if (Input.GetKeyDown(KeyCode.F8))
+       if (Input.GetKeyDown(KeyCode.F8))
             TouchInput = !TouchInput;
         if (Input.GetKeyDown(KeyCode.F9))
             showDebug = !showDebug;
@@ -202,6 +189,13 @@ public class GameManager : MonoBehaviour
     private void EndRound()
     {
         Debug.Log("round ended! score " + Player.Score + "/100");
+        
+        if (DrillingGame.IsRunning)
+            DrillingGame.End(false);
+        if (GridBuilder.IsRunning)
+            GridBuilder.End(false);
+
+        Player.EnableRadar(false, Vector3.zero);
 
         Hud.GoToGameOver((int)Player.Score);
         RoundStarted = false;

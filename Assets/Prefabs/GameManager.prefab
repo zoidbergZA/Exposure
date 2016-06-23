@@ -51,11 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 301c5c26863e4a8418f28783a960b187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TapTipsPrefab: {fileID: 11447282, guid: 7aee58698490643f780b49b917382a23, type: 2}
   PipePrefab: {fileID: 168552, guid: ac141081240eb3d48bc7456d887754ee, type: 2}
   TutorialPrefab: {fileID: 11442478, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
-  autoStart: 1
-  enableTutorial: 0
+  autoStart: 0
+  enableTutorial: 1
   showDebug: 0
+  miniGameAutoWin: 0
   roundTime: 300
   touchScreenInput: 0
 --- !u!1001 &100100000
