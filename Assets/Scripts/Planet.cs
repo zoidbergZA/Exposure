@@ -85,6 +85,12 @@ public class Planet : MonoBehaviour
             }
         }
 
+        if (cleanCount == GameManager.Instance.Cities.Length)
+        {
+            GameManager.Instance.EndRound();
+            return;
+        }
+
         Health = (float)cleanCount / (float)GameManager.Instance.Cities.Length;
         landMaterial.SetFloat("_Health", Health);
         RefreshTrees();
