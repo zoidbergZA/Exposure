@@ -4,6 +4,7 @@ using System.Collections;
 public class Planet : MonoBehaviour
 {
     public MeshRenderer scannableMesh;
+    public float normalSpin;
 
     [SerializeField] private Transform propsHolder;
     [SerializeField] private Transform citiesHolder;
@@ -23,7 +24,6 @@ public class Planet : MonoBehaviour
     [SerializeField] private Color waterCleanColor;
     [SerializeField] private Color backgroundDirtyColor;
     [SerializeField] private Color backgroundCleanColor;
-    [SerializeField] private float normalSpin;
 
     private Material landMaterial;
     private float momentum;
@@ -54,7 +54,7 @@ public class Planet : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.RoundStarted)
+//        if (GameManager.Instance.RoundStarted)
             HandleSpin();
 
         //test spin input
@@ -120,9 +120,12 @@ public class Planet : MonoBehaviour
     {
         int newHealthyTreeCount = healthyTreesAtStart +  Mathf.FloorToInt(Health * (trees.Length - healthyTreesAtStart));
         
-        for (int i = 0; i < newHealthyTreeCount; i++)
+        for (int i = 0; i < trees.Length; i++)
         {
-            trees[i].Grow();
+            if (i < newHealthyTreeCount)
+                trees[i].Grow();
+            else
+                trees[i].SetUngrown();
         }
     }
 

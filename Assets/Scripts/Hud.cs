@@ -155,13 +155,16 @@ public class Hud : MonoBehaviour
     public void OnStartRoundClicked()
     {
         ShowStartPanel(false);
+        
+        GameManager.Instance.Director.SetSunlightBrightness(1f);
+        GameManager.Instance.Intro.StartIntro();
+    }
 
+    public void OnRoundStarted()
+    {
         scorePanel.SetActive(true);
         timePanel.SetActive(true);
         cityPanel.SetActive(true);
-
-        GameManager.Instance.Director.SetSunlightBrightness(1f);
-        GameManager.Instance.StartRound();
     }
 
     public void OnRestartClicked()

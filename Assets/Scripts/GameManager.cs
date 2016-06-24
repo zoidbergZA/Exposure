@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public Tutorial TutorialPrefab;
 
     public bool autoStart;
+    public bool skipIntro;
     public bool enableTutorial;
     public bool showDebug;
     public bool miniGameAutoWin;
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
 
 //    public Modes Mode { get; set; }
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
+    public Intro Intro { get; private set; }
     public Planet Planet { get; private set; }
     public City[] Cities { get; private set; }
     public TapTips TapTips { get; private set; }
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         EffectsManager = FindObjectOfType<EffectsManager>();
+        Intro = GetComponent<Intro>();
         Planet = FindObjectOfType<Planet>();
         TapTips = Instantiate(TapTipsPrefab);
         GridBuilder = FindObjectOfType<GridBuilder>();
@@ -178,6 +181,8 @@ public class GameManager : MonoBehaviour
     {
         RoundStarted = true;
         TimeLeft = roundTime;
+        Planet.normalSpin = 0;
+        Instance.Hud.OnRoundStarted();
 
         if (tutorial)
         {
