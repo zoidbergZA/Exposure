@@ -16,7 +16,9 @@ public class Hud : MonoBehaviour
     [SerializeField] private Canvas hudCanvas;
     [SerializeField] private RectTransform scoreStarPanel;
     [SerializeField] private Image tipBubble;
+    [SerializeField] private Text tipText;
     [SerializeField] private Sprite[] tipSprites;
+    [SerializeField] private Sprite BlankTipSprite;
     [SerializeField] private GameObject scannerTip;
     [SerializeField] private Image buildArrow;
     [SerializeField] private GameObject cityPanel;
@@ -51,6 +53,7 @@ public class Hud : MonoBehaviour
         CitiesBar = GetComponentInChildren<CitiesBar>();
         gameOverPanel.SetActive(false);
         tipBubble.enabled = false;
+        tipText.enabled = false;
         wobblerTweenId =
             LeanTween.value(gameObject, updateWobbleCallback, 0f, 1f, 0.6f)
                 .setLoopPingPong()
@@ -99,6 +102,7 @@ public class Hud : MonoBehaviour
             if (tipTimeRemaing <= 0)
             {
                 tipBubble.enabled = false;
+                tipText.enabled = false;
             }
         }
     }
@@ -112,14 +116,25 @@ public class Hud : MonoBehaviour
     public void ShowTipBubble(Transform refTransform, float duration = 3f)
     {
         Sprite tipSprite = null;
-        
-        
+           
         tipSprite = tipSprites[UnityEngine.Random.Range(0, tipSprites.Length)];
-        
+        tipText.text = "";
 
         tipBubble.sprite = tipSprite;
         tipBubble.rectTransform.position = Camera.main.WorldToScreenPoint(refTransform.position);
         tipBubble.enabled = true;
+
+        tipTimeRemaing = duration;
+        tipTargeTransform = refTransform;
+    }
+
+    public void ShowTipBubble(string text, Transform refTransform, float duration = 3f)
+    {
+        tipBubble.sprite = BlankTipSprite;
+        tipText.text = text;
+        tipBubble.rectTransform.position = Camera.main.WorldToScreenPoint(refTransform.position);
+        tipBubble.enabled = true;
+        tipText.enabled = true;
 
         tipTimeRemaing = duration;
         tipTargeTransform = refTransform;

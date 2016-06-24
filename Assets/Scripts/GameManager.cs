@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public bool showDebug;
     public bool miniGameAutoWin;
 
+    [SerializeField] private City[] cities;
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
     private Tutorial tutorial;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Intro Intro { get; private set; }
     public Planet Planet { get; private set; }
-    public City[] Cities { get; private set; }
+    public City[] Cities { get { return cities; } }
     public TapTips TapTips { get; private set; }
     public EffectsManager EffectsManager {get; private set; }
     public GridBuilder GridBuilder { get; private set; }
@@ -76,7 +77,6 @@ public class GameManager : MonoBehaviour
         Player = FindObjectOfType<Player>();
         Director = FindObjectOfType<Director>();
         Joystick = FindObjectOfType<MobileJoystick>();
-        Cities = FindObjectsOfType<City>();
 
         //disable all placer scripts
         Placer[] placers = FindObjectsOfType<Placer>();

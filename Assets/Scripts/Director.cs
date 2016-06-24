@@ -28,6 +28,7 @@ public class Director : MonoBehaviour
     private float rotateProgress;
     private float targetFoV;
     private int positionTweenId;
+    private int rotationTweenId;
     private int fovTweenId;
 
     public bool OrbitPaused { get; set; }
@@ -52,8 +53,9 @@ public class Director : MonoBehaviour
 	{
 	    transform.position = targetPosition;
 	    Camera.main.fieldOfView = targetFoV;
-
-        transform.rotation = Quaternion.Slerp(fromRotation, targetRotation, rotateProgress);
+        
+        if (LeanTween.isTweening(rotationTweenId))
+            transform.rotation = Quaternion.Slerp(fromRotation, targetRotation, rotateProgress);
     }
 
     public void SetMode(Modes mode, Transform targetTransform, float delay = 2f)
@@ -120,7 +122,8 @@ public class Director : MonoBehaviour
         if (LeanTween.isTweening(fovTweenId))
             LeanTween.cancel(fovTweenId);
 
-        positionTweenId = LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time).id;
+        positionTweenId = LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time).setEase(LeanTweenType.easeInOutQuart).id;
+        rotationTweenId = LeanTween.value(gameObject, updateRotCallback, 0f, 1f, time).setEase(LeanTweenType.easeInOutQuart).id;
         fovTweenId = LeanTween.value(gameObject, updateFOVCallback, targetFoV, fov, time).setEase(LeanTweenType.easeInOutSine).id;
     }
 
@@ -129,9 +132,13 @@ public class Director : MonoBehaviour
         targetPosition = val;
     }
 
-    void updateFOVCallback(float val, float ratio)
+    void updateRotCallback(float val)
+    {
+        rotateProgress = val;
+    }
+
+    void updateFOVCallback(float val)
     {
         targetFoV = val;
-        rotateProgress = ratio;
     }
 }

@@ -3,12 +3,14 @@ using System.Collections;
 
 public class Intro : MonoBehaviour
 {
+    [SerializeField] private string[] introTips;
     [SerializeField] private Vector3 focusPoint;
     [SerializeField] private float swoopTime = 4f;
     [SerializeField] private float waitTime = 7f;
 
     private Vector3 camStartPos;
     private Quaternion camStartRot;
+    private int tipIndex;
 
     void Awake()
     {
@@ -52,14 +54,15 @@ public class Intro : MonoBehaviour
 
     private IEnumerator WaitAndSpawnCity(City city)
     {
-        Vector3 targetPos = city.transform.position + focusPoint;
+        Vector3 targetPos = city.transform.position + city.transform.right * focusPoint.x + city.transform.up * focusPoint.y + city.transform.forward * focusPoint.z;
 
         GameManager.Instance.Director.SwoopTo(targetPos, Quaternion.LookRotation(city.transform.position - targetPos, city.transform.up), 40, swoopTime);
 
         yield return new WaitForSeconds(waitTime);
 
         city.SpawnDirtyCity();
-        GameManager.Instance.Hud.ShowTipBubble(city.transform);
+        GameManager.Instance.Hud.ShowTipBubble(introTips[tipIndex], city.transform);
+        tipIndex++;
 
         StartCoroutine(DelayedSpawnNextCity());
     }

@@ -52,6 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e125c732a1dc74485dbecc73348e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  focusPoint: {x: 100, y: 110, z: 30}
+  swoopTime: 4
+  waitTime: 4
 --- !u!114 &11448036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71,6 +74,12 @@ MonoBehaviour:
   enableTutorial: 1
   showDebug: 0
   miniGameAutoWin: 1
+  cities:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   roundTime: 300
   touchScreenInput: 0
 --- !u!1001 &100100000
