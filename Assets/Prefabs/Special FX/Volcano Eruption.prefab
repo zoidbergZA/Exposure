@@ -53,8 +53,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102342}
-  m_LocalRotation: {x: -0.8704463, y: 0.09092971, z: 0.2410619, w: 0.41945693}
-  m_LocalPosition: {x: 17.131695, y: 166.53992, z: 4.8094883}
+  m_LocalRotation: {x: -0.85868895, y: 0.31197757, z: -0.36720255, w: 0.174601}
+  m_LocalPosition: {x: 137.75323, y: 85.48116, z: -40.95085}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 435586}
@@ -638,7 +638,7 @@ ParticleSystem:
           rgba: 16566
         key3:
           serializedVersion: 2
-          rgba: 21680
+          rgba: 271426
         key4:
           serializedVersion: 2
           rgba: 271426
@@ -652,22 +652,22 @@ ParticleSystem:
           serializedVersion: 2
           rgba: 0
         ctime0: 0
-        ctime1: 5397
-        ctime2: 28527
-        ctime3: 48188
+        ctime1: 3470
+        ctime2: 9252
+        ctime3: 65535
         ctime4: 65535
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 48573
-        atime2: 65535
+        atime1: 16384
+        atime2: 26214
         atime3: 0
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
-        m_NumColorKeys: 5
+        m_NumColorKeys: 4
         m_NumAlphaKeys: 3
       minGradient:
         key0:
@@ -1390,7 +1390,7 @@ ParticleSystem:
       minMaxState: 1
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 2
     type: 1
     collisionMode: 0
@@ -2101,16 +2101,16 @@ ParticleSystem:
           serializedVersion: 2
           rgba: 0
         ctime0: 0
-        ctime1: 5397
-        ctime2: 28527
-        ctime3: 41249
+        ctime1: 1542
+        ctime2: 9638
+        ctime3: 13685
         ctime4: 65535
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 35466
-        atime2: 65535
+        atime1: 16384
+        atime2: 26214
         atime3: 65535
         atime4: 0
         atime5: 0
@@ -2839,7 +2839,7 @@ ParticleSystem:
       minMaxState: 1
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 2
     type: 1
     collisionMode: 0
