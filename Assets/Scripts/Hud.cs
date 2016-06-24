@@ -189,7 +189,7 @@ public class Hud : MonoBehaviour
             scoreStarImages[i].rectTransform.SetParent(scoreStarPanel);
             scoreStarImages[i].rectTransform.localScale = Vector3.one;
 
-            if (!GameManager.Instance.Cities[i].IsDirty)
+            if (GameManager.Instance.Cities[i].CityState == CityStates.HIDDEN)
             {
                 scoreStarImages[i].sprite = fullStar;
             }

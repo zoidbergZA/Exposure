@@ -79,13 +79,13 @@ public class Planet : MonoBehaviour
 
         for (int i = 0; i < GameManager.Instance.Cities.Length; i++)
         {
-            if (!GameManager.Instance.Cities[i].IsDirty)
+            if (GameManager.Instance.Cities[i].CityState != CityStates.DIRTY)
             {
                 cleanCount++;
             }
         }
 
-        if (cleanCount == GameManager.Instance.Cities.Length)
+        if (cleanCount == GameManager.Instance.Cities.Length && GameManager.Instance.RoundStarted)
         {
             GameManager.Instance.EndRound();
             return;
