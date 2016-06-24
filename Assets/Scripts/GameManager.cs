@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     }
 
     //global prefabs
+    public TapTips TapTipsPrefab;
     public GameObject PipePrefab;
     public Tutorial TutorialPrefab;
 
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Planet Planet { get; private set; }
     public City[] Cities { get; private set; }
+    public TapTips TapTips { get; private set; }
     public EffectsManager EffectsManager {get; private set; }
     public GridBuilder GridBuilder { get; private set; }
     public DrillingGame DrillingGame { get; private set; }
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         EffectsManager = FindObjectOfType<EffectsManager>();
         Planet = FindObjectOfType<Planet>();
+        TapTips = Instantiate(TapTipsPrefab);
         GridBuilder = FindObjectOfType<GridBuilder>();
         DrillingGame = FindObjectOfType<DrillingGame>();
         Scanner = FindObjectOfType<Scanner>();
@@ -183,7 +186,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void EndRound()
+    public void EndRound()
     {
         Debug.Log("round ended! score " + Player.Score + "/100");
         

@@ -13,12 +13,13 @@ public class FloatingText : MonoBehaviour
     public Transform TargetTransform { get; private set; }
 
     private float yOffset;
+    private float initialOffset;
 
     void Update()
     {
         if (IsInitialized && TargetTransform)
         {
-            RectTransform.position = Camera.main.WorldToScreenPoint(TargetTransform.position) + new Vector3(0, yOffset, 0);
+            RectTransform.position = Camera.main.WorldToScreenPoint(TargetTransform.position) + new Vector3(0, yOffset + initialOffset, 0);
         }
     }
 
@@ -34,6 +35,8 @@ public class FloatingText : MonoBehaviour
         
         if (!positive)
             textField.color = Color.red;
+
+        initialOffset = Random.Range(0f, 80f);
 
         RectTransform.position = Camera.main.WorldToScreenPoint(target.position);
 

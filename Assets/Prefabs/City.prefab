@@ -268,7 +268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &145008
 GameObject:
   m_ObjectHideFlags: 1
@@ -598,8 +598,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113802}
-  m_LocalRotation: {x: 0.06263089, y: -0.3392742, z: 0.42503023, w: 0.83685106}
-  m_LocalPosition: {x: -86.7, y: 71.6, z: -21.6}
+  m_LocalRotation: {x: -0.4237567, y: -0.012327641, z: 0.27154034, w: -0.86402786}
+  m_LocalPosition: {x: 54.206253, y: 57.600388, z: 83.35587}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 464080}
@@ -1723,7 +1723,7 @@ MonoBehaviour:
   dirtyModel: {fileID: 176574}
   cleanModel: {fileID: 132496}
   nukeEffect: {fileID: 143678}
-  nukeEffectDuration: 9
+  nukeEffectDuration: 3.5
   puzzlePath: {fileID: 0}
 --- !u!114 &11488612
 MonoBehaviour:

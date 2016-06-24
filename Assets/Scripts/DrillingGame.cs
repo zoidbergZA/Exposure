@@ -72,13 +72,20 @@ public class DrillingGame : Minigame
 
     public override void Update()
     {
-        base.Update();
-        processJoystickInput();
+        //base.Update();
         if (Driller.Drill) updateState();
-        if (IsRunning && Timeleft <= 0.05f)
+        processJoystickInput();
+
+        if (IsRunning)
         {
-            //Hud.ActivateToast(ToastType.TIME_OUT);
-            //state = DrillingGameState.FAIL;
+            Timeleft -= Time.deltaTime;
+
+            if (Timeleft <= 0.05f)
+            {
+                ToastType = global::ToastType.TIME_OUT;
+                Hud.ActivateToast(ToastType);
+                state = DrillingGameState.FAIL;
+            }
         }
 
         //--------------------------------
@@ -141,10 +148,6 @@ public class DrillingGame : Minigame
     #region
     private void handleActivation()
     {
-        Driller.Drill.gameObject.SetActive(true);
-        Driller.Drill.transform.SetAsLastSibling();
-        if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2) Driller.SwitchAnimation("goToSliding", true);
-
         if (MainPanel.anchoredPosition == mainPanelActivePosition)
         {
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
@@ -154,6 +157,10 @@ public class DrillingGame : Minigame
                 Driller.ActivateImage(Driller.ArrowDown, true);
                 Driller.ActivateImage(Driller.TapTip, true);
             }
+
+            Driller.Drill.gameObject.SetActive(true);
+            Driller.Drill.transform.SetAsLastSibling();
+            if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2) Driller.SwitchAnimation("goToSliding", true);
 
             //cheat flag to skip mini-game
             if (!GameManager.Instance.MiniGameAutoWin) state = DrillingGameState.SLIDING;
@@ -249,6 +256,7 @@ public class DrillingGame : Minigame
     private void handleFail()
     {
         Hud.ToastTimer -= Time.deltaTime;
+
         if (Hud.ToastTimer <= 0)
         {
             Hud.DeactivateToast(ToastType);
@@ -574,7 +582,7 @@ public class DrillingGame : Minigame
             }
             if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2)
             {
-                Driller.Body.AddRelativeForce(new Vector2((!slidingLeft) ? 1 : -1 * slideSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
+                Driller.Body.AddRelativeForce(new Vector2(((!slidingLeft) ? 1 : -1) * slideSpeed * Time.deltaTime, 0), ForceMode2D.Impulse); //drill right
                 Driller.Body.constraints = RigidbodyConstraints2D.FreezePositionY;
             }
         }
