@@ -16,6 +16,8 @@ TagManager:
   - Mine
   - MineArea
   - DrillLife
+  - MaleDriller
+  - FemaleDriller
   layers:
   - Default
   - TransparentFX

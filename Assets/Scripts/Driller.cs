@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Driller : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private Animator animatorFemale;
     [SerializeField] private Image arrowDown;
     [SerializeField] private Image arrowUp;
     [SerializeField] private Image arrowRight;
@@ -18,7 +19,7 @@ public class Driller : MonoBehaviour
     private int lives = 3;
 
     public Image Drill { get; private set; }
-    public Animator Animator { get { return animator; } }
+    public Animator Animator { get { return (GameManager.Instance.DrillingGame.gender == DrillingGame.Gender.MALE) ? animator : animatorFemale; } }
     public Vector2 Position { get { return Drill.rectTransform.anchoredPosition; } set { Drill.rectTransform.anchoredPosition = value; } }
     public Rigidbody2D Body { get; private set; }
     public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, PIPE_PART }
