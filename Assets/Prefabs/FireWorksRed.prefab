@@ -463,7 +463,7 @@ ParticleSystem:
     cnt1: 30
     cnt2: 30
     cnt3: 30
-    cntmax0: 3
+    cntmax0: 2
     cntmax1: 30
     cntmax2: 30
     cntmax3: 30
@@ -587,7 +587,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     curve:
-      scalar: 0.08726646
+      scalar: 0.7853981
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1587,7 +1587,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 3
+      scalar: 6
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2590,15 +2590,15 @@ ParticleSystem:
       maxCurve:
         serializedVersion: 2
         m_Curve:
-        - time: 0.49268293
+        - time: 0.26760253
           value: 1
           inSlope: -0.01890404
           outSlope: -0.01890404
           tangentMode: 0
-        - time: 0.80487806
-          value: 0.2694064
-          inSlope: -6.953679
-          outSlope: -6.953679
+        - time: 0.4318877
+          value: 0
+          inSlope: -9.220179
+          outSlope: -9.220179
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
