@@ -100,6 +100,7 @@ public class ScannerGadget : MonoBehaviour
         GameManager.Instance.Hud.ShowScannerTip(false);
         myCollider.enabled = false;
         model.SetActive(false);
+//        GameManager.Instance.Director.SetSunlightBrightness(0.3f);
     }
 
     private void Release()
@@ -110,6 +111,7 @@ public class ScannerGadget : MonoBehaviour
         transform.position = scanner.transform.position;
         FixRotation();
         model.SetActive(true);
+//        GameManager.Instance.Director.SetSunlightBrightness(1f);
     }
 
     private void FixRotation()
