@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void EndRound()
+    public void EndRound()
     {
         Debug.Log("round ended! score " + Player.Score + "/100");
         

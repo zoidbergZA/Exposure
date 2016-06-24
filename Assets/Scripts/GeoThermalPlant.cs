@@ -21,6 +21,14 @@ public class GeoThermalPlant : Connectable
         Reset();
     }
 
+    void Update()
+    {
+        if (previewModel.activeSelf)
+        {
+            previewModel.transform.Rotate(0, 55f * Time.deltaTime, 0);
+        }
+    }
+
     public override void OnConnected()
     {
 //        throw new System.NotImplementedException();
