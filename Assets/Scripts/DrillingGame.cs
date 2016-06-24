@@ -16,6 +16,7 @@ public class DrillingGame : Minigame
     [SerializeField] private float diamondValue = 1.0f;
     [SerializeField] private float jumpPhaseTime = 0.85f;
     [SerializeField] private float panelSlidingTime = 1.5f;
+    [SerializeField] private float boostFadeSpeed = 1.0f;
     [SerializeField] private MovementType movementType;
     [SerializeField] private TextAsset[] levels;
     [SerializeField] private TextAsset[] JsonLevels;
@@ -47,7 +48,8 @@ public class DrillingGame : Minigame
     public MobileJoystick Joystick { get; private set; }
     public float DiamondValue { get { return diamondValue; } }
     public float DrillSpeed { get { return drillSpeed; } }
-    public float TotalSpeed { get { return drillSpeed * boostSpeed; } }
+    public float TotalSpeed { get { return drillSpeed + boostSpeed; } }
+    public bool Boost { get; set; }
 
     void Awake()
     {
@@ -77,18 +79,8 @@ public class DrillingGame : Minigame
         //base.Update();
         if (Driller.Drill) updateState();
         processJoystickInput();
-
-        if (IsRunning)
-        {
-            Timeleft -= Time.deltaTime;
-
-            if (Timeleft <= 0.05f)
-            {
-                ToastType = global::ToastType.TIME_OUT;
-                Hud.ActivateToast(ToastType);
-                state = DrillingGameState.FAIL;
-            }
-        }
+        updateBoostSpeed();
+        updateTimeOut();
 
         //--------------------------------
         //------- cheat buttons BEGIN ----
@@ -662,5 +654,31 @@ public class DrillingGame : Minigame
         Driller.Reset(startDrillerPosition);
         Hud.Reset();
         Joystick.Reset();
+    }
+
+    private void updateBoostSpeed()
+    {
+        if (Boost) boostSpeed = 200.0f;
+        if (boostSpeed > 1)
+        {
+            Boost = false;
+            boostSpeed -= Time.deltaTime * boostFadeSpeed;
+        }
+        else boostSpeed = 1;
+    }
+
+    private void updateTimeOut()
+    {
+        if (IsRunning)
+        {
+            Timeleft -= Time.deltaTime;
+
+            if (Timeleft <= 0.05f)
+            {
+                ToastType = global::ToastType.TIME_OUT;
+                Hud.ActivateToast(ToastType);
+                state = DrillingGameState.FAIL;
+            }
+        }
     }
 }

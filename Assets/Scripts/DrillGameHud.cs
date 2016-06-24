@@ -68,7 +68,7 @@ public class DrillGameHud : MonoBehaviour
         if (DeactivateGeoThermalUI) ActivateGeothermal(false);
 
         //debug speed update here
-        debugSpeed.text = "Speed\n" + GameManager.Instance.DrillingGame.DrillSpeed / 10;
+        debugSpeed.text = "Speed\n" + GameManager.Instance.DrillingGame.DrillSpeed / 10 + "\n" + GameManager.Instance.DrillingGame.Joystick.DebugText;
     }
     public void PointJoystickArrow(DrillingDirection direction)
     {
