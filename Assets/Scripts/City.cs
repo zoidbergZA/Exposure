@@ -55,6 +55,7 @@ public class City : Connectable
         IsDirty = false;
 
         nukeEffect.SetActive(true);
+        GameManager.Instance.Director.Shake();
         ConnectionState = ConnectionStates.Built;
         CityIcon.ToggleIcon(true);
 
