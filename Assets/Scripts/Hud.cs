@@ -9,6 +9,7 @@ public class Hud : MonoBehaviour
     public string[] PositiveMessages;
     public string[] NegativeMessages;
 
+    [SerializeField] private float[] timeLeftWarnings;
     [SerializeField] private Sprite fullStar;
     [SerializeField] private FloatingText floatingTextPrefab;
     [SerializeField] private Image starImagePrefab;
