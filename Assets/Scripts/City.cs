@@ -60,6 +60,7 @@ public class City : Connectable
 
         StartCoroutine(SpawnCleanCity(nukeEffectDuration));
 
+        GameManager.Instance.Player.ScorePoints(PointValue, transform);
         GameManager.Instance.Planet.RefreshHealth();
         GameManager.Instance.Hud.CitiesBar.SortIcons();
     }

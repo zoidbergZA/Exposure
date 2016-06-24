@@ -476,7 +476,6 @@ GameObject:
   - 4: {fileID: 495444}
   - 114: {fileID: 11410084}
   - 135: {fileID: 13517000}
-  - 114: {fileID: 11489818}
   m_Layer: 0
   m_Name: GeoThermal Powerplant
   m_TagString: Untagged
@@ -1269,8 +1268,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146164}
-  m_LocalRotation: {x: -0.618976, y: -0.709016, z: -0.23274717, w: -0.24493624}
-  m_LocalPosition: {x: 19.651737, y: 28.442514, z: -82.56115}
+  m_LocalRotation: {x: -0.59515977, y: -0.48935187, z: -0.004293859, w: 0.6374176}
+  m_LocalPosition: {x: 64.8, y: 23.7, z: 23.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 442822}
@@ -2301,18 +2300,6 @@ MonoBehaviour:
   connectIcon: {fileID: 0}
   Model: {fileID: 133074}
   previewModel: {fileID: 109024}
---- !u!114 &11489818
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 146164}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b4209806e98e8441a4864eb11d42ca0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  height: 0.5
 --- !u!135 &13517000
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -2323,7 +2310,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5.95
+  m_Radius: 14
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &13760718
 SkinnedMeshRenderer:
@@ -6901,7 +6888,7 @@ ParticleSystem:
   randomSeed: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 1
   scalingMode: 1
   InitialModule:
@@ -8380,7 +8367,7 @@ ParticleSystem:
   randomSeed: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 1
   scalingMode: 1
   InitialModule:

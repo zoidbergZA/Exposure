@@ -18,6 +18,7 @@ public abstract class Connectable : MonoBehaviour
     private GameObject pipeModel;
 
     public ConnectionStates ConnectionState { get; protected set; }
+    public float PointValue { get { return pointValue; } }
 
     void OnGUI()
     {
