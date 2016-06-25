@@ -211,9 +211,15 @@ public class GameManager : MonoBehaviour
             GridBuilder.End(false);
 
         Player.EnableRadar(false, Vector3.zero);
+        Planet.normalSpin = 8f;
 
         Hud.GoToGameOver((int)Player.Score);
         RoundStarted = false;
+    }
+
+    public void HandleTimeOut()
+    {
+        Restart();
     }
 
     private void CleanNextCity()
