@@ -17,6 +17,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private RectTransform scoreStarPanel;
     [SerializeField] private Image tipBubble;
     [SerializeField] private Text tipText;
+    [SerializeField] private Text toastText;
     [SerializeField] private Sprite[] tipSprites;
     [SerializeField] private Sprite BlankTipSprite;
     [SerializeField] private GameObject scannerTip;
@@ -55,6 +56,7 @@ public class Hud : MonoBehaviour
         gameOverPanel.SetActive(false);
         tipBubble.enabled = false;
         tipText.enabled = false;
+        toastText.enabled = false;
         wobblerTweenId =
             LeanTween.value(gameObject, updateWobbleCallback, 0f, 1f, 0.6f)
                 .setLoopPingPong()
@@ -141,6 +143,14 @@ public class Hud : MonoBehaviour
 
         tipTimeRemaing = duration;
         tipTargeTransform = refTransform;
+    }
+
+    public void ShowToastMessage(string message, float duration = 3f)
+    {
+        toastText.text = message;
+        toastText.enabled = true;
+
+        StartCoroutine(HideToastAfter(duration));
     }
 
     public Rect CenteredRect(Rect rect)
@@ -273,7 +283,7 @@ public class Hud : MonoBehaviour
         scannerTip.SetActive(show);
     }
 
-public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callback)
+    public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callback)
     {
         float wobbleValue = WobbleValue * 13f;
 
@@ -283,6 +293,14 @@ public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callba
         }
     }
 
+    private IEnumerator HideToastAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        toastText.text = "";
+        toastText.enabled = false;
+    }
+
     private void CheckTimeleftWarning()
     {
         if (!GameManager.Instance.RoundStarted || timeleftWarningIndex >= timeLeftWarnings.Length)
@@ -290,7 +308,7 @@ public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callba
 
         if (GameManager.Instance.TimeLeft <= timeLeftWarnings[timeleftWarningIndex])
         {
-            Debug.Log(GameManager.Instance.TimeLeft + " left in the round!");
+            ShowToastMessage(timeLeftWarnings[timeleftWarningIndex] + " seconds left!");
             timeleftWarningIndex++;
         }
     }

@@ -271,12 +271,12 @@ GameObject:
   - 222: {fileID: 22288778}
   - 114: {fileID: 11429298}
   m_Layer: 0
-  m_Name: Center Message
+  m_Name: Center TOAST Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &137904
 GameObject:
   m_ObjectHideFlags: 1
@@ -660,7 +660,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 168948}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4648f5509823745b3a65f4f3633f45e3, type: 2}
   m_CullingMode: 0
@@ -975,7 +975,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133788}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -1131,6 +1131,7 @@ MonoBehaviour:
   scoreStarPanel: {fileID: 22460112}
   tipBubble: {fileID: 11499414}
   tipText: {fileID: 11470132}
+  toastText: {fileID: 11429298}
   tipSprites:
   - {fileID: 21300012, guid: 12e4f287d916e4e57946ebb37a2f7509, type: 3}
   - {fileID: 21300010, guid: 70fcc771c277d4c6383ef8ec2b35b28f, type: 3}

@@ -31,9 +31,9 @@ public class Player : MonoBehaviour
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
     public int Cable { get; private set; }
+    public float LastInputAt { get; set; }
 
     private Vector2 mouseOld;
-    private float lastInputAt;
 
     void Awake()
     {
@@ -55,9 +55,9 @@ public class Player : MonoBehaviour
 
         //check input timeout
         if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
-            lastInputAt = Time.time;
-
-        if (Time.time > lastInputAt + 30f)
+            LastInputAt = Time.time;
+        
+        if (Time.time > LastInputAt + 30f)
             GameManager.Instance.HandleTimeOut();
 
         //temp
