@@ -89,6 +89,8 @@ public class Player : MonoBehaviour
         PlayerName = name;
         PlayerAge = age;
         PlayerIsMale = isMale;
+
+        GameManager.Instance.ScannerGadget.SetGender(PlayerIsMale);
     }
 
     public void CollectCable(int amount)

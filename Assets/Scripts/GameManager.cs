@@ -106,6 +106,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        //set player info   todo: replace with heim backbone call
+        Player.SetPlayerInfo("player", 12, false);
+
         Director.SetSunlightBrightness(0.35f);
 
         if (autoStart)
