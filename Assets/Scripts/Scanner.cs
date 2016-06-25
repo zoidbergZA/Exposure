@@ -74,7 +74,7 @@ public class Scanner : MonoBehaviour
             if (scannerGadget.IsGrabbed)
             {
                 UpdateScannerPosition(hit.point);
-
+                
                 GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
                 if (plant && scannerGadget.IsGrabbed)
                 {
@@ -126,6 +126,7 @@ public class Scanner : MonoBehaviour
 
     private void ScanSucceeded(GeoThermalPlant geoPlant)
     {
+        scannerGadget.Release();
         geoPlant.Build();
 
         GameManager.Instance.Player.ScorePoints(5, geoPlant.transform);

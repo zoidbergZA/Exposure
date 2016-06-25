@@ -22,6 +22,11 @@ public class Intro : MonoBehaviour
     {
         if (GameManager.Instance.skipIntro)
         {
+            foreach (City city in GameManager.Instance.Cities)
+            {
+                city.SpawnDirtyCity();
+            }
+
             FinishIntro();
             return;
         }

@@ -52,9 +52,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e125c732a1dc74485dbecc73348e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  introTips:
+  - I'm a city, look at my pretty buildings.
+  - Too bad we make all this nasty smoke
+  - we should find cleaner ways to generate warmth
+  - what if we explore under the earth for heat?
+  - we could build geo-thermal plants to make heat!
   focusPoint: {x: 100, y: 110, z: 30}
-  swoopTime: 4
-  waitTime: 4
+  swoopTime: 5
+  waitTime: 5
 --- !u!114 &11448036
 MonoBehaviour:
   m_ObjectHideFlags: 1
