@@ -478,7 +478,7 @@ MonoBehaviour:
   maleModel: {fileID: 158150}
   femaleModel: {fileID: 141004}
   spinningRadar: {fileID: 404706}
-  spinRate: 355
+  spinRate: 230
   tipDelay: 3
   helperHealthLimit: 0.25
 --- !u!135 &13562632
