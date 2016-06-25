@@ -4,7 +4,8 @@ using System.Collections;
 [RequireComponent(typeof(Collider))]
 public class ScannerGadget : MonoBehaviour
 {
-    [SerializeField] private GameObject model;
+    [SerializeField] private GameObject maleModel;
+    [SerializeField] private GameObject femaleModel;
     [SerializeField] private Transform spinningRadar;
     [SerializeField] private float spinRate = 355f;
     [SerializeField] private float tipDelay = 3f;
@@ -13,6 +14,7 @@ public class ScannerGadget : MonoBehaviour
 
     private Scanner scanner;
     private Collider myCollider;
+    private GameObject activeModel;
     private Vector2 start;
     private Vector2 end;
     private int arrowTweenId;
@@ -82,6 +84,24 @@ public class ScannerGadget : MonoBehaviour
         }
     }
 
+    public void SetGender(bool isMale)
+    {
+        if (isMale)
+        {
+            maleModel.SetActive(true);
+            femaleModel.SetActive(false);
+            activeModel = maleModel;
+        }
+        else
+        {
+            maleModel.SetActive(false);
+            femaleModel.SetActive(true);
+            activeModel = femaleModel;
+        }
+
+        spinningRadar.SetParent(activeModel.transform);
+    }
+
     private void CheckGrab()
     {
         if (GameManager.Instance.TouchInput && Input.touchCount == 0)
@@ -135,8 +155,8 @@ public class ScannerGadget : MonoBehaviour
         
         GameManager.Instance.Hud.ShowScannerTip(false);
         myCollider.enabled = false;
-        model.SetActive(false);
-//        GameManager.Instance.Director.SetSunlightBrightness(0.3f);
+        activeModel.SetActive(false);
+//        scanner.gameObject.SetActive(false);
     }
 
     public void Release()
@@ -151,8 +171,8 @@ public class ScannerGadget : MonoBehaviour
         myCollider.enabled = true;
         transform.position = scanner.transform.position;
         FixRotation();
-        model.SetActive(true);
-//        GameManager.Instance.Director.SetSunlightBrightness(1f);
+        activeModel.SetActive(true);
+//        scanner.gameObject.SetActive(true);
     }
 
     private GeoThermalPlant FindClosestGeoPlant()
@@ -179,7 +199,7 @@ public class ScannerGadget : MonoBehaviour
 
     private void FixRotation()
     {
-        transform.LookAt(transform.position + model.transform.position - GameManager.Instance.PlanetTransform.position);
+        transform.LookAt(transform.position + activeModel.transform.position - GameManager.Instance.PlanetTransform.position);
     }
 
     void UpdateArrowCallback(float val)

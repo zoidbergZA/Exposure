@@ -196,27 +196,27 @@ public class Hud : MonoBehaviour
         cityPanel.SetActive(false);
         gameOverPanel.SetActive(true);
 
-        Image[] scoreStarImages = new Image[GameManager.Instance.Cities.Length];
-
-        for (int i = 0; i < GameManager.Instance.Cities.Length; i++)
-        {
-            scoreStarImages[i] = Instantiate(starImagePrefab);
-            scoreStarImages[i].rectTransform.SetParent(scoreStarPanel);
-            scoreStarImages[i].rectTransform.localScale = Vector3.one;
-
-            if (GameManager.Instance.Cities[i].CityState == CityStates.HIDDEN)
-            {
-                scoreStarImages[i].sprite = fullStar;
-            }
-        }
-
-        for (int i = 0; i < scoreStarImages.Length; i++)
-        {
-            if (scoreStarImages[i].sprite == fullStar)
-                scoreStarImages[i].rectTransform.SetAsFirstSibling();
-        }
-
-        Destroy(starImagePrefab.gameObject);
+//        Image[] scoreStarImages = new Image[GameManager.Instance.Cities.Length];
+//
+//        for (int i = 0; i < GameManager.Instance.Cities.Length; i++)
+//        {
+//            scoreStarImages[i] = Instantiate(starImagePrefab);
+//            scoreStarImages[i].rectTransform.SetParent(scoreStarPanel);
+//            scoreStarImages[i].rectTransform.localScale = Vector3.one;
+//
+//            if (GameManager.Instance.Cities[i].CityState == CityStates.HIDDEN)
+//            {
+//                scoreStarImages[i].sprite = fullStar;
+//            }
+//        }
+//
+//        for (int i = 0; i < scoreStarImages.Length; i++)
+//        {
+//            if (scoreStarImages[i].sprite == fullStar)
+//                scoreStarImages[i].rectTransform.SetAsFirstSibling();
+//        }
+//
+//        Destroy(starImagePrefab.gameObject);
         
         //set score and player name text
         endPlayerText.text = "Goed Gedaan " + GameManager.Instance.Player.PlayerName + "!!!";

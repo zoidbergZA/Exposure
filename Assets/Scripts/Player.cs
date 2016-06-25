@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public int Cable { get; private set; }
 
     private Vector2 mouseOld;
+    private float lastInputAt;
 
     void Awake()
     {
@@ -51,6 +52,13 @@ public class Player : MonoBehaviour
     {
         if (!GameManager.Instance.RoundStarted)
             return;
+
+        //check input timeout
+        if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
+            lastInputAt = Time.time;
+
+        if (Time.time > lastInputAt + 30f)
+            GameManager.Instance.HandleTimeOut();
 
         //temp
         if (Input.GetKeyDown(KeyCode.F1))
@@ -81,6 +89,8 @@ public class Player : MonoBehaviour
         PlayerName = name;
         PlayerAge = age;
         PlayerIsMale = isMale;
+
+        GameManager.Instance.ScannerGadget.SetGender(PlayerIsMale);
     }
 
     public void CollectCable(int amount)
