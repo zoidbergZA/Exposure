@@ -3098,10 +3098,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11428854, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: introTips.Array.size
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 482218, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3154,34 +3150,6 @@ Prefab:
       propertyPath: cities.Array.data[4]
       value: 
       objectReference: {fileID: 917853484}
-    - target: {fileID: 11428854, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: introTips.Array.data[0]
-      value: I'm a city, look at my pretty buildings.
-      objectReference: {fileID: 0}
-    - target: {fileID: 11428854, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: introTips.Array.data[1]
-      value: Too bad we make all this nasty smoke
-      objectReference: {fileID: 0}
-    - target: {fileID: 11428854, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: introTips.Array.data[2]
-      value: we should find cleaner ways to generate warmth
-      objectReference: {fileID: 0}
-    - target: {fileID: 11428854, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: introTips.Array.data[3]
-      value: what if we explore under the earth for heat?
-      objectReference: {fileID: 0}
-    - target: {fileID: 11428854, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: introTips.Array.data[4]
-      value: we could build geo-thermal plants to make heat!
-      objectReference: {fileID: 0}
-    - target: {fileID: 11428854, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: swoopTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11428854, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
-      propertyPath: waitTime
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 740c9e154f3f9a147a108da53ff896e5, type: 2}
   m_IsPrefabParent: 0
@@ -4736,10 +4704,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 11400314, guid: f1e2c98e89bc1cf4eb2a26946e9f0d7d, type: 2}
-      propertyPath: spinningRadar
-      value: 
-      objectReference: {fileID: 1992065922}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1e2c98e89bc1cf4eb2a26946e9f0d7d, type: 2}
   m_IsPrefabParent: 0
@@ -6129,31 +6093,31 @@ Prefab:
     m_Modifications:
     - target: {fileID: 455798, guid: b570aacde41d0fa46b5e39920ada58ea, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 16.125565
+      value: 16.128895
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: b570aacde41d0fa46b5e39920ada58ea, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.9864786
+      value: -1.9871563
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: b570aacde41d0fa46b5e39920ada58ea, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -11.427366
+      value: -11.429016
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: b570aacde41d0fa46b5e39920ada58ea, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.034066435
+      value: -0.035386827
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: b570aacde41d0fa46b5e39920ada58ea, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.1591956
+      value: 0.15909207
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: b570aacde41d0fa46b5e39920ada58ea, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.08330079
+      value: -0.08762037
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: b570aacde41d0fa46b5e39920ada58ea, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.9831364
+      value: 0.982731
       objectReference: {fileID: 0}
     - target: {fileID: 455798, guid: b570aacde41d0fa46b5e39920ada58ea, type: 2}
       propertyPath: m_RootOrder
@@ -11691,6 +11655,10 @@ Prefab:
     - target: {fileID: 485824, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477068, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 67e3c6e8e27655d42882781789198faf, type: 2}
@@ -33389,10 +33357,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 455798, guid: 8f426c1c3c3cef94e822aad1be93f8d5, type: 2}
   m_PrefabInternal: {fileID: 1987930758}
---- !u!4 &1992065922 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 404706, guid: f1e2c98e89bc1cf4eb2a26946e9f0d7d, type: 2}
-  m_PrefabInternal: {fileID: 287883852}
 --- !u!1001 &1992652451
 Prefab:
   m_ObjectHideFlags: 0

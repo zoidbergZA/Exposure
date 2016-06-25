@@ -306,6 +306,8 @@ MonoBehaviour:
   model: {fileID: 132304}
   spinningRadar: {fileID: 404706}
   spinRate: 355
+  tipDelay: 3
+  helperHealthLimit: 0.25
 --- !u!135 &13562632
 SphereCollider:
   m_ObjectHideFlags: 1

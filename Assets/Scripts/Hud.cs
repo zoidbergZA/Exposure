@@ -157,15 +157,12 @@ public class Hud : MonoBehaviour
         buildArrow.enabled = show;
     }
 
-    public void PointBuildArrow(Vector2 direction)
+    public void PointBuildArrow(Vector2 position, Vector2 direction)
     {
-        //        Debug.Log(Direction);
-
         float angle = Utils.AngleSigned(Vector3.up, (Vector3) direction, Vector3.forward);
+        buildArrow.rectTransform.position = new Vector2(position.x, Screen.height - position.y);
         buildArrow.rectTransform.eulerAngles = new Vector3(0, 0, angle);
-
-        //        Debug.Log(angle);
-    }
+}
 
     public void OnStartRoundClicked()
     {

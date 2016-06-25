@@ -145,6 +145,14 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void HideAllGeoPlantPreviews()
+    {
+        foreach (City city in Cities)
+        {
+            city.PuzzlePath.GeoPlant.ShowPreview(false);
+        }
+    }
+
     public Color SampleHeatmap(Vector2 textureCoordinate)
     {
         Material mat = Planet.scannableMesh.material;
