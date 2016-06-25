@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Director.SetSunlightBrightness(0.2f);
+        Director.SetSunlightBrightness(0.35f);
 
         if (autoStart)
             Hud.OnStartRoundClicked();
@@ -119,6 +119,8 @@ public class GameManager : MonoBehaviour
             TouchInput = !TouchInput;
         if (Input.GetKeyDown(KeyCode.F9))
             showDebug = !showDebug;
+        if (Input.GetKeyDown(KeyCode.F4))
+            CleanNextCity();
         //cheat codes
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -212,5 +214,17 @@ public class GameManager : MonoBehaviour
 
         Hud.GoToGameOver((int)Player.Score);
         RoundStarted = false;
+    }
+
+    private void CleanNextCity()
+    {
+        foreach (City city in Cities)
+        {
+            if (city.CityState == CityStates.DIRTY)
+            {
+                city.CleanUp();
+                break;
+            }
+        }
     }
 }
