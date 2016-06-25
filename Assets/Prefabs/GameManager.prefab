@@ -76,7 +76,7 @@ MonoBehaviour:
   PipePrefab: {fileID: 168552, guid: ac141081240eb3d48bc7456d887754ee, type: 2}
   TutorialPrefab: {fileID: 11442478, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
   autoStart: 0
-  skipIntro: 0
+  skipIntro: 1
   enableTutorial: 1
   showDebug: 0
   miniGameAutoWin: 1

@@ -37,6 +37,7 @@ public class Hud : MonoBehaviour
     private int buttonSize = 85;
     private int buttonIndent = 10;
 
+    private int timeleftWarningIndex;
     private float tipTimeRemaing;
     private Transform tipTargeTransform;
 
@@ -79,6 +80,8 @@ public class Hud : MonoBehaviour
         //test
 
         //timeleft
+        CheckTimeleftWarning();
+
         int minutes = Mathf.FloorToInt(GameManager.Instance.TimeLeft/60F);
         int seconds = Mathf.FloorToInt(GameManager.Instance.TimeLeft - minutes*60);
         string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
@@ -277,6 +280,18 @@ public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callba
         if (GUI.Button(CenteredRect(new Rect(position.x, position.y, buttonSize + wobbleValue, buttonSize + wobbleValue)), icon, ""))
         {
             callback();
+        }
+    }
+
+    private void CheckTimeleftWarning()
+    {
+        if (!GameManager.Instance.RoundStarted || timeleftWarningIndex >= timeLeftWarnings.Length)
+            return;
+
+        if (GameManager.Instance.TimeLeft <= timeLeftWarnings[timeleftWarningIndex])
+        {
+            Debug.Log(GameManager.Instance.TimeLeft + " left in the round!");
+            timeleftWarningIndex++;
         }
     }
 
