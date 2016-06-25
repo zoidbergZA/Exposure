@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Intro : MonoBehaviour
 {
+    [SerializeField] private float tipDisplayTime = 6f;
     [SerializeField] private string[] introTips;
     [SerializeField] private Vector3 focusPoint;
     [SerializeField] private float swoopTime = 4f;
@@ -32,6 +33,11 @@ public class Intro : MonoBehaviour
         }
 
         GameManager.Instance.Planet.normalSpin = 0;
+        SpawnNextCity();
+    }
+
+    public void OnTipBubbleClicked()
+    {
         SpawnNextCity();
     }
 
@@ -66,10 +72,10 @@ public class Intro : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
 
         city.SpawnDirtyCity();
-        GameManager.Instance.Hud.ShowTipBubble(introTips[tipIndex], city.transform);
+        GameManager.Instance.Hud.ShowTipBubble(introTips[tipIndex], city.transform, tipDisplayTime, OnTipBubbleClicked);
         tipIndex++;
 
-        StartCoroutine(DelayedSpawnNextCity());
+//        StartCoroutine(DelayedSpawnNextCity());
     }
 
     private IEnumerator DelayedSpawnNextCity()
