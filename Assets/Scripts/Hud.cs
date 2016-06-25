@@ -120,7 +120,7 @@ public class Hud : MonoBehaviour
     
     public void ShowTipBubble(string text, Transform refTransform, float duration = 3f, Action callback = null)
     {
-//        tipBubble.sprite = BlankTipSprite;
+        tipBubble.GetComponent<RectTransform>().localScale = Vector3.zero;
         tipText.text = text;
         tipBubble.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(refTransform.position);
         tipBubble.enabled = true;
@@ -129,8 +129,9 @@ public class Hud : MonoBehaviour
 
         tipTimeRemaing = duration;
         tipTargeTransform = refTransform;
-
         tipClickCallback = callback;
+
+        LeanTween.scale(tipBubble.GetComponent<RectTransform>(), Vector3.one, 1.4f).setEase(LeanTweenType.easeOutElastic);
     }
 
     public void ShowToastMessage(string message, float duration = 3f)
