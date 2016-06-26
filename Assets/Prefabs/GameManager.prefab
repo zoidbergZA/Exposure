@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e125c732a1dc74485dbecc73348e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tipDisplayTime: 6
   introTips:
   - I'm a city, look at my pretty buildings.
   - Too bad we make all this nasty smoke
@@ -79,7 +80,7 @@ MonoBehaviour:
   skipIntro: 0
   enableTutorial: 1
   showDebug: 0
-  miniGameAutoWin: 1
+  miniGameAutoWin: 0
   cities:
   - {fileID: 0}
   - {fileID: 0}

@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         //set player info   todo: replace with heim backbone call
         Player.SetPlayerInfo("player", 12, false);
 
-        Director.SetSunlightBrightness(0.35f);
+        Director.SetSunlightBrightness(true);
 
         if (autoStart)
             Hud.OnStartRoundClicked();
@@ -195,6 +195,7 @@ public class GameManager : MonoBehaviour
         RoundStarted = true;
         TimeLeft = roundTime;
         Planet.normalSpin = 0;
+        Player.LastInputAt = Time.time;
         Instance.Hud.OnRoundStarted();
 
         if (tutorial)
@@ -206,7 +207,7 @@ public class GameManager : MonoBehaviour
 
     public void EndRound()
     {
-        Debug.Log("round ended! score " + Player.Score + "/100");
+//        Debug.Log("round ended! score " + Player.Score + "/100");
         
         if (DrillingGame.IsRunning)
             DrillingGame.End(false);

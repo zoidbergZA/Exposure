@@ -15,8 +15,9 @@ public class Hud : MonoBehaviour
     [SerializeField] private Image starImagePrefab;
     [SerializeField] private Canvas hudCanvas;
     [SerializeField] private RectTransform scoreStarPanel;
-    [SerializeField] private Image tipBubble;
+    [SerializeField] private Button tipBubble;
     [SerializeField] private Text tipText;
+    [SerializeField] private Text toastText;
     [SerializeField] private Sprite[] tipSprites;
     [SerializeField] private Sprite BlankTipSprite;
     [SerializeField] private GameObject scannerTip;
@@ -37,8 +38,10 @@ public class Hud : MonoBehaviour
     private int buttonSize = 85;
     private int buttonIndent = 10;
 
+    private int timeleftWarningIndex;
     private float tipTimeRemaing;
     private Transform tipTargeTransform;
+    private Action tipClickCallback = null;
 
     private int wobblerTweenId;
     private int scorePanelTweenId;
@@ -54,6 +57,7 @@ public class Hud : MonoBehaviour
         gameOverPanel.SetActive(false);
         tipBubble.enabled = false;
         tipText.enabled = false;
+        toastText.enabled = false;
         wobblerTweenId =
             LeanTween.value(gameObject, updateWobbleCallback, 0f, 1f, 0.6f)
                 .setLoopPingPong()
@@ -63,9 +67,7 @@ public class Hud : MonoBehaviour
 
     void Start()
     {
-        scorePanel.SetActive(false);
-        timePanel.SetActive(false);
-        cityPanel.SetActive(false);
+        ShowStatusPanel(false);
         startPanel.SetActive(true);
     }
 
@@ -79,6 +81,8 @@ public class Hud : MonoBehaviour
         //test
 
         //timeleft
+        CheckTimeleftWarning();
+
         int minutes = Mathf.FloorToInt(GameManager.Instance.TimeLeft/60F);
         int seconds = Mathf.FloorToInt(GameManager.Instance.TimeLeft - minutes*60);
         string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
@@ -96,13 +100,12 @@ public class Hud : MonoBehaviour
         //tip bubble
         if (tipTimeRemaing > 0)
         {
-            tipBubble.rectTransform.position = Camera.main.WorldToScreenPoint(tipTargeTransform.position);
+            tipBubble.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(tipTargeTransform.position);
             tipTimeRemaing -= Time.deltaTime;
 
             if (tipTimeRemaing <= 0)
             {
-                tipBubble.enabled = false;
-                tipText.enabled = false;
+                HideTipBubble();
             }
         }
     }
@@ -113,31 +116,35 @@ public class Hud : MonoBehaviour
             ShowDebug();
     }
 
-    public void ShowTipBubble(Transform refTransform, float duration = 3f)
+    public void ShowStatusPanel(bool show)
     {
-        Sprite tipSprite = null;
-           
-        tipSprite = tipSprites[UnityEngine.Random.Range(0, tipSprites.Length)];
-        tipText.text = "";
-
-        tipBubble.sprite = tipSprite;
-        tipBubble.rectTransform.position = Camera.main.WorldToScreenPoint(refTransform.position);
-        tipBubble.enabled = true;
-
-        tipTimeRemaing = duration;
-        tipTargeTransform = refTransform;
+        scorePanel.SetActive(show);
+        timePanel.SetActive(show);
+        cityPanel.SetActive(show);
     }
 
-    public void ShowTipBubble(string text, Transform refTransform, float duration = 3f)
+    public void ShowTipBubble(string text, Transform refTransform, float duration = 3f, Action callback = null)
     {
-        tipBubble.sprite = BlankTipSprite;
+        tipBubble.GetComponent<RectTransform>().localScale = Vector3.zero;
         tipText.text = text;
-        tipBubble.rectTransform.position = Camera.main.WorldToScreenPoint(refTransform.position);
+        tipBubble.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(refTransform.position);
         tipBubble.enabled = true;
         tipText.enabled = true;
+        tipBubble.gameObject.SetActive(true);
 
         tipTimeRemaing = duration;
         tipTargeTransform = refTransform;
+        tipClickCallback = callback;
+
+        LeanTween.scale(tipBubble.GetComponent<RectTransform>(), Vector3.one, 1.4f).setEase(LeanTweenType.easeOutElastic);
+    }
+
+    public void ShowToastMessage(string message, float duration = 3f)
+    {
+        toastText.text = message;
+        toastText.enabled = true;
+
+        StartCoroutine(HideToastAfter(duration));
     }
 
     public Rect CenteredRect(Rect rect)
@@ -168,15 +175,13 @@ public class Hud : MonoBehaviour
     {
         ShowStartPanel(false);
         
-        GameManager.Instance.Director.SetSunlightBrightness(1f);
+        GameManager.Instance.Director.SetSunlightBrightness(false);
         GameManager.Instance.Intro.StartIntro();
     }
 
     public void OnRoundStarted()
     {
-        scorePanel.SetActive(true);
-        timePanel.SetActive(true);
-        cityPanel.SetActive(true);
+        ShowStatusPanel(true);
     }
 
     public void OnRestartClicked()
@@ -187,6 +192,17 @@ public class Hud : MonoBehaviour
     public void OnQuitClicked()
     {
         GameManager.Instance.QuitGame();
+    }
+
+    public void OnTipBubbleClick()
+    {
+        if (tipClickCallback != null)
+        {
+            tipClickCallback();
+            tipClickCallback = null;
+        }
+
+        HideTipBubble();
     }
 
     public void GoToGameOver(int score)
@@ -270,13 +286,45 @@ public class Hud : MonoBehaviour
         scannerTip.SetActive(show);
     }
 
-public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callback)
+    public void ShowWorldSpaceButton(Texture2D icon, Vector3 position, Action callback)
     {
         float wobbleValue = WobbleValue * 13f;
 
         if (GUI.Button(CenteredRect(new Rect(position.x, position.y, buttonSize + wobbleValue, buttonSize + wobbleValue)), icon, ""))
         {
             callback();
+        }
+    }
+
+    private IEnumerator HideToastAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        toastText.text = "";
+        toastText.enabled = false;
+    }
+
+    private void HideTipBubble()
+    {
+        tipBubble.enabled = false;
+        tipText.enabled = false;
+        tipBubble.gameObject.SetActive(false);
+
+        if (tipClickCallback != null)
+            tipClickCallback();
+
+        tipClickCallback = null;
+    }
+
+    private void CheckTimeleftWarning()
+    {
+        if (!GameManager.Instance.RoundStarted || timeleftWarningIndex >= timeLeftWarnings.Length)
+            return;
+
+        if (GameManager.Instance.TimeLeft <= timeLeftWarnings[timeleftWarningIndex])
+        {
+            ShowToastMessage(timeLeftWarnings[timeleftWarningIndex] + " seconds left!");
+            timeleftWarningIndex++;
         }
     }
 
