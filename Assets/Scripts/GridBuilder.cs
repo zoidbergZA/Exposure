@@ -22,6 +22,8 @@ public class GridBuilder : Minigame
     {
         base.Begin(difficulty);
 
+        GameManager.Instance.Director.SetSunlightBrightness(false);
+        GameManager.Instance.Hud.ShowStatusPanel(true);
         nextConnectable = 1; // first pylon in array
         lastConnectionAt = Time.time;
         PreviewNextConnectable();

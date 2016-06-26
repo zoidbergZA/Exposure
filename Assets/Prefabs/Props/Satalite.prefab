@@ -75,6 +75,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 462776}
   - 108: {fileID: 10820808}
+  - 114: {fileID: 11428458}
   m_Layer: 0
   m_Name: White light
   m_TagString: Untagged
@@ -128,7 +129,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161424}
   m_LocalRotation: {x: 0.6248522, y: -0.15773712, z: -0.13082904, w: 0.7533674}
-  m_LocalPosition: {x: 1.4, y: -290.8, z: 194}
+  m_LocalPosition: {x: -7, y: -230, z: 184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 456608}
@@ -282,7 +283,7 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 168338}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 6
   m_Type: 2
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -309,6 +310,17 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
+--- !u!114 &11428458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 196584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6b1940b80760449bbfbf5ca199721f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11446188
 MonoBehaviour:
   m_ObjectHideFlags: 1

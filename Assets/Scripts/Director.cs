@@ -15,6 +15,7 @@ public class Director : MonoBehaviour
     public float buildzoom = 45f;
 
     [SerializeField] private Light sunLight;
+    [SerializeField] private float sunDark;
     [SerializeField] private Shaker shaker;
 
     private Vector3 orbitPosition;
@@ -30,6 +31,9 @@ public class Director : MonoBehaviour
     private int positionTweenId;
     private int rotationTweenId;
     private int fovTweenId;
+    private int sunlightTweenId;
+    private float sunIntensity;
+    private float sunBright;
 
     public bool OrbitPaused { get; set; }
     public Modes Mode { get; private set; }
@@ -42,6 +46,7 @@ public class Director : MonoBehaviour
         targetFoV = Camera.main.fieldOfView;
         targetPosition = transform.position;
         targetRotation = transform.rotation;
+        sunBright = sunLight.intensity;
     }
 
 	void Start ()
@@ -53,7 +58,8 @@ public class Director : MonoBehaviour
 	{
 	    transform.position = targetPosition;
 	    Camera.main.fieldOfView = targetFoV;
-        
+	    sunLight.intensity = sunIntensity;
+            
         if (LeanTween.isTweening(rotationTweenId))
             transform.rotation = Quaternion.Slerp(fromRotation, targetRotation, rotateProgress);
     }
@@ -76,9 +82,16 @@ public class Director : MonoBehaviour
         shaker.Shake(other);
     }
 
-    public void SetSunlightBrightness(float intensity)
+    public void SetSunlightBrightness(bool dark)
     {
-        sunLight.intensity = intensity;
+        if (LeanTween.isTweening(sunlightTweenId))
+            LeanTween.cancel(sunlightTweenId);
+
+        float target = sunBright;
+        if (dark)
+            target = sunDark;
+
+        sunlightTweenId = LeanTween.value(gameObject, updateSunlightCallback, sunLight.intensity, target, 1.2f).setEase(LeanTweenType.easeOutSine).id;
     }
 
     private IEnumerator DelayedStart(Modes newMode, Transform newTargetTransform, float delay)
@@ -125,6 +138,11 @@ public class Director : MonoBehaviour
         positionTweenId = LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time).setEase(LeanTweenType.easeInOutQuart).id;
         rotationTweenId = LeanTween.value(gameObject, updateRotCallback, 0f, 1f, time).setEase(LeanTweenType.easeInOutQuart).id;
         fovTweenId = LeanTween.value(gameObject, updateFOVCallback, targetFoV, fov, time).setEase(LeanTweenType.easeInOutSine).id;
+    }
+
+    void updateSunlightCallback(float val)
+    {
+        sunIntensity = val;
     }
 
     void updatePosCallback(Vector3 val)

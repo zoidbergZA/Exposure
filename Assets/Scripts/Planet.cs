@@ -100,10 +100,24 @@ public class Planet : MonoBehaviour
 
         if (cloudParticleSystem)
         {
-            cloudParticleSystem.startColor = Color.Lerp(cloudsDirtyColor, cloudsCleanColor, Health);
+            Color newColor = Color.Lerp(cloudsDirtyColor, cloudsCleanColor, Health);
+            cloudParticleSystem.startColor = newColor;
 
-            cloudParticleSystem.Clear();
-            cloudParticleSystem.Emit(1);
+            ParticleSystem.Particle[] particles = new ParticleSystem.Particle[cloudParticleSystem.particleCount];
+
+            int num = cloudParticleSystem.GetParticles(particles);
+
+            for (int i = 0; i < num; i++)
+            {
+                particles[i].color = newColor;
+            }
+            // re-assign modified array
+            cloudParticleSystem.SetParticles(particles, num);
+
+            //////////////////////////////////
+
+//            cloudParticleSystem.Clear();
+//            cloudParticleSystem.Emit(1);
         }
     }
 

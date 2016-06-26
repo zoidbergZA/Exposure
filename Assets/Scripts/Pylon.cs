@@ -33,6 +33,7 @@ public class Pylon : Connectable
         
         PlacerModel.SetActive(false);
         BuiltModel.SetActive(true);
+        GameManager.Instance.Player.ScorePoints(2, transform);
     }
 
     public override void Reset()

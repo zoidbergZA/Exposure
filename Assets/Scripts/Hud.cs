@@ -67,9 +67,7 @@ public class Hud : MonoBehaviour
 
     void Start()
     {
-        scorePanel.SetActive(false);
-        timePanel.SetActive(false);
-        cityPanel.SetActive(false);
+        ShowStatusPanel(false);
         startPanel.SetActive(true);
     }
 
@@ -117,7 +115,14 @@ public class Hud : MonoBehaviour
         if (GameManager.Instance.showDebug)
             ShowDebug();
     }
-    
+
+    public void ShowStatusPanel(bool show)
+    {
+        scorePanel.SetActive(show);
+        timePanel.SetActive(show);
+        cityPanel.SetActive(show);
+    }
+
     public void ShowTipBubble(string text, Transform refTransform, float duration = 3f, Action callback = null)
     {
         tipBubble.GetComponent<RectTransform>().localScale = Vector3.zero;
@@ -170,15 +175,13 @@ public class Hud : MonoBehaviour
     {
         ShowStartPanel(false);
         
-        GameManager.Instance.Director.SetSunlightBrightness(1f);
+        GameManager.Instance.Director.SetSunlightBrightness(false);
         GameManager.Instance.Intro.StartIntro();
     }
 
     public void OnRoundStarted()
     {
-        scorePanel.SetActive(true);
-        timePanel.SetActive(true);
-        cityPanel.SetActive(true);
+        ShowStatusPanel(true);
     }
 
     public void OnRestartClicked()
