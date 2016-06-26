@@ -235,7 +235,7 @@ public class Hud : MonoBehaviour
 //        Destroy(starImagePrefab.gameObject);
         
         //set score and player name text
-        endPlayerText.text = "Goed Gedaan " + GameManager.Instance.Player.PlayerName + "!!!";
+        endPlayerText.text = "Goed Gedaan " + GameManager.Instance.HeimPlayerData.username + "!!!";
         endScoreText.text = score.ToString();
     }
 

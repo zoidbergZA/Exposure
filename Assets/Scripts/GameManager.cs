@@ -6,6 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public struct HeimInfo
+    {
+        public int userID;
+        public int gameID;
+        public string username;
+        public float gametime;
+        public string conURL;
+        public int age;
+        public int gender;
+    }
+
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -39,9 +50,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private City[] cities;
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
-    private Tutorial tutorial;
 
-//    public Modes Mode { get; set; }
+    private Tutorial tutorial;
+    private HeimInfo heimPlayerData;
+
+    public HeimInfo HeimPlayerData { get { return heimPlayerData; } }
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Intro Intro { get; private set; }
     public Planet Planet { get; private set; }
@@ -106,8 +119,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //set player info   todo: replace with heim backbone call
-        Player.SetPlayerInfo("player", 12, false);
+        LoadHeimInfo();
 
         Director.SetSunlightBrightness(true);
 
@@ -219,11 +231,68 @@ public class GameManager : MonoBehaviour
 
         Hud.GoToGameOver((int)Player.Score);
         RoundStarted = false;
+
+        SendHeimData();
     }
 
     public void HandleTimeOut()
     {
         Restart();
+    }
+
+    private void LoadHeimInfo()
+    {
+        String[] arguments = Environment.GetCommandLineArgs();
+        heimPlayerData = new HeimInfo();
+
+//        Instance.Hud.ShowToastMessage(arguments.Length.ToString(), 25f);
+
+//        if (arguments.Length < 6)
+//        {
+//            
+//            return;
+//        }
+
+//        heimPlayerData.userID = int.Parse(arguments[1]);
+//        heimPlayerData.gameID = int.Parse(arguments[2]);
+//        heimPlayerData.username = arguments[3];
+//        heimPlayerData.gametime = int.Parse(arguments[4]);
+//        heimPlayerData.conURL = arguments[5];
+
+        string argsLong = "";
+
+        for (int i = 0; i < arguments.Length; i++)
+        {
+            argsLong += arguments[i] + "\n";
+        }
+
+        Instance.Hud.ShowToastMessage(argsLong, 30f);
+        
+        ScannerGadget.SetGender(true);
+    }
+
+    private void SendHeimData()
+    {
+        string requestString = "insertScore.php?userID=" + heimPlayerData.userID + "&gameID=" + heimPlayerData.gameID + "&score=" + Player.Score;
+
+        string url = heimPlayerData.conURL + requestString;
+        WWW www = new WWW(url);
+        StartCoroutine(WaitForRequest(www));
+    }
+
+    IEnumerator WaitForRequest(WWW www)
+    {
+        yield return www;
+
+        // check for errors
+        if (www.error == null)
+        {
+            Debug.Log("WWW Ok!: " + www.data);
+        }
+        else
+        {
+            Debug.Log("WWW Error: " + www.error);
+        }
     }
 
     private void CleanNextCity()
