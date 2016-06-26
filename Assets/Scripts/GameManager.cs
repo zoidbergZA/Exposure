@@ -259,6 +259,11 @@ public class GameManager : MonoBehaviour
 //        heimPlayerData.gametime = int.Parse(arguments[4]);
 //        heimPlayerData.conURL = arguments[5];
 
+        if (heimPlayerData.gametime > 0)
+        {
+            roundTime = heimPlayerData.gametime;
+        }
+
         string argsLong = "";
 
         for (int i = 0; i < arguments.Length; i++)

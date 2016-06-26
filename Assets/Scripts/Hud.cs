@@ -37,7 +37,7 @@ public class Hud : MonoBehaviour
 
     private int buttonSize = 85;
     private int buttonIndent = 10;
-
+    private int tipBubbleTweenerId;
     private int timeleftWarningIndex;
     private float tipTimeRemaing;
     private Transform tipTargeTransform;
@@ -136,7 +136,7 @@ public class Hud : MonoBehaviour
         tipTargeTransform = refTransform;
         tipClickCallback = callback;
 
-        LeanTween.scale(tipBubble.GetComponent<RectTransform>(), Vector3.one, 1.4f).setEase(LeanTweenType.easeOutElastic);
+        LeanTween.scale(tipBubble.GetComponent<RectTransform>(), Vector3.one, 1.4f).setEase(LeanTweenType.easeOutElastic).setOnComplete(WobbleTipBubble);
     }
 
     public void ShowToastMessage(string message, float duration = 3f)
@@ -296,6 +296,11 @@ public class Hud : MonoBehaviour
         }
     }
 
+    private void WobbleTipBubble()
+    {
+        tipBubbleTweenerId = LeanTween.scale(tipBubble.GetComponent<RectTransform>(), new Vector3(1.1f, 1.1f, 1.1f), 0.5f).setEase(LeanTweenType.easeInOutSine).setLoopPingPong().id;
+    }
+
     private IEnumerator HideToastAfter(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -312,6 +317,9 @@ public class Hud : MonoBehaviour
 
         if (tipClickCallback != null)
             tipClickCallback();
+
+        if (LeanTween.isTweening(tipBubbleTweenerId))
+            LeanTween.cancel(tipBubbleTweenerId);
 
         tipClickCallback = null;
     }
