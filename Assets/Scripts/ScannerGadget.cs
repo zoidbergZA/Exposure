@@ -27,6 +27,7 @@ public class ScannerGadget : MonoBehaviour
     {
         scanner = FindObjectOfType<Scanner>();
         myCollider = GetComponent<Collider>();
+        activeModel = maleModel;
     }
 
     void Start()

@@ -25,9 +25,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Powerplant PowerplantPrefab;
     [SerializeField] private Drillspot DrillspotPrefab;
 
-    public string PlayerName { get; private set; }
-    public int PlayerAge { get; private set; }
-    public bool PlayerIsMale { get; private set; }
+//    public string PlayerName { get; private set; }
+//    public int PlayerAge { get; private set; }
+//    public bool PlayerIsMale { get; private set; }
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
     public int Cable { get; private set; }
@@ -82,15 +82,6 @@ public class Player : MonoBehaviour
     void LateUpdate()
     {
         mouseOld = Input.mousePosition;
-    }
-
-    public void SetPlayerInfo(string name, int age, bool isMale)
-    {
-        PlayerName = name;
-        PlayerAge = age;
-        PlayerIsMale = isMale;
-
-        GameManager.Instance.ScannerGadget.SetGender(PlayerIsMale);
     }
 
     public void CollectCable(int amount)
