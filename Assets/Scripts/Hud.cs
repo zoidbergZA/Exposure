@@ -35,6 +35,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
 
+    private int scannerTipTweenId;
     private int buttonSize = 85;
     private int buttonIndent = 10;
     private int tipBubbleTweenerId;
@@ -280,6 +281,13 @@ public class Hud : MonoBehaviour
     {
         if (ShowingScannerTip == show)
             return;
+
+//        if (LeanTween.isTweening(scannerTipTweenId))
+//            LeanTween.cancel(scannerTipTweenId);
+//
+//        scannerTip.GetComponent<RectTransform>().localScale = Vector3.one;
+//        if (show)
+//            scannerTipTweenId = LeanTween.scale(scannerTip.GetComponent<RectTransform>(), new Vector3(1.2f, 1.2f, 1.2f), 0.5f).setLoopPingPong().id;
 
         ShowingScannerTip = show;
         

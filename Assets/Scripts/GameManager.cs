@@ -271,7 +271,7 @@ public class GameManager : MonoBehaviour
             argsLong += arguments[i] + "\n";
         }
 
-        Instance.Hud.ShowToastMessage(argsLong, 30f);
+//        Instance.Hud.ShowToastMessage(argsLong, 30f);
         
         ScannerGadget.SetGender(true);
     }
