@@ -56,6 +56,17 @@ public class DrillGameHud : MonoBehaviour
 	
 	void Update ()
     {
+        updateJoystickArrow();
+        updateProgressBars();
+        if (ActivateGeothermalUI) ActivateGeothermal(true);
+        if (DeactivateGeoThermalUI) ActivateGeothermal(false);
+
+        //debug speed update here
+        debugSpeed.text = "Speed\n" + GameManager.Instance.DrillingGame.DrillSpeed / 10 + "\n" + GameManager.Instance.DrillingGame.Joystick.DebugText;
+    }
+
+    private void updateJoystickArrow()
+    {
         if (joystickArrow.color.a > 0 && GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
             joystickArrow.gameObject.SetActive(true);
@@ -65,13 +76,8 @@ public class DrillGameHud : MonoBehaviour
         {
             joystickArrow.color = new Color(1, 1, 1, 0);
         }
-        updateProgressBars();
-        if (ActivateGeothermalUI) ActivateGeothermal(true);
-        if (DeactivateGeoThermalUI) ActivateGeothermal(false);
-
-        //debug speed update here
-        debugSpeed.text = "Speed\n" + GameManager.Instance.DrillingGame.DrillSpeed / 10 + "\n" + GameManager.Instance.DrillingGame.Joystick.DebugText;
     }
+
     public void PointJoystickArrow(DrillingDirection direction)
     {
         float rotation = 0;

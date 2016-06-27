@@ -14,8 +14,6 @@ public class Driller : MonoBehaviour
     [SerializeField] private Image tapTip;
     [SerializeField] private Image pipeFeedback;
     [SerializeField] private Image diamondFeedback;
-    [SerializeField] private Image drillMale;
-    [SerializeField] private Image drillFemale;
     [SerializeField] private float feedbackFadeSpeed = 1.1f;
 
     private int lives = 3;
@@ -24,11 +22,7 @@ public class Driller : MonoBehaviour
     public Animator Animator { get; private set; }
     public Vector2 Position
     {
-        get
-        {
-            if (Drill) return Drill.rectTransform.anchoredPosition;
-            else return Vector2.zero;
-        }
+        get { return Drill.rectTransform.anchoredPosition; }
         set { Drill.rectTransform.anchoredPosition = value; }
     }
     public Rigidbody2D Body { get; private set; }
@@ -59,17 +53,17 @@ public class Driller : MonoBehaviour
     {
         if (Gender == DrillerGender.MALE)
         {
-            Drill = drillMale;
             Animator = animator;
+            animator.gameObject.GetComponent<Image>().enabled = true;
             animatorFemale.gameObject.SetActive(false); //switch off female if male
         }
         else
         {
-            Drill = drillFemale;
             Animator = animatorFemale;
+            animatorFemale.gameObject.GetComponent<Image>().enabled = true;
             animator.gameObject.SetActive(false); //switch off male if female
         }
-        Drill.enabled = false;
+        Drill = FindObjectOfType<Driller>().GetComponent<Image>();
     }
 
     void Update()
@@ -134,7 +128,7 @@ public class Driller : MonoBehaviour
         resetAnimation();
         if (!GameManager.Instance.DrillingGame.IsRestarting) lives = 3;
         Drill.rectTransform.anchoredPosition = startPosition;
-        Drill.enabled = false;
+        Drill.gameObject.SetActive(false);
         Collided = false;
         pipeFeedback.color = new Color(1, 1, 1, 0);
         diamondFeedback.color = new Color(1, 1, 1, 0);

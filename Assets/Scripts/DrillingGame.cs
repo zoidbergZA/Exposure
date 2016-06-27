@@ -151,7 +151,7 @@ public class DrillingGame : Minigame
                 Driller.ActivateImage(Driller.TapTip, true);
             }
 
-            Driller.Drill.enabled = true;
+            Driller.Drill.gameObject.SetActive(true);
             Driller.Drill.transform.SetAsLastSibling();
             if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2) Driller.SwitchAnimation("goToSliding", true);
 
@@ -232,7 +232,7 @@ public class DrillingGame : Minigame
             resetGame();
             Joystick.Reset();
 
-            Driller.Drill.enabled = true;
+            Driller.Drill.gameObject.SetActive(true);
             Driller.Drill.transform.SetAsLastSibling();
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
             Map.SwitchPipeTileSprite();

@@ -742,6 +742,8 @@ GameObject:
   - 114: {fileID: 11473634}
   - 61: {fileID: 6178596}
   - 50: {fileID: 5048374}
+  - 222: {fileID: 22273624}
+  - 114: {fileID: 11406238}
   m_Layer: 5
   m_Name: Driller
   m_TagString: Untagged
@@ -1167,6 +1169,33 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11406238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188580}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300042, guid: d47dc05ed375a4997ad62e17b1027e25, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &11406590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1466,11 +1495,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6082c5f55ad3da4692acda9f464d3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 90
+  timeOut: 90000
   mapPanel: {fileID: 22408228}
   MainPanel: {fileID: 22467228}
-  drillSpeed: 120
-  slideSpeed: 120
+  drillSpeed: 1
+  slideSpeed: 1
   diamondValue: 1
   jumpPhaseTime: 0.85
   panelSlidingTime: 1.5
@@ -2296,6 +2325,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 160490}
+--- !u!222 &22273624
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188580}
 --- !u!222 &22274438
 CanvasRenderer:
   m_ObjectHideFlags: 1
