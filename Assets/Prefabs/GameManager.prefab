@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 482218}
   - 114: {fileID: 11448036}
   - 114: {fileID: 11402634}
+  - 114: {fileID: 11428854}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -40,6 +41,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6009d50e056ef4c4aa4bfcc5c26b41cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11428854
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e125c732a1dc74485dbecc73348e5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipDisplayTime: 6
+  introTips:
+  - I'm a city, look at my pretty buildings.
+  - Too bad we make all this nasty smoke
+  - we should find cleaner ways to generate warmth
+  - what if we explore under the earth for heat?
+  - we could build geo-thermal plants to make heat!
+  focusPoint: {x: 100, y: 110, z: 30}
+  swoopTime: 5
+  waitTime: 5
 --- !u!114 &11448036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -55,9 +77,16 @@ MonoBehaviour:
   PipePrefab: {fileID: 168552, guid: ac141081240eb3d48bc7456d887754ee, type: 2}
   TutorialPrefab: {fileID: 11442478, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
   autoStart: 0
+  skipIntro: 0
   enableTutorial: 1
   showDebug: 0
   miniGameAutoWin: 0
+  cities:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   roundTime: 300
   touchScreenInput: 0
 --- !u!1001 &100100000

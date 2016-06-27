@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum CityStates
+{
+    HIDDEN,
+    DIRTY,
+    CLEAN
+}
+
 public class City : Connectable
 {
     [SerializeField] private GameObject dirtyModel;
@@ -9,13 +16,17 @@ public class City : Connectable
     [SerializeField] private float nukeEffectDuration = 3f;
     [SerializeField] private PuzzlePath puzzlePath;
 
-    public bool IsDirty { get; private set; }
+    //    public bool IsDirty { get; private set; }
+    public CityStates CityState { get; private set; }
     public PuzzlePath PuzzlePath { get { return puzzlePath; } }
     public CityIcon CityIcon { get; set; }
 
     void Awake()
     {
         Reset();
+
+//        //test
+//        SpawnDirtyCity();
     }
 
     void Start()
@@ -41,20 +52,28 @@ public class City : Connectable
 //        if(puzzlePath)
 //            puzzlePath.Reset();
 
-        dirtyModel.SetActive(true);
+        dirtyModel.SetActive(false);
         cleanModel.SetActive(false);
 
-        IsDirty = true;
+        CityState = CityStates.HIDDEN;
+    }
+
+    public void SpawnDirtyCity()
+    {
+        dirtyModel.SetActive(true);
+        CityState = CityStates.DIRTY;
+        GameManager.Instance.Planet.RefreshHealth();
     }
 
     public void CleanUp()
     {
-        if (!IsDirty)
+        if (CityState != CityStates.DIRTY)
             return;
 
-        IsDirty = false;
+        CityState = CityStates.CLEAN;
 
         nukeEffect.SetActive(true);
+        GameManager.Instance.Director.Shake();
         ConnectionState = ConnectionStates.Built;
         CityIcon.ToggleIcon(true);
 
