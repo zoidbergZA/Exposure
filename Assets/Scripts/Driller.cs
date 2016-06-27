@@ -33,6 +33,7 @@ public class Driller : MonoBehaviour
     }
     public Rigidbody2D Body { get; private set; }
     public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, PIPE_PART }
+    public enum DrillerGender { MALE, FEMALE }
     public int Lives { get { return lives; } }
     public DrillGameHud Hud { get; private set; }
     public bool Collided { get; private set; }
@@ -41,16 +42,22 @@ public class Driller : MonoBehaviour
     public Image ArrowRight { get { return arrowRight; } }
     public Image ArrowLeft { get { return arrowLeft; } }
     public Image TapTip { get { return tapTip; } }
+    public DrillerGender Gender { get; private set; }
 
     void Awake()
     {
+        //cheat random Gender assignment
+        int randomGender = Random.Range(0, 2);
+        if (randomGender == 0) Gender = DrillerGender.MALE;
+        else Gender = DrillerGender.FEMALE;
+
         Body = GetComponent<Rigidbody2D>();
         Hud = FindObjectOfType<DrillGameHud>();
     }
 
     void Start()
     {
-        if (GameManager.Instance.DrillingGame.gender == DrillingGame.Gender.MALE)
+        if (Gender == DrillerGender.MALE)
         {
             Drill = drillMale;
             Animator = animator;

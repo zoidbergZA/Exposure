@@ -159,12 +159,12 @@ public class DrillGameHud : MonoBehaviour
                 drillLife.fillAmount = 0.00f;
                 break;
             case global::ToastType.SUCCESS:
-                if (!succeededToast.gameObject.activeSelf && GameManager.Instance.DrillingGame.gender == DrillingGame.Gender.MALE)
+                if (!succeededToast.gameObject.activeSelf && Driller.Gender == Driller.DrillerGender.MALE)
                 {
                     succeededToast.gameObject.SetActive(true);
                     succeededToast.gameObject.transform.parent.SetAsLastSibling();
                 }
-                if (!succeededToastFemale.gameObject.activeSelf && GameManager.Instance.DrillingGame.gender == DrillingGame.Gender.FEMALE)
+                if (!succeededToastFemale.gameObject.activeSelf && Driller.Gender == Driller.DrillerGender.FEMALE)
                 {
                     succeededToastFemale.gameObject.SetActive(true);
                     succeededToastFemale.gameObject.transform.parent.SetAsLastSibling();
