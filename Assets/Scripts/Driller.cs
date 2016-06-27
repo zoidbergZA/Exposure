@@ -21,22 +21,16 @@ public class Driller : MonoBehaviour
     private int lives = 3;
 
     public Image Drill { get; private set; }
-    public Animator Animator
+    public Animator Animator { get; private set; }
+    public Vector2 Position
     {
         get
         {
-            switch (GameManager.Instance.DrillingGame.gender)
-            {
-                case DrillingGame.Gender.MALE:
-                    return animator;
-                case DrillingGame.Gender.FEMALE:
-                    return animatorFemale;
-                default:
-                    return animator;
-            }
+            if (Drill) return Drill.rectTransform.anchoredPosition;
+            else return Vector2.zero;
         }
+        set { Drill.rectTransform.anchoredPosition = value; }
     }
-    public Vector2 Position { get { return Drill.rectTransform.anchoredPosition; } set { Drill.rectTransform.anchoredPosition = value; } }
     public Rigidbody2D Body { get; private set; }
     public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, PIPE_PART }
     public int Lives { get { return lives; } }
@@ -56,8 +50,18 @@ public class Driller : MonoBehaviour
 
     void Start()
     {
-        if (GameManager.Instance.DrillingGame.gender == DrillingGame.Gender.MALE) Drill = drillMale;
-        else Drill = drillFemale;
+        if (GameManager.Instance.DrillingGame.gender == DrillingGame.Gender.MALE)
+        {
+            Drill = drillMale;
+            Animator = animator;
+            animatorFemale.gameObject.SetActive(false);
+        }
+        else
+        {
+            Drill = drillFemale;
+            Animator = animatorFemale;
+            animator.gameObject.SetActive(false);
+        }
         Debug.Log(GameManager.Instance.DrillingGame.gender.ToString());
         Drill.enabled = false;
     }
@@ -110,13 +114,13 @@ public class Driller : MonoBehaviour
 
     private void resetAnimation()
     {
-        animator.SetBool("isSlidingLeft", false);
-        animator.SetBool("isDrillingDown", false);
-        animator.SetBool("isDrillingUp", false);
-        animator.SetBool("isDrillingRight", false);
-        animator.SetBool("isDrillingLeft", false);
-        animator.SetBool("shouldJump", false);
-        animator.SetBool("goToSliding", false);
+        Animator.SetBool("isSlidingLeft", false);
+        Animator.SetBool("isDrillingDown", false);
+        Animator.SetBool("isDrillingUp", false);
+        Animator.SetBool("isDrillingRight", false);
+        Animator.SetBool("isDrillingLeft", false);
+        Animator.SetBool("shouldJump", false);
+        Animator.SetBool("goToSliding", false);
     }
 
     public void Reset(Vector2 startPosition)
@@ -133,7 +137,7 @@ public class Driller : MonoBehaviour
 
     public void SwitchAnimation(string param, bool turned)
     {
-        animator.SetBool(param, turned);
+        Animator.SetBool(param, turned);
     }
 
     public void handleCollision(Tile collider, GameObject GO = null)

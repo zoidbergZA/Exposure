@@ -1448,7 +1448,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300024, guid: d47dc05ed375a4997ad62e17b1027e25, type: 3}
-  m_Type: 0
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1466,7 +1466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6082c5f55ad3da4692acda9f464d3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 900
+  timeOut: 90000
   mapPanel: {fileID: 22408228}
   MainPanel: {fileID: 22467228}
   drillSpeed: 1
@@ -1892,7 +1892,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300024, guid: ee1df49c460ea4d6092fbf5357eac974, type: 3}
-  m_Type: 0
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
