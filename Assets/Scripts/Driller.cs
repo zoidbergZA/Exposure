@@ -54,15 +54,14 @@ public class Driller : MonoBehaviour
         {
             Drill = drillMale;
             Animator = animator;
-            animatorFemale.gameObject.SetActive(false);
+            animatorFemale.gameObject.SetActive(false); //switch off female if male
         }
         else
         {
             Drill = drillFemale;
             Animator = animatorFemale;
-            animator.gameObject.SetActive(false);
+            animator.gameObject.SetActive(false); //switch off male if female
         }
-        Debug.Log(GameManager.Instance.DrillingGame.gender.ToString());
         Drill.enabled = false;
     }
 

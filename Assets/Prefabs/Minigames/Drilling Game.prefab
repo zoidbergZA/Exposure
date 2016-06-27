@@ -1466,18 +1466,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6082c5f55ad3da4692acda9f464d3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 90000
+  timeOut: 90
   mapPanel: {fileID: 22408228}
   MainPanel: {fileID: 22467228}
-  drillSpeed: 1
-  slideSpeed: 1
+  drillSpeed: 120
+  slideSpeed: 120
   diamondValue: 1
   jumpPhaseTime: 0.85
   panelSlidingTime: 1.5
   boostFadeSpeed: 1
   movementType: 0
   levels:
-  - {fileID: 4900000, guid: 8bf3dab1686f6464fa8b85efe73ec9e6, type: 3}
+  - {fileID: 4900000, guid: 8ae44b68697ff244f8a1272492c267ca, type: 3}
   - {fileID: 4900000, guid: ff890c93dec41471ab50ef647e326cac, type: 3}
   - {fileID: 4900000, guid: 6b3f2c855624f436496c71b2626814b8, type: 3}
   - {fileID: 4900000, guid: 71111eca0c88c44ac8edd1ef596365b1, type: 3}
