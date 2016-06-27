@@ -16,6 +16,7 @@ public class DrillingGame : Minigame
     [SerializeField] private float diamondValue = 1.0f;
     [SerializeField] private float jumpPhaseTime = 0.85f;
     [SerializeField] private float panelSlidingTime = 1.5f;
+    [SerializeField] private float boostFadeSpeed = 1.0f;
     [SerializeField] private MovementType movementType;
     [SerializeField] private TextAsset[] levels;
     [SerializeField] private TextAsset[] JsonLevels;
@@ -23,6 +24,7 @@ public class DrillingGame : Minigame
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, ACTIVATION, SLIDING, PREDRILLJUMP, DRILLING, SUCCESS, FAIL, RESTART }
     public enum MovementType { CONSTANT, TILE_BASED }
+    public enum Gender { MALE, FEMALE }
     public const int TILE_SIZE = 71, MAP_WIDTH = 13, MAP_HEIGHT = 8;
     private DrillingGameState state;
     private Vector2 startDrillerPosition;
@@ -47,10 +49,17 @@ public class DrillingGame : Minigame
     public MobileJoystick Joystick { get; private set; }
     public float DiamondValue { get { return diamondValue; } }
     public float DrillSpeed { get { return drillSpeed; } }
-    public float TotalSpeed { get { return drillSpeed * boostSpeed; } }
+    public float TotalSpeed { get { return drillSpeed + boostSpeed; } }
+    public bool Boost { get; set; }
+    public Gender gender { get; set; }
 
     void Awake()
     {
+        //cheat random Gender assignment
+        int randomGender = Random.Range(0, 2);
+        if (randomGender == 0) gender = Gender.MALE;
+        else gender = Gender.FEMALE;
+
         DrillDirection = DrillingDirection.NONE;
         PrevDrillDirection = DrillingDirection.NONE;
         Driller = FindObjectOfType<Driller>();
@@ -74,21 +83,10 @@ public class DrillingGame : Minigame
 
     public override void Update()
     {
-        //base.Update();
         if (Driller.Drill) updateState();
         processJoystickInput();
-
-        if (IsRunning)
-        {
-            Timeleft -= Time.deltaTime;
-
-            if (Timeleft <= 0.05f)
-            {
-                ToastType = global::ToastType.TIME_OUT;
-                Hud.ActivateToast(ToastType);
-                state = DrillingGameState.FAIL;
-            }
-        }
+        updateBoostSpeed();
+        updateTimeOut();
 
         //--------------------------------
         //------- cheat buttons BEGIN ----
@@ -160,7 +158,7 @@ public class DrillingGame : Minigame
                 Driller.ActivateImage(Driller.TapTip, true);
             }
 
-            Driller.Drill.gameObject.SetActive(true);
+            Driller.Drill.enabled = true;
             Driller.Drill.transform.SetAsLastSibling();
             if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2) Driller.SwitchAnimation("goToSliding", true);
 
@@ -241,7 +239,7 @@ public class DrillingGame : Minigame
             resetGame();
             Joystick.Reset();
 
-            Driller.Drill.gameObject.SetActive(true);
+            Driller.Drill.enabled = true;
             Driller.Drill.transform.SetAsLastSibling();
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
             Map.SwitchPipeTileSprite();
@@ -662,5 +660,31 @@ public class DrillingGame : Minigame
         Driller.Reset(startDrillerPosition);
         Hud.Reset();
         Joystick.Reset();
+    }
+
+    private void updateBoostSpeed()
+    {
+        if (Boost) boostSpeed = 200.0f;
+        if (boostSpeed > 1)
+        {
+            Boost = false;
+            boostSpeed -= Time.deltaTime * boostFadeSpeed;
+        }
+        else boostSpeed = 1;
+    }
+
+    private void updateTimeOut()
+    {
+        if (IsRunning)
+        {
+            Timeleft -= Time.deltaTime;
+
+            if (Timeleft <= 0.05f)
+            {
+                ToastType = global::ToastType.TIME_OUT;
+                Hud.ActivateToast(ToastType);
+                state = DrillingGameState.FAIL;
+            }
+        }
     }
 }
