@@ -24,7 +24,6 @@ public class DrillingGame : Minigame
     private Drillspot drillspot;
     public enum DrillingGameState { INACTIVE, ACTIVATION, SLIDING, PREDRILLJUMP, DRILLING, SUCCESS, FAIL, RESTART }
     public enum MovementType { CONSTANT, TILE_BASED }
-    public enum Gender { MALE, FEMALE }
     public const int TILE_SIZE = 71, MAP_WIDTH = 13, MAP_HEIGHT = 8;
     private DrillingGameState state;
     private Vector2 startDrillerPosition;
@@ -51,15 +50,9 @@ public class DrillingGame : Minigame
     public float DrillSpeed { get { return drillSpeed; } }
     public float TotalSpeed { get { return drillSpeed + boostSpeed; } }
     public bool Boost { get; set; }
-    public Gender gender { get; set; }
 
     void Awake()
     {
-        //cheat random Gender assignment
-        int randomGender = Random.Range(0, 2);
-        if (randomGender == 0) gender = Gender.MALE;
-        else gender = Gender.FEMALE;
-
         DrillDirection = DrillingDirection.NONE;
         PrevDrillDirection = DrillingDirection.NONE;
         Driller = FindObjectOfType<Driller>();
@@ -158,7 +151,7 @@ public class DrillingGame : Minigame
                 Driller.ActivateImage(Driller.TapTip, true);
             }
 
-            Driller.Drill.enabled = true;
+            Driller.Drill.gameObject.SetActive(true);
             Driller.Drill.transform.SetAsLastSibling();
             if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2) Driller.SwitchAnimation("goToSliding", true);
 
@@ -239,7 +232,7 @@ public class DrillingGame : Minigame
             resetGame();
             Joystick.Reset();
 
-            Driller.Drill.enabled = true;
+            Driller.Drill.gameObject.SetActive(true);
             Driller.Drill.transform.SetAsLastSibling();
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
             Map.SwitchPipeTileSprite();

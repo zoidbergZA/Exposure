@@ -14,8 +14,6 @@ public class Driller : MonoBehaviour
     [SerializeField] private Image tapTip;
     [SerializeField] private Image pipeFeedback;
     [SerializeField] private Image diamondFeedback;
-    [SerializeField] private Image drillMale;
-    [SerializeField] private Image drillFemale;
     [SerializeField] private float feedbackFadeSpeed = 1.1f;
 
     private int lives = 3;
@@ -24,15 +22,12 @@ public class Driller : MonoBehaviour
     public Animator Animator { get; private set; }
     public Vector2 Position
     {
-        get
-        {
-            if (Drill) return Drill.rectTransform.anchoredPosition;
-            else return Vector2.zero;
-        }
+        get { return Drill.rectTransform.anchoredPosition; }
         set { Drill.rectTransform.anchoredPosition = value; }
     }
     public Rigidbody2D Body { get; private set; }
     public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, PIPE_PART }
+    public enum DrillerGender { MALE, FEMALE }
     public int Lives { get { return lives; } }
     public DrillGameHud Hud { get; private set; }
     public bool Collided { get; private set; }
@@ -41,28 +36,34 @@ public class Driller : MonoBehaviour
     public Image ArrowRight { get { return arrowRight; } }
     public Image ArrowLeft { get { return arrowLeft; } }
     public Image TapTip { get { return tapTip; } }
+    public DrillerGender Gender { get; private set; }
 
     void Awake()
     {
+        //cheat random Gender assignment
+        int randomGender = Random.Range(0, 2);
+        if (randomGender == 0) Gender = DrillerGender.MALE;
+        else Gender = DrillerGender.FEMALE;
+
         Body = GetComponent<Rigidbody2D>();
         Hud = FindObjectOfType<DrillGameHud>();
     }
 
     void Start()
     {
-        if (GameManager.Instance.DrillingGame.gender == DrillingGame.Gender.MALE)
+        if (Gender == DrillerGender.MALE)
         {
-            Drill = drillMale;
             Animator = animator;
+            animator.gameObject.GetComponent<Image>().enabled = true;
             animatorFemale.gameObject.SetActive(false); //switch off female if male
         }
         else
         {
-            Drill = drillFemale;
             Animator = animatorFemale;
+            animatorFemale.gameObject.GetComponent<Image>().enabled = true;
             animator.gameObject.SetActive(false); //switch off male if female
         }
-        Drill.enabled = false;
+        Drill = FindObjectOfType<Driller>().GetComponent<Image>();
     }
 
     void Update()
@@ -127,7 +128,7 @@ public class Driller : MonoBehaviour
         resetAnimation();
         if (!GameManager.Instance.DrillingGame.IsRestarting) lives = 3;
         Drill.rectTransform.anchoredPosition = startPosition;
-        Drill.enabled = false;
+        Drill.gameObject.SetActive(false);
         Collided = false;
         pipeFeedback.color = new Color(1, 1, 1, 0);
         diamondFeedback.color = new Color(1, 1, 1, 0);
