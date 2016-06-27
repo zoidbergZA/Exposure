@@ -14,12 +14,28 @@ public class Driller : MonoBehaviour
     [SerializeField] private Image tapTip;
     [SerializeField] private Image pipeFeedback;
     [SerializeField] private Image diamondFeedback;
+    [SerializeField] private Image drillMale;
+    [SerializeField] private Image drillFemale;
     [SerializeField] private float feedbackFadeSpeed = 1.1f;
 
     private int lives = 3;
 
     public Image Drill { get; private set; }
-    public Animator Animator { get { return (GameManager.Instance.DrillingGame.gender == DrillingGame.Gender.MALE) ? animator : animatorFemale; } }
+    public Animator Animator
+    {
+        get
+        {
+            switch (GameManager.Instance.DrillingGame.gender)
+            {
+                case DrillingGame.Gender.MALE:
+                    return animator;
+                case DrillingGame.Gender.FEMALE:
+                    return animatorFemale;
+                default:
+                    return animator;
+            }
+        }
+    }
     public Vector2 Position { get { return Drill.rectTransform.anchoredPosition; } set { Drill.rectTransform.anchoredPosition = value; } }
     public Rigidbody2D Body { get; private set; }
     public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, PIPE_PART }
@@ -34,14 +50,16 @@ public class Driller : MonoBehaviour
 
     void Awake()
     {
-        Drill = GetComponent<UnityEngine.UI.Image>();
         Body = GetComponent<Rigidbody2D>();
         Hud = FindObjectOfType<DrillGameHud>();
     }
 
     void Start()
     {
-        Drill.gameObject.SetActive(false);
+        if (GameManager.Instance.DrillingGame.gender == DrillingGame.Gender.MALE) Drill = drillMale;
+        else Drill = drillFemale;
+        Debug.Log(GameManager.Instance.DrillingGame.gender.ToString());
+        Drill.enabled = false;
     }
 
     void Update()
@@ -106,7 +124,7 @@ public class Driller : MonoBehaviour
         resetAnimation();
         if (!GameManager.Instance.DrillingGame.IsRestarting) lives = 3;
         Drill.rectTransform.anchoredPosition = startPosition;
-        Drill.gameObject.SetActive(false);
+        Drill.enabled = false;
         Collided = false;
         pipeFeedback.color = new Color(1, 1, 1, 0);
         diamondFeedback.color = new Color(1, 1, 1, 0);

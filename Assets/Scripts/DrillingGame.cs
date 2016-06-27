@@ -55,7 +55,7 @@ public class DrillingGame : Minigame
 
     void Awake()
     {
-        //cheat random gender assignment
+        //cheat random Gender assignment
         int randomGender = Random.Range(0, 2);
         if (randomGender == 0) gender = Gender.MALE;
         else gender = Gender.FEMALE;
@@ -83,7 +83,6 @@ public class DrillingGame : Minigame
 
     public override void Update()
     {
-        //base.Update();
         if (Driller.Drill) updateState();
         processJoystickInput();
         updateBoostSpeed();
@@ -159,7 +158,7 @@ public class DrillingGame : Minigame
                 Driller.ActivateImage(Driller.TapTip, true);
             }
 
-            Driller.Drill.gameObject.SetActive(true);
+            Driller.Drill.enabled = true;
             Driller.Drill.transform.SetAsLastSibling();
             if (levelsCounter != 0 && levelsCounter != 1 && levelsCounter != 2) Driller.SwitchAnimation("goToSliding", true);
 
@@ -240,7 +239,7 @@ public class DrillingGame : Minigame
             resetGame();
             Joystick.Reset();
 
-            Driller.Drill.gameObject.SetActive(true);
+            Driller.Drill.enabled = true;
             Driller.Drill.transform.SetAsLastSibling();
             Map.Initialize(mapPanel, GameManager.Instance.LoadDrillingPuzzle(levels[levelsCounter]), JsonLevels[levelsCounter]);
             Map.SwitchPipeTileSprite();
