@@ -35,9 +35,10 @@ public class Hud : MonoBehaviour
     [SerializeField] private Text cableText;
     [SerializeField] private GameObject gameOverPanel;
 
+    private int scannerTipTweenId;
     private int buttonSize = 85;
     private int buttonIndent = 10;
-
+    private int tipBubbleTweenerId;
     private int timeleftWarningIndex;
     private float tipTimeRemaing;
     private Transform tipTargeTransform;
@@ -136,7 +137,7 @@ public class Hud : MonoBehaviour
         tipTargeTransform = refTransform;
         tipClickCallback = callback;
 
-        LeanTween.scale(tipBubble.GetComponent<RectTransform>(), Vector3.one, 1.4f).setEase(LeanTweenType.easeOutElastic);
+        LeanTween.scale(tipBubble.GetComponent<RectTransform>(), Vector3.one, 1.4f).setEase(LeanTweenType.easeOutElastic).setOnComplete(WobbleTipBubble);
     }
 
     public void ShowToastMessage(string message, float duration = 3f)
@@ -281,6 +282,13 @@ public class Hud : MonoBehaviour
         if (ShowingScannerTip == show)
             return;
 
+//        if (LeanTween.isTweening(scannerTipTweenId))
+//            LeanTween.cancel(scannerTipTweenId);
+//
+//        scannerTip.GetComponent<RectTransform>().localScale = Vector3.one;
+//        if (show)
+//            scannerTipTweenId = LeanTween.scale(scannerTip.GetComponent<RectTransform>(), new Vector3(1.2f, 1.2f, 1.2f), 0.5f).setLoopPingPong().id;
+
         ShowingScannerTip = show;
         
         scannerTip.SetActive(show);
@@ -294,6 +302,11 @@ public class Hud : MonoBehaviour
         {
             callback();
         }
+    }
+
+    private void WobbleTipBubble()
+    {
+        tipBubbleTweenerId = LeanTween.scale(tipBubble.GetComponent<RectTransform>(), new Vector3(1.1f, 1.1f, 1.1f), 0.5f).setEase(LeanTweenType.easeInOutSine).setLoopPingPong().id;
     }
 
     private IEnumerator HideToastAfter(float delay)
@@ -312,6 +325,9 @@ public class Hud : MonoBehaviour
 
         if (tipClickCallback != null)
             tipClickCallback();
+
+        if (LeanTween.isTweening(tipBubbleTweenerId))
+            LeanTween.cancel(tipBubbleTweenerId);
 
         tipClickCallback = null;
     }
