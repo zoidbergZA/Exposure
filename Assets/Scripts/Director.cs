@@ -15,6 +15,7 @@ public class Director : MonoBehaviour
     public float buildzoom = 45f;
 
     [SerializeField] private Light sunLight;
+    [SerializeField] private float sunDark;
     [SerializeField] private Shaker shaker;
 
     private Vector3 orbitPosition;
@@ -28,7 +29,11 @@ public class Director : MonoBehaviour
     private float rotateProgress;
     private float targetFoV;
     private int positionTweenId;
+    private int rotationTweenId;
     private int fovTweenId;
+    private int sunlightTweenId;
+    private float sunIntensity;
+    private float sunBright;
 
     public bool OrbitPaused { get; set; }
     public Modes Mode { get; private set; }
@@ -41,6 +46,7 @@ public class Director : MonoBehaviour
         targetFoV = Camera.main.fieldOfView;
         targetPosition = transform.position;
         targetRotation = transform.rotation;
+        sunBright = sunLight.intensity;
     }
 
 	void Start ()
@@ -52,8 +58,10 @@ public class Director : MonoBehaviour
 	{
 	    transform.position = targetPosition;
 	    Camera.main.fieldOfView = targetFoV;
-
-        transform.rotation = Quaternion.Slerp(fromRotation, targetRotation, rotateProgress);
+	    sunLight.intensity = sunIntensity;
+            
+        if (LeanTween.isTweening(rotationTweenId))
+            transform.rotation = Quaternion.Slerp(fromRotation, targetRotation, rotateProgress);
     }
 
     public void SetMode(Modes mode, Transform targetTransform, float delay = 2f)
@@ -74,9 +82,16 @@ public class Director : MonoBehaviour
         shaker.Shake(other);
     }
 
-    public void SetSunlightBrightness(float intensity)
+    public void SetSunlightBrightness(bool dark)
     {
-        sunLight.intensity = intensity;
+        if (LeanTween.isTweening(sunlightTweenId))
+            LeanTween.cancel(sunlightTweenId);
+
+        float target = sunBright;
+        if (dark)
+            target = sunDark;
+
+        sunlightTweenId = LeanTween.value(gameObject, updateSunlightCallback, sunLight.intensity, target, 1.2f).setEase(LeanTweenType.easeOutSine).id;
     }
 
     private IEnumerator DelayedStart(Modes newMode, Transform newTargetTransform, float delay)
@@ -95,7 +110,7 @@ public class Director : MonoBehaviour
             case Modes.Grid:
 //                GameManager.Instance.Planet.IsSpinning = false;
 
-                Vector3 newPos = targetTransform.position + targetTransform.up * buildHeight;
+                Vector3 newPos = targetTransform.position + targetTransform.up * buildHeight + Vector3.down * 30f;
                 Quaternion newRot = Quaternion.LookRotation(targetTransform.position - newPos, Vector3.up);
 
                 SwoopTo(newPos, newRot, buildzoom, delay);
@@ -120,8 +135,14 @@ public class Director : MonoBehaviour
         if (LeanTween.isTweening(fovTweenId))
             LeanTween.cancel(fovTweenId);
 
-        positionTweenId = LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time).id;
+        positionTweenId = LeanTween.value(gameObject, updatePosCallback, targetPosition, position, time).setEase(LeanTweenType.easeInOutQuart).id;
+        rotationTweenId = LeanTween.value(gameObject, updateRotCallback, 0f, 1f, time).setEase(LeanTweenType.easeInOutQuart).id;
         fovTweenId = LeanTween.value(gameObject, updateFOVCallback, targetFoV, fov, time).setEase(LeanTweenType.easeInOutSine).id;
+    }
+
+    void updateSunlightCallback(float val)
+    {
+        sunIntensity = val;
     }
 
     void updatePosCallback(Vector3 val)
@@ -129,9 +150,13 @@ public class Director : MonoBehaviour
         targetPosition = val;
     }
 
-    void updateFOVCallback(float val, float ratio)
+    void updateRotCallback(float val)
+    {
+        rotateProgress = val;
+    }
+
+    void updateFOVCallback(float val)
     {
         targetFoV = val;
-        rotateProgress = ratio;
     }
 }

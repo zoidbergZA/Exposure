@@ -74,7 +74,7 @@ public class Scanner : MonoBehaviour
             if (scannerGadget.IsGrabbed)
             {
                 UpdateScannerPosition(hit.point);
-
+                
                 GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
                 if (plant && scannerGadget.IsGrabbed)
                 {
@@ -92,7 +92,7 @@ public class Scanner : MonoBehaviour
                 City city = hit.transform.GetComponent<City>();
                 if (city)
                 {
-                    if (city.IsDirty && Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began))
+                    if (city.CityState == CityStates.DIRTY && Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began))
                         GameManager.Instance.TapTips.ShowRandomTip(city.transform);
                 }
             }
@@ -119,13 +119,14 @@ public class Scanner : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 UpdateScannerPosition(point);
-                scannerGadget.transform.position = point;
+//                scannerGadget.transform.position = point;
             }
         }
     }
 
     private void ScanSucceeded(GeoThermalPlant geoPlant)
     {
+        scannerGadget.Release();
         geoPlant.Build();
 
         GameManager.Instance.Player.ScorePoints(5, geoPlant.transform);

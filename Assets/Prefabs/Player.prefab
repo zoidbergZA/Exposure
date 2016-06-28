@@ -884,7 +884,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     curve:
-      scalar: -6.1959186
+      scalar: -4.0142574
       maxCurve:
         serializedVersion: 2
         m_Curve:
