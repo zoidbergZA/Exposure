@@ -22,7 +22,11 @@ public class Driller : MonoBehaviour
     public Animator Animator { get; private set; }
     public Vector2 Position
     {
-        get { return Drill.rectTransform.anchoredPosition; }
+        get
+        {
+            if (Drill) return Drill.rectTransform.anchoredPosition;
+            else return Vector2.zero;
+        }
         set { Drill.rectTransform.anchoredPosition = value; }
     }
     public Rigidbody2D Body { get; private set; }
@@ -36,12 +40,12 @@ public class Driller : MonoBehaviour
     public Image ArrowRight { get { return arrowRight; } }
     public Image ArrowLeft { get { return arrowLeft; } }
     public Image TapTip { get { return tapTip; } }
-    public DrillerGender Gender { get; private set; }
+    public DrillerGender Gender { get; set; }
 
     void Awake()
     {
         //cheat random Gender assignment
-        int randomGender = Random.Range(1, 2);
+        int randomGender = Random.Range(0, 2);
         if (randomGender == 0) Gender = DrillerGender.MALE;
         else Gender = DrillerGender.FEMALE;
 
