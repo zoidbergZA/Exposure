@@ -55,18 +55,6 @@ public class Driller : MonoBehaviour
 
     void Start()
     {
-        if (Gender == DrillerGender.MALE)
-        {
-            Animator = animator;
-            animator.gameObject.GetComponent<Image>().enabled = true;
-            animatorFemale.gameObject.SetActive(false); //switch off female if male
-        }
-        else
-        {
-            Animator = animatorFemale;
-            animatorFemale.gameObject.GetComponent<Image>().enabled = true;
-            animator.gameObject.SetActive(false); //switch off male if female
-        }
         Drill = FindObjectOfType<Driller>().GetComponent<Image>();
     }
 
@@ -226,6 +214,23 @@ public class Driller : MonoBehaviour
         {
             diamondFeedback.gameObject.SetActive(true);
             diamondFeedback.color = new Color(1, 1, 1, diamondFeedback.color.a - Time.deltaTime * feedbackFadeSpeed);
+        }
+    }
+
+    public void SetGenderAttributes(DrillerGender gender)
+    {
+        switch(gender)
+        {
+            case DrillerGender.MALE: default:
+                Animator = animator;
+                animator.gameObject.GetComponent<Image>().enabled = true;
+                animatorFemale.gameObject.SetActive(false); //switch off female if male
+                break;
+            case DrillerGender.FEMALE:
+                Animator = animatorFemale;
+                animatorFemale.gameObject.GetComponent<Image>().enabled = true;
+                animator.gameObject.SetActive(false); //switch off male if female
+                break;
         }
     }
 }

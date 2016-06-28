@@ -1503,7 +1503,7 @@ MonoBehaviour:
   diamondValue: 1
   jumpPhaseTime: 0.85
   panelSlidingTime: 1.5
-  boostFadeSpeed: 1
+  boostFadeSpeed: 100
   movementType: 0
   levels:
   - {fileID: 4900000, guid: 8ae44b68697ff244f8a1272492c267ca, type: 3}
