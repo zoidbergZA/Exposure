@@ -56,6 +56,17 @@ public class DrillGameHud : MonoBehaviour
 	
 	void Update ()
     {
+        updateJoystickArrow();
+        updateProgressBars();
+        if (ActivateGeothermalUI) ActivateGeothermal(true);
+        if (DeactivateGeoThermalUI) ActivateGeothermal(false);
+
+        //debug speed update here
+        debugSpeed.text = "Speed\n" + GameManager.Instance.DrillingGame.DrillSpeed / 10 + "\n" + GameManager.Instance.DrillingGame.Joystick.DebugText;
+    }
+
+    private void updateJoystickArrow()
+    {
         if (joystickArrow.color.a > 0 && GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
         {
             joystickArrow.gameObject.SetActive(true);
@@ -65,13 +76,8 @@ public class DrillGameHud : MonoBehaviour
         {
             joystickArrow.color = new Color(1, 1, 1, 0);
         }
-        updateProgressBars();
-        if (ActivateGeothermalUI) ActivateGeothermal(true);
-        if (DeactivateGeoThermalUI) ActivateGeothermal(false);
-
-        //debug speed update here
-        debugSpeed.text = "Speed\n" + GameManager.Instance.DrillingGame.DrillSpeed / 10 + "\n" + GameManager.Instance.DrillingGame.Joystick.DebugText;
     }
+
     public void PointJoystickArrow(DrillingDirection direction)
     {
         float rotation = 0;
@@ -159,12 +165,12 @@ public class DrillGameHud : MonoBehaviour
                 drillLife.fillAmount = 0.00f;
                 break;
             case global::ToastType.SUCCESS:
-                if (!succeededToast.gameObject.activeSelf && GameManager.Instance.DrillingGame.gender == DrillingGame.Gender.MALE)
+                if (!succeededToast.gameObject.activeSelf && Driller.Gender == Driller.DrillerGender.MALE)
                 {
                     succeededToast.gameObject.SetActive(true);
                     succeededToast.gameObject.transform.parent.SetAsLastSibling();
                 }
-                if (!succeededToastFemale.gameObject.activeSelf && GameManager.Instance.DrillingGame.gender == DrillingGame.Gender.FEMALE)
+                if (!succeededToastFemale.gameObject.activeSelf && Driller.Gender == Driller.DrillerGender.FEMALE)
                 {
                     succeededToastFemale.gameObject.SetActive(true);
                     succeededToastFemale.gameObject.transform.parent.SetAsLastSibling();
