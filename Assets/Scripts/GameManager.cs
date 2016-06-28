@@ -114,15 +114,10 @@ public class GameManager : MonoBehaviour
         //disable tutorial at awake, enable at StartRound()
         if (tutorial)
             tutorial.gameObject.SetActive(false);
-
-        //moved from Start()
-        //LoadHeimInfo();
     }
 
     void Start()
     {
-        //might be removed to awake since in Driller's Start() some data is assigned depending on the gender
-        //could be situation where Drillers Start() gets called earlier than GameManager Start()
         LoadHeimInfo();
 
         Director.SetSunlightBrightness(true);
@@ -281,6 +276,7 @@ public class GameManager : MonoBehaviour
         
         //assuming 0 is male and 1 is female
         DrillingGame.Driller.Gender = (Driller.DrillerGender)heimPlayerData.gender;
+        DrillingGame.Driller.SetGenderAttributes(DrillingGame.Driller.Gender);
     }
 
     private void SendHeimData()
