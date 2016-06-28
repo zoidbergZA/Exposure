@@ -279,7 +279,7 @@ public class GameManager : MonoBehaviour
         
         ScannerGadget.SetGender(true);
         //assuming 0 is male and 1 is female
-        //DrillingGame.Driller.Gender = (Driller.DrillerGender)heimPlayerData.gender;
+        DrillingGame.Driller.Gender = (Driller.DrillerGender)heimPlayerData.gender;
     }
 
     private void SendHeimData()

@@ -45,9 +45,9 @@ public class Driller : MonoBehaviour
     void Awake()
     {
         //cheat random Gender assignment
-        int randomGender = Random.Range(1, 2);
-        if (randomGender == 0) Gender = DrillerGender.MALE;
-        else Gender = DrillerGender.FEMALE;
+        //int randomGender = Random.Range(1, 2);
+        //if (randomGender == 0) Gender = DrillerGender.MALE;
+        //else Gender = DrillerGender.FEMALE;
 
         Body = GetComponent<Rigidbody2D>();
         Hud = FindObjectOfType<DrillGameHud>();
