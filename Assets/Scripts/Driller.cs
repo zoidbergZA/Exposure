@@ -45,7 +45,7 @@ public class Driller : MonoBehaviour
     void Awake()
     {
         //cheat random Gender assignment
-        int randomGender = Random.Range(0, 2);
+        int randomGender = Random.Range(1, 2);
         if (randomGender == 0) Gender = DrillerGender.MALE;
         else Gender = DrillerGender.FEMALE;
 
@@ -74,6 +74,7 @@ public class Driller : MonoBehaviour
     {
         Body.inertia = 0;
         Body.freezeRotation = true;
+        Body.rotation = 0;
 
         float displacement = Mathf.Sin(Time.time);
         arrowDown.rectTransform.localPosition = new Vector2(arrowDown.rectTransform.localPosition.x, arrowDown.rectTransform.localPosition.y + displacement/2);
