@@ -24,6 +24,7 @@ public class MobileJoystick : MonoBehaviour
     private Vector2 tap;
     private float touchDuration;
     private Touch toucH;
+    private int clicks;
 
     void Awake()
     {
@@ -88,6 +89,10 @@ public class MobileJoystick : MonoBehaviour
                         if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
                             GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
                         setDirection();
+                    }
+                    if (Input.GetMouseButtonUp(0))
+                    {
+                        clicks++;
                     }
                     break;
                 case TouchInputType.SWIPE:
@@ -210,27 +215,55 @@ public class MobileJoystick : MonoBehaviour
 
     IEnumerator singleOrDouble()
     {
-        yield return new WaitForSeconds(0.3f);
-        if (toucH.tapCount == 1) GameManager.Instance.DrillingGame.Boost = false;
-        else if (toucH.tapCount == 2)
+        yield return new WaitForSeconds(0.6f);
+        switch(GameManager.Instance.TouchInput)
         {
-            //this coroutine has been called twice. We should stop the next one here otherwise we get two double tap
-            StopCoroutine("singleOrDouble");
-            GameManager.Instance.DrillingGame.Boost = true;
+            case true:
+                if (toucH.tapCount == 1) GameManager.Instance.DrillingGame.Boost = false;
+                else if (toucH.tapCount == 2)
+                {
+                    //this coroutine has been called twice. We should stop the next one here otherwise we get two double tap
+                    StopCoroutine("singleOrDouble");
+                    GameManager.Instance.DrillingGame.Boost = true;
+                }
+                break;
+            case false:
+                if (clicks == 1) GameManager.Instance.DrillingGame.Boost = false;
+                else if (clicks == 2)
+                {
+                    StopCoroutine("singleOrDouble");
+                    GameManager.Instance.DrillingGame.Boost = true;
+                }
+                clicks = 0;
+                break;
         }
     }
 
     private void processDoubleTap()
     {
-        if (Input.touchCount > 0)
-        { //if there is any touch
-            touchDuration += Time.deltaTime;
-            toucH = Input.GetTouch(0);
+        switch (GameManager.Instance.TouchInput)
+        {
+            case true:
+                if (Input.touchCount > 0) //if there is any touch
+                {
+                    touchDuration += Time.deltaTime;
+                    toucH = Input.GetTouch(0);
 
-            if (toucH.phase == TouchPhase.Ended && touchDuration < 0.2f) //making sure it only check the touch once && it was a short touch/tap and not a dragging.
-                StartCoroutine("singleOrDouble");
+                    if (toucH.phase == TouchPhase.Ended && touchDuration < 0.2f) //making sure it only check the touch once && it was a short touch/tap and not a dragging.
+                        StartCoroutine("singleOrDouble");
+                }
+                else
+                    touchDuration = 0.0f;
+                break;
+            case false:
+                if(clicks > 0)
+                {
+                    touchDuration += Time.deltaTime;
+                    if (touchDuration < 0.5f) StartCoroutine("singleOrDouble");
+                }
+                else
+                    touchDuration = 0.0f;
+                break;
         }
-        else
-            touchDuration = 0.0f;
     }
 }

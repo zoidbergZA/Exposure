@@ -116,14 +116,14 @@ public class GameManager : MonoBehaviour
             tutorial.gameObject.SetActive(false);
 
         //moved from Start()
-        LoadHeimInfo();
+        //LoadHeimInfo();
     }
 
     void Start()
     {
-        //removed to awake since in Driller's Start() some data is assigned depending on the gender
-        //might be situation where Drillers Start() gets called earlier than GameManager Start()
-        //LoadHeimInfo();
+        //might be removed to awake since in Driller's Start() some data is assigned depending on the gender
+        //could be situation where Drillers Start() gets called earlier than GameManager Start()
+        LoadHeimInfo();
 
         Director.SetSunlightBrightness(true);
 
@@ -278,6 +278,7 @@ public class GameManager : MonoBehaviour
 //        Instance.Hud.ShowToastMessage(argsLong, 30f);
         
         ScannerGadget.SetGender(true);
+        
         //assuming 0 is male and 1 is female
         DrillingGame.Driller.Gender = (Driller.DrillerGender)heimPlayerData.gender;
     }
