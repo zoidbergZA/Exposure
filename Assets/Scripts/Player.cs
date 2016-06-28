@@ -60,10 +60,6 @@ public class Player : MonoBehaviour
         if (Time.time > LastInputAt + 30f)
             GameManager.Instance.HandleTimeOut();
 
-        //temp
-        if (Input.GetKeyDown(KeyCode.F1))
-            GameManager.Instance.Restart();
-
         if (Input.GetKeyDown(KeyCode.Alpha1))
             CollectCable(1);
         if (Input.GetKeyDown(KeyCode.F6) && GameManager.Instance.Player.PlayerState == PlayerStates.Normal) // jump to drilling game
