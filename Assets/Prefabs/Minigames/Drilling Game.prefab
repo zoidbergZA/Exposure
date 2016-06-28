@@ -1495,11 +1495,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6082c5f55ad3da4692acda9f464d3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 90000
+  timeOut: 90
   mapPanel: {fileID: 22408228}
   MainPanel: {fileID: 22467228}
-  drillSpeed: 1
-  slideSpeed: 1
+  drillSpeed: 120
+  slideSpeed: 120
   diamondValue: 1
   jumpPhaseTime: 0.85
   panelSlidingTime: 1.5
@@ -1975,8 +1975,6 @@ MonoBehaviour:
   tapTip: {fileID: 11498928}
   pipeFeedback: {fileID: 11452936}
   diamondFeedback: {fileID: 11464672}
-  drillMale: {fileID: 11436370}
-  drillFemale: {fileID: 11470798}
   feedbackFadeSpeed: 0.5
 --- !u!114 &11477506
 MonoBehaviour:
