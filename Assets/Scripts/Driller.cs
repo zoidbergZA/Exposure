@@ -25,7 +25,7 @@ public class Driller : MonoBehaviour
         get
         {
             if (Drill) return Drill.rectTransform.anchoredPosition;
-            else return Vector2.zero;
+            else return new Vector2(424, 0);
         }
         set { Drill.rectTransform.anchoredPosition = value; }
     }
