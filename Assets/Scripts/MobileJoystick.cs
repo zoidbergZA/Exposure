@@ -215,7 +215,7 @@ public class MobileJoystick : MonoBehaviour
 
     IEnumerator singleOrDouble()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.6f);
         switch(GameManager.Instance.TouchInput)
         {
             case true:
@@ -228,13 +228,13 @@ public class MobileJoystick : MonoBehaviour
                 }
                 break;
             case false:
-                if (clicks == 1) Debug.Log("1 click");
+                if (clicks == 1) GameManager.Instance.DrillingGame.Boost = false;
                 else if (clicks == 2)
                 {
-                    clicks = 0;
                     StopCoroutine("singleOrDouble");
-                    Debug.Log("2 clicks");
+                    GameManager.Instance.DrillingGame.Boost = true;
                 }
+                clicks = 0;
                 break;
         }
     }
@@ -259,7 +259,7 @@ public class MobileJoystick : MonoBehaviour
                 if(clicks > 0)
                 {
                     touchDuration += Time.deltaTime;
-                    if (touchDuration < 0.2f) StartCoroutine("singleOrDouble");
+                    if (touchDuration < 0.5f) StartCoroutine("singleOrDouble");
                 }
                 else
                     touchDuration = 0.0f;
