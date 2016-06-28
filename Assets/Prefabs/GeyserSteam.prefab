@@ -1,15 +1,25 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<< HEAD
+--- !u!1 &109000
+=======
 --- !u!1 &146840
+>>>>>>> refs/remotes/origin/master
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
+<<<<<<< HEAD
+  - 4: {fileID: 458276}
+  - 198: {fileID: 19803872}
+  - 199: {fileID: 19901706}
+=======
   - 4: {fileID: 426652}
   - 198: {fileID: 19883150}
   - 199: {fileID: 19971204}
+>>>>>>> refs/remotes/origin/master
   m_Layer: 0
   m_Name: GeyserSteam
   m_TagString: Untagged
@@ -17,17 +27,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
+--- !u!1 &191178
+=======
 --- !u!1 &188324
+>>>>>>> refs/remotes/origin/master
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
+<<<<<<< HEAD
+  - 4: {fileID: 461330}
+  - 198: {fileID: 19863612}
+  - 199: {fileID: 19955318}
+  - 114: {fileID: 11494944}
+=======
   - 4: {fileID: 472582}
   - 198: {fileID: 19840456}
   - 199: {fileID: 19984098}
   - 114: {fileID: 11497390}
+>>>>>>> refs/remotes/origin/master
   m_Layer: 0
   m_Name: GeyserFountain
   m_TagString: Untagged
@@ -35,11 +56,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
+--- !u!4 &458276
+=======
 --- !u!4 &426652
+>>>>>>> refs/remotes/origin/master
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
+  m_GameObject: {fileID: 109000}
+  m_LocalRotation: {x: -0.4258053, y: -0.39074573, z: -0.6681596, w: 0.4685835}
+  m_LocalPosition: {x: 103.06868, y: 169.38477, z: 84.13136}
+  m_LocalScale: {x: 0.68444306, y: 0.684443, z: 0.68444276}
+  m_Children:
+  - {fileID: 461330}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &461330
+=======
   m_GameObject: {fileID: 146840}
   m_LocalRotation: {x: -0.2751436, y: -0.52110773, z: -0.53547144, w: 0.6049901}
   m_LocalPosition: {x: 17.862774, y: 164.02364, z: 114.15528}
@@ -49,23 +85,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &472582
+>>>>>>> refs/remotes/origin/master
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
+  m_GameObject: {fileID: 191178}
+=======
   m_GameObject: {fileID: 188324}
+>>>>>>> refs/remotes/origin/master
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9458827, y: 0.94588196, z: 0.94588196}
   m_Children: []
+<<<<<<< HEAD
+  m_Father: {fileID: 458276}
+  m_RootOrder: 0
+--- !u!114 &11494944
+=======
   m_Father: {fileID: 426652}
   m_RootOrder: 0
 --- !u!114 &11497390
+>>>>>>> refs/remotes/origin/master
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
+  m_GameObject: {fileID: 191178}
+=======
   m_GameObject: {fileID: 188324}
+>>>>>>> refs/remotes/origin/master
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dc4cc8c95d9f2a4baca6db379c76d14, type: 3}
@@ -73,12 +124,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 5
   duration: 3
+<<<<<<< HEAD
+--- !u!198 &19803872
+=======
 --- !u!198 &19840456
+>>>>>>> refs/remotes/origin/master
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
+  m_GameObject: {fileID: 109000}
+=======
   m_GameObject: {fileID: 188324}
+>>>>>>> refs/remotes/origin/master
   serializedVersion: 2
   lengthInSec: 5
   startDelay:
@@ -162,7 +221,11 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     startSpeed:
+<<<<<<< HEAD
+      scalar: 2
+=======
       scalar: 20
+>>>>>>> refs/remotes/origin/master
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -291,7 +354,11 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
+<<<<<<< HEAD
+      scalar: 5
+=======
       scalar: 3
+>>>>>>> refs/remotes/origin/master
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -307,7 +374,11 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
+<<<<<<< HEAD
+          value: 0.8
+=======
           value: 0.6666667
+>>>>>>> refs/remotes/origin/master
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -422,7 +493,11 @@ ParticleSystem:
       minMaxState: 0
     randomizeRotationDirection: 0
     gravityModifier: 0
+<<<<<<< HEAD
+    maxNumParticles: 5
+=======
     maxNumParticles: 500
+>>>>>>> refs/remotes/origin/master
     rotation3D: 0
   ShapeModule:
     serializedVersion: 2
@@ -449,7 +524,11 @@ ParticleSystem:
     serializedVersion: 2
     m_Type: 0
     rate:
+<<<<<<< HEAD
+      scalar: 2.5
+=======
       scalar: 7
+>>>>>>> refs/remotes/origin/master
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -504,6 +583,9 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
+<<<<<<< HEAD
+          value: 0.34703195
+=======
           value: 0.23744291
           inSlope: 0
           outSlope: 0
@@ -515,13 +597,19 @@ ParticleSystem:
           tangentMode: 0
         - time: 0.6914894
           value: 0.6438356
+>>>>>>> refs/remotes/origin/master
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         - time: 1
           value: 1
+<<<<<<< HEAD
+          inSlope: 2
+          outSlope: 2
+=======
           inSlope: 0
           outSlope: 0
+>>>>>>> refs/remotes/origin/master
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -616,7 +704,11 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     curve:
+<<<<<<< HEAD
+      scalar: 0.5235988
+=======
       scalar: 1.5707963
+>>>>>>> refs/remotes/origin/master
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -647,6 +739,15 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
+<<<<<<< HEAD
+          rgba: 16777215
+        key1:
+          serializedVersion: 2
+          rgba: 4294967295
+        key2:
+          serializedVersion: 2
+          rgba: 0
+=======
           rgba: 16711900
         key1:
           serializedVersion: 2
@@ -654,6 +755,7 @@ ParticleSystem:
         key2:
           serializedVersion: 2
           rgba: 4294921216
+>>>>>>> refs/remotes/origin/master
         key3:
           serializedVersion: 2
           rgba: 16777215
@@ -669,24 +771,41 @@ ParticleSystem:
         key7:
           serializedVersion: 2
           rgba: 0
+<<<<<<< HEAD
+        ctime0: 0
+        ctime1: 65535
+        ctime2: 65535
+=======
         ctime0: 3277
         ctime1: 6554
         ctime2: 22937
+>>>>>>> refs/remotes/origin/master
         ctime3: 39707
         ctime4: 39707
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
+<<<<<<< HEAD
+        atime1: 32382
+        atime2: 65535
+        atime3: 65535
+=======
         atime1: 6554
         atime2: 38743
         atime3: 53006
+>>>>>>> refs/remotes/origin/master
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
+<<<<<<< HEAD
+        m_NumColorKeys: 2
+        m_NumAlphaKeys: 3
+=======
         m_NumColorKeys: 4
         m_NumAlphaKeys: 4
+>>>>>>> refs/remotes/origin/master
       minGradient:
         key0:
           serializedVersion: 2
@@ -1024,7 +1143,11 @@ ParticleSystem:
     enabled: 0
     multiplier: 1
   ClampVelocityModule:
+<<<<<<< HEAD
+    enabled: 0
+=======
     enabled: 1
+>>>>>>> refs/remotes/origin/master
     x:
       scalar: 1
       maxCurve:
@@ -1140,7 +1263,11 @@ ParticleSystem:
           inSlope: 0
           outSlope: 0
           tangentMode: 0
+<<<<<<< HEAD
+        - time: 0.16359413
+=======
         - time: 0.52659583
+>>>>>>> refs/remotes/origin/master
           value: 0
           inSlope: -4.0239673
           outSlope: -4.0239673
@@ -1547,12 +1674,20 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
+<<<<<<< HEAD
+--- !u!198 &19863612
+=======
 --- !u!198 &19883150
+>>>>>>> refs/remotes/origin/master
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
+  m_GameObject: {fileID: 191178}
+=======
   m_GameObject: {fileID: 146840}
+>>>>>>> refs/remotes/origin/master
   serializedVersion: 2
   lengthInSec: 5
   startDelay:
@@ -1636,7 +1771,11 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     startSpeed:
+<<<<<<< HEAD
+      scalar: 20
+=======
       scalar: 2
+>>>>>>> refs/remotes/origin/master
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1765,7 +1904,11 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
+<<<<<<< HEAD
+      scalar: 3
+=======
       scalar: 5
+>>>>>>> refs/remotes/origin/master
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1781,7 +1924,11 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
+<<<<<<< HEAD
+          value: 0.6666667
+=======
           value: 0.8
+>>>>>>> refs/remotes/origin/master
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1896,7 +2043,11 @@ ParticleSystem:
       minMaxState: 0
     randomizeRotationDirection: 0
     gravityModifier: 0
+<<<<<<< HEAD
+    maxNumParticles: 500
+=======
     maxNumParticles: 5
+>>>>>>> refs/remotes/origin/master
     rotation3D: 0
   ShapeModule:
     serializedVersion: 2
@@ -1923,7 +2074,11 @@ ParticleSystem:
     serializedVersion: 2
     m_Type: 0
     rate:
+<<<<<<< HEAD
+      scalar: 8
+=======
       scalar: 2.5
+>>>>>>> refs/remotes/origin/master
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1978,14 +2133,33 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
+<<<<<<< HEAD
+          value: 0.23744291
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+        - time: 0.5384066
+          value: 0.49837378
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+        - time: 0.6914894
+          value: 0.6438356
+=======
           value: 0.34703195
+>>>>>>> refs/remotes/origin/master
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         - time: 1
           value: 1
+<<<<<<< HEAD
+          inSlope: 0
+          outSlope: 0
+=======
           inSlope: 2
           outSlope: 2
+>>>>>>> refs/remotes/origin/master
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -2080,7 +2254,11 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     curve:
+<<<<<<< HEAD
+      scalar: 1.5707963
+=======
       scalar: 0.5235988
+>>>>>>> refs/remotes/origin/master
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2111,6 +2289,15 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
+<<<<<<< HEAD
+          rgba: 16711900
+        key1:
+          serializedVersion: 2
+          rgba: 4290523200
+        key2:
+          serializedVersion: 2
+          rgba: 4294921216
+=======
           rgba: 16777215
         key1:
           serializedVersion: 2
@@ -2118,6 +2305,7 @@ ParticleSystem:
         key2:
           serializedVersion: 2
           rgba: 0
+>>>>>>> refs/remotes/origin/master
         key3:
           serializedVersion: 2
           rgba: 16777215
@@ -2133,24 +2321,41 @@ ParticleSystem:
         key7:
           serializedVersion: 2
           rgba: 0
+<<<<<<< HEAD
+        ctime0: 3277
+        ctime1: 6554
+        ctime2: 22937
+=======
         ctime0: 0
         ctime1: 65535
         ctime2: 65535
+>>>>>>> refs/remotes/origin/master
         ctime3: 39707
         ctime4: 39707
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
+<<<<<<< HEAD
+        atime1: 6554
+        atime2: 38743
+        atime3: 53006
+=======
         atime1: 32382
         atime2: 65535
         atime3: 65535
+>>>>>>> refs/remotes/origin/master
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
+<<<<<<< HEAD
+        m_NumColorKeys: 4
+        m_NumAlphaKeys: 4
+=======
         m_NumColorKeys: 2
         m_NumAlphaKeys: 3
+>>>>>>> refs/remotes/origin/master
       minGradient:
         key0:
           serializedVersion: 2
@@ -2488,7 +2693,11 @@ ParticleSystem:
     enabled: 0
     multiplier: 1
   ClampVelocityModule:
+<<<<<<< HEAD
+    enabled: 1
+=======
     enabled: 0
+>>>>>>> refs/remotes/origin/master
     x:
       scalar: 1
       maxCurve:
@@ -2604,7 +2813,11 @@ ParticleSystem:
           inSlope: 0
           outSlope: 0
           tangentMode: 0
+<<<<<<< HEAD
+        - time: 0.52659583
+=======
         - time: 0.16359413
+>>>>>>> refs/remotes/origin/master
           value: 0
           inSlope: -4.0239673
           outSlope: -4.0239673
@@ -3011,12 +3224,20 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
+<<<<<<< HEAD
+--- !u!199 &19901706
+=======
 --- !u!199 &19971204
+>>>>>>> refs/remotes/origin/master
 ParticleSystemRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
+  m_GameObject: {fileID: 109000}
+=======
   m_GameObject: {fileID: 146840}
+>>>>>>> refs/remotes/origin/master
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -3052,12 +3273,20 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
+<<<<<<< HEAD
+--- !u!199 &19955318
+=======
 --- !u!199 &19984098
+>>>>>>> refs/remotes/origin/master
 ParticleSystemRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
+  m_GameObject: {fileID: 191178}
+=======
   m_GameObject: {fileID: 188324}
+>>>>>>> refs/remotes/origin/master
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -3102,5 +3331,9 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
+<<<<<<< HEAD
+  m_RootGameObject: {fileID: 109000}
+=======
   m_RootGameObject: {fileID: 146840}
+>>>>>>> refs/remotes/origin/master
   m_IsPrefabParent: 1
