@@ -75,8 +75,6 @@ public class Intro : MonoBehaviour
 
         city.SpawnDirtyCity();
         tipIndex++;
-
-//        StartCoroutine(DelayedSpawnNextCity());
     }
 
     private IEnumerator DelayedSpawnNextCity()
