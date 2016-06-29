@@ -215,10 +215,10 @@ public class MobileJoystick : MonoBehaviour
 
     IEnumerator singleOrDouble()
     {
-        yield return new WaitForSeconds(0.6f);
         switch(GameManager.Instance.TouchInput)
         {
             case true:
+                yield return new WaitForSeconds(0.3f);
                 if (toucH.tapCount == 1) GameManager.Instance.DrillingGame.Boost = false;
                 else if (toucH.tapCount == 2)
                 {
@@ -228,6 +228,7 @@ public class MobileJoystick : MonoBehaviour
                 }
                 break;
             case false:
+                yield return new WaitForSeconds(0.6f);
                 if (clicks == 1) GameManager.Instance.DrillingGame.Boost = false;
                 else if (clicks == 2)
                 {
