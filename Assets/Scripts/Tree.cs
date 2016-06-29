@@ -44,6 +44,9 @@ public class Tree : MonoBehaviour
 
     public void Grow()
     {
+        if (model.transform.localScale.y > 0.98f)
+            return;
+
         model.SetActive(true);
         isGrowing = true;
         growTimeLeft = growTimer;

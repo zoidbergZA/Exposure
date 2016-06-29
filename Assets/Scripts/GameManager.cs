@@ -6,6 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public struct HeimInfo
+    {
+        public int userID;
+        public int gameID;
+        public string username;
+        public float gametime;
+        public string conURL;
+        public int age;
+        public int gender;
+    }
+
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -31,18 +42,23 @@ public class GameManager : MonoBehaviour
     public Tutorial TutorialPrefab;
 
     public bool autoStart;
+    public bool skipIntro;
     public bool enableTutorial;
     public bool showDebug;
     public bool miniGameAutoWin;
 
+    [SerializeField] private City[] cities;
     [SerializeField] private float roundTime = 180;
     [SerializeField] private bool touchScreenInput;
-    private Tutorial tutorial;
 
-//    public Modes Mode { get; set; }
+    private Tutorial tutorial;
+    private HeimInfo heimPlayerData;
+
+    public HeimInfo HeimPlayerData { get { return heimPlayerData; } }
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
+    public Intro Intro { get; private set; }
     public Planet Planet { get; private set; }
-    public City[] Cities { get; private set; }
+    public City[] Cities { get { return cities; } }
     public TapTips TapTips { get; private set; }
     public EffectsManager EffectsManager {get; private set; }
     public GridBuilder GridBuilder { get; private set; }
@@ -63,6 +79,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         EffectsManager = FindObjectOfType<EffectsManager>();
+        Intro = GetComponent<Intro>();
         Planet = FindObjectOfType<Planet>();
         TapTips = Instantiate(TapTipsPrefab);
         GridBuilder = FindObjectOfType<GridBuilder>();
@@ -73,7 +90,6 @@ public class GameManager : MonoBehaviour
         Player = FindObjectOfType<Player>();
         Director = FindObjectOfType<Director>();
         Joystick = FindObjectOfType<MobileJoystick>();
-        Cities = FindObjectsOfType<City>();
 
         //disable all placer scripts
         Placer[] placers = FindObjectsOfType<Placer>();
@@ -98,12 +114,13 @@ public class GameManager : MonoBehaviour
         //disable tutorial at awake, enable at StartRound()
         if (tutorial)
             tutorial.gameObject.SetActive(false);
-
     }
 
     void Start()
     {
-        Director.SetSunlightBrightness(0.2f);
+        LoadHeimInfo();
+
+        Director.SetSunlightBrightness(true);
 
         if (autoStart)
             Hud.OnStartRoundClicked();
@@ -116,6 +133,8 @@ public class GameManager : MonoBehaviour
             TouchInput = !TouchInput;
         if (Input.GetKeyDown(KeyCode.F9))
             showDebug = !showDebug;
+        if (Input.GetKeyDown(KeyCode.F4))
+            CleanNextCity();
         //cheat codes
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -140,6 +159,14 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void HideAllGeoPlantPreviews()
+    {
+        foreach (City city in Cities)
+        {
+            city.PuzzlePath.GeoPlant.ShowPreview(false);
+        }
     }
 
     public Color SampleHeatmap(Vector2 textureCoordinate)
@@ -178,6 +205,9 @@ public class GameManager : MonoBehaviour
     {
         RoundStarted = true;
         TimeLeft = roundTime;
+        Planet.normalSpin = 0;
+        Player.LastInputAt = Time.time;
+        Instance.Hud.OnRoundStarted();
 
         if (tutorial)
         {
@@ -188,7 +218,7 @@ public class GameManager : MonoBehaviour
 
     public void EndRound()
     {
-        Debug.Log("round ended! score " + Player.Score + "/100");
+//        Debug.Log("round ended! score " + Player.Score + "/100");
         
         if (DrillingGame.IsRunning)
             DrillingGame.End(false);
@@ -196,8 +226,92 @@ public class GameManager : MonoBehaviour
             GridBuilder.End(false);
 
         Player.EnableRadar(false, Vector3.zero);
+        Planet.normalSpin = 8f;
 
         Hud.GoToGameOver((int)Player.Score);
         RoundStarted = false;
+
+        SendHeimData();
+    }
+
+    public void HandleTimeOut()
+    {
+        Restart();
+    }
+
+    private void LoadHeimInfo()
+    {
+        String[] arguments = Environment.GetCommandLineArgs();
+        heimPlayerData = new HeimInfo();
+
+//        Instance.Hud.ShowToastMessage(arguments.Length.ToString(), 25f);
+
+//        if (arguments.Length < 6)
+//        {
+//            
+//            return;
+//        }
+
+//        heimPlayerData.userID = int.Parse(arguments[1]);
+//        heimPlayerData.gameID = int.Parse(arguments[2]);
+//        heimPlayerData.username = arguments[3];
+//        heimPlayerData.gametime = int.Parse(arguments[4]);
+//        heimPlayerData.conURL = arguments[5];
+
+        if (heimPlayerData.gametime > 0)
+        {
+            roundTime = heimPlayerData.gametime;
+        }
+
+        string argsLong = "";
+
+        for (int i = 0; i < arguments.Length; i++)
+        {
+            argsLong += arguments[i] + "\n";
+        }
+
+//        Instance.Hud.ShowToastMessage(argsLong, 30f);
+        
+        ScannerGadget.SetGender(true);
+        
+        //assuming 0 is male and 1 is female
+        DrillingGame.Driller.Gender = (Driller.DrillerGender)heimPlayerData.gender;
+        DrillingGame.Driller.SetGenderAttributes(DrillingGame.Driller.Gender);
+    }
+
+    private void SendHeimData()
+    {
+        string requestString = "insertScore.php?userID=" + heimPlayerData.userID + "&gameID=" + heimPlayerData.gameID + "&score=" + Player.Score;
+
+        string url = heimPlayerData.conURL + requestString;
+        WWW www = new WWW(url);
+        StartCoroutine(WaitForRequest(www));
+    }
+
+    IEnumerator WaitForRequest(WWW www)
+    {
+        yield return www;
+
+        // check for errors
+        if (www.error == null)
+        {
+            Debug.Log("WWW Ok!: " + www.data);
+        }
+        else
+        {
+            Debug.Log("WWW Error: " + www.error);
+        }
+    }
+
+    private void CleanNextCity()
+    {
+        foreach (City city in Cities)
+        {
+            if (city.CityState == CityStates.DIRTY)
+            {
+                city.CleanUp();
+                break;
+            }
+        }
     }
 }

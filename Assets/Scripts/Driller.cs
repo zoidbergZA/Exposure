@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Driller : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private Animator animatorFemale;
     [SerializeField] private Image arrowDown;
     [SerializeField] private Image arrowUp;
     [SerializeField] private Image arrowRight;
@@ -18,10 +19,19 @@ public class Driller : MonoBehaviour
     private int lives = 3;
 
     public Image Drill { get; private set; }
-    public Animator Animator { get { return animator; } }
-    public Vector2 Position { get { return Drill.rectTransform.anchoredPosition; } set { Drill.rectTransform.anchoredPosition = value; } }
+    public Animator Animator { get; private set; }
+    public Vector2 Position
+    {
+        get
+        {
+            if (Drill) return Drill.rectTransform.anchoredPosition;
+            else return new Vector2(424, 0);
+        }
+        set { Drill.rectTransform.anchoredPosition = value; }
+    }
     public Rigidbody2D Body { get; private set; }
     public enum Tile { ROCK, PIPE, BOMB, BOMB_AREA, DIAMOND, LIFE, ELECTRICITY, GROUND_TILE, PIPE_PART }
+    public enum DrillerGender { MALE, FEMALE }
     public int Lives { get { return lives; } }
     public DrillGameHud Hud { get; private set; }
     public bool Collided { get; private set; }
@@ -30,23 +40,29 @@ public class Driller : MonoBehaviour
     public Image ArrowRight { get { return arrowRight; } }
     public Image ArrowLeft { get { return arrowLeft; } }
     public Image TapTip { get { return tapTip; } }
+    public DrillerGender Gender { get; set; }
 
     void Awake()
     {
-        Drill = GetComponent<UnityEngine.UI.Image>();
+        //cheat random Gender assignment
+        //int randomGender = Random.Range(1, 2);
+        //if (randomGender == 0) Gender = DrillerGender.MALE;
+        //else Gender = DrillerGender.FEMALE;
+
         Body = GetComponent<Rigidbody2D>();
         Hud = FindObjectOfType<DrillGameHud>();
     }
 
     void Start()
     {
-        Drill.gameObject.SetActive(false);
+        Drill = FindObjectOfType<Driller>().GetComponent<Image>();
     }
 
     void Update()
     {
         Body.inertia = 0;
         Body.freezeRotation = true;
+        Body.rotation = 0;
 
         float displacement = Mathf.Sin(Time.time);
         arrowDown.rectTransform.localPosition = new Vector2(arrowDown.rectTransform.localPosition.x, arrowDown.rectTransform.localPosition.y + displacement/2);
@@ -91,13 +107,13 @@ public class Driller : MonoBehaviour
 
     private void resetAnimation()
     {
-        animator.SetBool("isSlidingLeft", false);
-        animator.SetBool("isDrillingDown", false);
-        animator.SetBool("isDrillingUp", false);
-        animator.SetBool("isDrillingRight", false);
-        animator.SetBool("isDrillingLeft", false);
-        animator.SetBool("shouldJump", false);
-        animator.SetBool("goToSliding", false);
+        Animator.SetBool("isSlidingLeft", false);
+        Animator.SetBool("isDrillingDown", false);
+        Animator.SetBool("isDrillingUp", false);
+        Animator.SetBool("isDrillingRight", false);
+        Animator.SetBool("isDrillingLeft", false);
+        Animator.SetBool("shouldJump", false);
+        Animator.SetBool("goToSliding", false);
     }
 
     public void Reset(Vector2 startPosition)
@@ -114,7 +130,7 @@ public class Driller : MonoBehaviour
 
     public void SwitchAnimation(string param, bool turned)
     {
-        animator.SetBool(param, turned);
+        Animator.SetBool(param, turned);
     }
 
     public void handleCollision(Tile collider, GameObject GO = null)
@@ -198,6 +214,23 @@ public class Driller : MonoBehaviour
         {
             diamondFeedback.gameObject.SetActive(true);
             diamondFeedback.color = new Color(1, 1, 1, diamondFeedback.color.a - Time.deltaTime * feedbackFadeSpeed);
+        }
+    }
+
+    public void SetGenderAttributes(DrillerGender gender)
+    {
+        switch(gender)
+        {
+            case DrillerGender.MALE: default:
+                Animator = animator;
+                animator.gameObject.GetComponent<Image>().enabled = true;
+                animatorFemale.gameObject.SetActive(false); //switch off female if male
+                break;
+            case DrillerGender.FEMALE:
+                Animator = animatorFemale;
+                animatorFemale.gameObject.GetComponent<Image>().enabled = true;
+                animator.gameObject.SetActive(false); //switch off male if female
+                break;
         }
     }
 }

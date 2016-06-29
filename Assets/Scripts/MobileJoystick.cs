@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityStandardAssets.CrossPlatformInput;
+using System.Collections;
 
 public class MobileJoystick : MonoBehaviour
 {
@@ -14,12 +15,16 @@ public class MobileJoystick : MonoBehaviour
     public enum ScreenTriangle { LEFT, RIGHT, UP, DOWN, NONE }
     public enum TouchInputType { TAP, SWIPE }
     public DrillGameMap Map { get; private set; }
+    public string DebugText { get; set; }
 
     private Vector2 dragPrevious;
     private Vector2 dragStart;
 
     private ScreenTriangle inputTriangle;
     private Vector2 tap;
+    private float touchDuration;
+    private Touch toucH;
+    private int clicks;
 
     void Awake()
     {
@@ -30,9 +35,10 @@ public class MobileJoystick : MonoBehaviour
     void Update()
     {
         UpdateInput();
-        if (Input.GetKeyDown(KeyCode.S) && inputType == TouchInputType.TAP) inputType = TouchInputType.SWIPE;
-        else if (Input.GetKeyDown(KeyCode.S) && inputType == TouchInputType.SWIPE) inputType = TouchInputType.TAP;
-//        Debug.Log(inputType.ToString());
+        //cheat toggle between TAP and SWIPE input types
+        //if (Input.GetKeyDown(KeyCode.S) && inputType == TouchInputType.TAP) inputType = TouchInputType.SWIPE;
+        //else if (Input.GetKeyDown(KeyCode.S) && inputType == TouchInputType.SWIPE) inputType = TouchInputType.TAP;
+        processDoubleTap();
     }
 
     private void UpdateInput()
@@ -83,6 +89,10 @@ public class MobileJoystick : MonoBehaviour
                         if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
                             GameManager.Instance.DrillingGame.Hud.JoystickArrow.color = new Color(1, 1, 1, 1);
                         setDirection();
+                    }
+                    if (Input.GetMouseButtonUp(0))
+                    {
+                        clicks++;
                     }
                     break;
                 case TouchInputType.SWIPE:
@@ -199,8 +209,61 @@ public class MobileJoystick : MonoBehaviour
 
     public void Reset()
     {
-
         CurrentInput = DrillingDirection.NONE;
         inputTriangle = ScreenTriangle.NONE;
+    }
+
+    IEnumerator singleOrDouble()
+    {
+        yield return new WaitForSeconds(0.6f);
+        switch(GameManager.Instance.TouchInput)
+        {
+            case true:
+                if (toucH.tapCount == 1) GameManager.Instance.DrillingGame.Boost = false;
+                else if (toucH.tapCount == 2)
+                {
+                    //this coroutine has been called twice. We should stop the next one here otherwise we get two double tap
+                    StopCoroutine("singleOrDouble");
+                    GameManager.Instance.DrillingGame.Boost = true;
+                }
+                break;
+            case false:
+                if (clicks == 1) GameManager.Instance.DrillingGame.Boost = false;
+                else if (clicks == 2)
+                {
+                    StopCoroutine("singleOrDouble");
+                    GameManager.Instance.DrillingGame.Boost = true;
+                }
+                clicks = 0;
+                break;
+        }
+    }
+
+    private void processDoubleTap()
+    {
+        switch (GameManager.Instance.TouchInput)
+        {
+            case true:
+                if (Input.touchCount > 0) //if there is any touch
+                {
+                    touchDuration += Time.deltaTime;
+                    toucH = Input.GetTouch(0);
+
+                    if (toucH.phase == TouchPhase.Ended && touchDuration < 0.2f) //making sure it only check the touch once && it was a short touch/tap and not a dragging.
+                        StartCoroutine("singleOrDouble");
+                }
+                else
+                    touchDuration = 0.0f;
+                break;
+            case false:
+                if(clicks > 0)
+                {
+                    touchDuration += Time.deltaTime;
+                    if (touchDuration < 0.5f) StartCoroutine("singleOrDouble");
+                }
+                else
+                    touchDuration = 0.0f;
+                break;
+        }
     }
 }
