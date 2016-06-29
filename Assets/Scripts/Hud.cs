@@ -124,20 +124,14 @@ public class Hud : MonoBehaviour
         cityPanel.SetActive(show);
     }
 
-    public void ShowTipBubble(string text, Transform refTransform, float duration = 3f, Action callback = null)
+    public void ShowTipBubble(string text, Transform refTransform, float duration = 3f, Action callback = null, float delay = 0f)
     {
-        tipBubble.GetComponent<RectTransform>().localScale = Vector3.zero;
-        tipText.text = text;
-        tipBubble.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(refTransform.position);
-        tipBubble.enabled = true;
-        tipText.enabled = true;
-        tipBubble.gameObject.SetActive(true);
-
-        tipTimeRemaing = duration;
-        tipTargeTransform = refTransform;
-        tipClickCallback = callback;
-
-        LeanTween.scale(tipBubble.GetComponent<RectTransform>(), Vector3.one, 1.4f).setEase(LeanTweenType.easeOutElastic).setOnComplete(WobbleTipBubble);
+        if (delay > 0f)
+            StartCoroutine(ShowTipBubbleAfter(text, refTransform, delay, duration, callback));
+        else
+        {
+            HandleShowTipBubble(text, refTransform, duration, callback);
+        }
     }
 
     public void ShowToastMessage(string message, float duration = 3f)
@@ -315,6 +309,29 @@ public class Hud : MonoBehaviour
 
         toastText.text = "";
         toastText.enabled = false;
+    }
+
+    private IEnumerator ShowTipBubbleAfter(string text, Transform refTransform, float delay, float duration, Action callback)
+    {
+        yield return new WaitForSeconds(delay);
+
+        HandleShowTipBubble(text, refTransform, duration, callback);
+    }
+
+    private void HandleShowTipBubble(string text, Transform refTransform, float duration = 3f, Action callback = null)
+    {
+        tipBubble.GetComponent<RectTransform>().localScale = Vector3.zero;
+        tipText.text = text;
+        tipBubble.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(refTransform.position);
+        tipBubble.enabled = true;
+        tipText.enabled = true;
+        tipBubble.gameObject.SetActive(true);
+
+        tipTimeRemaing = duration;
+        tipTargeTransform = refTransform;
+        tipClickCallback = callback;
+
+        LeanTween.scale(tipBubble.GetComponent<RectTransform>(), Vector3.one, 1.4f).setEase(LeanTweenType.easeOutElastic).setOnComplete(WobbleTipBubble);
     }
 
     private void HideTipBubble()

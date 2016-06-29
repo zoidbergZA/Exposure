@@ -128,13 +128,23 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F1))
+            TouchInput = !TouchInput;
+
+        if (Input.GetMouseButtonDown(0))
+            TouchInput = false;
+        else if (Input.touchCount > 0)
+            TouchInput = true;
+
         //cheat codes
-       if (Input.GetKeyDown(KeyCode.F8))
+        if (Input.GetKeyDown(KeyCode.F8))
             TouchInput = !TouchInput;
         if (Input.GetKeyDown(KeyCode.F9))
             showDebug = !showDebug;
         if (Input.GetKeyDown(KeyCode.F4))
             CleanNextCity();
+        if (Input.GetKeyDown(KeyCode.F12))
+            Restart();
         //cheat codes
 
         if (Input.GetKeyDown(KeyCode.Escape))

@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tipDisplayTime: 6
+  tipDelay: 3
   introTips:
   - I'm a city, look at my pretty buildings.
   - Too bad we make all this nasty smoke
