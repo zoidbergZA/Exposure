@@ -55,11 +55,11 @@ MonoBehaviour:
   tipDisplayTime: 6
   tipDelay: 3
   introTips:
-  - I'm a city, look at my pretty buildings.
-  - Too bad we make all this nasty smoke
-  - we should find cleaner ways to generate warmth
-  - what if we explore under the earth for heat?
-  - we could build geo-thermal plants to make heat!
+  - Help ons om van deze viezigheid af te komen!
+  - Red ons door de Aarde op te schonen!
+  - We moeten duurzame energie opwekken!
+  - Zoek onder de aardkorst naar rode warmte plekken!
+  - We moeten geothermische fabrieken bouwen!
   focusPoint: {x: 100, y: 110, z: 30}
   swoopTime: 5
   waitTime: 5
@@ -89,7 +89,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   roundTime: 300
-  touchScreenInput: 1
+  touchScreenInput: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

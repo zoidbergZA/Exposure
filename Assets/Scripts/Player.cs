@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
 
         if (location)
         {
-            string scoreString = "+" + amount + " points!";
+            string scoreString = "+" + amount + " punten!";
             GameManager.Instance.Hud.NewFloatingText(scoreString, location);
         }
     }
