@@ -179,6 +179,7 @@ GameObject:
   - 4: {fileID: 418700}
   - 137: {fileID: 13797586}
   - 95: {fileID: 9555182}
+  - 111: {fileID: 11187750}
   m_Layer: 0
   m_Name: 28_06_Old_City_Rise
   m_TagString: Untagged
@@ -327,8 +328,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113802}
-  m_LocalRotation: {x: 0.06263089, y: -0.3392742, z: 0.42503023, w: 0.83685106}
-  m_LocalPosition: {x: -86.7, y: 71.6, z: -21.6}
+  m_LocalRotation: {x: 0.11956343, y: -0.28279424, z: 0.4646039, w: 0.83058727}
+  m_LocalPosition: {x: -95.29338, y: 63.403473, z: -10.912178}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 464080}
@@ -654,7 +655,7 @@ Animator:
   m_GameObject: {fileID: 159624}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7953280f145fada4496be49b05c01208, type: 3}
-  m_Controller: {fileID: 9100000, guid: a8fde6a2388518548967f61ed5b3f028, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -690,6 +691,21 @@ Animation:
   m_Animation: {fileID: 7400000, guid: f66fff769db2c1246b5013816c4ab90e, type: 3}
   m_Animations:
   - {fileID: 7400000, guid: f66fff769db2c1246b5013816c4ab90e, type: 3}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!111 &11187750
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159624}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 7953280f145fada4496be49b05c01208, type: 3}
+  m_Animations:
+  - {fileID: 7400000, guid: 7953280f145fada4496be49b05c01208, type: 3}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0

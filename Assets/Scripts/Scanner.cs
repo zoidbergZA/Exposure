@@ -61,6 +61,9 @@ public class Scanner : MonoBehaviour
 
         if (GameManager.Instance.TouchInput)
         {
+            if (Input.touchCount == 0)
+                return;
+
             rayPos = Input.touches[0].position;
         }
         else

@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tipDisplayTime: 6
+  tipDelay: 3
   introTips:
   - I'm a city, look at my pretty buildings.
   - Too bad we make all this nasty smoke
@@ -88,7 +89,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   roundTime: 300
-  touchScreenInput: 0
+  touchScreenInput: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

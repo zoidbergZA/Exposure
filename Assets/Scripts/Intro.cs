@@ -4,6 +4,7 @@ using System.Collections;
 public class Intro : MonoBehaviour
 {
     [SerializeField] private float tipDisplayTime = 6f;
+    [SerializeField] private float tipDelay;
     [SerializeField] private string[] introTips;
     [SerializeField] private Vector3 focusPoint;
     [SerializeField] private float swoopTime = 4f;
@@ -68,11 +69,11 @@ public class Intro : MonoBehaviour
         Vector3 targetPos = city.transform.position + city.transform.right * focusPoint.x + city.transform.up * focusPoint.y + city.transform.forward * focusPoint.z;
 
         GameManager.Instance.Director.SwoopTo(targetPos, Quaternion.LookRotation(city.transform.position - targetPos, city.transform.up), 40, swoopTime);
+        GameManager.Instance.Hud.ShowTipBubble(introTips[tipIndex], city.transform, tipDisplayTime, OnTipBubbleClicked, waitTime + tipDelay);
 
         yield return new WaitForSeconds(waitTime);
 
         city.SpawnDirtyCity();
-        GameManager.Instance.Hud.ShowTipBubble(introTips[tipIndex], city.transform, tipDisplayTime, OnTipBubbleClicked);
         tipIndex++;
 
 //        StartCoroutine(DelayedSpawnNextCity());
