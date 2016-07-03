@@ -52,6 +52,12 @@ public class Intro : MonoBehaviour
 
     private void SpawnNextCity()
     {
+        if (tipIndex >= introTips.Length)
+        {
+            FinishIntro();
+            return;
+        }
+
         foreach (City city in GameManager.Instance.Cities)
         {
             if (city.CityState == CityStates.HIDDEN)

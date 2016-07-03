@@ -56,10 +56,7 @@ MonoBehaviour:
   tipDelay: 3
   introTips:
   - Help ons om van deze viezigheid af te komen!
-  - Red ons door de Aarde op te schonen!
-  - We moeten duurzame energie opwekken!
   - Zoek onder de aardkorst naar rode warmte plekken!
-  - We moeten geothermische fabrieken bouwen!
   focusPoint: {x: 100, y: 110, z: 30}
   swoopTime: 5
   waitTime: 5
@@ -78,7 +75,7 @@ MonoBehaviour:
   PipePrefab: {fileID: 168552, guid: ac141081240eb3d48bc7456d887754ee, type: 2}
   TutorialPrefab: {fileID: 11442478, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
   autoStart: 0
-  skipIntro: 0
+  skipIntro: 1
   enableTutorial: 1
   showDebug: 0
   miniGameAutoWin: 0
