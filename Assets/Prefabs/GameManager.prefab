@@ -75,7 +75,7 @@ MonoBehaviour:
   PipePrefab: {fileID: 168552, guid: ac141081240eb3d48bc7456d887754ee, type: 2}
   TutorialPrefab: {fileID: 11442478, guid: ad6c9ed4d2fcf9d46bb456da01848678, type: 2}
   autoStart: 0
-  skipIntro: 1
+  skipIntro: 0
   enableTutorial: 1
   showDebug: 0
   miniGameAutoWin: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   roundTime: 300
-  touchScreenInput: 0
+  touchScreenInput: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
