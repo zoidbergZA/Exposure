@@ -36,7 +36,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
 
     private int scannerTipTweenId;
-    private int buttonSize = 85;
+    private int buttonSize = 105;
     private int buttonIndent = 10;
     private int tipBubbleTweenerId;
     private int timeleftWarningIndex;
@@ -356,7 +356,7 @@ public class Hud : MonoBehaviour
 
         if (GameManager.Instance.TimeLeft <= timeLeftWarnings[timeleftWarningIndex])
         {
-            ShowToastMessage(timeLeftWarnings[timeleftWarningIndex] + " seconds left!");
+            ShowToastMessage(timeLeftWarnings[timeleftWarningIndex] + " seconden over!");
             timeleftWarningIndex++;
         }
     }
