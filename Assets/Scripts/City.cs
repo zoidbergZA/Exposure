@@ -81,7 +81,7 @@ public class City : Connectable
 
         GameManager.Instance.Player.ScorePoints(PointValue, transform);
         GameManager.Instance.Planet.RefreshHealth();
-        GameManager.Instance.Hud.CitiesBar.SortIcons();
+//        GameManager.Instance.Hud.CitiesBar.SortIcons();
     }
 
     private IEnumerator SpawnCleanCity(float delay)

@@ -131,10 +131,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
             TouchInput = !TouchInput;
 
-        if (Input.GetMouseButtonDown(0))
-            TouchInput = false;
-        else if (Input.touchCount > 0)
-            TouchInput = true;
+//        if (Input.GetMouseButtonDown(0))
+//            TouchInput = false;
+//        else if (Input.touchCount > 0)
+//            TouchInput = true;
 
         //cheat codes
         if (Input.GetKeyDown(KeyCode.F8))

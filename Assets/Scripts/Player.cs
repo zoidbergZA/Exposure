@@ -24,10 +24,7 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask buildRayMask;
     [SerializeField] private Powerplant PowerplantPrefab;
     [SerializeField] private Drillspot DrillspotPrefab;
-
-//    public string PlayerName { get; private set; }
-//    public int PlayerAge { get; private set; }
-//    public bool PlayerIsMale { get; private set; }
+    
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
     public int Cable { get; private set; }
@@ -77,7 +74,10 @@ public class Player : MonoBehaviour
 
     void LateUpdate()
     {
-        mouseOld = Input.mousePosition;
+        if (Input.mousePosition != Vector3.zero)
+            mouseOld = Input.mousePosition;
+        if (Input.touchCount > 0)
+            mouseOld = Input.touches[0].position;
     }
 
     public void CollectCable(int amount)
@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
 
         if (location)
         {
-            string scoreString = "+" + amount + " points!";
+            string scoreString = "+" + amount + " punten!";
             GameManager.Instance.Hud.NewFloatingText(scoreString, location);
         }
     }
@@ -159,18 +159,19 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.ScannerGadget.IsGrabbed)
             return;
 
-        if (GameManager.Instance.TouchInput && Input.touchCount == 0)
-            return;
-        if (!GameManager.Instance.TouchInput && !Input.GetMouseButton(0))
-            return;
-
+                if (GameManager.Instance.TouchInput && Input.touchCount == 0)
+                    return;
+                if (!GameManager.Instance.TouchInput && !Input.GetMouseButton(0))
+                    return;
+                
         Vector2 inputPos = Vector2.zero;
         float deltaX = 0;
 
         if (GameManager.Instance.TouchInput)
         {
             inputPos = Input.touches[0].position;
-            deltaX = deltaX = Input.touches[0].deltaPosition.x;
+            if (Input.touches[0].phase == TouchPhase.Moved)
+                deltaX = Input.touches[0].deltaPosition.x;
         }
         else
         {
