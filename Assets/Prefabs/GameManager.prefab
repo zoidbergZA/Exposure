@@ -55,8 +55,11 @@ MonoBehaviour:
   tipDisplayTime: 6
   tipDelay: 3
   introTips:
-  - Help ons om van deze viezigheid af te komen!
-  - Zoek onder de aardkorst naar rode warmte plekken!
+  - Wat een mooie stad hebben wij!
+  - Helaas maken wij de planeet vies!
+  - We moeten schone energie gebruiken!
+  - Laten we geothermische centrales bouwen!
+  - Zoek met de scanner naar hete rode plekken!
   focusPoint: {x: 100, y: 110, z: 30}
   swoopTime: 5
   waitTime: 5
