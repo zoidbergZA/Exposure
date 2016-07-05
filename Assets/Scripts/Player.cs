@@ -24,13 +24,11 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask buildRayMask;
     [SerializeField] private Powerplant PowerplantPrefab;
     [SerializeField] private Drillspot DrillspotPrefab;
-
-    public string PlayerName { get; private set; }
-    public int PlayerAge { get; private set; }
-    public bool PlayerIsMale { get; private set; }
+    
     public PlayerStates PlayerState { get; private set; }
     public float Score { get; private set; }
     public int Cable { get; private set; }
+    public float LastInputAt { get; set; }
 
     private Vector2 mouseOld;
 
@@ -52,9 +50,12 @@ public class Player : MonoBehaviour
         if (!GameManager.Instance.RoundStarted)
             return;
 
-        //temp
-        if (Input.GetKeyDown(KeyCode.F1))
-            GameManager.Instance.Restart();
+        //check input timeout
+        if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
+            LastInputAt = Time.time;
+        
+        if (Time.time > LastInputAt + 30f)
+            GameManager.Instance.HandleTimeOut();
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             CollectCable(1);
@@ -73,14 +74,10 @@ public class Player : MonoBehaviour
 
     void LateUpdate()
     {
-        mouseOld = Input.mousePosition;
-    }
-
-    public void SetPlayerInfo(string name, int age, bool isMale)
-    {
-        PlayerName = name;
-        PlayerAge = age;
-        PlayerIsMale = isMale;
+        if (Input.mousePosition != Vector3.zero)
+            mouseOld = Input.mousePosition;
+        if (Input.touchCount > 0)
+            mouseOld = Input.touches[0].position;
     }
 
     public void CollectCable(int amount)
@@ -107,18 +104,19 @@ public class Player : MonoBehaviour
         PlayerState = PlayerStates.DrillGame;
         EnableRadar(false, geoPlant.transform.position);
         GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform, 2f);
-
+        
         //set the puzzle of this geoplant as the next gridBuilder puzzle
         GameManager.Instance.GridBuilder.SetPuzzlePath(geoPlant.PuzzlePath);
-        GameManager.Instance.DrillingGame.StartGame(null, difficulty);
+
+        StartCoroutine(StartDrillGameAfter(2.4f, geoPlant));
     }
 
-    public void StartBuildMinigame(GeoThermalPlant geoPlant, float difficulty)
-    {
-//        PlayerState = PlayerStates.BuildGrid;
-//        GameManager.Instance.GridBuilder.StartBuild(geoPlant, difficulty);
-//        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
-    }
+//    public void StartBuildMinigame(GeoThermalPlant geoPlant, float difficulty)
+//    {
+////        PlayerState = PlayerStates.BuildGrid;
+////        GameManager.Instance.GridBuilder.StartBuild(geoPlant, difficulty);
+////        GameManager.Instance.Director.SetMode(Director.Modes.Grid, geoPlant.transform); 
+//    }
 
     public void EnableRadar(bool enable, Vector3 position)
     {
@@ -137,9 +135,18 @@ public class Player : MonoBehaviour
 
         if (location)
         {
-            string scoreString = "+" + amount + " points!";
+            string scoreString = "+" + amount + " punten!";
             GameManager.Instance.Hud.NewFloatingText(scoreString, location);
         }
+    }
+
+    private IEnumerator StartDrillGameAfter(float seconds, GeoThermalPlant geoPlant)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        GameManager.Instance.Director.SetSunlightBrightness(true);
+        GameManager.Instance.Hud.ShowStatusPanel(false);
+        GameManager.Instance.DrillingGame.StartGame(null, 1f);
     }
 
     private void HandleNormalState()
@@ -152,18 +159,19 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.ScannerGadget.IsGrabbed)
             return;
 
-        if (GameManager.Instance.TouchInput && Input.touchCount == 0)
-            return;
-        if (!GameManager.Instance.TouchInput && !Input.GetMouseButton(0))
-            return;
-
+                if (GameManager.Instance.TouchInput && Input.touchCount == 0)
+                    return;
+                if (!GameManager.Instance.TouchInput && !Input.GetMouseButton(0))
+                    return;
+                
         Vector2 inputPos = Vector2.zero;
         float deltaX = 0;
 
         if (GameManager.Instance.TouchInput)
         {
             inputPos = Input.touches[0].position;
-            deltaX = deltaX = Input.touches[0].deltaPosition.x;
+            if (Input.touches[0].phase == TouchPhase.Moved)
+                deltaX = Input.touches[0].deltaPosition.x;
         }
         else
         {

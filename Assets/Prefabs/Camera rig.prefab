@@ -46,12 +46,12 @@ GameObject:
   - 92: {fileID: 9271066}
   - 124: {fileID: 12408560}
   - 81: {fileID: 8118646}
-  - 114: {fileID: 11447368}
   - 114: {fileID: 11456290}
   - 114: {fileID: 11441770}
   - 114: {fileID: 11478568}
   - 114: {fileID: 11445026}
   - 114: {fileID: 11413636}
+  - 114: {fileID: 11447368}
   - 114: {fileID: 11433102}
   - 114: {fileID: 11418786}
   - 114: {fileID: 11474862}
@@ -158,8 +158,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
-  m_OcclusionCulling: 1
+  m_HDR: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fceaeb339b971b429c4cc600acabd13, type: 3}
   m_Name: 
@@ -240,13 +240,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646b5bc27a658f447b1d929fd5ffbd70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 1
+  mode: 0
   showGeneratedNormals: 0
   offsetScale: 0.2
   blurRadius: 18
   edgeThresholdMin: 0.05
   edgeThreshold: 0.2
-  edgeSharpness: 4
+  edgeSharpness: 6
   dlaaSharp: 0
   ssaaShader: {fileID: 4800000, guid: b3728d1488b02490cbd196c7941bf1f8, type: 3}
   dlaaShader: {fileID: 4800000, guid: 017ca72b9e8a749058d13ebd527e98fa, type: 3}
@@ -323,9 +323,9 @@ MonoBehaviour:
   hdr: 0
   sepBlurSpread: 10
   useSrcAlphaAsMask: 0
-  bloomIntensity: 1
-  bloomThreshold: 0.55
-  bloomBlurIterations: 1
+  bloomIntensity: 2
+  bloomThreshold: 0.6
+  bloomBlurIterations: 2
   lensflares: 0
   hollywoodFlareBlurIterations: 2
   lensflareMode: 1
@@ -360,9 +360,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Radius: 1
-  m_SampleCount: 2
+  m_SampleCount: 1
   m_OcclusionIntensity: 2
-  m_Blur: 2
+  m_Blur: 1
   m_Downsampling: 1
   m_OcclusionAttenuation: 1.053
   m_MinZ: 0.00001
@@ -390,7 +390,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d64b4f3a592f28b44bf19223ac8b6cd2, type: 3}
   m_Name: 
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60e318a6043c1cb4a8ce1c8805bab930, type: 3}
   m_Name: 

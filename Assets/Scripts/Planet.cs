@@ -4,6 +4,7 @@ using System.Collections;
 public class Planet : MonoBehaviour
 {
     public MeshRenderer scannableMesh;
+    public float normalSpin;
 
     [SerializeField] private Transform propsHolder;
     [SerializeField] private Transform citiesHolder;
@@ -23,7 +24,6 @@ public class Planet : MonoBehaviour
     [SerializeField] private Color waterCleanColor;
     [SerializeField] private Color backgroundDirtyColor;
     [SerializeField] private Color backgroundCleanColor;
-    [SerializeField] private float normalSpin;
 
     private Material landMaterial;
     private float momentum;
@@ -54,7 +54,7 @@ public class Planet : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.RoundStarted)
+//        if (GameManager.Instance.RoundStarted)
             HandleSpin();
 
         //test spin input
@@ -79,10 +79,16 @@ public class Planet : MonoBehaviour
 
         for (int i = 0; i < GameManager.Instance.Cities.Length; i++)
         {
-            if (!GameManager.Instance.Cities[i].IsDirty)
+            if (GameManager.Instance.Cities[i].CityState != CityStates.DIRTY)
             {
                 cleanCount++;
             }
+        }
+
+        if (cleanCount == GameManager.Instance.Cities.Length && GameManager.Instance.RoundStarted)
+        {
+            GameManager.Instance.EndRound();
+            return;
         }
 
         Health = (float)cleanCount / (float)GameManager.Instance.Cities.Length;
@@ -94,10 +100,24 @@ public class Planet : MonoBehaviour
 
         if (cloudParticleSystem)
         {
-            cloudParticleSystem.startColor = Color.Lerp(cloudsDirtyColor, cloudsCleanColor, Health);
+            Color newColor = Color.Lerp(cloudsDirtyColor, cloudsCleanColor, Health);
+            cloudParticleSystem.startColor = newColor;
 
-            cloudParticleSystem.Clear();
-            cloudParticleSystem.Emit(1);
+            ParticleSystem.Particle[] particles = new ParticleSystem.Particle[cloudParticleSystem.particleCount];
+
+            int num = cloudParticleSystem.GetParticles(particles);
+
+            for (int i = 0; i < num; i++)
+            {
+                particles[i].color = newColor;
+            }
+            // re-assign modified array
+            cloudParticleSystem.SetParticles(particles, num);
+
+            //////////////////////////////////
+
+//            cloudParticleSystem.Clear();
+//            cloudParticleSystem.Emit(1);
         }
     }
 
@@ -114,9 +134,12 @@ public class Planet : MonoBehaviour
     {
         int newHealthyTreeCount = healthyTreesAtStart +  Mathf.FloorToInt(Health * (trees.Length - healthyTreesAtStart));
         
-        for (int i = 0; i < newHealthyTreeCount; i++)
+        for (int i = 0; i < trees.Length; i++)
         {
-            trees[i].Grow();
+            if (i < newHealthyTreeCount)
+                trees[i].Grow();
+            else
+                trees[i].SetUngrown();
         }
     }
 

@@ -4224,7 +4224,7 @@ ParticleSystem:
           rgba: 2565927
         key1:
           serializedVersion: 2
-          rgba: 4280756007
+          rgba: 1999054631
         key2:
           serializedVersion: 2
           rgba: 0
@@ -5693,7 +5693,7 @@ ParticleSystem:
           rgba: 2565927
         key1:
           serializedVersion: 2
-          rgba: 4280756007
+          rgba: 2217158439
         key2:
           serializedVersion: 2
           rgba: 0
@@ -7162,7 +7162,7 @@ ParticleSystem:
           rgba: 2565927
         key1:
           serializedVersion: 2
-          rgba: 4280756007
+          rgba: 2351376167
         key2:
           serializedVersion: 2
           rgba: 0
@@ -12998,7 +12998,7 @@ ParticleSystem:
           rgba: 2565927
         key1:
           serializedVersion: 2
-          rgba: 4280756007
+          rgba: 1864836903
         key2:
           serializedVersion: 2
           rgba: 0
@@ -20263,7 +20263,7 @@ ParticleSystem:
           rgba: 2565927
         key1:
           serializedVersion: 2
-          rgba: 4280756007
+          rgba: 2351376167
         key2:
           serializedVersion: 2
           rgba: 0
@@ -24630,7 +24630,7 @@ ParticleSystem:
           rgba: 2565927
         key1:
           serializedVersion: 2
-          rgba: 4280756007
+          rgba: 1931945767
         key2:
           serializedVersion: 2
           rgba: 0
@@ -24660,7 +24660,7 @@ ParticleSystem:
         atime0: 0
         atime1: 32768
         atime2: 65535
-        atime3: 0
+        atime3: 65535
         atime4: 0
         atime5: 0
         atime6: 0

@@ -61,6 +61,9 @@ public class Scanner : MonoBehaviour
 
         if (GameManager.Instance.TouchInput)
         {
+            if (Input.touchCount == 0)
+                return;
+
             rayPos = Input.touches[0].position;
         }
         else
@@ -74,7 +77,7 @@ public class Scanner : MonoBehaviour
             if (scannerGadget.IsGrabbed)
             {
                 UpdateScannerPosition(hit.point);
-
+                
                 GeoThermalPlant plant = hit.transform.GetComponent<GeoThermalPlant>();
                 if (plant && scannerGadget.IsGrabbed)
                 {
@@ -84,20 +87,49 @@ public class Scanner : MonoBehaviour
             }
             else
             {
+                //if clicked on screen, jump scanner there
+                CheckScannerJump(GameManager.Instance.TouchInput, hit.point);
+
+                UpdateScannerPosition(scannerGadget.transform.position);
+
                 City city = hit.transform.GetComponent<City>();
                 if (city)
                 {
-                    if (city.IsDirty && Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began))
+                    if (city.CityState == CityStates.DIRTY && Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began))
                         GameManager.Instance.TapTips.ShowRandomTip(city.transform);
                 }
+            }
+        }
+    }
 
-                UpdateScannerPosition(scannerGadget.transform.position);
+    private void CheckScannerJump(bool touchInput, Vector3 point)
+    {
+        if (GameManager.Instance.Planet.IsSpinning)
+            return;
+
+        if (touchInput)
+        {
+            if (Input.touchCount != 1)
+                return;
+            if (Input.touches[0].phase != TouchPhase.Ended)
+                return;
+
+            UpdateScannerPosition(point);
+            scannerGadget.transform.position = point;
+        }
+        else
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                UpdateScannerPosition(point);
+//                scannerGadget.transform.position = point;
             }
         }
     }
 
     private void ScanSucceeded(GeoThermalPlant geoPlant)
     {
+        scannerGadget.Release();
         geoPlant.Build();
 
         GameManager.Instance.Player.ScorePoints(5, geoPlant.transform);

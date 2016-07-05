@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d284a26c765cbc14b8badc49419b0522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 25
+  radius: 32
   scannerModel: {fileID: 128068}
   scannerParticleSystem: {fileID: 19811280}
 --- !u!135 &13569246
@@ -559,7 +559,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
-      scalar: 60
+      scalar: 65
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -884,7 +884,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     curve:
-      scalar: -6.1959186
+      scalar: -4.0142574
       maxCurve:
         serializedVersion: 2
         m_Curve:

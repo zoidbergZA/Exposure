@@ -45,13 +45,6 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _OcclusionMap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
           name: _EmissionMap
         second:
           m_Texture: {fileID: 2800000, guid: 40bdeec992ae6e54db5fccd8061f7df7, type: 3}
@@ -67,6 +60,13 @@ Material:
       data:
         first:
           name: _DetailAlbedoMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _OcclusionMap
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -131,7 +131,7 @@ Material:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 1, b: 0.8758621, a: 1}
+        second: {r: 0.31034485, g: 1.545, b: 1.353207, a: 1}
       data:
         first:
           name: _Color

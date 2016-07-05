@@ -22,6 +22,8 @@ public class GridBuilder : Minigame
     {
         base.Begin(difficulty);
 
+        GameManager.Instance.Director.SetSunlightBrightness(false);
+        GameManager.Instance.Hud.ShowStatusPanel(true);
         nextConnectable = 1; // first pylon in array
         lastConnectionAt = Time.time;
         PreviewNextConnectable();
@@ -94,7 +96,7 @@ public class GridBuilder : Minigame
             target.y -= 250f;
         }
         
-        Vector3 pos = target + PuzzlePath.GeoPlant.transform.up * 80f;
+        Vector3 pos = target + PuzzlePath.GeoPlant.transform.up * 60f + PuzzlePath.GeoPlant.transform.right * 25f;
         Quaternion rot = Quaternion.LookRotation(PuzzlePath.ParentCity.transform.position - pos, PuzzlePath.ParentCity.transform.up);
 
         //flip pos if its 'y' is lower
@@ -104,7 +106,7 @@ public class GridBuilder : Minigame
             pos.y += yDelta*2f;
         }
 
-        GameManager.Instance.Director.SwoopTo(pos, rot, 35f, delay);
+        GameManager.Instance.Director.SwoopTo(pos, rot, 45f, delay);
 
         yield return new WaitForSeconds(delay);
 

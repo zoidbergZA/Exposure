@@ -32,6 +32,10 @@ public class CityIcon : MonoBehaviour, IComparable<CityIcon>
 
     public int CompareTo(CityIcon other)
     {
-        return City.IsDirty.CompareTo(other.City.IsDirty);
+        if (other.City.CityState == CityStates.CLEAN)
+            return 0;
+        return 1;
+
+//        return City.IsDirty.CompareTo(other.City.IsDirty);
     }
 }
