@@ -325,7 +325,7 @@ MonoBehaviour:
   useSrcAlphaAsMask: 0
   bloomIntensity: 2
   bloomThreshold: 0.6
-  bloomBlurIterations: 2
+  bloomBlurIterations: 4
   lensflares: 0
   hollywoodFlareBlurIterations: 2
   lensflareMode: 1
@@ -383,6 +383,7 @@ MonoBehaviour:
   normalZoom: 45
   buildzoom: 35
   sunLight: {fileID: 0}
+  sunDark: 0
   shaker: {fileID: 11418786}
 --- !u!114 &11474862
 MonoBehaviour:
@@ -390,7 +391,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166530}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d64b4f3a592f28b44bf19223ac8b6cd2, type: 3}
   m_Name: 
@@ -407,7 +408,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166530}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60e318a6043c1cb4a8ce1c8805bab930, type: 3}
   m_Name: 
