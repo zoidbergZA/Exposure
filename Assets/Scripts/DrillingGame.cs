@@ -36,6 +36,7 @@ public class DrillingGame : Minigame
     private bool slidingLeft = true;
     private float jumpPhaseTimer;
     private float boostSpeed = 1.0f;
+    private int startRow = -1;
 
     public bool IsRestarting { get; set; }
     public ToastType ToastType { get; set; }
@@ -66,7 +67,7 @@ public class DrillingGame : Minigame
         state = DrillingGameState.INACTIVE;
         ToastType = global::ToastType.NONE;
         targetColumn = 6;
-        targetRow = 0;
+        targetRow = startRow;
         jumpPhaseTimer = jumpPhaseTime;
         MainPanel.anchoredPosition = mainPanelInactivePosition;
         startDrillerPosition = Driller.Position;
@@ -263,7 +264,7 @@ public class DrillingGame : Minigame
 
     private void processJoystickInput()
     {
-        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING && Driller.Position.y < -70f)
         {
             switch(GameManager.Instance.Joystick.CurrentInput)
             {
@@ -643,7 +644,7 @@ public class DrillingGame : Minigame
         makeDrill = false;
         slidingLeft = true;
         targetColumn = 6;
-        targetRow = 0;
+        targetRow = startRow;
         if(!IsRestarting) LeanTween.move(MainPanel, mainPanelInactivePosition, panelSlidingTime);
         ToastType = global::ToastType.NONE;
         DrillDirection = DrillingDirection.NONE;
