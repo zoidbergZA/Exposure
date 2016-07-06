@@ -54,6 +54,13 @@ public class DrillGameMap : MonoBehaviour
         updateWallsEnabling();
         processPipeProgression();
         if (flashTile.color.a > 0) flashTile.color = new Color(1, 1, 1, flashTile.color.a - Time.deltaTime * flashFadeSpeed);
+        if (UIpipeParts.Count != 0)
+        {
+            foreach (DrillingGameTile tile in UIpipeParts)
+            {
+                if (tile) tile.gameObject.transform.SetAsLastSibling();
+            }
+        }
     }
 
     public DrillingGameTile GetTileAtCoordinate(int x, int y)
