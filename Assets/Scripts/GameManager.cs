@@ -235,7 +235,8 @@ public class GameManager : MonoBehaviour
 
     public void HandleTimeOut()
     {
-        Restart();
+        //Restart();
+        Application.Quit();
     }
 
     private void LoadHeimInfo()

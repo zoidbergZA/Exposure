@@ -67,7 +67,7 @@ MonoBehaviour:
   tipDisplayTime: 6
   tipDelay: 3
   introTips:
-  - Kijk wat een vieze luck! Laten we geothermische energie gebruiken!
+  - Kijk wat een vieze lucht! Laten we geothermische energie gebruiken!
   - We kunnen goede plekken om te bouwen vinden met de scanner!
   focusPoint: {x: 100, y: 110, z: 30}
   swoopTime: 5

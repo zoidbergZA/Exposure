@@ -36,6 +36,7 @@ public class DrillingGame : Minigame
     private bool slidingLeft = true;
     private float jumpPhaseTimer;
     private float boostSpeed = 1.0f;
+    private int startRow = -1;
 
     public bool IsRestarting { get; set; }
     public ToastType ToastType { get; set; }
@@ -66,7 +67,7 @@ public class DrillingGame : Minigame
         state = DrillingGameState.INACTIVE;
         ToastType = global::ToastType.NONE;
         targetColumn = 6;
-        targetRow = 0;
+        targetRow = startRow;
         jumpPhaseTimer = jumpPhaseTime;
         MainPanel.anchoredPosition = mainPanelInactivePosition;
         startDrillerPosition = Driller.Position;
@@ -80,7 +81,7 @@ public class DrillingGame : Minigame
         processJoystickInput();
         updateBoostSpeed();
         updateTimeOut();
-
+        Debug.Log("row: " + targetRow);
         //--------------------------------
         //------- cheat buttons BEGIN ----
         //--------------------------------
@@ -643,7 +644,7 @@ public class DrillingGame : Minigame
         makeDrill = false;
         slidingLeft = true;
         targetColumn = 6;
-        targetRow = 0;
+        targetRow = startRow;
         if(!IsRestarting) LeanTween.move(MainPanel, mainPanelInactivePosition, panelSlidingTime);
         ToastType = global::ToastType.NONE;
         DrillDirection = DrillingDirection.NONE;
