@@ -9,8 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 482218}
   - 114: {fileID: 11448036}
-  - 114: {fileID: 11402634}
   - 114: {fileID: 11428854}
+  - 114: {fileID: 11402634}
+  - 114: {fileID: 11423206}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -41,6 +42,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6009d50e056ef4c4aa4bfcc5c26b41cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11423206
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77eb288fee32e254d995ff82e2aec1dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11428854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -55,11 +67,8 @@ MonoBehaviour:
   tipDisplayTime: 6
   tipDelay: 3
   introTips:
-  - I'm a city, look at my pretty buildings.
-  - Too bad we make all this nasty smoke
-  - we should find cleaner ways to generate warmth
-  - what if we explore under the earth for heat?
-  - we could build geo-thermal plants to make heat!
+  - Kijk wat een vieze luck! Laten we geothermische energie gebruiken!
+  - We kunnen goede plekken om te bouwen vinden met de scanner!
   focusPoint: {x: 100, y: 110, z: 30}
   swoopTime: 5
   waitTime: 5

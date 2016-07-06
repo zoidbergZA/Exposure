@@ -6,17 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public struct HeimInfo
-    {
-        public int userID;
-        public int gameID;
-        public string username;
-        public float gametime;
-        public string conURL;
-        public int age;
-        public int gender;
-    }
-
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -52,9 +41,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool touchScreenInput;
 
     private Tutorial tutorial;
-    private HeimInfo heimPlayerData;
 
-    public HeimInfo HeimPlayerData { get { return heimPlayerData; } }
+	public Arguments HeimArguments { get { return GetComponent<Arguments> (); } }
+	public DBconnection HeimDbConnection { get { return GetComponent<DBconnection> (); } }
     public bool TouchInput { get { return touchScreenInput; } set { touchScreenInput = value; } }
     public Intro Intro { get; private set; }
     public Planet Planet { get; private set; }
@@ -131,10 +120,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
             TouchInput = !TouchInput;
 
-        if (Input.GetMouseButtonDown(0))
-            TouchInput = false;
-        else if (Input.touchCount > 0)
-            TouchInput = true;
+//        if (Input.GetMouseButtonDown(0))
+//            TouchInput = false;
+//        else if (Input.touchCount > 0)
+//            TouchInput = true;
 
         //cheat codes
         if (Input.GetKeyDown(KeyCode.F8))
@@ -251,51 +240,27 @@ public class GameManager : MonoBehaviour
 
     private void LoadHeimInfo()
     {
-        String[] arguments = Environment.GetCommandLineArgs();
-        heimPlayerData = new HeimInfo();
-
-//        Instance.Hud.ShowToastMessage(arguments.Length.ToString(), 25f);
-
-//        if (arguments.Length < 6)
-//        {
-//            
-//            return;
-//        }
-
-//        heimPlayerData.userID = int.Parse(arguments[1]);
-//        heimPlayerData.gameID = int.Parse(arguments[2]);
-//        heimPlayerData.username = arguments[3];
-//        heimPlayerData.gametime = int.Parse(arguments[4]);
-//        heimPlayerData.conURL = arguments[5];
-
-        if (heimPlayerData.gametime > 0)
+		if (HeimArguments.getGameTime() > 0)
         {
-            roundTime = heimPlayerData.gametime;
+			roundTime = HeimArguments.getGameTime() - 10f;
         }
 
-        string argsLong = "";
-
-        for (int i = 0; i < arguments.Length; i++)
-        {
-            argsLong += arguments[i] + "\n";
-        }
-
-//        Instance.Hud.ShowToastMessage(argsLong, 30f);
-        
         ScannerGadget.SetGender(true);
         
         //assuming 0 is male and 1 is female
-        DrillingGame.Driller.Gender = (Driller.DrillerGender)heimPlayerData.gender;
+        DrillingGame.Driller.Gender = (Driller.DrillerGender)0;
         DrillingGame.Driller.SetGenderAttributes(DrillingGame.Driller.Gender);
     }
 
     private void SendHeimData()
     {
-        string requestString = "insertScore.php?userID=" + heimPlayerData.userID + "&gameID=" + heimPlayerData.gameID + "&score=" + Player.Score;
+		StartCoroutine(HeimDbConnection.UploadScore (HeimArguments.getUserID(), HeimArguments.getGameID(), (int)Player.Score));
 
-        string url = heimPlayerData.conURL + requestString;
-        WWW www = new WWW(url);
-        StartCoroutine(WaitForRequest(www));
+        //string requestString = "insertScore.php?userID=" + heimPlayerData.userID + "&gameID=" + heimPlayerData.gameID + "&score=" + Player.Score;
+
+        //string url = heimPlayerData.conURL + requestString;
+        //WWW www = new WWW(url);
+        //StartCoroutine(WaitForRequest(www));
     }
 
     IEnumerator WaitForRequest(WWW www)
