@@ -81,7 +81,7 @@ public class DrillingGame : Minigame
         processJoystickInput();
         updateBoostSpeed();
         updateTimeOut();
-        Debug.Log("row: " + targetRow);
+
         //--------------------------------
         //------- cheat buttons BEGIN ----
         //--------------------------------
@@ -264,7 +264,7 @@ public class DrillingGame : Minigame
 
     private void processJoystickInput()
     {
-        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING)
+        if (GameManager.Instance.DrillingGame.State == DrillingGame.DrillingGameState.DRILLING && Driller.Position.y < -70f)
         {
             switch(GameManager.Instance.Joystick.CurrentInput)
             {
